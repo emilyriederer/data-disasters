@@ -1,0 +1,26 @@
+book_filename: bookdown
+clean: [packages.bib, bookdown.bbl]
+rmd_files:
+  - "index.Rmd"
+  - "author.Rmd"
+  - "intro.Rmd"
+  - "data-dall.Rmd"
+  - "comp-quan.Rmd"
+  - "egre-aggr.Rmd"
+  - "vexi-visu.Rmd"
+  - "incr-infe.Rmd"
+  - "cava-caus.Rmd"
+  - "mind-mode.Rmd"
+  - "alte-algo.Rmd"
+  - "comp-code.Rmd"
+  - "reje-repr.Rmd"
+  - "more.Rmd"
+  - "references.Rmd"
+delete_merged_file: true
+language:
+  label:
+    fig: "FIGURE "
+    tab: "TABLE "
+  ui:
+    edit: "Edit"
+    chapter_name: "Chapter "
