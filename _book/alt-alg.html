@@ -1,0 +1,161 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+<title>Chapter 9 Alternative Algorithms (TODO) | Data Disasters</title>
+<meta name="author" content="Emily Riederer">
+<!-- JS --><script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/2.0.6/clipboard.min.js" integrity="sha256-inc5kl9MA1hkeYUt+EC3BhlIgyp/2jDIyBLS6k3UxPI=" crossorigin="anonymous"></script><script src="https://cdn.jsdelivr.net/npm/fuse.js@6.4.2"></script><script src="https://kit.fontawesome.com/6ecbd6c532.js" crossorigin="anonymous"></script><script src="libs/header-attrs/header-attrs.js"></script><script src="libs/jquery/jquery-3.6.0.min.js"></script><meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+<link href="libs/bootstrap/bootstrap.min.css" rel="stylesheet">
+<script src="libs/bootstrap/bootstrap.bundle.min.js"></script><script src="libs/bs3compat/tabs.js"></script><script src="libs/bs3compat/bs3compat.js"></script><link href="libs/bs4_book/bs4_book.css" rel="stylesheet">
+<script src="libs/bs4_book/bs4_book.js"></script><!-- Global site tag (gtag.js) - Google Analytics --><script async src="https://www.googletagmanager.com/gtag/js?id=G-C7VEESJ7Z8"></script><script>
+      window.dataLayer = window.dataLayer || [];
+      function gtag(){dataLayer.push(arguments);}
+      gtag('js', new Date());
+
+      gtag('config', 'G-C7VEESJ7Z8');
+    </script><script src="https://cdn.jsdelivr.net/autocomplete.js/0/autocomplete.jquery.min.js"></script><script src="https://cdn.jsdelivr.net/npm/mark.js@8.11.1/dist/mark.min.js"></script><!-- CSS -->
+</head>
+<body data-spy="scroll" data-target="#toc">
+
+<div class="container-fluid">
+<div class="row">
+  <header class="col-sm-12 col-lg-3 sidebar sidebar-book"><a class="sr-only sr-only-focusable" href="#content">Skip to main content</a>
+
+    <div class="d-flex align-items-start justify-content-between">
+      <h1>
+        <a href="index.html" title="">Data Disasters</a>
+      </h1>
+      <button class="btn btn-outline-primary d-lg-none ml-2 mt-1" type="button" data-toggle="collapse" data-target="#main-nav" aria-expanded="true" aria-controls="main-nav"><i class="fas fa-bars"></i><span class="sr-only">Show table of contents</span></button>
+    </div>
+
+    <div id="main-nav" class="collapse-lg">
+      <form role="search">
+        <input id="search" class="form-control" type="search" placeholder="Search" aria-label="Search">
+</form>
+
+      <nav aria-label="Table of contents"><h2>Table of contents</h2>
+        <ul class="book-toc list-unstyled">
+<li><a class="" href="index.html">Preface</a></li>
+<li><a class="" href="about-the-author.html">About the Author</a></li>
+<li><a class="" href="introduction-todo.html"><span class="header-section-number">1</span> Introduction (TODO)</a></li>
+<li class="book-part">Data</li>
+<li><a class="" href="data-dall.html"><span class="header-section-number">2</span> Data Dalliances</a></li>
+<li><a class="" href="comp-quan.html"><span class="header-section-number">3</span> Computational Quandaries</a></li>
+<li class="book-part">Analysis</li>
+<li><a class="" href="eg-agg.html"><span class="header-section-number">4</span> Egregious Aggregations</a></li>
+<li><a class="" href="vex-viz.html"><span class="header-section-number">5</span> Vexing Visualization (TODO)</a></li>
+<li><a class="" href="incr-infe.html"><span class="header-section-number">6</span> Incredible Inferences (TODO)</a></li>
+<li><a class="" href="cava-caus.html"><span class="header-section-number">7</span> Cavalier Causality (TODO)</a></li>
+<li><a class="" href="mind-mod.html"><span class="header-section-number">8</span> Mindless Modeling (TODO)</a></li>
+<li><a class="active" href="alt-alg.html"><span class="header-section-number">9</span> Alternative Algorithms (TODO)</a></li>
+<li class="book-part">Workflow</li>
+<li><a class="" href="futi-find.html"><span class="header-section-number">10</span> Futile Findings (TODO)</a></li>
+<li><a class="" href="comp-code.html"><span class="header-section-number">11</span> Complexifying Code (TODO)</a></li>
+<li><a class="" href="reje-repr.html"><span class="header-section-number">12</span> Rejecting Reproducibility (TODO)</a></li>
+<li class="book-part">Appendix</li>
+<li><a class="" href="useful-data-generation-functions-todo.html"><span class="header-section-number">A</span> Useful Data Generation Functions (TODO)</a></li>
+<li><a class="" href="common-probability-distributions-todo.html"><span class="header-section-number">B</span> Common Probability Distributions (TODO)</a></li>
+<li><a class="" href="references.html">References</a></li>
+</ul>
+
+        <div class="book-extra">
+          <p><a id="book-repo" href="https://github.com/emilyriederer/data-disasters">View book source <i class="fab fa-github"></i></a></p>
+        </div>
+      </nav>
+</div>
+  </header><main class="col-sm-12 col-md-9 col-lg-7" id="content"><div id="alt-alg" class="section level1" number="9">
+<h1>
+<span class="header-section-number">9</span> Alternative Algorithms (TODO)<a class="anchor" aria-label="anchor" href="#alt-alg"><i class="fas fa-link"></i></a>
+</h1>
+<p>As the consummate showman, P.T. Barnum is often quoted as saying “Leave them wanting more.” Unfortunately, statistics professors have less of a flare for drama. Introductory statistics courses will typically introduce a few types of models (for example, linear and <em>perhaps</em> logistic regression), and that’s a wrap. It’s often until students start <em>taking</em> the subsequent courses that they are exposed to the true limitations of previous techniques and taught to demand more.</p>
+<p>This chapter attempts to flip that paradigm by briefly surveying a broad number of modeling techniques. The goal is not to go into all of the rigorous deals that one should understand to use these models. Instead, we hope to build a “mental toolbox” of techniques so that you know where to focus your study when you encounter a problem in the real world.</p>
+<div id="modeling-binary-outcomes" class="section level2" number="9.1">
+<h2>
+<span class="header-section-number">9.1</span> Modeling Binary Outcomes<a class="anchor" aria-label="anchor" href="#modeling-binary-outcomes"><i class="fas fa-link"></i></a>
+</h2>
+</div>
+<div id="modeling-counts" class="section level2" number="9.2">
+<h2>
+<span class="header-section-number">9.2</span> Modeling Counts<a class="anchor" aria-label="anchor" href="#modeling-counts"><i class="fas fa-link"></i></a>
+</h2>
+</div>
+<div id="modeling-time-until-an-event" class="section level2" number="9.3">
+<h2>
+<span class="header-section-number">9.3</span> Modeling Time Until an Event<a class="anchor" aria-label="anchor" href="#modeling-time-until-an-event"><i class="fas fa-link"></i></a>
+</h2>
+</div>
+<div id="modeling-repeated-measures-on-a-population" class="section level2" number="9.4">
+<h2>
+<span class="header-section-number">9.4</span> Modeling Repeated Measures on a Population<a class="anchor" aria-label="anchor" href="#modeling-repeated-measures-on-a-population"><i class="fas fa-link"></i></a>
+</h2>
+</div>
+<div id="modeling-observations-in-a-nested-hierarchy" class="section level2" number="9.5">
+<h2>
+<span class="header-section-number">9.5</span> Modeling Observations in a Nested Hierarchy<a class="anchor" aria-label="anchor" href="#modeling-observations-in-a-nested-hierarchy"><i class="fas fa-link"></i></a>
+</h2>
+</div>
+<div id="modeling-time-space-data" class="section level2" number="9.6">
+<h2>
+<span class="header-section-number">9.6</span> Modeling Time &amp; Space Data<a class="anchor" aria-label="anchor" href="#modeling-time-space-data"><i class="fas fa-link"></i></a>
+</h2>
+
+</div>
+</div>
+
+
+
+  <div class="chapter-nav">
+<div class="prev"><a href="mind-mod.html"><span class="header-section-number">8</span> Mindless Modeling (TODO)</a></div>
+<div class="next"><a href="futi-find.html"><span class="header-section-number">10</span> Futile Findings (TODO)</a></div>
+</div></main><div class="col-md-3 col-lg-2 d-none d-md-block sidebar sidebar-chapter">
+    <nav id="toc" data-toggle="toc" aria-label="On this page"><h2>On this page</h2>
+      <ul class="nav navbar-nav">
+<li><a class="nav-link" href="#alt-alg"><span class="header-section-number">9</span> Alternative Algorithms (TODO)</a></li>
+<li><a class="nav-link" href="#modeling-binary-outcomes"><span class="header-section-number">9.1</span> Modeling Binary Outcomes</a></li>
+<li><a class="nav-link" href="#modeling-counts"><span class="header-section-number">9.2</span> Modeling Counts</a></li>
+<li><a class="nav-link" href="#modeling-time-until-an-event"><span class="header-section-number">9.3</span> Modeling Time Until an Event</a></li>
+<li><a class="nav-link" href="#modeling-repeated-measures-on-a-population"><span class="header-section-number">9.4</span> Modeling Repeated Measures on a Population</a></li>
+<li><a class="nav-link" href="#modeling-observations-in-a-nested-hierarchy"><span class="header-section-number">9.5</span> Modeling Observations in a Nested Hierarchy</a></li>
+<li><a class="nav-link" href="#modeling-time-space-data"><span class="header-section-number">9.6</span> Modeling Time &amp; Space Data</a></li>
+</ul>
+
+      <div class="book-extra">
+        <ul class="list-unstyled">
+<li><a id="book-source" href="https://github.com/emilyriederer/data-disasters/blob/master/alte-algo.Rmd">View source <i class="fab fa-github"></i></a></li>
+          <li><a id="book-edit" href="https://github.com/emilyriederer/data-disasters/edit/master/alte-algo.Rmd">Edit this page <i class="fab fa-github"></i></a></li>
+        </ul>
+</div>
+    </nav>
+</div>
+
+</div>
+</div> <!-- .container -->
+
+<footer class="bg-primary text-light mt-5"><div class="container"><div class="row">
+
+  <div class="col-12 col-md-6 mt-3">
+    <p>"<strong>Data Disasters</strong>" was written by Emily Riederer. It was last built on 2021-07-31.</p>
+  </div>
+
+  <div class="col-12 col-md-6 mt-3">
+    <p>This book was built by the <a class="text-light" href="https://bookdown.org">bookdown</a> R package.</p>
+  </div>
+
+</div></div>
+</footer><!-- dynamically load mathjax for compatibility with self-contained --><script>
+  (function () {
+    var script = document.createElement("script");
+    script.type = "text/javascript";
+    var src = "true";
+    if (src === "" || src === "true") src = "https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-MML-AM_CHTML";
+    if (location.protocol !== "file:")
+      if (/^https?:/.test(src))
+        src = src.replace(/^https?:/, '');
+    script.src = src;
+    document.getElementsByTagName("head")[0].appendChild(script);
+  })();
+</script>
+</body>
+</html>

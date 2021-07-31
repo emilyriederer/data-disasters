@@ -1,6 +1,6 @@
 \mainmatter
 
-# Introduction
+# Introduction (TODO)
 
 Statistics is not synonymous with data analysis; rigor vs practicality 
 
@@ -14,27 +14,18 @@ Data is...
 
 ## What is analysis?
 
-Analysis is the process of turning information into insight. 
+Analysis is the process of turning information into insight...S
+
+## What is workflow?
+
+Workflows are an intentional process for accomplishing a complex goal...
 
 ## What is data analysis?
 
 Data analysis altogether is...
 
-## A case study 
+## What are data disasters?
 
-Now unplug your Internet cable, and start doing some serious work.
+Data disasters occur when...
 
-We have a nice figure in Figure \@ref(fig:hello), and also a table in Table \@ref(tab:iris).
-
-```{r hello, fig.cap='Hello World!', out.width='90%'}
-par(mar = c(4, 4, 1, .1))
-plot(cars, pch = 19)
-```
-
-```{r iris}
-knitr::kable(
-  head(iris), caption = 'The boring iris data.',
-  booktabs = TRUE
-)
-```
 

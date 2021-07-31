@@ -23,7 +23,7 @@ options(
 )
 
 # install the packages needed by this book; you fill out c(), e.g. c('ggplot2', 'dplyr')
-lapply(c('xfun'), function(pkg) {
+lapply(c('xfun','dplyr','ggplot2','DBI'), function(pkg) {
   if (system.file(package = pkg) == '') install.packages(pkg)
 })
 ```
@@ -34,14 +34,16 @@ Training in data analysis often begins with Statistics 101 course.
 Students learn the "happy path" of answer data that adheres to specific assumptions (such as "independent and identically distributed with a Normal density") and answers pre-specified questions (most notably, the infamous null hypothesis significance test). 
 Then, they venture out into the world of real-world data analysis where non-experimental data is rarely so well behaved and the questions asked of it are far more nuanced. 
 
-No one course can aim to teach students everything they should know about statistics. In fact, one of the greatest privileges of a career in statistics is the responsibility and privilege of life-long learning. 
+No one course should aim to teach students everything they should know about statistics. 
+In fact, one of the best parts about a career in statistics is the responsibility and privilege of life-long learning. 
 However, **the flaw of introductory statistics is not that it's incomplete, but that it's not obvious how it is *not* complete**.
-Statistics is a bad salesman. There's no season finale, no cliff hanger, no teasing and hinting and promising more and better to come.
-Student may leave thinking that answering more complex data analysis questions is trivially easy (by relying on the one-size-fits-all "panacea" that they learned) or intractably difficult (when assumptions are not met.)
+Statistics is a bad salesman. 
+There's no season finale, no cliff hanger, no teasing and hinting and promising more and better to come.
+Student may leave their studies believing that answering more complex data analysis questions is trivially easy (by relying on the one-size-fits-all "panacea" that they learned) or intractably difficult (when the assumptions of that method are not met.)
 
 This book attempts to add more color to all the dimensions of data analysis while showcasing the nuances throughout the true *life cycle* of data analysis using two strategies.
 
-First, it attempts to showcase common pitfalls in all the parts of data analysis: from data management and computation to visualization, interpretation, and modeling and even to communication and collaboration. 
+First, it attempts to highlight common pitfalls in all the parts of data analysis: from data management and computation to visualization, interpretation, and modeling and even to communication and collaboration. 
 Data analysis is fundamentally a *creative* task, so there are rarely canonical one-size-fits-all solutions. 
 Curiously, however, there are plenty of canonical *issues* even if they require different solutions in different settings. 
 Thus, the goal of this book is to highlight common *data disasters* and, in doing so, help students cultivate an intuition for how to detect common problems before they occur in an important analysis. 
@@ -60,6 +62,7 @@ In particular, we will aim to help you avoid ten types of data disasters:
 - **Cavalier Causality**: Falling prey to spurious correlations masquerading as causality 
 - **Mindless Modeling**: Failing to get the most value out of models by not tailoring the features, targets, and performance metrics 
 - **Alternative Algorithms**: Lacking an understanding of alternative methods which may be better suited for the problem at hand
+- **Futile Findings**: Asking and answering questions that aren't useful
 - **Complexifying Code**: Making projects unwieldy or more difficult to understand than necessary
 - **Rejecting Reproducibility**: Working inefficiently instead of an efficient, reproducible, and sharable workflow
 
@@ -74,29 +77,16 @@ Along the way, we'll emphasize:
 
 As we go, we will notice how three common themes that challenge the focus of introductory statistics:
 
-- Summary statistics masks interesting stories that we see when focusing on the **variation**
+- Summary statistics mask interesting stories that we see when focusing on the **variation**
 - Similarly, observations and variables are rarely independent; the story is in the **covariance**
 - Assumptions of Normality, or more broadly symmetry, are often in appropriate in wonky, **highly skewed** world
 
+## Software information and conventions {-}
+
+This book is created with the excellent **bookdown** package. 
+
 
 <!--
-
-The art and science of data analysis has a rigorous hidden curriculum. Introductory statistics and machine learning courses too often focus on the happy path of analysis. New methods are introduced by stating relevant assumptions (e.g. "independent and identically distributed" data) and observing successful examples of appropriate applications. However, data analysis in the real world is far more perilous. Required analytical assumptions are often hard to achieve with real-world observational data. Even worse, behind each method -- from a simple mean to a complex model -- there are countless more unstated assumptions; without any discussion, we assume that the data is clean, correct, and measuring quantities of interest, that our metrics and methods intend to answer the same questions we have practical interest in, and that our interpretation of their outputs can avoid falling into countless biases. 
-
-This book, of course, does not pretend to offer solutions to this myraid of problems. 
-To do so would be to "solve" all of statistics and to recycle the work of countless authors across many disciplines (from classical statistics to political science, epidemiology, economics, etc.) 
-Instead, as the title of *Data Disasters* implies, this book aspires to expose these fundamental gaps and pitfalls in data analysis early in the reader's career with the hope of helping the reader avoid having to relearn each of these lessons on an important, real-life analysis. 
-
-Beyond simply recognizing these problems in practice, this text also aims to build the reader's mental index to help them recognize problems, name them, and effectively seek out appropriate resources to solve them when they are encountered. 
-Statistics as a field suffers from a crisis of continual reinvention as methods become intrinsically linked to one discipline (e.g. survival analysis in the biological sciences) and remain underappreciated outside. 
-By briefly highlighting different methods, R packages, and further readings about pitfalls and potential solutions, this book functions as something like a literature review for data analysis and empowers readers to learn more when needed. 
-
-## Structure of the book {-}
-
-This book is best thought of as anthology of stories of how data analysis can go wrong. Each chapter and, moreover, each section is nearly self-contained and should be able to be read and understood in isolation. 
-
-Chapter \@ref(comp-quan) focus on errors in understanding common data structures and programming tools during initial retrieval and cleaning. Chapters \@ref(eg-agg) and \@ref(vex-viz) focus on errors in exploratory data analysis. Chapters \@ref(inc-inf) and \@ref(cav-caus) . Chapters \@ref(mind-mod) and \@ref(alt-alg) delve into the more specialized topic of statistical modeling, and finally Chapter \@ref(rec-rep) discusses the importance and implementation of computational reproducibility.
-
 ## Assumed knowledge {-}
 
 This book was written with the goal of requiring minimal prerequisite knowledge. However, different chapters will be most useful and relevant to readers with certain prior knowledge.
@@ -116,9 +106,4 @@ xfun::session_info()
 ```
 
 Package names are in bold text (e.g., **rmarkdown**), and inline code and filenames are formatted in a typewriter font (e.g., `knitr::knit('foo.Rmd')`). Function names are followed by parentheses (e.g., `bookdown::render_book()`).
-
-## Acknowledgments {-}
-
-TODO: Thank reviewers, etc.
-
 -->

@@ -1,4 +1,4 @@
-# Alternative Algorithms {#alt-alg}
+# Alternative Algorithms (TODO) {#alt-alg}
 
 As the consummate showman, P.T. Barnum is often quoted as saying "Leave them wanting more". Unfortunately, statistics professors have less of a flare for drama. Introductory statistics courses will typically introduce a few types of models (for example, linear and *perhaps* logistic regression), and that's a wrap. It's often until students start *taking* the subsequent courses that they are exposed to the true limitations of previous techniques and taught to demand more.
 

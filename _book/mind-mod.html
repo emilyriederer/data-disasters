@@ -1,0 +1,305 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+<title>Chapter 8 Mindless Modeling (TODO) | Data Disasters</title>
+<meta name="author" content="Emily Riederer">
+<!-- JS --><script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/2.0.6/clipboard.min.js" integrity="sha256-inc5kl9MA1hkeYUt+EC3BhlIgyp/2jDIyBLS6k3UxPI=" crossorigin="anonymous"></script><script src="https://cdn.jsdelivr.net/npm/fuse.js@6.4.2"></script><script src="https://kit.fontawesome.com/6ecbd6c532.js" crossorigin="anonymous"></script><script src="libs/header-attrs/header-attrs.js"></script><script src="libs/jquery/jquery-3.6.0.min.js"></script><meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+<link href="libs/bootstrap/bootstrap.min.css" rel="stylesheet">
+<script src="libs/bootstrap/bootstrap.bundle.min.js"></script><script src="libs/bs3compat/tabs.js"></script><script src="libs/bs3compat/bs3compat.js"></script><link href="libs/bs4_book/bs4_book.css" rel="stylesheet">
+<script src="libs/bs4_book/bs4_book.js"></script><!-- Global site tag (gtag.js) - Google Analytics --><script async src="https://www.googletagmanager.com/gtag/js?id=G-C7VEESJ7Z8"></script><script>
+      window.dataLayer = window.dataLayer || [];
+      function gtag(){dataLayer.push(arguments);}
+      gtag('js', new Date());
+
+      gtag('config', 'G-C7VEESJ7Z8');
+    </script><script src="https://cdn.jsdelivr.net/autocomplete.js/0/autocomplete.jquery.min.js"></script><script src="https://cdn.jsdelivr.net/npm/mark.js@8.11.1/dist/mark.min.js"></script><!-- CSS -->
+</head>
+<body data-spy="scroll" data-target="#toc">
+
+<div class="container-fluid">
+<div class="row">
+  <header class="col-sm-12 col-lg-3 sidebar sidebar-book"><a class="sr-only sr-only-focusable" href="#content">Skip to main content</a>
+
+    <div class="d-flex align-items-start justify-content-between">
+      <h1>
+        <a href="index.html" title="">Data Disasters</a>
+      </h1>
+      <button class="btn btn-outline-primary d-lg-none ml-2 mt-1" type="button" data-toggle="collapse" data-target="#main-nav" aria-expanded="true" aria-controls="main-nav"><i class="fas fa-bars"></i><span class="sr-only">Show table of contents</span></button>
+    </div>
+
+    <div id="main-nav" class="collapse-lg">
+      <form role="search">
+        <input id="search" class="form-control" type="search" placeholder="Search" aria-label="Search">
+</form>
+
+      <nav aria-label="Table of contents"><h2>Table of contents</h2>
+        <ul class="book-toc list-unstyled">
+<li><a class="" href="index.html">Preface</a></li>
+<li><a class="" href="about-the-author.html">About the Author</a></li>
+<li><a class="" href="introduction-todo.html"><span class="header-section-number">1</span> Introduction (TODO)</a></li>
+<li class="book-part">Data</li>
+<li><a class="" href="data-dall.html"><span class="header-section-number">2</span> Data Dalliances</a></li>
+<li><a class="" href="comp-quan.html"><span class="header-section-number">3</span> Computational Quandaries</a></li>
+<li class="book-part">Analysis</li>
+<li><a class="" href="eg-agg.html"><span class="header-section-number">4</span> Egregious Aggregations</a></li>
+<li><a class="" href="vex-viz.html"><span class="header-section-number">5</span> Vexing Visualization (TODO)</a></li>
+<li><a class="" href="incr-infe.html"><span class="header-section-number">6</span> Incredible Inferences (TODO)</a></li>
+<li><a class="" href="cava-caus.html"><span class="header-section-number">7</span> Cavalier Causality (TODO)</a></li>
+<li><a class="active" href="mind-mod.html"><span class="header-section-number">8</span> Mindless Modeling (TODO)</a></li>
+<li><a class="" href="alt-alg.html"><span class="header-section-number">9</span> Alternative Algorithms (TODO)</a></li>
+<li class="book-part">Workflow</li>
+<li><a class="" href="futi-find.html"><span class="header-section-number">10</span> Futile Findings (TODO)</a></li>
+<li><a class="" href="comp-code.html"><span class="header-section-number">11</span> Complexifying Code (TODO)</a></li>
+<li><a class="" href="reje-repr.html"><span class="header-section-number">12</span> Rejecting Reproducibility (TODO)</a></li>
+<li class="book-part">Appendix</li>
+<li><a class="" href="useful-data-generation-functions-todo.html"><span class="header-section-number">A</span> Useful Data Generation Functions (TODO)</a></li>
+<li><a class="" href="common-probability-distributions-todo.html"><span class="header-section-number">B</span> Common Probability Distributions (TODO)</a></li>
+<li><a class="" href="references.html">References</a></li>
+</ul>
+
+        <div class="book-extra">
+          <p><a id="book-repo" href="https://github.com/emilyriederer/data-disasters">View book source <i class="fab fa-github"></i></a></p>
+        </div>
+      </nav>
+</div>
+  </header><main class="col-sm-12 col-md-9 col-lg-7" id="content"><div id="mind-mod" class="section level1" number="8">
+<h1>
+<span class="header-section-number">8</span> Mindless Modeling (TODO)<a class="anchor" aria-label="anchor" href="#mind-mod"><i class="fas fa-link"></i></a>
+</h1>
+<div id="features" class="section level2" number="8.1">
+<h2>
+<span class="header-section-number">8.1</span> Features<a class="anchor" aria-label="anchor" href="#features"><i class="fas fa-link"></i></a>
+</h2>
+<!--
+
+
+```r
+library(tidymodels)
+library(tidyr)
+library(ggplot2)
+set.seed(123)
+
+# set up data ----
+n <- 2000
+df <-
+data.frame(
+  x1 = runif(n),
+  x2 = runif(n),
+  x3 = runif(n)
+)
+df$y1 <- 10*df$x1 + rnorm(n)
+df$y2 <- 10*(df$x1)**2 + rnorm(n)
+df$y3 <- 10*(df$x1 / df$x2) + rnorm(n)
+df$y4 <- df$y3 + 0.5*df$x3
+
+df_test <- df[1001:2000,]
+df <- df[1:1000,]
+
+# model fits ----
+lr <- 
+  linear_reg() %>%
+  set_engine("lm") %>%
+  set_mode("regression")
+dt <- 
+  decision_tree() %>%
+  set_engine("rpart") %>%
+  set_mode("regression")
+rf <- 
+  rand_forest() %>%
+  set_engine("randomForest") %>%
+  set_mode("regression")
+models <- list(lr, dt, rf)
+formulas <- list(
+  y1 ~ x1,
+  y1 ~ I(x1**2),
+  y2 ~ x1,
+  y2 ~ I(x1**2),
+  y3 ~ x1 + x2,
+  y3 ~ I(x1/x2),
+  y4 ~ x1 + x2 + x3,
+  y4 ~ I(x1/x2) + x3
+)
+fml_target <- vapply(formulas, function(x) as.character(eval(x)[[2]]), character(1))
+fml_rhs <- vapply(formulas, function(x) paste(labels(terms(x)), collapse = " + "), character(1))
+
+formulas_df <- tibble(
+  formulas = formulas, 
+  target = fml_target,
+  formula_desc = fml_rhs
+)
+models_df <- tibble(
+  model_desc = factor(c("linear", "decision tree", "random forest"),
+                      levels = c("linear", "decision tree", "random forest")),
+  models = models
+)
+targets_df <- tibble(
+  target = paste0("y", 1:4),
+  target_true_spec = c("linear", "quadratic", "ratio", "ratio plus linear")
+)
+
+# model predictions ----
+models_formulas_fits <-
+tidyr::crossing(models_df, formulas_df) %>%
+  left_join(targets_df, by = "target") %>%
+  rowwise() %>%
+  mutate(
+    target = as.character(eval(formulas)[[2]]),
+    fits = list(fit(models, formulas, data = df)),
+    preds = list(predict(fits, new_data = df_test)[[".pred"]]),
+    mse = sqrt(sum(preds - df_test[[target]])**2)
+    )
+
+models_formulas_fits <- 
+    models_formulas_fits %>%
+    group_by(model_desc) %>%
+    mutate(mse_factor = mse / min(mse))
+
+# plot results ----
+ggplot(data = models_formulas_fits) +
+  aes(x = model_desc, y = mse, col = formula_desc) +
+  geom_point() + 
+  facet_wrap(target_true_spec ~ ., ncol = 1, scales = "free") +
+  theme(
+    axis.title = element_blank()
+  )
+```
+
+
+```r
+tree_rec <- recipe(x = df, formula = y1 ~ x1)
+
+tune_spec <- rand_forest(
+  mtry = tune(),
+  trees = 1000,
+  min_n = tune()
+) %>%
+  set_mode("regression") %>%
+  set_engine("ranger")
+
+tune_wf <- 
+  workflow() %>%
+  add_recipe(tree_rec) %>%
+  add_model(tune_spec)
+
+set.seed(123) 
+trees_fold <- vfold_cv(df)
+
+set.seed(456)
+tune_res <- tune_grid(
+  tune_wf,
+  resamples = trees_fold,
+  grid = 20
+)
+
+final_rf <-
+  finalize_model(
+    tune_spec,
+    select_best(tune_res, metric = "rmse")
+  )
+
+final_res <-
+  final_rf %>%
+  set_engine("ranger", importance = "permutation") %>%
+  fit(formula = y1 ~ x1, data = df)
+
+predict(final_res, new_data = df_test)
+```
+
+-->
+</div>
+<div id="targets" class="section level2" number="8.2">
+<h2>
+<span class="header-section-number">8.2</span> Targets<a class="anchor" aria-label="anchor" href="#targets"><i class="fas fa-link"></i></a>
+</h2>
+</div>
+<div id="evaluation-metrics" class="section level2" number="8.3">
+<h2>
+<span class="header-section-number">8.3</span> Evaluation Metrics<a class="anchor" aria-label="anchor" href="#evaluation-metrics"><i class="fas fa-link"></i></a>
+</h2>
+</div>
+<div id="clustering" class="section level2" number="8.4">
+<h2>
+<span class="header-section-number">8.4</span> Clustering<a class="anchor" aria-label="anchor" href="#clustering"><i class="fas fa-link"></i></a>
+</h2>
+</div>
+<div id="lifecycle-management" class="section level2" number="8.5">
+<h2>
+<span class="header-section-number">8.5</span> Lifecycle Management<a class="anchor" aria-label="anchor" href="#lifecycle-management"><i class="fas fa-link"></i></a>
+</h2>
+<!--
+
+We talk about the _FOO_ method\index{FOO} in this chapter.
+
+## Chosing the right target
+
+How you chose to model depends not just on your target variable and the relationships in your data but also the question to be answered. For example, [@murray2020] describes how the "best" approach to forecasting case growth in a pandemic varies depending on whether the goal is to plan population-level interventions and policies or organize short-term hospital capacity.
+
+## Developing meaningful features
+
+
+
+## Selecting an algorithm
+
+## Evaluating the right performance metrics
+
+## Strategies
+
+-->
+
+</div>
+</div>
+  <div class="chapter-nav">
+<div class="prev"><a href="cava-caus.html"><span class="header-section-number">7</span> Cavalier Causality (TODO)</a></div>
+<div class="next"><a href="alt-alg.html"><span class="header-section-number">9</span> Alternative Algorithms (TODO)</a></div>
+</div></main><div class="col-md-3 col-lg-2 d-none d-md-block sidebar sidebar-chapter">
+    <nav id="toc" data-toggle="toc" aria-label="On this page"><h2>On this page</h2>
+      <ul class="nav navbar-nav">
+<li><a class="nav-link" href="#mind-mod"><span class="header-section-number">8</span> Mindless Modeling (TODO)</a></li>
+<li><a class="nav-link" href="#features"><span class="header-section-number">8.1</span> Features</a></li>
+<li><a class="nav-link" href="#targets"><span class="header-section-number">8.2</span> Targets</a></li>
+<li><a class="nav-link" href="#evaluation-metrics"><span class="header-section-number">8.3</span> Evaluation Metrics</a></li>
+<li><a class="nav-link" href="#clustering"><span class="header-section-number">8.4</span> Clustering</a></li>
+<li><a class="nav-link" href="#lifecycle-management"><span class="header-section-number">8.5</span> Lifecycle Management</a></li>
+</ul>
+
+      <div class="book-extra">
+        <ul class="list-unstyled">
+<li><a id="book-source" href="https://github.com/emilyriederer/data-disasters/blob/master/mind-mode.Rmd">View source <i class="fab fa-github"></i></a></li>
+          <li><a id="book-edit" href="https://github.com/emilyriederer/data-disasters/edit/master/mind-mode.Rmd">Edit this page <i class="fab fa-github"></i></a></li>
+        </ul>
+</div>
+    </nav>
+</div>
+
+</div>
+</div> <!-- .container -->
+
+<footer class="bg-primary text-light mt-5"><div class="container"><div class="row">
+
+  <div class="col-12 col-md-6 mt-3">
+    <p>"<strong>Data Disasters</strong>" was written by Emily Riederer. It was last built on 2021-07-31.</p>
+  </div>
+
+  <div class="col-12 col-md-6 mt-3">
+    <p>This book was built by the <a class="text-light" href="https://bookdown.org">bookdown</a> R package.</p>
+  </div>
+
+</div></div>
+</footer><!-- dynamically load mathjax for compatibility with self-contained --><script>
+  (function () {
+    var script = document.createElement("script");
+    script.type = "text/javascript";
+    var src = "true";
+    if (src === "" || src === "true") src = "https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-MML-AM_CHTML";
+    if (location.protocol !== "file:")
+      if (/^https?:/.test(src))
+        src = src.replace(/^https?:/, '');
+    script.src = src;
+    document.getElementsByTagName("head")[0].appendChild(script);
+  })();
+</script>
+</body>
+</html>

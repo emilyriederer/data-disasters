@@ -12,6 +12,7 @@ rmd_files:
   - "cava-caus.Rmd"
   - "mind-mode.Rmd"
   - "alte-algo.Rmd"
+  - "futi-find.Rmd"
   - "comp-code.Rmd"
   - "reje-repr.Rmd"
   - "more.Rmd"

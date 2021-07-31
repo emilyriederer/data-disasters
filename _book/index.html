@@ -1,0 +1,252 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+<title>Preface | Data Disasters</title>
+<meta name="author" content="Emily Riederer">
+<!-- JS --><script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/2.0.6/clipboard.min.js" integrity="sha256-inc5kl9MA1hkeYUt+EC3BhlIgyp/2jDIyBLS6k3UxPI=" crossorigin="anonymous"></script><script src="https://cdn.jsdelivr.net/npm/fuse.js@6.4.2"></script><script src="https://kit.fontawesome.com/6ecbd6c532.js" crossorigin="anonymous"></script><script src="libs/header-attrs/header-attrs.js"></script><script src="libs/jquery/jquery-3.6.0.min.js"></script><meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+<link href="libs/bootstrap/bootstrap.min.css" rel="stylesheet">
+<script src="libs/bootstrap/bootstrap.bundle.min.js"></script><script src="libs/bs3compat/tabs.js"></script><script src="libs/bs3compat/bs3compat.js"></script><link href="libs/bs4_book/bs4_book.css" rel="stylesheet">
+<script src="libs/bs4_book/bs4_book.js"></script><!-- Global site tag (gtag.js) - Google Analytics --><script async src="https://www.googletagmanager.com/gtag/js?id=G-C7VEESJ7Z8"></script><script>
+      window.dataLayer = window.dataLayer || [];
+      function gtag(){dataLayer.push(arguments);}
+      gtag('js', new Date());
+
+      gtag('config', 'G-C7VEESJ7Z8');
+    </script><script src="https://cdn.jsdelivr.net/autocomplete.js/0/autocomplete.jquery.min.js"></script><script src="https://cdn.jsdelivr.net/npm/mark.js@8.11.1/dist/mark.min.js"></script><!-- CSS -->
+</head>
+<body data-spy="scroll" data-target="#toc">
+
+<div class="container-fluid">
+<div class="row">
+  <header class="col-sm-12 col-lg-3 sidebar sidebar-book"><a class="sr-only sr-only-focusable" href="#content">Skip to main content</a>
+
+    <div class="d-flex align-items-start justify-content-between">
+      <h1>
+        <a href="index.html" title="">Data Disasters</a>
+      </h1>
+      <button class="btn btn-outline-primary d-lg-none ml-2 mt-1" type="button" data-toggle="collapse" data-target="#main-nav" aria-expanded="true" aria-controls="main-nav"><i class="fas fa-bars"></i><span class="sr-only">Show table of contents</span></button>
+    </div>
+
+    <div id="main-nav" class="collapse-lg">
+      <form role="search">
+        <input id="search" class="form-control" type="search" placeholder="Search" aria-label="Search">
+</form>
+
+      <nav aria-label="Table of contents"><h2>Table of contents</h2>
+        <ul class="book-toc list-unstyled">
+<li><a class="active" href="index.html">Preface</a></li>
+<li><a class="" href="about-the-author.html">About the Author</a></li>
+<li><a class="" href="introduction-todo.html"><span class="header-section-number">1</span> Introduction (TODO)</a></li>
+<li class="book-part">Data</li>
+<li><a class="" href="data-dall.html"><span class="header-section-number">2</span> Data Dalliances</a></li>
+<li><a class="" href="comp-quan.html"><span class="header-section-number">3</span> Computational Quandaries</a></li>
+<li class="book-part">Analysis</li>
+<li><a class="" href="eg-agg.html"><span class="header-section-number">4</span> Egregious Aggregations</a></li>
+<li><a class="" href="vex-viz.html"><span class="header-section-number">5</span> Vexing Visualization (TODO)</a></li>
+<li><a class="" href="incr-infe.html"><span class="header-section-number">6</span> Incredible Inferences (TODO)</a></li>
+<li><a class="" href="cava-caus.html"><span class="header-section-number">7</span> Cavalier Causality (TODO)</a></li>
+<li><a class="" href="mind-mod.html"><span class="header-section-number">8</span> Mindless Modeling (TODO)</a></li>
+<li><a class="" href="alt-alg.html"><span class="header-section-number">9</span> Alternative Algorithms (TODO)</a></li>
+<li class="book-part">Workflow</li>
+<li><a class="" href="futi-find.html"><span class="header-section-number">10</span> Futile Findings (TODO)</a></li>
+<li><a class="" href="comp-code.html"><span class="header-section-number">11</span> Complexifying Code (TODO)</a></li>
+<li><a class="" href="reje-repr.html"><span class="header-section-number">12</span> Rejecting Reproducibility (TODO)</a></li>
+<li class="book-part">Appendix</li>
+<li><a class="" href="useful-data-generation-functions-todo.html"><span class="header-section-number">A</span> Useful Data Generation Functions (TODO)</a></li>
+<li><a class="" href="common-probability-distributions-todo.html"><span class="header-section-number">B</span> Common Probability Distributions (TODO)</a></li>
+<li><a class="" href="references.html">References</a></li>
+</ul>
+
+        <div class="book-extra">
+          <p><a id="book-repo" href="https://github.com/emilyriederer/data-disasters">View book source <i class="fab fa-github"></i></a></p>
+        </div>
+      </nav>
+</div>
+  </header><main class="col-sm-12 col-md-9 col-lg-7" id="content"><!--bookdown:title:end--><!--bookdown:title:start--><div id="preface" class="section level1 unnumbered">
+<h1>Preface<a class="anchor" aria-label="anchor" href="#preface"><i class="fas fa-link"></i></a>
+</h1>
+<p>Training in data analysis often begins with Statistics 101 course.
+Students learn the “happy path” of answer data that adheres to specific assumptions (such as “independent and identically distributed with a Normal density”) and answers pre-specified questions (most notably, the infamous null hypothesis significance test).
+Then, they venture out into the world of real-world data analysis where non-experimental data is rarely so well behaved and the questions asked of it are far more nuanced.</p>
+<p>No one course should aim to teach students everything they should know about statistics.
+In fact, one of the best parts about a career in statistics is the responsibility and privilege of life-long learning.
+However, <strong>the flaw of introductory statistics is not that it’s incomplete, but that it’s not obvious how it is <em>not</em> complete</strong>.
+Statistics is a bad salesman.
+There’s no season finale, no cliff hanger, no teasing and hinting and promising more and better to come.
+Student may leave their studies believing that answering more complex data analysis questions is trivially easy (by relying on the one-size-fits-all “panacea” that they learned) or intractably difficult (when the assumptions of that method are not met.)</p>
+<p>This book attempts to add more color to all the dimensions of data analysis while showcasing the nuances throughout the true <em>life cycle</em> of data analysis using two strategies.</p>
+<p>First, it attempts to highlight common pitfalls in all the parts of data analysis: from data management and computation to visualization, interpretation, and modeling and even to communication and collaboration.
+Data analysis is fundamentally a <em>creative</em> task, so there are rarely canonical one-size-fits-all solutions.
+Curiously, however, there are plenty of canonical <em>issues</em> even if they require different solutions in different settings.
+Thus, the goal of this book is to highlight common <em>data disasters</em> and, in doing so, help students cultivate an intuition for how to detect common problems before they occur in an important analysis.</p>
+<p>Second, while exploring these <em>data disasters</em>, we humbly put forth a (woefully incomplete!) literature review of more advanced methods from statistics and other quantitative disciplines (e.g. economics, epidemiology), to help learners build a “mental index” of terms to search and techniques to study should they encounter a relevant problem.</p>
+<div id="main-topics" class="section level2" number="0.1">
+<h2>
+<span class="header-section-number">0.1</span> Main Topics<a class="anchor" aria-label="anchor" href="#main-topics"><i class="fas fa-link"></i></a>
+</h2>
+<p>In particular, we will aim to help you avoid ten types of data disasters:</p>
+<ul>
+<li>
+<strong>Data Dalliances</strong>: Misinterpreting or misuing data based on how it was collected or what it represents</li>
+<li>
+<strong>Computational Quandaries</strong>: Letting computers do what you said and not what you meant</li>
+<li>
+<strong>Egregious Aggregations</strong>: Losing critical information when information is condensed</li>
+<li>
+<strong>Vexing Visualization</strong>: Confusing ourselves or others with plotting choices</li>
+<li>
+<strong>Incredible Inferences</strong>: Drawing incorrect conclusions for analytical results</li>
+<li>
+<strong>Cavalier Causality</strong>: Falling prey to spurious correlations masquerading as causality</li>
+<li>
+<strong>Mindless Modeling</strong>: Failing to get the most value out of models by not tailoring the features, targets, and performance metrics</li>
+<li>
+<strong>Alternative Algorithms</strong>: Lacking an understanding of alternative methods which may be better suited for the problem at hand</li>
+<li>
+<strong>Futile Findings</strong>: Asking and answering questions that aren’t useful</li>
+<li>
+<strong>Complexifying Code</strong>: Making projects unwieldy or more difficult to understand than necessary</li>
+<li>
+<strong>Rejecting Reproducibility</strong>: Working inefficiently instead of an efficient, reproducible, and sharable workflow</li>
+</ul>
+</div>
+<div id="common-themes" class="section level2" number="0.2">
+<h2>
+<span class="header-section-number">0.2</span> Common Themes<a class="anchor" aria-label="anchor" href="#common-themes"><i class="fas fa-link"></i></a>
+</h2>
+<p>In each chapter, we will see numerous examples of each disaster and consider strategies to help us mitigate.
+Along the way, we’ll emphasize:</p>
+<ul>
+<li>The importance of <strong>domain knowledge</strong> and the <strong>data-generating process</strong> to decide what it is you want to do</li>
+<li>The utility of <strong>simulation</strong> as a tool to explore if, in fact, you are doing it</li>
+<li>The exploration of <strong>counterexamples</strong> to build <strong>intuition for common patterns</strong> of problems even where common solutions don’t exist</li>
+</ul>
+<p>As we go, we will notice how three common themes that challenge the focus of introductory statistics:</p>
+<ul>
+<li>Summary statistics mask interesting stories that we see when focusing on the <strong>variation</strong>
+</li>
+<li>Similarly, observations and variables are rarely independent; the story is in the <strong>covariance</strong>
+</li>
+<li>Assumptions of Normality, or more broadly symmetry, are often in appropriate in wonky, <strong>highly skewed</strong> world</li>
+</ul>
+</div>
+<div id="software-information-and-conventions" class="section level2 unnumbered">
+<h2>Software information and conventions<a class="anchor" aria-label="anchor" href="#software-information-and-conventions"><i class="fas fa-link"></i></a>
+</h2>
+<p>This book is created with the excellent <strong>bookdown</strong> package.</p>
+<!--
+## Assumed knowledge {-}
+
+This book was written with the goal of requiring minimal prerequisite knowledge. However, different chapters will be most useful and relevant to readers with certain prior knowledge.
+
+Without exception, this book relates to the process of analyzing structured, tabular data (e.g. rows as observations, columns as variables). However, this book does not precisely aspire to teach statistics or data analysis but rather to fill in the gap between how these subjects are typically taught and how problems present themselves in real research and industry. As such, past and concurrent experience working with any type of structured data with any computational tool (e.g. spreadsheet, SAS, Stata, SQL, R, etc.) will help readers relate to the material.
+
+Most of this book's contents are illustrated with R code, and additional references are made to using R packages to solve basic problems. For this reason, some background in R may improve general comprehension of and interest in the material. However, programming is not a key focus of the book (apart from Chapter \@ref(comp-quan)) and the amount of syntax used should be easily readable without much hands-on scripting experience. Furthermore, occasional SQL and python examples are also included where relevant to appeal to a broader audience and to celebrate the use of a wide range of analysis tools.
+
+Finally, since this book focuses mostly on basic concepts like wrangling, summary statistics, and visualization, little to no statistics background is required until chapters \@ref(cav-caus) and \@ref(mind-mod) where more advanced methods are discussed. For Chapter \@ref(mind-mod), in particular, a basic understanding of statistical modeling (e.g. regression and clustering) is assumed. The level of depth of the classic text ISLR [@james_witten_hastie_tibshirani_2017] (TODO: add citation) would be far more than sufficient.
+
+## Software information and conventions {-}
+
+I used the **knitr** package [@xie2015] and the **bookdown** package [@R-bookdown] to compile my book. My R session information is shown below:
+
+
+```r
+xfun::session_info()
+```
+
+```
+## R version 4.0.2 (2020-06-22)
+## Platform: x86_64-w64-mingw32/x64 (64-bit)
+## Running under: Windows 10 x64 (build 19042)
+## 
+## Locale:
+##   LC_COLLATE=English_United States.1252 
+##   LC_CTYPE=English_United States.1252   
+##   LC_MONETARY=English_United States.1252
+##   LC_NUMERIC=C                          
+##   LC_TIME=English_United States.1252    
+## 
+## Package version:
+##   base64enc_0.1.3   bookdown_0.22    
+##   brio_1.0.0        bslib_0.2.5.1    
+##   cli_2.5.0         compiler_4.0.2   
+##   crayon_1.3.4      digest_0.6.27    
+##   downlit_0.2.1     ellipsis_0.3.1   
+##   evaluate_0.14     fansi_0.4.1      
+##   fs_1.5.0          glue_1.4.2       
+##   graphics_4.0.2    grDevices_4.0.2  
+##   highr_0.8         htmltools_0.5.1.1
+##   jquerylib_0.1.4   jsonlite_1.7.0   
+##   knitr_1.30        lifecycle_0.2.0  
+##   magrittr_2.0.1    markdown_1.1     
+##   methods_4.0.2     mime_0.10        
+##   pillar_1.4.6      pkgconfig_2.0.3  
+##   R6_2.5.0          rappdirs_0.3.1   
+##   rlang_0.4.10      rmarkdown_2.8    
+##   rstudioapi_0.13   sass_0.4.0       
+##   stats_4.0.2       stringi_1.4.6    
+##   stringr_1.4.0     tibble_3.0.4     
+##   tinytex_0.32      tools_4.0.2      
+##   utf8_1.1.4        utils_4.0.2      
+##   vctrs_0.3.2       xfun_0.23        
+##   xml2_1.3.2        yaml_2.2.1
+```
+
+Package names are in bold text (e.g., **rmarkdown**), and inline code and filenames are formatted in a typewriter font (e.g., `knitr::knit('foo.Rmd')`). Function names are followed by parentheses (e.g., `bookdown::render_book()`).
+-->
+
+</div>
+</div>
+  <div class="chapter-nav">
+<div class="empty"></div>
+<div class="next"><a href="about-the-author.html">About the Author</a></div>
+</div></main><div class="col-md-3 col-lg-2 d-none d-md-block sidebar sidebar-chapter">
+    <nav id="toc" data-toggle="toc" aria-label="On this page"><h2>On this page</h2>
+      <ul class="nav navbar-nav">
+<li><a class="nav-link" href="#preface">Preface</a></li>
+<li><a class="nav-link" href="#main-topics"><span class="header-section-number">0.1</span> Main Topics</a></li>
+<li><a class="nav-link" href="#common-themes"><span class="header-section-number">0.2</span> Common Themes</a></li>
+<li><a class="nav-link" href="#software-information-and-conventions">Software information and conventions</a></li>
+</ul>
+
+      <div class="book-extra">
+        <ul class="list-unstyled">
+<li><a id="book-source" href="https://github.com/emilyriederer/data-disasters/blob/master/index.Rmd">View source <i class="fab fa-github"></i></a></li>
+          <li><a id="book-edit" href="https://github.com/emilyriederer/data-disasters/edit/master/index.Rmd">Edit this page <i class="fab fa-github"></i></a></li>
+        </ul>
+</div>
+    </nav>
+</div>
+
+</div>
+</div> <!-- .container -->
+
+<footer class="bg-primary text-light mt-5"><div class="container"><div class="row">
+
+  <div class="col-12 col-md-6 mt-3">
+    <p>"<strong>Data Disasters</strong>" was written by Emily Riederer. It was last built on 2021-07-31.</p>
+  </div>
+
+  <div class="col-12 col-md-6 mt-3">
+    <p>This book was built by the <a class="text-light" href="https://bookdown.org">bookdown</a> R package.</p>
+  </div>
+
+</div></div>
+</footer><!-- dynamically load mathjax for compatibility with self-contained --><script>
+  (function () {
+    var script = document.createElement("script");
+    script.type = "text/javascript";
+    var src = "true";
+    if (src === "" || src === "true") src = "https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-MML-AM_CHTML";
+    if (location.protocol !== "file:")
+      if (/^https?:/.test(src))
+        src = src.replace(/^https?:/, '');
+    script.src = src;
+    document.getElementsByTagName("head")[0].appendChild(script);
+  })();
+</script>
+</body>
+</html>

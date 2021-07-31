@@ -1,0 +1,1593 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+<title>Chapter 3 Computational Quandaries | Data Disasters</title>
+<meta name="author" content="Emily Riederer">
+<!-- JS --><script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/2.0.6/clipboard.min.js" integrity="sha256-inc5kl9MA1hkeYUt+EC3BhlIgyp/2jDIyBLS6k3UxPI=" crossorigin="anonymous"></script><script src="https://cdn.jsdelivr.net/npm/fuse.js@6.4.2"></script><script src="https://kit.fontawesome.com/6ecbd6c532.js" crossorigin="anonymous"></script><script src="libs/header-attrs/header-attrs.js"></script><script src="libs/jquery/jquery-3.6.0.min.js"></script><meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+<link href="libs/bootstrap/bootstrap.min.css" rel="stylesheet">
+<script src="libs/bootstrap/bootstrap.bundle.min.js"></script><script src="libs/bs3compat/tabs.js"></script><script src="libs/bs3compat/bs3compat.js"></script><link href="libs/bs4_book/bs4_book.css" rel="stylesheet">
+<script src="libs/bs4_book/bs4_book.js"></script><!-- Global site tag (gtag.js) - Google Analytics --><script async src="https://www.googletagmanager.com/gtag/js?id=G-C7VEESJ7Z8"></script><script>
+      window.dataLayer = window.dataLayer || [];
+      function gtag(){dataLayer.push(arguments);}
+      gtag('js', new Date());
+
+      gtag('config', 'G-C7VEESJ7Z8');
+    </script><script src="https://cdn.jsdelivr.net/autocomplete.js/0/autocomplete.jquery.min.js"></script><script src="https://cdn.jsdelivr.net/npm/mark.js@8.11.1/dist/mark.min.js"></script><!-- CSS -->
+</head>
+<body data-spy="scroll" data-target="#toc">
+
+<div class="container-fluid">
+<div class="row">
+  <header class="col-sm-12 col-lg-3 sidebar sidebar-book"><a class="sr-only sr-only-focusable" href="#content">Skip to main content</a>
+
+    <div class="d-flex align-items-start justify-content-between">
+      <h1>
+        <a href="index.html" title="">Data Disasters</a>
+      </h1>
+      <button class="btn btn-outline-primary d-lg-none ml-2 mt-1" type="button" data-toggle="collapse" data-target="#main-nav" aria-expanded="true" aria-controls="main-nav"><i class="fas fa-bars"></i><span class="sr-only">Show table of contents</span></button>
+    </div>
+
+    <div id="main-nav" class="collapse-lg">
+      <form role="search">
+        <input id="search" class="form-control" type="search" placeholder="Search" aria-label="Search">
+</form>
+
+      <nav aria-label="Table of contents"><h2>Table of contents</h2>
+        <ul class="book-toc list-unstyled">
+<li><a class="" href="index.html">Preface</a></li>
+<li><a class="" href="about-the-author.html">About the Author</a></li>
+<li><a class="" href="introduction-todo.html"><span class="header-section-number">1</span> Introduction (TODO)</a></li>
+<li class="book-part">Data</li>
+<li><a class="" href="data-dall.html"><span class="header-section-number">2</span> Data Dalliances</a></li>
+<li><a class="active" href="comp-quan.html"><span class="header-section-number">3</span> Computational Quandaries</a></li>
+<li class="book-part">Analysis</li>
+<li><a class="" href="eg-agg.html"><span class="header-section-number">4</span> Egregious Aggregations</a></li>
+<li><a class="" href="vex-viz.html"><span class="header-section-number">5</span> Vexing Visualization (TODO)</a></li>
+<li><a class="" href="incr-infe.html"><span class="header-section-number">6</span> Incredible Inferences (TODO)</a></li>
+<li><a class="" href="cava-caus.html"><span class="header-section-number">7</span> Cavalier Causality (TODO)</a></li>
+<li><a class="" href="mind-mod.html"><span class="header-section-number">8</span> Mindless Modeling (TODO)</a></li>
+<li><a class="" href="alt-alg.html"><span class="header-section-number">9</span> Alternative Algorithms (TODO)</a></li>
+<li class="book-part">Workflow</li>
+<li><a class="" href="futi-find.html"><span class="header-section-number">10</span> Futile Findings (TODO)</a></li>
+<li><a class="" href="comp-code.html"><span class="header-section-number">11</span> Complexifying Code (TODO)</a></li>
+<li><a class="" href="reje-repr.html"><span class="header-section-number">12</span> Rejecting Reproducibility (TODO)</a></li>
+<li class="book-part">Appendix</li>
+<li><a class="" href="useful-data-generation-functions-todo.html"><span class="header-section-number">A</span> Useful Data Generation Functions (TODO)</a></li>
+<li><a class="" href="common-probability-distributions-todo.html"><span class="header-section-number">B</span> Common Probability Distributions (TODO)</a></li>
+<li><a class="" href="references.html">References</a></li>
+</ul>
+
+        <div class="book-extra">
+          <p><a id="book-repo" href="https://github.com/emilyriederer/data-disasters">View book source <i class="fab fa-github"></i></a></p>
+        </div>
+      </nav>
+</div>
+  </header><main class="col-sm-12 col-md-9 col-lg-7" id="content"><div id="comp-quan" class="section level1" number="3">
+<h1>
+<span class="header-section-number">3</span> Computational Quandaries<a class="anchor" aria-label="anchor" href="#comp-quan"><i class="fas fa-link"></i></a>
+</h1>
+<p>After gaining confidence in one’s data (or, at least, making peace with it), the next step in a data analysis is often to start cleaning and exploring that data with summary statistics, plots, and models.
+Generally, this requires a computational tool like SQL, R, or python.</p>
+<p>The process of computation itself can be fraught with challenges.
+Computational tools are extremely literal; they are excellent at doing <em>precisely what they were told to do</em> but not often what analysts might have <em>meant</em> or <em>wished</em> that they would do.
+Additionally, the moment an analyst begins to use a tool, the conversation is no longer between them and the data;
+suddenly, the mental model of how every single tool developer thought you might want to do analysis affects the tools’ behaviors and the analysts’ results.</p>
+<p>In this chapter, we will explore common ways that tools may do something technically correct, reasonable, and as-intended but very much not what analysts may expect.
+Along the way, we will see how computational methods interact with the data encoding choices we discussed in Chapter <a href="data-dall.html#data-dall">2</a> (Data Dalliances).</p>
+<div id="preliminaries---data-computation" class="section level2" number="3.1">
+<h2>
+<span class="header-section-number">3.1</span> Preliminaries - Data Computation<a class="anchor" aria-label="anchor" href="#preliminaries---data-computation"><i class="fas fa-link"></i></a>
+</h2>
+<p>Before we think about specific tools or failure modes, we can first consider the common types of operations that the analytical tools allow us to do with our data.</p>
+<div id="single-table-operations" class="section level3" number="3.1.1">
+<h3>
+<span class="header-section-number">3.1.1</span> Single Table Operations<a class="anchor" aria-label="anchor" href="#single-table-operations"><i class="fas fa-link"></i></a>
+</h3>
+<p>Given a single data table, we may wish to do operations (illustrated in Figure <a href="comp-quan.html#fig:filt-aggr-tran">3.1</a>) such as:</p>
+<ul>
+<li>
+<strong>Filtering</strong>: Extracting a subset of a dataset for analysis based on certain inclusion criteria for each record</li>
+<li>
+<strong>Aggregation</strong>: Grouping our data table by one or more variables and condensing information across records with <em>aggregate functions</em> like counts, sums, and averages</li>
+<li>
+<strong>Transformation</strong>: Create new columns or modifying existing columns to represent more complex or domain-specific context</li>
+</ul>
+<div class="figure" style="text-align: center">
+<span id="fig:filt-aggr-tran"></span>
+<img src="figures/comp-quan/filt-aggr-tran.png" alt="Illustration of basic single-table data wrangling operations" width="90%"><p class="caption">
+FIGURE 3.1: Illustration of basic single-table data wrangling operations
+</p>
+</div>
+</div>
+<div id="multiple-table-operations" class="section level3" number="3.1.2">
+<h3>
+<span class="header-section-number">3.1.2</span> Multiple Table Operations<a class="anchor" aria-label="anchor" href="#multiple-table-operations"><i class="fas fa-link"></i></a>
+</h3>
+<p>Often, we can get additional value in an analysis by combining multiple types of information from difference tables.
+When working with multiple tables, we may be interested in:</p>
+<ul>
+<li>
+<strong>Combining Row-wise</strong>: Taking multiple tables with the same schemas (column names and data types) and creating a single table which contains the union (all records), intersection (only matching), or difference (only in one) of the records in the two tables</li>
+<li>
+<strong>Combining Column-wise</strong>: Appending additional fields to existing records through joining (also known as merging) multiple tables</li>
+</ul>
+</div>
+<div id="mechanics" class="section level3" number="3.1.3">
+<h3>
+<span class="header-section-number">3.1.3</span> Mechanics<a class="anchor" aria-label="anchor" href="#mechanics"><i class="fas fa-link"></i></a>
+</h3>
+<p>All of these operations rely on a few core computational tasks:</p>
+<ul>
+<li>
+<strong>Arithmetic</strong>: Basic addition, subtraction, multiplication, and division to aggregate and transform data</li>
+<li>
+<strong>Equality</strong>: Comparing whether or not two values are equal is critical for data filtering, column-wise combination, and certain types of data transformation</li>
+<li>
+<strong>Casting</strong>: Converting data types of different elements into a comparable format is necessary for row-wise combination and often a prerequisite to certain equality and arithmetic tasks</li>
+</ul>
+<p>While these operations may seem simple, their behavior within certain tools and when employed for certain data types may sometimes lead to unintuitive or misleading results.</p>
+</div>
+</div>
+<div id="null-values" class="section level2" number="3.2">
+<h2>
+<span class="header-section-number">3.2</span> Null Values<a class="anchor" aria-label="anchor" href="#null-values"><i class="fas fa-link"></i></a>
+</h2>
+<p>In Chapter <a href="data-dall.html#data-dall">2</a> (Data Dalliances), we discuss how null values may represent many different concepts and be encoded in multiple different ways.
+In addition to those semantic challenges, various representations of null values may cause different computational problems.<a class="footnote-ref" tabindex="0" data-toggle="popover" data-content="&lt;p&gt;This problem is not isolated to data analysis tools. For an entertaining example, see the 2019 WIRED article “How a ‘NULL’ License Plate Landed One Hacker in Ticket Hell” &lt;span class=&quot;citation&quot;&gt;(&lt;a href=&quot;references.html#ref-barrett&quot; role=&quot;doc-biblioref&quot;&gt;Barrett 2019&lt;/a&gt;)&lt;/span&gt; which a real-world software system producing unintended and undesirable behavior when asked to deal with a word &lt;code&gt;'NULL'&lt;/code&gt;.&lt;/p&gt;"><sup>8</sup></a>
+In this section, we will explore these potential failure modes.</p>
+<div id="types-of-null-values" class="section level3" number="3.2.1">
+<h3>
+<span class="header-section-number">3.2.1</span> Types of Null Values<a class="anchor" aria-label="anchor" href="#types-of-null-values"><i class="fas fa-link"></i></a>
+</h3>
+<p>Not only can null values represent many different things (as explored in Chapter <a href="data-dall.html#data-dall">2</a>), they also may be represented in many different ways. Understanding how nulls are encoded in one’s dataset is a critical prerequisite to attempting any of the computations described in the subsequent sections.</p>
+<div id="language-representations" class="section level4" number="3.2.1.1">
+<h4>
+<span class="header-section-number">3.2.1.1</span> Language representations<a class="anchor" aria-label="anchor" href="#language-representations"><i class="fas fa-link"></i></a>
+</h4>
+<p>Different programming languages each offer their own versions of null values – and sometimes more than one. For example, the R language includes <code>NA</code>, typed <code>NA</code>s (e.g. <code>NA_integer</code>, <code>NA_character</code>), <code>NaN</code>, and <code>NULL</code>; meanwhile, core python has <code>None</code> and the <code>numpy</code> module provides a <code>nan</code>.</p>
+<p>These different values carry different semantic and functional meanings. For example R’s <code>NA</code> generally means “the presence of an absence” whereas <code>NULL</code> is “the absence of a presence.” This is articulated more clearly if we examine the lengths of these objects and observe that <code>NA</code> has a length 1 whereas <code>NULL</code> has a length 0.</p>
+<div class="sourceCode" id="cb9"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/length.html">length</a></span><span class="op">(</span><span class="cn">NA</span><span class="op">)</span>, <span class="fu"><a href="https://rdrr.io/r/base/length.html">length</a></span><span class="op">(</span><span class="cn">NULL</span><span class="op">)</span><span class="op">)</span></code></pre></div>
+<pre><code>## [1] 1 0</code></pre>
+<p>As further proof that these are not interchangeable, we may use the helper functions <code><a href="https://rdrr.io/r/base/NA.html">is.na()</a></code> and <code><a href="https://rdrr.io/r/base/NULL.html">is.null()</a></code>. It’s false that <code>NA</code> is <code>NULL</code> and essentially unable to be evaluated if <code>NULL</code> is <code>NA</code> because <code>NULL</code>s are truly nothing.<a class="footnote-ref" tabindex="0" data-toggle="popover" data-content="&lt;p&gt;You’ll notice that the code chunk below contains four inputs but only three outputs. Why is that? &lt;code&gt;is.na(NULL)&lt;/code&gt; returns &lt;code&gt;logical(0)&lt;/code&gt;, a zero-length value which cannot be stored in the vector. It’s yet another form of missingness!&lt;/p&gt;"><sup>9</sup></a></p>
+<div class="sourceCode" id="cb11"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span>
+  <span class="fu"><a href="https://rdrr.io/r/base/NA.html">is.na</a></span><span class="op">(</span><span class="cn">NA</span><span class="op">)</span>,
+  <span class="fu"><a href="https://rdrr.io/r/base/NULL.html">is.null</a></span><span class="op">(</span><span class="cn">NULL</span><span class="op">)</span>,
+  <span class="fu"><a href="https://rdrr.io/r/base/NA.html">is.na</a></span><span class="op">(</span><span class="cn">NULL</span><span class="op">)</span>,
+  <span class="fu"><a href="https://rdrr.io/r/base/NULL.html">is.null</a></span><span class="op">(</span><span class="cn">NA</span><span class="op">)</span>
+<span class="op">)</span></code></pre></div>
+<pre><code>## [1]  TRUE  TRUE FALSE</code></pre>
+<p>To further complicate matters, we have <code>NaN</code> (“not a number”), along with <code>-Inf</code> and <code>Inf</code>, which generally arise when we attempt to abuse R’s calculator. Somewhat charmingly, <code>Inf</code> and <code>-Inf</code> may be used in some rudimentary calculations where the limit is returned.<a class="footnote-ref" tabindex="0" data-toggle="popover" data-content="&lt;p&gt;From calculus, we know 1/Inf approaches 0, but Inf/Inf is undefined.&lt;/p&gt;"><sup>10</sup></a></p>
+<div class="sourceCode" id="cb13"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span>
+  <span class="fl">1</span><span class="op">/</span><span class="fl">0</span>,   <span class="co"># returns Inf</span>
+  <span class="fl">0</span><span class="op">/</span><span class="fl">0</span>,   <span class="co"># returns NaN</span>
+  <span class="fl">1</span><span class="op">/</span><span class="cn">Inf</span>  <span class="co"># returns 0</span>
+<span class="op">)</span></code></pre></div>
+<pre><code>## [1] Inf NaN   0</code></pre>
+</div>
+<div id="data-encoding-choices-todo" class="section level4" number="3.2.1.2">
+<h4>
+<span class="header-section-number">3.2.1.2</span> Data encoding choices (TODO)<a class="anchor" aria-label="anchor" href="#data-encoding-choices-todo"><i class="fas fa-link"></i></a>
+</h4>
+<p>Beyond these null types offered natively by different programming languages, there are also many different data management <em>conventions</em> for null values. Because null values can have many meanings, sometimes missing fields are encoded with “out of range” values which intend to suggest a type of missingness.</p>
+<p>For example, the US Census Bureau’s Medical Expenditure Panel Survey uses the following reserved codes to denote different types of missingness: (TODO: cite p10 <a href="https://www.meps.ahrq.gov/data_stats/download_data/pufs/h206a/h206adoc.pdf" class="uri">https://www.meps.ahrq.gov/data_stats/download_data/pufs/h206a/h206adoc.pdf</a>)</p>
+<pre><code>- -1 INAPPLICABLE Question was not asked due to skip pattern
+- -7 REFUSED Question was asked and respondent refused to answer question
+- -8 DK Question was asked and respondent did not know answer
+- -14 NOT YET TAKEN/USED Respondent answered that the medicine has not yet been used
+- -15 CANNOT BE COMPUTED Value cannot be derived from data</code></pre>
+<p>This approach preserves a lot of relevant information while, at the same time, being readily apparent that these values are not valid when the data is manually inspect. Unfortunately, manually inspecting every data field is rarely possible, and such sentinel values may go undetected when looking at higher-level summaries.</p>
+<p>Consider a survey of a population of retired adults where age is coded as <code>999</code> if not provided. Below, we simulate 100,000 such observations that are uniformly distributed between the age of 65 and 95 (hence, have an expected value of 80). Next, we replace merely <em>half of a percent</em> with our “null” values of <code>999</code>. Taking the mean with these false values results in a mean of about 85. This number alone might not raise the alarm; after all, we know the dataset’s population is older adults. However, accidentally treating these as valid values biases our results by a somewhat remarkable five years.</p>
+<div class="sourceCode" id="cb16"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="fu"><a href="https://rdrr.io/r/base/Random.html">set.seed</a></span><span class="op">(</span><span class="fl">123</span><span class="op">)</span>
+
+<span class="va">n</span> <span class="op">&lt;-</span> <span class="fl">100000</span>
+<span class="va">p</span> <span class="op">&lt;-</span> <span class="fl">0.005</span>
+<span class="va">ages</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/stats/Uniform.html">runif</a></span><span class="op">(</span><span class="va">n</span>, <span class="fl">65</span>, <span class="fl">95</span><span class="op">)</span>
+
+<span class="va">ages_nulls</span> <span class="op">&lt;-</span> <span class="va">ages</span>
+<span class="va">ages_nulls</span><span class="op">[</span><span class="fl">1</span><span class="op">:</span><span class="op">(</span><span class="va">n</span><span class="op">*</span><span class="va">p</span><span class="op">)</span><span class="op">]</span> <span class="op">&lt;-</span> <span class="fl">999</span>
+
+<span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/mean.html">mean</a></span><span class="op">(</span><span class="va">ages</span><span class="op">)</span>, <span class="fu"><a href="https://rdrr.io/r/base/mean.html">mean</a></span><span class="op">(</span><span class="va">ages_nulls</span><span class="op">)</span><span class="op">)</span></code></pre></div>
+<pre><code>## [1] 79.98 84.57</code></pre>
+<p>So, the first order of business with null values is understanding how they are encoded and translation them to the most computationally appropriate form. However, that is only the beginning of the story.</p>
+</div>
+</div>
+<div id="aggregation" class="section level3" number="3.2.2">
+<h3>
+<span class="header-section-number">3.2.2</span> Aggregation<a class="anchor" aria-label="anchor" href="#aggregation"><i class="fas fa-link"></i></a>
+</h3>
+<p>How null values are handled in the simple aggregation of data varies both across different languages and across different functions within a language.
+To better understand the problems this might cause, we will look at examples in R and SQL.</p>
+<p>To explore aggregation, let’s build a simple dataset. We will suppose that we are working with a subscription-based e-commerce service and that we are looking at a <code>monthly_spend</code> dataset with one record per customer and information about the amount they spent and returned in a given month:</p>
+<div class="sourceCode" id="cb18"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="va">spend</span> <span class="op">&lt;-</span>
+  <span class="fu"><a href="https://rdrr.io/r/base/data.frame.html">data.frame</a></span><span class="op">(</span>
+    AMT_SPEND <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="fl">10</span>, <span class="fl">20</span>, <span class="cn">NA</span><span class="op">)</span>,
+    AMT_RETURN <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/rep.html">rep</a></span><span class="op">(</span><span class="cn">NA</span>, <span class="fl">3</span><span class="op">)</span>
+  <span class="op">)</span></code></pre></div>
+<p>To compute the average amount spent (<code>AMT_SPEND</code>) with the <code>dplyr</code> package, an analyst might first reasonably write the following <code><a href="https://dplyr.tidyverse.org/reference/summarise.html">summarize()</a></code> statement.
+However, as we can see, due to the presence of null values within the <code>AMT_SPEND</code> column, the result of this aggregation is for the whole quantity of <code>AVG_SPEND</code> to be set to the value <code>NA</code>.</p>
+<p>A glance at the documentation for the <code><a href="https://rdrr.io/r/base/mean.html">mean()</a></code> function reveals that it has an <code>na.rm</code> parameter which, when set to true, removes null values from our dataset.
+Adding this argument to the previous statement allows us to reach a numerical answer.</p>
+<div class="sourceCode" id="cb19"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="fu"><a href="https://dplyr.tidyverse.org/reference/summarise.html">summarize</a></span><span class="op">(</span><span class="va">spend</span>, 
+          AVG_SPEND <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/mean.html">mean</a></span><span class="op">(</span><span class="va">AMT_SPEND</span><span class="op">)</span>,
+          AVG_SPEND_NARM <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/mean.html">mean</a></span><span class="op">(</span><span class="va">AMT_SPEND</span>, na.rm <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span><span class="op">)</span></code></pre></div>
+<pre><code>##   AVG_SPEND AVG_SPEND_NARM
+## 1        NA             15</code></pre>
+<p>However, is this the <em>right</em> numerical answer?
+What <code>na.rm = TRUE</code> does is <em>drop</em> the null values from the set of numbers being averaged.
+However, suppose the null values represent that no purchases were made.
+That is, zero dollars were spent.
+In effect, we have removed all non-purchasers from the data being averaged.</p>
+<p>More precisely, we have switched from taking the average</p>
+<p><span class="math display">\[ \frac{ \sum_{1}^{n} Spend }{\sum_{1}^{n} 1} \]</span> over all <span class="math inline">\(n\)</span> customers</p>
+<p>to taking the average</p>
+<p><span class="math display">\[ \frac{ \sum_{Spend &gt; 0} Spend }{\sum_{Spend &gt; 0} 1} \]</span> over only those customers with spend</p>
+<p>At face value, we could say that the code above is giving the incorrect answer; by dropping some low (zero) purchase amounts, the average amount spend per customer is inflated.
+A second perspective, which is someone more philosophically troubling, is that this tiny change to the code which fixed the <em>obvious</em> problem (returning a null value) has introduced a <em>non-obvious</em> problem by fundamentally changing the question that we are asking.
+By dropping all accounts from our table who made no purchases, we are no longer answering “What is the average amount spent by a new registrant?” but rather “What is the average amount spent by an actively engaged customer?”
+This technical quirk has significant analytical impact.</p>
+<p>To answer the real question at hand, we would instead have a couple of options.
+We could manually <code><a href="https://rdrr.io/r/base/sum.html">sum()</a></code> the amount spent with the option to drop nulls but then divide by the correct denominator (all observations – not just those with spend) or we could explicitly recode null values in <code>AMT_SPEND</code> to zero before taking the average.<a class="footnote-ref" tabindex="0" data-toggle="popover" data-content="&lt;p&gt;Recoding can be done with a number of different general purpose functions like &lt;code&gt;ifelse&lt;/code&gt; or &lt;code&gt;dplyr::case_when&lt;/code&gt; in R. Different SQL varaints often offer different options for this purpose with functions such as &lt;code&gt;nvl()&lt;/code&gt; or &lt;code&gt;zeroifnull()&lt;/code&gt;. A common version across many platforms is &lt;code&gt;coalesce()&lt;/code&gt; which takes the first non-null argument listed.&lt;/p&gt;"><sup>11</sup></a>
+Either of these options lead to the correct conclusion of a lower average spend amount.</p>
+<div class="sourceCode" id="cb21"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="fu"><a href="https://dplyr.tidyverse.org/reference/summarise.html">summarize</a></span><span class="op">(</span>
+    <span class="va">spend</span>,
+    AVG_SPEND_MANUAL <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/sum.html">sum</a></span><span class="op">(</span><span class="va">AMT_SPEND</span>, na.rm <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span> <span class="op">/</span> <span class="fu"><a href="https://dplyr.tidyverse.org/reference/context.html">n</a></span><span class="op">(</span><span class="op">)</span>,
+    AVG_SPEND_RECODE <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/mean.html">mean</a></span><span class="op">(</span><span class="fu"><a href="https://dplyr.tidyverse.org/reference/coalesce.html">coalesce</a></span><span class="op">(</span><span class="va">AMT_SPEND</span>, <span class="fl">0</span><span class="op">)</span><span class="op">)</span>
+  <span class="op">)</span></code></pre></div>
+<pre><code>##   AVG_SPEND_MANUAL AVG_SPEND_RECODE
+## 1               10               10</code></pre>
+<p>This is all well and good if we could just accept that the behaviors above are simply how nulls work, but further complexity comes as we see that there is no industry standard across tools.
+For example, as the SQL code below shows, SQL’s <code>avg()</code> function behaves more like R’s <code><a href="https://rdrr.io/r/base/mean.html">mean()</a></code> <em>with</em> the <code>na.rm = TRUE</code> option set.
+That is, the default behavior of SQL is to only operate on the valid and available values.</p>
+<div class="sourceCode" id="cb23"><pre class="sourceCode sql"><code class="sourceCode sql"><span id="cb23-1"><a href="comp-quan.html#cb23-1" aria-hidden="true" tabindex="-1"></a><span class="kw">SELECT</span> <span class="fu">avg</span>(amt_spend) <span class="kw">as</span> AVG_SPEND</span>
+<span id="cb23-2"><a href="comp-quan.html#cb23-2" aria-hidden="true" tabindex="-1"></a><span class="kw">FROM</span> spend</span></code></pre></div>
+<pre><code>##   AVG_SPEND
+## 1        15</code></pre>
+<p>However, this is not to suggest that null values cannot also be destructive in SQL.
+While aggregation functions (which compute over the <em>rows/records</em>) like <code><a href="https://rdrr.io/r/base/sum.html">sum()</a></code> and <code>avg()</code> drop nulls, operators like <code><a href="https://rdrr.io/r/base/Arithmetic.html">+</a></code> and <code><a href="https://rdrr.io/r/base/Arithmetic.html">-</a></code> (which compute <em>across columns/variables</em> in the <em>same row/record</em>) do not exhibit the same behavior.
+Consider, for example, if we wish to calculate the average net purchase amount (purchases minus returns) instead of the gross (total) purchase amount.</p>
+<div class="sourceCode" id="cb25"><pre class="sourceCode sql"><code class="sourceCode sql"><span id="cb25-1"><a href="comp-quan.html#cb25-1" aria-hidden="true" tabindex="-1"></a><span class="kw">SELECT</span> <span class="fu">avg</span>(amt_spend<span class="op">-</span>amt_return) <span class="kw">as</span> AVG_SPEND_NET</span>
+<span id="cb25-2"><a href="comp-quan.html#cb25-2" aria-hidden="true" tabindex="-1"></a><span class="kw">FROM</span> spend</span></code></pre></div>
+<pre><code>##   AVG_SPEND_NET
+## 1            NA</code></pre>
+<p>Despite what we learned above about SQL’s <code>avg()</code> function, the query above returns only a null value.
+What has happened?
+In our <code>spend</code> dataset, the <code>amt_return</code> column is completely null (representing no returns).
+Because the subtraction occurs before the average is taken, subtracting real numbers in <code>amt_spend</code> with null values in <code>amt_return</code> creates a column of all null values which are then fed into the <code>avg()</code> function.
+This process is shown step-by-step below.</p>
+<div class="sourceCode" id="cb27"><pre class="sourceCode sql"><code class="sourceCode sql"><span id="cb27-1"><a href="comp-quan.html#cb27-1" aria-hidden="true" tabindex="-1"></a><span class="kw">SELECT</span></span>
+<span id="cb27-2"><a href="comp-quan.html#cb27-2" aria-hidden="true" tabindex="-1"></a>  amt_spend, </span>
+<span id="cb27-3"><a href="comp-quan.html#cb27-3" aria-hidden="true" tabindex="-1"></a>  amt_return, </span>
+<span id="cb27-4"><a href="comp-quan.html#cb27-4" aria-hidden="true" tabindex="-1"></a>  amt_spend<span class="op">-</span>amt_return </span>
+<span id="cb27-5"><a href="comp-quan.html#cb27-5" aria-hidden="true" tabindex="-1"></a><span class="kw">FROM</span> spend</span></code></pre></div>
+<pre><code>##   AMT_SPEND AMT_RETURN amt_spend-amt_return
+## 1        10         NA                   NA
+## 2        20         NA                   NA
+## 3        NA         NA                   NA</code></pre>
+</div>
+<div id="comparison" class="section level3" number="3.2.3">
+<h3>
+<span class="header-section-number">3.2.3</span> Comparison<a class="anchor" aria-label="anchor" href="#comparison"><i class="fas fa-link"></i></a>
+</h3>
+<p>Null values don’t just introduce complexity when doing arithmetic. Difficulties also arise any time multiple variables are assessed for equality or inequality. Since a null value is unknown, most programming languages generally will <em>not</em> consider nulls to be comparable with other nulls.</p>
+<p>We can simple examples of this in both R and SQL.</p>
+<div class="sourceCode" id="cb29"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span>
+  <span class="cn">NA</span> <span class="op">==</span> <span class="fl">3</span>, 
+  <span class="cn">NA</span> <span class="op">&gt;</span> <span class="fl">10</span>, 
+  <span class="cn">NA</span> <span class="op">==</span> <span class="cn">NA</span>
+  <span class="op">)</span></code></pre></div>
+<pre><code>## [1] NA NA NA</code></pre>
+<div class="sourceCode" id="cb31"><pre class="sourceCode sql"><code class="sourceCode sql"><span id="cb31-1"><a href="comp-quan.html#cb31-1" aria-hidden="true" tabindex="-1"></a><span class="kw">SELECT</span></span>
+<span id="cb31-2"><a href="comp-quan.html#cb31-2" aria-hidden="true" tabindex="-1"></a>  (<span class="kw">NULL</span> <span class="op">=</span> <span class="dv">3</span>) <span class="kw">as</span> NULL_EQ_NUM,</span>
+<span id="cb31-3"><a href="comp-quan.html#cb31-3" aria-hidden="true" tabindex="-1"></a>  (<span class="kw">NULL</span> <span class="op">&gt;</span> <span class="dv">10</span>) <span class="kw">as</span> NULL_GT_NUM,</span>
+<span id="cb31-4"><a href="comp-quan.html#cb31-4" aria-hidden="true" tabindex="-1"></a>  (<span class="kw">NULL</span> <span class="op">=</span> <span class="kw">NULL</span>) <span class="kw">as</span> NULL_EQ_NULL</span></code></pre></div>
+<pre><code>##   NULL_EQ_NUM NULL_GT_NUM NULL_EQ_NULL
+## 1          NA          NA           NA</code></pre>
+<p>In these toy examples, such outcomes may seem perfectly logical.
+However, this same reasoning can arise in sneakier ways and lead to uninteded results when equality evaluations are <em>implicit</em> in the task at hand instead of the singular focus.
+We’ll now see examples from data filtering, joining, and transformation.</p>
+<div id="filtering" class="section level4" number="3.2.3.1">
+<h4>
+<span class="header-section-number">3.2.3.1</span> Filtering<a class="anchor" aria-label="anchor" href="#filtering"><i class="fas fa-link"></i></a>
+</h4>
+<p>Suppose we want to split our dataset into two datasets based on high or low values of spend.
+We might assume the following two lines of code will create a clear partition<a class="footnote-ref" tabindex="0" data-toggle="popover" data-content="&lt;p&gt;A &lt;strong&gt;paritition&lt;/strong&gt; of our data would imply that every record is contained in precisely one group&lt;/p&gt;"><sup>12</sup></a> of results.</p>
+<div class="sourceCode" id="cb33"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="va">spend_lt20</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://dplyr.tidyverse.org/reference/filter.html">filter</a></span><span class="op">(</span><span class="va">spend</span>, <span class="va">AMT_SPEND</span> <span class="op">&lt;</span> <span class="fl">20</span><span class="op">)</span>
+<span class="va">spend_gte20</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://dplyr.tidyverse.org/reference/filter.html">filter</a></span><span class="op">(</span><span class="va">spend</span>, <span class="va">AMT_SPEND</span> <span class="op">&gt;=</span> <span class="fl">20</span><span class="op">)</span></code></pre></div>
+<p>However, examining the resulting datasets, we see than <em>neither</em> contains the null records.</p>
+<div class="sourceCode" id="cb34"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="va">spend_lt20</span></code></pre></div>
+<pre><code>##   AMT_SPEND AMT_RETURN
+## 1        10         NA</code></pre>
+<div class="sourceCode" id="cb36"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="va">spend_gte20</span></code></pre></div>
+<pre><code>##   AMT_SPEND AMT_RETURN
+## 1        20         NA</code></pre>
+<p>The same situation results in SQL.</p>
+<div class="sourceCode" id="cb38"><pre class="sourceCode sql"><code class="sourceCode sql"><span id="cb38-1"><a href="comp-quan.html#cb38-1" aria-hidden="true" tabindex="-1"></a><span class="kw">SELECT</span> <span class="op">*</span></span>
+<span id="cb38-2"><a href="comp-quan.html#cb38-2" aria-hidden="true" tabindex="-1"></a><span class="kw">FROM</span> spend</span>
+<span id="cb38-3"><a href="comp-quan.html#cb38-3" aria-hidden="true" tabindex="-1"></a><span class="kw">WHERE</span> AMT_SPEND <span class="op">&lt;</span> <span class="dv">20</span></span></code></pre></div>
+<pre><code>##   AMT_SPEND AMT_RETURN
+## 1        10         NA</code></pre>
+<div class="sourceCode" id="cb40"><pre class="sourceCode sql"><code class="sourceCode sql"><span id="cb40-1"><a href="comp-quan.html#cb40-1" aria-hidden="true" tabindex="-1"></a><span class="kw">SELECT</span> <span class="op">*</span></span>
+<span id="cb40-2"><a href="comp-quan.html#cb40-2" aria-hidden="true" tabindex="-1"></a><span class="kw">FROM</span> spend</span>
+<span id="cb40-3"><a href="comp-quan.html#cb40-3" aria-hidden="true" tabindex="-1"></a><span class="kw">WHERE</span> AMT_SPEND <span class="op">&gt;=</span> <span class="dv">20</span></span></code></pre></div>
+<pre><code>##   AMT_SPEND AMT_RETURN
+## 1        20         NA</code></pre>
+<p>Thus, whenever our data has null values, the very common act of data filtering risks excluding important information.</p>
+</div>
+<div id="joining" class="section level4" number="3.2.3.2">
+<h4>
+<span class="header-section-number">3.2.3.2</span> Joining<a class="anchor" aria-label="anchor" href="#joining"><i class="fas fa-link"></i></a>
+</h4>
+<p>The same phenomenon as described above also happens when joining multiple datasets.</p>
+<p>Suppose we have multiple datasets we wish to merge based on columns denoting a record’s name and date of birthday.
+For ease of exploration, we will make the simplest possible such dataset and simply try to merge it to itself.
+(This may seem silly, but often when trying to understand <em>computationally</em> complex things, it is a good idea to make the scenario as simple as possible.
+In fact, this idea is core to the concept of computational unit tests which we will discuss at the end of this chapter.)</p>
+<div class="sourceCode" id="cb42"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="va">bday</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/data.frame.html">data.frame</a></span><span class="op">(</span>NAME <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="st">'Anne'</span>, <span class="st">'Bob'</span><span class="op">)</span>, BIRTHDAY <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="st">'2000-01-01'</span>, <span class="cn">NA</span><span class="op">)</span><span class="op">)</span>
+<span class="va">bday</span></code></pre></div>
+<pre><code>##   NAME   BIRTHDAY
+## 1 Anne 2000-01-01
+## 2  Bob       &lt;NA&gt;</code></pre>
+<p>In SQL, if we try to join this table, the records in row 1 will match because <code>'Anne' == 'Anne'</code> and <code>'2000-01-01' == '2000-01-01'</code>.
+However, poor Bob’s record is eliminated because his birthdate is logged as null, and <code>NA == NA</code> is false.</p>
+<div class="sourceCode" id="cb44"><pre class="sourceCode sql"><code class="sourceCode sql"><span id="cb44-1"><a href="comp-quan.html#cb44-1" aria-hidden="true" tabindex="-1"></a><span class="kw">SELECT</span> a.<span class="op">*</span></span>
+<span id="cb44-2"><a href="comp-quan.html#cb44-2" aria-hidden="true" tabindex="-1"></a><span class="kw">FROM</span></span>
+<span id="cb44-3"><a href="comp-quan.html#cb44-3" aria-hidden="true" tabindex="-1"></a>  bday <span class="kw">as</span> a</span>
+<span id="cb44-4"><a href="comp-quan.html#cb44-4" aria-hidden="true" tabindex="-1"></a>  <span class="kw">INNER</span> <span class="kw">JOIN</span></span>
+<span id="cb44-5"><a href="comp-quan.html#cb44-5" aria-hidden="true" tabindex="-1"></a>  bday <span class="kw">as</span> b</span>
+<span id="cb44-6"><a href="comp-quan.html#cb44-6" aria-hidden="true" tabindex="-1"></a>  <span class="kw">ON</span></span>
+<span id="cb44-7"><a href="comp-quan.html#cb44-7" aria-hidden="true" tabindex="-1"></a>  a.NAME <span class="op">=</span> b.NAME <span class="kw">and</span></span>
+<span id="cb44-8"><a href="comp-quan.html#cb44-8" aria-hidden="true" tabindex="-1"></a>  a.BIRTHDAY <span class="op">=</span> b.BIRTHDAY</span></code></pre></div>
+<pre><code>##   NAME   BIRTHDAY
+## 1 Anne 2000-01-01</code></pre>
+<p>In contrast, R’s <code><a href="https://dplyr.tidyverse.org/reference/mutate-joins.html">dplyr::inner_join()</a></code> function will not do this by default.
+This function lets us specifically control how nulls are matches with the <code>na_matches</code> argument, with a default option to match on <code>NA</code> values.
+(You may read more about the argument by typing <code><a href="https://dplyr.tidyverse.org/reference/mutate-joins.html">?dplyr::inner_join</a></code> in the R console to pull up the documentation.)</p>
+<div class="sourceCode" id="cb46"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="fu"><a href="https://dplyr.tidyverse.org/reference/mutate-joins.html">inner_join</a></span><span class="op">(</span><span class="va">bday</span>, <span class="va">bday</span>, by <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="st">'NAME'</span>, <span class="st">'BIRTHDAY'</span><span class="op">)</span><span class="op">)</span></code></pre></div>
+<pre><code>##   NAME   BIRTHDAY
+## 1 Anne 2000-01-01
+## 2  Bob       &lt;NA&gt;</code></pre>
+<p>This example then is not only a cautionary tale for how null values may unintentionally corrupt our data transformations but also how “brittle” our knowledge and intuition may be when moving between tools.
+Neither of these default behaviors is strictly better or worse, but they are definitely different and have real implications on our analysis.</p>
+</div>
+<div id="transformation" class="section level4" number="3.2.3.3">
+<h4>
+<span class="header-section-number">3.2.3.3</span> Transformation<a class="anchor" aria-label="anchor" href="#transformation"><i class="fas fa-link"></i></a>
+</h4>
+<p>A common task in data analysis is to aggregate results by subgroup.
+For example, we might want to summarize how many customers (rows/records) spent more or less than $10. To discern this, we might create a categorical variable for high versus low purchase amounts, group by this variable and count.</p>
+<p>The psuedocode would read something like this:</p>
+<div class="sourceCode" id="cb48"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb48-1"><a href="comp-quan.html#cb48-1" aria-hidden="true" tabindex="-1"></a>data <span class="sc">%&gt;%</span></span>
+<span id="cb48-2"><a href="comp-quan.html#cb48-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">HIGH_LOW =</span> <span class="sc">&lt;</span><span class="er">&lt;</span> transform AMT_SPEND <span class="sc">&gt;</span><span class="er">&gt;</span>) <span class="sc">%&gt;%</span></span>
+<span id="cb48-3"><a href="comp-quan.html#cb48-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">group_by</span>(HIGH_LOW) <span class="sc">%&gt;%</span></span>
+<span id="cb48-4"><a href="comp-quan.html#cb48-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">count</span>()</span></code></pre></div>
+<p>To define the <code>HIGH_LOW</code> variable, we might use a function like <code><a href="https://rdrr.io/r/base/ifelse.html">ifelse()</a></code>, <code><a href="https://dplyr.tidyverse.org/reference/if_else.html">dplyr::if_else()</a></code>, or <code><a href="https://dplyr.tidyverse.org/reference/case_when.html">dplyr::case_when()</a></code>.
+However, once again, we have the issue of how values are <em>partitioned</em> when nulls are included.
+If we recode any records with <code>AMT_SPEND</code> of less than or equal to 10 to “Low” and default the rest to “High,” we will accidentally count all null values in the “High” group.</p>
+<div class="sourceCode" id="cb49"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="va">spend</span> <span class="op">%&gt;%</span>
+  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/mutate.html">mutate</a></span><span class="op">(</span>HIGH_LOW <span class="op">=</span> <span class="fu"><a href="https://dplyr.tidyverse.org/reference/case_when.html">case_when</a></span><span class="op">(</span>
+    <span class="va">AMT_SPEND</span> <span class="op">&lt;=</span> <span class="fl">10</span> <span class="op">~</span> <span class="st">"Low"</span>, 
+    <span class="cn">TRUE</span> <span class="op">~</span> <span class="st">"High"</span><span class="op">)</span>
+    <span class="op">)</span> <span class="op">%&gt;%</span>
+  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/group_by.html">group_by</a></span><span class="op">(</span><span class="va">HIGH_LOW</span><span class="op">)</span> <span class="op">%&gt;%</span> 
+  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/count.html">count</a></span><span class="op">(</span><span class="op">)</span></code></pre></div>
+<pre><code>## # A tibble: 2 x 2
+## # Groups:   HIGH_LOW [2]
+##   HIGH_LOW     n
+##   &lt;chr&gt;    &lt;int&gt;
+## 1 High         2
+## 2 Low          1</code></pre>
+<p>Instead, it is more accurate and transparent (unless we know specifically what null values mean and what group they should be part of) to not let one of our “core” categories by the “default” case in our logic.
+We can explicitly encode any residual values as something like “OTHER” or “ERROR” to help us see that there is a problem requiring extra attention.</p>
+<div class="sourceCode" id="cb51"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="va">spend</span> <span class="op">%&gt;%</span>
+  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/mutate.html">mutate</a></span><span class="op">(</span>HIGH_LOW <span class="op">=</span> <span class="fu"><a href="https://dplyr.tidyverse.org/reference/case_when.html">case_when</a></span><span class="op">(</span>
+    <span class="va">AMT_SPEND</span> <span class="op">&lt;=</span> <span class="fl">10</span> <span class="op">~</span> <span class="st">"Low"</span>, 
+    <span class="va">AMT_SPEND</span> <span class="op">&gt;</span> <span class="fl">10</span> <span class="op">~</span> <span class="st">"High"</span>,
+    <span class="cn">TRUE</span> <span class="op">~</span> <span class="st">"OTHER"</span><span class="op">)</span>
+    <span class="op">)</span> <span class="op">%&gt;%</span>
+  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/group_by.html">group_by</a></span><span class="op">(</span><span class="va">HIGH_LOW</span><span class="op">)</span> <span class="op">%&gt;%</span> 
+  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/count.html">count</a></span><span class="op">(</span><span class="op">)</span></code></pre></div>
+<pre><code>## # A tibble: 3 x 2
+## # Groups:   HIGH_LOW [3]
+##   HIGH_LOW     n
+##   &lt;chr&gt;    &lt;int&gt;
+## 1 High         1
+## 2 Low          1
+## 3 OTHER        1</code></pre>
+</div>
+</div>
+</div>
+<div id="dates-and-times-todo" class="section level2" number="3.3">
+<h2>
+<span class="header-section-number">3.3</span> Dates and Times (TODO)<a class="anchor" aria-label="anchor" href="#dates-and-times-todo"><i class="fas fa-link"></i></a>
+</h2>
+</div>
+<div id="strings-todo" class="section level2" number="3.4">
+<h2>
+<span class="header-section-number">3.4</span> Strings (TODO)<a class="anchor" aria-label="anchor" href="#strings-todo"><i class="fas fa-link"></i></a>
+</h2>
+</div>
+<div id="encoding-choices-todo" class="section level2" number="3.5">
+<h2>
+<span class="header-section-number">3.5</span> Encoding Choices (TODO)<a class="anchor" aria-label="anchor" href="#encoding-choices-todo"><i class="fas fa-link"></i></a>
+</h2>
+</div>
+<div id="order-of-operations-todo" class="section level2" number="3.6">
+<h2>
+<span class="header-section-number">3.6</span> Order of Operations (TODO)<a class="anchor" aria-label="anchor" href="#order-of-operations-todo"><i class="fas fa-link"></i></a>
+</h2>
+</div>
+<div id="object-references-todo" class="section level2" number="3.7">
+<h2>
+<span class="header-section-number">3.7</span> Object References (TODO)<a class="anchor" aria-label="anchor" href="#object-references-todo"><i class="fas fa-link"></i></a>
+</h2>
+</div>
+<div id="trusting-tools" class="section level2" number="3.8">
+<h2>
+<span class="header-section-number">3.8</span> Trusting Tools<a class="anchor" aria-label="anchor" href="#trusting-tools"><i class="fas fa-link"></i></a>
+</h2>
+<p>A theme throughout this book is the fundamentally <em>social</em> nature of data analysis. Data analysis is fraught without understanding the countless decisions made along the way by those who generated it (whose data is reflected), those who collected it, those who migrated it, and those who have posed questions of it. On one hand, this is a beautiful aspect of analysis; on the other hand, it means that analysts and their analyses are subject to all of the cognitive and social psychological biases of everyday humans.</p>
+<p>One such bias is “social proof”: assuming that if a tool behaves a certain way, it must be because it is correct.</p>
+<p>Assuming that our tools know best is admittedly an attractive proposition. It appeals to a desire to think that someone, somewhere is “in charge” and, perhaps more critically, helps us avoid a domino effect of distrust (If we <em>don’t</em> trust our tools how can we trust our results? And if we can’t trust our results, how can we trust anything at all?) Unfortunately, there are many reasons are tools might not know best. For example, the tool’s developer might have:</p>
+<ul>
+<li>Made a mistake</li>
+<li>Had a different analysis problem in mind with a different optimal approach</li>
+<li>Been optimizing for a different constraint (e.g. explainability vs. accuracy, speed vs. theoretical properties)</li>
+<li>Come from a community with different norms</li>
+<li>Been affording users the flexibility to do things many ways even if they don’t agree</li>
+<li>Built a certain feature for a different purpose than how you are using it</li>
+<li>Not thought about it at all</li>
+</ul>
+<p>As a few concrete examples from popular open source tools. We’ll look briefly at the prominent python library <code>scikitlearn</code> for machine learning and Apache Spark, an engine for large-scale distributed data processing.</p>
+<div id="defaults-in-scikitlearn" class="section level3" number="3.8.1">
+<h3>
+<span class="header-section-number">3.8.1</span> Defaults in <code>scikitlearn</code><a class="anchor" aria-label="anchor" href="#defaults-in-scikitlearn"><i class="fas fa-link"></i></a>
+</h3>
+<p><code>scikitlearn</code>’s default behavior for logistic regression modeling<a class="footnote-ref" tabindex="0" data-toggle="popover" data-content="&lt;p&gt;A classic modeling technique for predicting binary (yes/no) outcomes&lt;/p&gt;"><sup>13</sup></a> automatically applies L2 regularization. You might or might not know what this means, and you might or might not want to apply it to your problem. That’s fine. The important thing is that it <em>will</em> change your estimates and predictions, and it is <em>not</em> a part of the classical definition of that algorithm (for modelers coming from a statistical background.)</p>
+<p>Of course, there’s nothing inherently wrong about this choice; the library authors just had different goals than a typical statistical. <code>scikitlearn</code> developer Olivier Grisel explains <a href="https://twitter.com/ogrisel/status/1167438229655773186?s=20">on Twitter</a> that this choice (and others in the library) is explained because “Scikit-learn was always designed to make it easy to get good predictive accuracy (eg as measured by CV) rather than as statistical inference library.” Additionally, this choice is documented in bold <a href="https://scikit-learn.org/stable/modules/generated/sklearn.linear_model.LogisticRegression.html">in the function documentation</a>.</p>
+<p>However, an analyst could easily miss this nuance if they do not <em>read</em> the documentation. Or, if they <em>misinterpret</em> this choice as social proof that regularization is always the right approach, they might not make the best choice for their own analysis.</p>
+</div>
+<div id="algorithms-in-spark" class="section level3" number="3.8.2">
+<h3>
+<span class="header-section-number">3.8.2</span> Algorithms in <code>Spark</code><a class="anchor" aria-label="anchor" href="#algorithms-in-spark"><i class="fas fa-link"></i></a>
+</h3>
+<p>For example, according to a 2015 <a href="https://issues.apache.org/jira/browse/SPARK-5133">Jira ticket</a>, developers of Spark considered multiple methodologies they could use when adding the functionality to compute feature importance for a random forest. Ultimately, a core contributor advised against permutation importance due to its computational cost.</p>
+<div class="figure" style="text-align: center">
+<span id="fig:unnamed-chunk-53"></span>
+<img src="figures/comp-quan/spark-jira.PNG" alt="JIRA ticket for Spark with a discussion of which random forest variable importance algorithm to implement" width="90%"><p class="caption">
+FIGURE 3.2: JIRA ticket for Spark with a discussion of which random forest variable importance algorithm to implement
+</p>
+</div>
+<p>Clearly, no one wants a workflow that is too costly or timely to run. So, once again, there is no right or wrong. However, since every approach to feature importance has its own biases, pitfalls, and challenges in interpretation, it’s a mistake for an end-user to not carefully understand which algorithm is used and why.</p>
+</div>
+</div>
+<div id="strategies-todo-1" class="section level2" number="3.9">
+<h2>
+<span class="header-section-number">3.9</span> Strategies (TODO)<a class="anchor" aria-label="anchor" href="#strategies-todo-1"><i class="fas fa-link"></i></a>
+</h2>
+<!--
+
+In practice, data analysis requires using a number of advanced computational tools such as SQL, R, or python. Analysts must work in a partnerships with each tool to access and wrangle their data into an accessible form of information. However, the moment you as an analyst begins to use a tool, the conversation is no longer simply between you and the data; suddenly, thousands of developers who helper build your tools are now crowding into the room. Each may have contributed to the code behind your tool with a different mental model of how one would use it.
+
+In this chapter, we will explore common ways that tools may do something correct, reasonable, and as-intended but very much not what we would have liked as analysts.
+
+
+
+TODO: Introduce datasets
+
+
+```r
+head(registration)
+```
+
+```
+##   ID_CUSTOMER CD_DEVICE AMT_SPEND AMT_RETURN
+## 1           1         1        10         NA
+## 2           2         1        20         NA
+## 3           3         1        30         NA
+## 4           4         2        40         NA
+## 5           5         2        50         NA
+## 6           6         2        NA         NA
+```
+
+
+```python
+1+1
+```
+
+```
+## 2
+```
+
+
+## Understanding data table structure
+
+Understanding the content and structure of the data you are using is a critical prerequisite to analysis. In this book, we focus on tabular, structured data like one might find in an Excel spreadsheet or relational database.^[Other types of data that one might encounter in the wild include free text, JSON, spatial data, and more. However, many of these require either more advanced analysis techniques or structuring that converts them into tabular data, so they are out of the scope of this discussion.] 
+
+In particular, many tools work best with what R developer Hadley Wickham descibes as "tidy data" [@wickham_tidy]. Namely:
+
+1. Each variable forms a column
+1. Each observation forms a row
+1. Each type of observational unit forms a table
+
+This is analogous to how one generally finds data arranged in a database and how statisticians are used to conceptualizing it. For example, the design matrix of a linear model consists of one column of data for each independent variable to be included in the model and one row for each observation.^[When data is arrange this way in a matrix $X$, linear regression coefficients can be computed as $\beta = (\mathbf{X}^\intercal\mathbf{X})^{-1}\mathbf{X}^\intercal \mathbf{y}$]
+
+
+
+
+Tidy data [@wickham_tidy]
+
+Things you need to know:
+
+- Data **columns**/**variables** - what do they mean (don't assume from name!)
+- Field **encodings** - what do subfields mean and what are their limits?
+- Data **rows** - what is a unique observation? 
+- Data **granularity** - when is it refreshed? How deep does it look when it's refreshed?
+
+Strategies:
+
+- Data dictionaries
+- Business rule checks
+- Consult with experts
+
+## The meaning of a row
+
+Often, data comes with an accompanying data dictionary to describe the meaning of each variable (column). However, for some reason, describing what constitutes an observation (row) is less common practice. This may seem obvious. In two of R's most popular built-in datasets, `iris` and `mtcars`, it's somewhat evident from context that each row represents one flower or one car. 
+
+However, sometimes trying to glean this information from context alone can be misleading. Imagine, for example, that we want to calculate the rate of successful log-ins to our e-commerce website.
+
+
+```
+## Warning: package 'tidyr' was built under R version
+## 4.0.3
+```
+
+
+```r
+summarize(logins, PROP_LOGIN = mean(IND_LOGIN))
+```
+
+```
+## # A tibble: 1 x 1
+##   PROP_LOGIN
+##        <dbl>
+## 1        0.4
+```
+
+```r
+logins %>%
+  group_by(ID_ACCT) %>% 
+  summarize(IND_LOGIN = max(IND_LOGIN)) %>%
+  ungroup() %>% 
+  summarize(PROP_LOGIN = mean(IND_LOGIN))
+```
+
+```
+## `summarise()` ungrouping output (override with `.groups` argument)
+```
+
+```
+## # A tibble: 1 x 1
+##   PROP_LOGIN
+##        <dbl>
+## 1        0.6
+```
+
+## The many forms of null
+
+Frequently, real-world data sets suffer from at least some missing values. This missing data can cause complex computational and analytical challenges. Considering why one's data is missing and how such missing is encoded is critical before attempting an analysis.
+
+It's tempting to think of missingness as a binary status: either a datum exists or it does not. However, missingness can arise from a number of different situations -- each with its own unique computational and analytical challenges. For example, in a tabular data representation, a variable (column) for an observation (row) might appear to be missing because:
+
+- There exists a true value for that variable and entity but it is unknown
+- There is no relevant value for that variable
+- The relevant value for that variable *is* null
+
+For example, consider the `registrations` dataset with data on users that have created an account at an online e-commerce platform:
+
+- Users might be asked but not required to provide their date of birth; so, while every user *has* a birthday, only those that provide it would have a value for this field. Those that do not would be encoded as a `NULL`; (could also be only started collecting after certain dates, at a certain set of stores, data load error)
+- We might also wish to record for mobile users if they were on an Android or and iPhone device when they registered. However, for users registering from a computer, there is no relevant value for this field. 
+- Often, retailers want to attribute user traffic to different forms of advertising, so we might also have a field for the URL that directed users to our site. However, for users that truly typed in the URL directly and did not come through an affiliate link, the "true value" of the referring site is `NULL`. (Admittedly, there is significant overlap in the second two cases.)
+
+Just as there are many potential causes for missingness in our data, there can often be many potential *encodings* of missingness.
+
+The **naniar** package [@R-naniar] \index{R package!naniar}
+
+Talk about encoding as like 9999
+
+R has `NA`, `NaN`, `Inf`, `NULL`, and typed `NA`s
+
+While this section focuses on the computational challenges of null values, no discussion of missingness would be complete without also mentioning the analytical consequences as well. Many statistical techniques such as linear regression are unable to accept null values in their inputs, so an analyst must somehow confront missingness before passing their data to the algorithm. Broadly speaking, analysts must either remove missing values or replace them with a proxy imputed value. There is a rich literature on missingness beyond the scope of this book, but briefly speaking this choice can be guided by the following framework. 
+
+These different types of missingness must be handled differently because they insert different biases into our data. Someone (TODO: who and add citiation) classifies the level of missingness as:
+
+- Missing Completely at Random (MCAR): TODO: finish defining these
+- Missing at Random (MAR):
+- Missing not a Random (MNAR):
+
+Comparing these categories to the examples above, 
+
+Literature about imputation; mention **mice** package (???)
+
+One example of this is evident in the US Census Bureau's Medical Expenditure Panel Survey which uses the following reserved codes to denote different types of missingness. (TODO p10 https://www.meps.ahrq.gov/data_stats/download_data/pufs/h206a/h206adoc.pdf)
+
+- -1 INAPPLICABLE Question was not asked due to skip pattern
+- -7 REFUSED Question was asked and respondent refused to answer question
+- -8 DK Question was asked and respondent did not know answer
+- -14 NOT YET TAKEN/USED Respondent answered that the medicine has not yet been used
+- -15 CANNOT BE COMPUTED Value cannot be derived from data
+
+## Null value aggregation
+
+As we've seen, null values in our data can mean many different things and be represented in many different ways. However, even once we have locked down the *semantic* meaning of nulls in our data and considered alternatives for their *encoding*, these values may still cause *computational* challenges.^[This problem is not isolated to data analysis tools. For an entertaining example, see the 2019 WIRED article "How a 'NULL' License Plate Landed One Hacker in Ticket Hell" [@barrett] which a real-world software system producing unintended and undesirable behavior when asked to deal with a word `'NULL'`.] How null values are handled in the simple aggregation of data varies both across different languages and across different functions within a language. To better understand the problems this might cause, we will look at examples in R and SQL.
+
+First, consider the `registration` data set. To compute the average amount spent (`AMT_SPEND`) with the `dplyr` package, an analyst might first reasonably write the following `summarize()` statement. However, as we can see, due to the presence of null values within the `AMT_SPEND` column, the result of this aggregation is for the whole quantiaty of `AVG_SPEND` to be set to the value `NA`. 
+
+
+```r
+summarize(registration, AVG_SPEND = mean(AMT_SPEND))
+```
+
+```
+##   AVG_SPEND
+## 1        NA
+```
+
+A glance at the documentation for the `mean()` function reveals that it has an `na.rm` parameter which, when set to true, removes null values from our dataset. Adding this argument to the previous statement allows us to reach a numerical answer.
+
+
+```r
+summarize(registration, 
+          AVG_SPEND = mean(AMT_SPEND, na.rm = TRUE))
+```
+
+```
+##   AVG_SPEND
+## 1     48.57
+```
+
+However, is this the *right* numerical answer? What `na.rm = TRUE` does is *drop* the null values from the set of numbers being averaged. However, suppose the null values represent that no purchases were made. That is, zero dollars were spent. In effect, we have removed all non-purchasers from the data being averaged. 
+
+More precisely, we have switched from taking the average
+
+\[ \frac{ \sum_{1}^{n} Spend }{\sum_{1}^{n} 1} \] over all $n$ customers
+
+to taking the average
+
+\[ \frac{ \sum_{Spend > 0} Spend }{\sum_{Spend > 0} 1} \] over only those customers with spend
+
+At face value, we could say that the code above is giving the incorrect answer; by dropping some low (zero) purchase amounts, the average amount spend per customer is inflated. A second and even more troubling perspective is that this tiny change to the code which seemed like a reasonable attempt to fix an *obvious* problem has introduced a *non-obvious* problem by fundamentally changing the question that we are asking. By dropping all accounts from our table who made no purchases, we are no longer answering "What is the average amount spent by a new registrant?" but rather "What is the average amount spent by an actively engaged customer?" This technical quirk has significant analytical impact.
+
+To answer the real question at hand, we would instead have a couple of options. We could `sum()` the amount spent with the option to drop nulls but then divide by the correct denominator (all observations -- not just those with spend) or we could explicitly recode null values in `AMT_SPEND` to zero before taking the average. This leads to a lower but correct conclusion.
+
+
+```r
+summarize(registration,
+    AVG_SPEND_v1 = sum(AMT_SPEND, na.rm = TRUE) / n(),
+    AVG_SPEND_v2 = mean(ifelse(is.na(AMT_SPEND), 0, AMT_SPEND))
+  )
+```
+
+```
+##   AVG_SPEND_v1 AVG_SPEND_v2
+## 1           34           34
+```
+
+This is all well and good if we could just accept that the behaviors above are simply how nulls work, but further complexity comes as we see that there is no industry standard across tools. For example, as the SQL code below shows, SQL's `avg()` function behaves more like R's `mean()` *with* the `na.rm = TRUE` option set. That is, the default behavior of SQL is to only operate on the valid and available values. 
+
+
+```sql
+SELECT avg(amt_spend) 
+FROM registration
+```
+
+
+```
+##   avg(amt_spend)
+## 1          48.57
+```
+
+However, this is not to suggest that null values cannot also be destructive in SQL. While aggregation functions (which compute across a *row*) like `sum()` and `avg()` drop nulls, operators like `+` and `-` working *across columns* in the *same row* do not exhibit the same behavior. Consider, for example, if we wish to calculate the average net purchase amount (purchases minus returns) instead of the gross (total) purchase amount. 
+
+
+```sql
+SELECT avg(amt_spend-amt_return) 
+FROM registration
+```
+
+
+```
+##   avg(amt_spend-amt_return)
+## 1                        NA
+```
+
+Despite what we learned above about the `avg()` function, the query above returns only a null value. What has happened? In our `registration` data set, the `amt_return` column is completely null (representing no returns). Because the subtraction occurs before the average is taken, subtracting real numbers in `amt_spend` with null values in `amt_return` creates a column of all null values which are then fed into the `avg()` function. This process is shown step-by-step below.
+
+
+```sql
+SELECT
+  amt_spend, 
+  amt_return, 
+  amt_spend-amt_return 
+FROM registration
+```
+
+
+```
+##    AMT_SPEND AMT_RETURN amt_spend-amt_return
+## 1         10         NA                   NA
+## 2         20         NA                   NA
+## 3         30         NA                   NA
+## 4         40         NA                   NA
+## 5         50         NA                   NA
+## 6         NA         NA                   NA
+## 7         NA         NA                   NA
+## 8         NA         NA                   NA
+## 9         90         NA                   NA
+## 10       100         NA                   NA
+```
+
+## Null value filtering
+
+`dplyr` excludes `NA`s in `filter`
+
+
+```r
+data.frame(x = c(1, 0, NA)) %>%
+  filter(x != 1)
+```
+
+```
+##   x
+## 1 0
+```
+
+`SQL` excludes `NA`s in `WHERE`
+
+
+```sql
+select *
+from registration
+where amt_spend != 10
+```
+
+
+```
+##   ID_CUSTOMER CD_DEVICE AMT_SPEND AMT_RETURN
+## 1           2         1        20         NA
+## 2           3         1        30         NA
+## 3           4         2        40         NA
+## 4           5         2        50         NA
+## 5           9         3        90         NA
+## 6          10         3       100         NA
+```
+
+```
+import pandas as pd
+d = {'col1': [1, None], 'col2': [3, 4]}
+df = pd.DataFrame(data=d)
+df
+df.query('col1 > 0')
+df[df['col1'] > 0]
+```
+
+## Encoding with defaults
+
+Often, to faciliate an analysis, we wish to **recode** variables from one form to another. There are many reasons we might wish to recode variables. Sometimes, our data may be represented with system-generated codes that obscure the context-specific meaning of fields. For example, if you are analyzing US Census data, it might identify different regions by their FIPS code while a human might prefer to see the actual name of a state or a county. In other cases, we wish to recode fields in order to change their level of granularity. For example, we might wish to group categories such as "apple", "banana", and "orange" into the "fruit" category.
+
+Common functions for recoding include `base::ifelse`\index{base!ifelse}\index{R!ifelse}, `dplyr::if_else`\index{dplyr!if\_else}\index{R!if\_else}, and `dplyr::case_when`\index{dplyr!case\_when}\index{R!case\_when} in R and `CASE` statements in SQL\index{SQL!case}. Generally, all of these work by:
+
+- specifying one or more logical conditions based on other column(s) in the dataset
+- for each logical condition, specifying the new value that the variable should take
+- if none of the conditions are met, providing a default value
+
+However, analysts may often take on slight short-cut
+
+
+```r
+registration <-
+mutate(registration,
+       CAT_DEVICE = case_when(
+         CD_DEVICE == 1 ~ "IOS",
+         TRUE ~ "Android"
+       )
+       )
+
+registration %>%
+  group_by(CAT_DEVICE) %>%
+  count()
+```
+
+```
+## # A tibble: 2 x 2
+## # Groups:   CAT_DEVICE [2]
+##   CAT_DEVICE     n
+##   <chr>      <int>
+## 1 Android        7
+## 2 IOS            3
+```
+
+
+```r
+unique(registration$CD_DEVICE)
+```
+
+```
+## [1] 1 2 3
+```
+
+
+```r
+registration <- 
+  mutate(registration, 
+         IND_SMALL_PURCH = case_when(
+           AMT_SPEND < 50 ~ 1,  
+           TRUE ~ 0)
+         )
+                       
+registration %>%
+  group_by(IND_SMALL_PURCH) %>%
+  count()
+```
+
+```
+## # A tibble: 2 x 2
+## # Groups:   IND_SMALL_PURCH [2]
+##   IND_SMALL_PURCH     n
+##             <dbl> <int>
+## 1               0     6
+## 2               1     4
+```
+
+```r
+registration <-
+  mutate(registration, 
+         IND_SMALL_PURCH = if_else(AMT_SPEND < 50, 1, 0))
+                       
+registration %>%
+  group_by(IND_SMALL_PURCH) %>%
+  count()
+```
+
+```
+## # A tibble: 3 x 2
+## # Groups:   IND_SMALL_PURCH [3]
+##   IND_SMALL_PURCH     n
+##             <dbl> <int>
+## 1               0     3
+## 2               1     4
+## 3              NA     3
+```
+
+## Working with strings
+
+## Data Types - Max
+
+
+```r
+any(
+  "a" == "A",
+  " a" == "a",
+  "a " == "a",
+  "a  b" == "a b",
+  "‘z’" == "'z'"
+)
+```
+
+```
+## [1] FALSE
+```
+
+
+```r
+max(c("20200101", "20190301"))
+```
+
+```
+## [1] "20200101"
+```
+
+```r
+max(c("03012019", "01012020"))
+```
+
+```
+## [1] "03012019"
+```
+
+```r
+max(c("120","99"))
+```
+
+```
+## [1] "99"
+```
+
+```r
+max(c("120","099"))
+```
+
+```
+## [1] "120"
+```
+
+```r
+max(c(120,99))
+```
+
+```
+## [1] 120
+```
+
+```r
+max(c(120,099))
+```
+
+```
+## [1] 120
+```
+
+
+```sql
+select 
+  max('20200101', '20190301'),
+  max('01012020', '03012019'),
+  max('120','99'),
+  max('120','099'),
+  max(120,99),
+  max(120,099)
+```
+
+
+<div class="knitsql-table">
+
+
+Table: (\#tab:unnamed-chunk-76)1 records
+
+|max('20200101', '20190301') |max('01012020', '03012019') |max('120','99') |max('120','099') | max(120,99)| max(120,099)|
+|:---------------------------|:---------------------------|:---------------|:----------------|-----------:|------------:|
+|20200101                    |03012019                    |99              |120              |         120|          120|
+
+</div>
+
+
+```python
+max(["20200101", "20190301"])
+```
+
+```
+## '20200101'
+```
+
+```python
+max(["03012019", "01012020"])
+```
+
+```
+## '03012019'
+```
+
+```python
+max(["120","99"])
+```
+
+```
+## '99'
+```
+
+```python
+max(["120","099"])
+```
+
+```
+## '120'
+```
+
+```python
+max([120,99])
+#max([120,099]) Python won't allow leading zeros on integers
+```
+
+```
+## 120
+```
+
+## Data Types - Equality
+
+
+```r
+"2020" == 2020
+```
+
+```
+## [1] TRUE
+```
+
+```r
+"02020" == 2020
+```
+
+```
+## [1] FALSE
+```
+
+
+```sql
+select 
+  '2020' == 2020,
+  '02020' == 2020,
+  cast('2020' as numeric) == 2020,
+  cast('2020' as integer) == 2020
+```
+
+
+<div class="knitsql-table">
+
+
+Table: (\#tab:unnamed-chunk-79)1 records
+
+| '2020' == 2020| '02020' == 2020| cast('2020' as numeric) == 2020| cast('2020' as integer) == 2020|
+|--------------:|---------------:|-------------------------------:|-------------------------------:|
+|              0|               0|                               1|                               1|
+
+</div>
+
+
+```python
+"2020" == 2020
+```
+
+```
+## False
+```
+
+```python
+"02020" == 2020
+```
+
+```
+## False
+```
+
+`python 1+1`
+
+## Working with dates and times
+
+### Many different formats
+
+- YYYYMMDD
+- MMDDYYYY
+- MM/DD/YYYY
+- MM/DD/YY
+- DDMMYYYY
+- DD/MM/YYYY
+
+### Timestamps versus dates
+
+
+```r
+today <- as.Date(Sys.Date()) 
+now <- as.POSIXct(Sys.time(), "America/New_York")
+today == now
+```
+
+```
+## Warning: Incompatible methods ("Ops.Date",
+## "Ops.POSIXt") for "=="
+```
+
+```
+## [1] FALSE
+```
+
+```r
+today > now
+```
+
+```
+## Warning: Incompatible methods ("Ops.Date",
+## "Ops.POSIXt") for ">"
+```
+
+```
+## [1] FALSE
+```
+
+```r
+today < now
+```
+
+```
+## Warning: Incompatible methods ("Ops.Date",
+## "Ops.POSIXt") for "<"
+```
+
+```
+## [1] TRUE
+```
+
+
+```python
+from datetime import date
+from datetime import datetime
+
+today = date.today()
+now = datetime.now()
+today == now
+```
+
+```
+## False
+```
+
+```python
+today < now
+```
+
+```
+## Error in py_call_impl(callable, dots$args, dots$keywords): TypeError: can't compare datetime.datetime to datetime.date
+## 
+## Detailed traceback:
+##   File "<string>", line 1, in <module>
+```
+
+```python
+today > now
+```
+
+```
+## Error in py_call_impl(callable, dots$args, dots$keywords): TypeError: can't compare datetime.datetime to datetime.date
+## 
+## Detailed traceback:
+##   File "<string>", line 1, in <module>
+```
+
+```python
+today_str = today.strftime('%Y-%m-%d')
+now_str = now.strftime('%Y-%m-%d %H:%M:%S')
+today_str == now_str
+```
+
+```
+## False
+```
+
+```python
+today_str < now_str
+```
+
+```
+## True
+```
+
+```python
+today_str > now_str
+```
+
+```
+## False
+```
+
+## Assessing equality
+
+Automatic conversion of data types
+Dates versus timestamps 
+
+
+```r
+df_dt <-
+data.frame(
+  DT_ENROLL = as.Date("2020-01-01"),
+  DT_PURCH  = 20200101,
+  DT_LOGIN  = as.POSIXlt("2020-01-01T12:00:00") 
+  )
+```
+
+
+```r
+filter(df_dt, DT_ENROLL == DT_PURCH) %>% nrow()
+```
+
+```
+## [1] 0
+```
+
+
+```r
+sqldf("select * from df_dt where DT_ENROLL = DT_PURCH")
+```
+
+```
+## [1] DT_ENROLL DT_PURCH  DT_LOGIN 
+## <0 rows> (or 0-length row.names)
+```
+
+
+```r
+as.numeric(df_dt$DT_ENROLL)
+```
+
+```
+## [1] 18262
+```
+
+
+```r
+sqldf("select cast(DT_ENROLL as integer) from df_dt")
+```
+
+```
+##   cast(DT_ENROLL as integer)
+## 1                      18262
+```
+
+Note this this can affect both filters and joins
+
+## Merging mayhem
+
+## Order of operations
+
+
+```r
+1 + 1  * 2 / 3 - 1
+```
+
+```
+## [1] 0.6667
+```
+
+```r
+(1 + 1) * 2 / 3 - 1
+```
+
+```
+## [1] 0.3333
+```
+
+```r
+1 + 1 * 2 / (3 - 1)
+```
+
+```
+## [1] 2
+```
+
+
+## Modifying versus copying
+
+<img src="figures/comp-quan/ref-val.png" width="90%" style="display: block; margin: auto;" />
+
+In Python
+
+
+```python
+x = [1,2,3]
+y = x
+y.append(4)
+print(y)
+```
+
+```
+## [1, 2, 3, 4]
+```
+
+```python
+print(x)
+```
+
+```
+## [1, 2, 3, 4]
+```
+
+
+```python
+z = x.copy()
+z.append(5)
+print(z)
+```
+
+```
+## [1, 2, 3, 4, 5]
+```
+
+```python
+print(x)
+```
+
+```
+## [1, 2, 3, 4]
+```
+
+In R
+
+
+```r
+library(data.table)
+```
+
+```
+## 
+## Attaching package: 'data.table'
+```
+
+```
+## The following objects are masked from 'package:dplyr':
+## 
+##     between, first, last
+```
+
+```r
+DT <- data.table(a=c(1,2), b=c(11,12))
+print(DT)
+```
+
+```
+##    a  b
+## 1: 1 11
+## 2: 2 12
+```
+
+```r
+newDT <- DT        # reference, not copy
+newDT[1, a := 100] # modify new DT
+
+print(DT)          # DT is modified too.
+```
+
+```
+##      a  b
+## 1: 100 11
+## 2:   2 12
+```
+
+```r
+DT = data.table(a=c(1,2), b=c(11,12))
+newDT <- DT        
+newDT$b[2] <- 200  # new operation
+newDT[1, a := 100]
+
+print(DT)
+```
+
+```
+##    a  b
+## 1: 1 11
+## 2: 2 12
+```
+
+From https://stackoverflow.com/questions/10225098/understanding-exactly-when-a-data-table-is-a-reference-to-vs-a-copy-of-another
+
+
+## Assuming that "Tool Knows Best"
+
+A theme throughout this book is the fundamentally *social* nature of data analysis. Data analysis is fraught without understanding the countless decisions made along the way by those who generated it (whose data is reflected), those who collected it, those who migrated it, and those who have posed questions of it. On one hand, this is a beautiful aspect of analysis; on the other hand, it means that analysts and their analyses are subject to all of the cognitive and social psychological biases of everyday humans.
+
+One such bias is "social proof": assuming that if a tool behaves a certain way, it must be because it is correct. 
+
+Assuming that our tools know best is admittedly an attractive proposition. It appeals to a desire to think that someone, somewhere is "in charge" and, perhaps more critically, helps us avoid a domino effect of distrust (If we *don't* trust our tools how can we trust our results? And if we can't trust our results, how can we trust anything at all?) Unfortunately, there are many reasons are tools might not know best. For example, the tool's developer might have:
+
+- Made a mistake
+- Had a different analysis problem in mind with a different optimal approach
+- Been optimizing for a different constraint (e.g. explainability vs. accuracy, speed vs. theoretical properties)
+- Come from a community with different norms
+- Been affording users the flexibility to do things many ways even if they don't agree
+- Built a certain feature for a different purpose than how you are using it
+- Not thought about it at all
+
+As a few concrete examples from popular open source tools. We'll look briefly at the prominent python library `scikitlearn` for machine learning and Apache Spark, an engine for large-scale distributed data processing.
+
+### Defaults in `scikitlearn`
+
+`scikitlearn`'s default behavior for logistic regression modeling^[A classic modeling technique for predicting binary (yes/no) outcomes] automatically applies L2 regularization. You might or might not know what this means, and you might or might not want to apply it to your problem. That's fine. The important thing is that it *will* change your estimates and predictions, and it is *not* a part of the classical definition of that algorithm (for modelers coming from a statistical background.) 
+
+Of course, there's nothing inherently wrong about this choice; the library authors just had different goals than a typical statistical. `scikitlearn` developer Olivier Grisel explains [on Twitter](https://twitter.com/ogrisel/status/1167438229655773186?s=20) that this choice (and others in the library) is explained because "Scikit-learn was always designed to make it easy to get good predictive accuracy (eg as measured by CV) rather than as statistical inference library." Additionally, this choice is documented in bold [in the function documentation](https://scikit-learn.org/stable/modules/generated/sklearn.linear_model.LogisticRegression.html). 
+
+However, an analyst could easily miss this nuance if they do not *read* the documentation. Or, if they *misinterpret* this choice as social proof that regularization is always the right approach, they might not make the best choice for their own analysis.
+
+### Algorithms in `Spark`
+
+For example, according to a 2015 [Jira ticket](https://issues.apache.org/jira/browse/SPARK-5133), developers of Spark considered multiple methodologies they could use when adding the functionality to compute feature importance for a random forest. Ultimately, a core contributor advised against permutation importance due to its computational cost. 
+
+<img src="figures/comp-quan/spark-jira.PNG" width="90%" style="display: block; margin: auto;" />
+
+Clearly, no one wants a workflow that is too costly or timely to run. So, once again, there is no right or wrong. However, since every approach to feature importance has its own biases, pitfalls, and challenges in interpretation, it's a mistake for an end-user to not carefully understand which algorithm is used and why.
+
+## Inefficient processing
+
+
+```r
+n <- 1000000
+x1 = 1:n
+x2 = 1:n
+
+start_time <- Sys.time()
+for (i in 1:n) {
+  x1[i] = x1[i] + 1
+}
+end_time <- Sys.time()
+t_for <- end_time - start_time
+
+start_time <- Sys.time()
+x2 = x2 + 1
+end_time <- Sys.time()
+t_vec <- end_time - start_time
+
+t_for
+```
+
+```
+## Time difference of 0.2111 secs
+```
+
+```r
+t_vec
+```
+
+```
+## Time difference of 0.01099 secs
+```
+
+```r
+as.numeric(t_for)/as.numeric(t_vec)
+```
+
+```
+## [1] 19.2
+```
+
+
+```python
+import numpy as np
+import time
+
+n = 1000000
+x1 = list(range(n))
+x2 = np.array(x1)
+
+t0 = time.time()
+for i in range(n):
+  x1[i] += 1
+t1 = time.time()
+t_for = t1-t0
+
+t0 = time.time()
+x2 += 1
+t1 = time.time()
+t_vec = t1-t0
+
+t_for
+```
+
+```
+## 0.38016366958618164
+```
+
+```python
+t_vec
+```
+
+```
+## 0.029007434844970703
+```
+
+```python
+t_for / t_vec
+```
+
+```
+## 13.105732086203211
+```
+
+
+
+## Strategies
+
+- Read the documentation
+- Talk to experts
+- Look at examples
+- Try corner cases 
+- Write unit tests (have your computer try corner cases for you)
+  + **testthat** R Package [@R-testthat]
+  + **assertr** R package [@R-assertr]
+  + **pointblank** R package [@R-pointblank]
+
+
+
+-->
+
+</div>
+</div>
+
+
+
+
+  <div class="chapter-nav">
+<div class="prev"><a href="data-dall.html"><span class="header-section-number">2</span> Data Dalliances</a></div>
+<div class="next"><a href="eg-agg.html"><span class="header-section-number">4</span> Egregious Aggregations</a></div>
+</div></main><div class="col-md-3 col-lg-2 d-none d-md-block sidebar sidebar-chapter">
+    <nav id="toc" data-toggle="toc" aria-label="On this page"><h2>On this page</h2>
+      <ul class="nav navbar-nav">
+<li><a class="nav-link" href="#comp-quan"><span class="header-section-number">3</span> Computational Quandaries</a></li>
+<li>
+<a class="nav-link" href="#preliminaries---data-computation"><span class="header-section-number">3.1</span> Preliminaries - Data Computation</a><ul class="nav navbar-nav">
+<li><a class="nav-link" href="#single-table-operations"><span class="header-section-number">3.1.1</span> Single Table Operations</a></li>
+<li><a class="nav-link" href="#multiple-table-operations"><span class="header-section-number">3.1.2</span> Multiple Table Operations</a></li>
+<li><a class="nav-link" href="#mechanics"><span class="header-section-number">3.1.3</span> Mechanics</a></li>
+</ul>
+</li>
+<li>
+<a class="nav-link" href="#null-values"><span class="header-section-number">3.2</span> Null Values</a><ul class="nav navbar-nav">
+<li><a class="nav-link" href="#types-of-null-values"><span class="header-section-number">3.2.1</span> Types of Null Values</a></li>
+<li><a class="nav-link" href="#aggregation"><span class="header-section-number">3.2.2</span> Aggregation</a></li>
+<li><a class="nav-link" href="#comparison"><span class="header-section-number">3.2.3</span> Comparison</a></li>
+</ul>
+</li>
+<li><a class="nav-link" href="#dates-and-times-todo"><span class="header-section-number">3.3</span> Dates and Times (TODO)</a></li>
+<li><a class="nav-link" href="#strings-todo"><span class="header-section-number">3.4</span> Strings (TODO)</a></li>
+<li><a class="nav-link" href="#encoding-choices-todo"><span class="header-section-number">3.5</span> Encoding Choices (TODO)</a></li>
+<li><a class="nav-link" href="#order-of-operations-todo"><span class="header-section-number">3.6</span> Order of Operations (TODO)</a></li>
+<li><a class="nav-link" href="#object-references-todo"><span class="header-section-number">3.7</span> Object References (TODO)</a></li>
+<li>
+<a class="nav-link" href="#trusting-tools"><span class="header-section-number">3.8</span> Trusting Tools</a><ul class="nav navbar-nav">
+<li><a class="nav-link" href="#defaults-in-scikitlearn"><span class="header-section-number">3.8.1</span> Defaults in scikitlearn</a></li>
+<li><a class="nav-link" href="#algorithms-in-spark"><span class="header-section-number">3.8.2</span> Algorithms in Spark</a></li>
+</ul>
+</li>
+<li><a class="nav-link" href="#strategies-todo-1"><span class="header-section-number">3.9</span> Strategies (TODO)</a></li>
+</ul>
+
+      <div class="book-extra">
+        <ul class="list-unstyled">
+<li><a id="book-source" href="https://github.com/emilyriederer/data-disasters/blob/master/comp-quan.Rmd">View source <i class="fab fa-github"></i></a></li>
+          <li><a id="book-edit" href="https://github.com/emilyriederer/data-disasters/edit/master/comp-quan.Rmd">Edit this page <i class="fab fa-github"></i></a></li>
+        </ul>
+</div>
+    </nav>
+</div>
+
+</div>
+</div> <!-- .container -->
+
+<footer class="bg-primary text-light mt-5"><div class="container"><div class="row">
+
+  <div class="col-12 col-md-6 mt-3">
+    <p>"<strong>Data Disasters</strong>" was written by Emily Riederer. It was last built on 2021-07-31.</p>
+  </div>
+
+  <div class="col-12 col-md-6 mt-3">
+    <p>This book was built by the <a class="text-light" href="https://bookdown.org">bookdown</a> R package.</p>
+  </div>
+
+</div></div>
+</footer><!-- dynamically load mathjax for compatibility with self-contained --><script>
+  (function () {
+    var script = document.createElement("script");
+    script.type = "text/javascript";
+    var src = "true";
+    if (src === "" || src === "true") src = "https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-MML-AM_CHTML";
+    if (location.protocol !== "file:")
+      if (/^https?:/.test(src))
+        src = src.replace(/^https?:/, '');
+    script.src = src;
+    document.getElementsByTagName("head")[0].appendChild(script);
+  })();
+</script>
+</body>
+</html>
