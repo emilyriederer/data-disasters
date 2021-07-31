@@ -1,0 +1,40 @@
+\mainmatter
+
+# Introduction
+
+Statistics is not synonymous with data analysis; rigor vs practicality 
+
+"Evaluating the Success of a Data Analysis" [@hicks2019evaluating]
+
+"Data Alone is not Ground Truth" [@bassa_2017]
+
+## What is data?
+
+Data is...
+
+## What is analysis?
+
+Analysis is the process of turning information into insight. 
+
+## What is data analysis?
+
+Data analysis altogether is...
+
+## A case study 
+
+Now unplug your Internet cable, and start doing some serious work.
+
+We have a nice figure in Figure \@ref(fig:hello), and also a table in Table \@ref(tab:iris).
+
+```{r hello, fig.cap='Hello World!', out.width='90%'}
+par(mar = c(4, 4, 1, .1))
+plot(cars, pch = 19)
+```
+
+```{r iris}
+knitr::kable(
+  head(iris), caption = 'The boring iris data.',
+  booktabs = TRUE
+)
+```
+

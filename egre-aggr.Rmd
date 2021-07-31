@@ -1,0 +1,296 @@
+# (PART\*) Analysis {-} 
+
+# Egregious Aggregations {#eg-agg}
+
+Once armed with an understanding of the data and tools available for analysis, a common start to analysis is exploring data with *aggregation*. 
+At its heart, any sort of data analysis is the process of condensing raw data into something more manageable and useful while giving up as little of the information as possible.
+
+Many elementary tools for this task are much better at the comprehension task than the preservation one. 
+We learn rigorous assumptions to consider and validate when studying linear regression, but basic arithmetic aggregation presents itself as agnostic and welcome to any type of data. 
+However, the underlying distributions of our variables and the relationships between them have a significant impact on the how informative and interpretable various summarizations are.
+
+In this chapter, we will explore different ways that univariate and multivariate aggregations can be naive or uninformative.
+
+## Averages 
+
+### Averaging skewed data
+
+Arithmetic average versus colloquial meaning of average as "typical" 
+
+Skewed data
+
+Multimodal data / mixture models
+
+### No "average" observation
+
+In the previous section, the average represented a point in the relevant data *range* even if it was not perhaps the one most representative of a "typical" observation. 
+We discussed how in some situations this quantity may be a reasonable answer to certain types of questions and an aid for certain types of decisions. 
+
+However, when we seek an average *profile* over multiple variables, the problems of averages are further compounded. 
+We may end up with a set of "average" summary statistics that are not representative of any part of our population.
+
+To see this, let's assume we are working with data for a company with a subscription business model. 
+We might be interested in profiling the age of each account (how long they have been a subscriber) and their activity (measured by amount spent on an e-commerce platform, files downloaded on a streaming service, etc.)
+
+The following code simulates a set of observations: 
+80% of accounts are between 0 to 3 years in age and have an average activity level of 100 while 20% of accounts are older than 3 years in age and have an average activity level of 500.
+(Don't over-think the specific probability distributions lived here. 
+We are concerned with interrogating the properties of the average and not with simulating a realistic data generating process. 
+Giving ourselves permission to be wrong or "lazy" about unimportant things gives us more energy to focus on what matters.)
+
+```{r}
+set.seed(123)
+
+# define simulation parameters ----
+## n: total observations
+## p: proportion of observations in group 1
+n <- 5000
+p <- 0.8
+n1 <- n*p
+n2 <- n*(1-p)
+
+# generate fake dataset with two groups ----
+df <- 
+  data.frame(
+    age = c(runif(n1,   0,  3), runif(n2,   3, 10)),
+    act = c(rnorm(n1, 100, 10), rnorm(n2, 500, 10))
+  )
+```
+
+Figure \@ref(fig:multivar-avg) shows a scatterplot of the relationship between account age (x-axis) and activity level (y-axis).
+Meanwhile, the marginal rug plots shows the univariate distribution of each variable. 
+The sole red dot denotes the coordinates of the average age and average activity. 
+Notably, this dot exists in a region of "zero density";
+that is, it is not representative of *any* customer.
+Strategic decisions made with this sort of observation in mind as the "typical" might not be destined for success.
+
+```{r multivar-avg, echo = FALSE, fig.cap = 'A scatterplot of two variables and their averages'}
+library(dplyr)
+library(ggplot2)
+
+summ <- summarize_at(df, vars(age, act), mean)
+
+ggplot(data = df, aes(age, act)) + 
+  geom_point() +
+  geom_rug(alpha = 0.2) +
+  geom_point(data = summ, col = "red") +
+  theme_minimal()
+```
+
+### The product of averages 
+
+As the above example shows, averages of multivariate data can produce poor summaries -- particularly when these variables are interrelated^[We intentionally avoid the word *correlated* here to emphasize the fact that *correlation* refers more strictly to linear relationships].
+
+A second implication of this observation is that deriving additional computations based on pre-averaged numbers is likely to obtain inaccurate results. 
+
+For example, consider that we wish to estimate the average dollar amount of returns per any e-commerce order.
+Orders may generally be a mixture of low-price orders (around \$50 on average) and high-price orders (around \$250 on average). 
+Low-price orders may have a 10% probability of being returned while high price orders have a 20% probability.
+(Again, are these numbers, distributions, or relationships hyper-realistic? 
+Not at all. 
+However, once again we are telling ourselves a story just to reason about numerical properties, so we have to give ourselves permission to not focus on irrelevant details.)
+
+```{r}
+set.seed(123)
+
+# define simulation parameters ----
+## n: observations per group
+## pr[1|2]: mean price per group
+n <- 100
+pr1 <- 50
+pr2 <- 250
+pr_sd <- 5
+re1 <- 0.1
+re2 <- 0.2
+
+# simulate spend amounts and return indicatiors ----
+amt_spend  <- c(rnorm(n, pr1, pr_sd), rnorm(n, pr2, pr_sd))
+ind_return <- c(rbinom(n, 1, re1),    rbinom(n, 1, re2))
+
+# compute summary statistics ----
+average_of_product <- mean(amt_spend * ind_return)
+product_of_average <- mean(amt_spend) * mean(ind_return)
+```
+
+The *true* average amount returned across all of our orders is `r average_of_product` (from the `average_of_product` variable). 
+However, if instead we already knew an average spend amount and an average return proportion, we might be inclined to compute the `product_of_average` method which returns a value of `r product_of_average`. 
+(This is a difference of `r round(abs(average_of_product - product_of_average),2)` relative to an average purchase amount of `r round(mean(amt_spend,2))`.)
+
+At first, this may seem unintuitive until we write out the formulas and realize that these metrics are, in fact, two very different quantities:
+
+\[ \frac{ \sum_{1}^{n} Spend }{\sum_{1}^{n} 1} \ * \frac{ \sum_{1}^{n} I(Return) }{\sum_{1}^{n} 1} \] over all $n$ orders
+
+versus
+
+\[ \frac{\sum_{1}^{n} Spend * I(Return)}{\sum_{1}^{n} 1} \]
+
+If this still feels counterintuitive, we can see how much of the difference is accounted for by the interrelation between our two variables. 
+In the following code, we break the relationship between the variables by randomly reordering the `ind_return` variable so it is no longer has any true relationship to the corresponding `amt_spend` variable.
+
+```{r}
+# randomly reorder one of two variables to break relationships ----
+ind_return <- sample(ind_return, size = 200)
+
+# recompute variables ----
+average_of_product <- mean(amt_spend * ind_return)
+product_of_average <- mean(amt_spend) * mean(ind_return)
+```
+
+After redoing the calculations, we find that th two values are much closer. 
+`average_of_product` is now `r average_of_product` and `product_of_average` is now `r product_of_average`.
+These are notably still not the same number so that does not mean that these two equations are equivalent if variables are unrelated; 
+however, this second result once again illustrates the extent to which interrelations can defy our naive intuitions.
+
+## Ratios
+
+### Picking the right denominator
+
+### Sample size effects
+
+## Trends
+
+### "If trends continue..."
+
+### Seasonality 
+
+<!--
+
+## Trends
+
+### If trends continue
+
+Data analysis undoubtedly relies on assumptions, and the quality of the resulting analysis depends in a large part on how reasonable these assumptions are. However, our heuristics for assessing assumptions are sometimes lacking. Assumptions that are lengthy, complex, or jargon-filled may be perceived as less conservative than those simple and straightforward. Yet this is a bad measure for fidelity. One such example of a simple but poor assumption is operating under the premise of "if the current trends continue". 
+
+First, in the real world, this is rarely (if ever) the case. Complex, dynamic systems have feedback loops and constraints, and few natural systems^[whether they be the predator and prey of the Lotka-Volterra differential equations, the infected population of an epidemiolgical SIR model, or pricing dynamics of supply and demand] and trend unabated in the same direction. 
+
+Second, and perhaps event more critically, there is no singular, objective definiton of what the current "trend" of a dataset event is. To illustrate this \@ref(fig:lin-quad-cub) shows the fits of linear, quadratic, and cubic regressions on a set of data and its out-of-sample extrapolation. Even if we *believed* the premise that "trends will continue", the subjective determination of that thrend has massive implications on the resulting conclusions.
+
+```{r lin-quad-cub, fig.cap = "Plot of data extrapolated from linear, quadratic, and cubic fits"}
+library(ggplot2)
+
+n <- 300
+x <- runif(n)
+y <- c(x[1:100], x[101:200]**2, x[201:300]**3) + rnorm(n)
+
+ggplot(
+  data.frame(x = x, y = y),
+  aes(x, y)
+) +
+  geom_point() +
+  geom_smooth(method = "lm", formula = y ~ I(x**1), se = FALSE, fullrange = TRUE) +
+  geom_smooth(method = "lm", formula = y ~ I(x**2), se = FALSE, fullrange = TRUE) +
+  geom_smooth(method = "lm", formula = y ~ I(x**3), se = FALSE, fullrange = TRUE) +
+  geom_smooth(method = "lm", formula = y ~ I(x**4), se = FALSE, fullrange = TRUE) +
+  scale_x_continuous(limits = c(0,2)) 
+```
+
+
+<!--
+
+## Aggregating without visualizing
+
+The **datasauRus** R package [@R-datasauRus] \index{R package!datasauRus}
+
+## Believing in the "average" observation
+
+```{r}
+x <- rnorm(1000, 0, 5)
+y1 <- rnorm(1000, 10, 6)
+y2 <- 10 + x + rnorm(1000, 0, 1)
+y3 <- 10 + x + rlnorm(1000, 0, 1)
+cor(x,y1)
+cor(x,y2)
+(mx <- mean(x))
+(my1 <- mean(y1))
+(my2 <- mean(y2))
+(my3 <- mean(y3))
+  
+library(ggplot2)
+df <- data.frame(x=x,y=y1,y2=y2)
+gg1 <- ggplot(df, aes(x,y1)) + geom_bin2d() + geom_point(aes(mx,my1), col = 'red')
+gg2 <- ggplot(df, aes(x,y2)) + geom_bin2d() + geom_point(aes(mx,my2), col = 'red')
+gg3 <- ggplot(df, aes(x,y3)) + geom_bin2d() + geom_point(aes(mx,my3), col = 'red')
+
+x <- c(runif(700, 20, 50), runif(300, 50, 70))
+y <- x**3 + rnorm(1000)
+df <- data.frame(x=x,y=y)
+gg <- ggplot(df, aes(x,y)) + geom_bin2d() + geom_point(aes(mean(x), mean(y)), col = 'red')
+```
+
+
+
+## Product of averages
+
+```{r echo = FALSE}
+library(dplyr)
+library(tidyr)
+
+data_group1 <-
+  data.frame(ID_ACCT = 1:10,
+             N_TRANS = sample(1:10, size = 10, replace = TRUE, prob = 1:10)) %>%
+  uncount(N_TRANS) %>%
+  mutate(AMT_SPEND = rnorm(nrow(.), 500, 25))
+data_group2 <-
+  data.frame(ID_ACCT = 1:10,
+             N_TRANS = sample(1:10, size = 10, replace = TRUE, prob = 10:1)) %>%
+  uncount(N_TRANS) %>%
+  mutate(AMT_SPEND = rnorm(nrow(.), 100, 10))
+data <- bind_rows(data_group1, data_group2)
+```
+
+```{r }
+data %>%
+  summarize(
+    N_TRANS = n() / n_distinct(ID_ACCT),
+    AMT_SPEND = sum(AMT_SPEND) / n()
+  ) %>%
+  mutate(N_TRANS * AMT_SPEND)
+
+data %>%
+  group_by(ID_ACCT) %>%
+  summarize(N_TRANS = n(), AMT_SPEND = sum(AMT_SPEND) / n()) %>%
+  summarize_at(vars(N_TRANS, AMT_SPEND), mean) %>%
+  mutate(N_TRANS * AMT_SPEND)
+
+summarize(data, sum(AMT_SPEND) / n_distinct(ID_ACCT))
+```
+
+\[ \frac{ \sum_{1}^{n} Spend }{\sum_{1}^{n} 1} \ * \frac{ \sum_{1}^{n} Trips }{\sum_{1}^{n} 1} \] over all $n$ customers
+
+\[ \sum_{1}^{n} Spend \ * \sum_{1}^{n} Trips \]
+
+```{r}
+set.seed(123)
+amt_spend <- c(rnorm(10, 50, 5), rnorm(10, 250, 5))
+ind_return <- c(rbinom(10,1,0.1), rbinom(10,1,0.2))
+mean(amt_spend) * mean(ind_return)
+mean(amt_spend * ind_return)
+```
+
+
+
+## Understanding the denominator
+
+## Small sample sizes
+
+## Relying on the wrong summary metrics
+
+The paper "A Dirty Dozen: Twelve Common Metric Interpretation Pitfalls in Online Controlled Experiments" [@dmitriev_gupta_kim_vaz_2017]
+
+Article "Designing and evaluating metrics" [@taylor_2020]
+
+Problem with Metrics - https://arxiv.org/abs/2002.08512
+
+## Dichotomization
+
+## Ignoring trend
+
+## Ignoring seasonality
+
+## Ignoring panel structure
+
+## Correlation
+
+## Strategies
+
+-->

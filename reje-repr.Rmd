@@ -1,0 +1,25 @@
+# Rejecting Reproducibility {#reje-repr}
+
+<!--
+
+"Good Enough Practices in Computational Reproducibility" [@wilson_bryan_cranston_kitzes_nederbragt_teal_2017]
+
+"Opinionated Analysis Development" [@parker_2017]
+
+## Automating your personal assistant 
+
+## Looking before you leap
+
+## Organizing your files
+
+## Saving your work
+
+## Saving your environment
+
+The **renv** R package [@R-renv]
+
+## Working in public
+
+## Strategies
+
+-->

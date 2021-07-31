@@ -1,0 +1,17 @@
+# Alternative Algorithms {#alt-alg}
+
+As the consummate showman, P.T. Barnum is often quoted as saying "Leave them wanting more". Unfortunately, statistics professors have less of a flare for drama. Introductory statistics courses will typically introduce a few types of models (for example, linear and *perhaps* logistic regression), and that's a wrap. It's often until students start *taking* the subsequent courses that they are exposed to the true limitations of previous techniques and taught to demand more.
+
+This chapter attempts to flip that paradigm by briefly surveying a broad number of modeling techniques. The goal is not to go into all of the rigorous deals that one should understand to use these models. Instead, we hope to build a "mental toolbox" of techniques so that you know where to focus your study when you encounter a problem in the real world.
+
+## Modeling Binary Outcomes
+
+## Modeling Counts
+
+## Modeling Time Until an Event
+
+## Modeling Repeated Measures on a Population 
+
+## Modeling Observations in a Nested Hierarchy
+
+## Modeling Time & Space Data
