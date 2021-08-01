@@ -11,8 +11,8 @@ but in practice this statement is as absurd as writing a book about how to win a
 
 It's very convenient but typically incorrect to assume that the data we happen to have is the ideal (or, more humbly, sufficient) data for the questions we wish to analyze. 
 The specific vagaries of data vary greatly by domain, but a commonality across many fields (such as political science, economics, epidemiology, and market research) is that we are often called to work with *found data* (or, more formally, "observational data") from administrative sources or production systems.
-In contrast to artisanally crafted data experimental data (like the carefully controlled agricultural experiments which motivated many early methods developments in statistics), this data was generated neither by us not for us. 
-To quote Angela Bassa, the head of data science at an e-commerce company: "Data isn't ground truth. Data are artifacts of systems" [@bassa_2017].
+In contrast to artisanally crafted data experimental data (like the carefully controlled agricultural experiments which motivated many early methods developments in statistics), this data was generated neither by us nor for us. 
+To quote Angela Bassa, the head of data science at a consumer robotics company: "Data isn't ground truth. Data are artifacts of systems" [@bassa_2017].
 
 The analytical implications of observational versus experimental data are well explored in the field of causal inference (which we will discuss some in Chapters \@ref(incr-infe) and \@ref(cava-caus)). 
 However, this distinction has implications far earlier in the data analysis process, as well.
@@ -140,7 +140,7 @@ knitr::include_graphics("figures/data-dall/login-rate.png")
 | Total 	| 2 	| 4 	| 7 	| 1 	| 2 	|
 | Rate 	| 50% 	| **25%** 	| **86%** 	| **100%** 	| **100%** 	|
 
-While humans have a shared intuition of what concepts like a user, session, or login are, the act of collecting data forces us to map that intuition onto an atomic event . 
+While humans have a shared intuition of what concepts like a user, session, or login are, the act of collecting data forces us to map that intuition onto an atomic event. 
 Any misunderstanding in precisely what that definition is can have massive impact on the perceived data quality; "per event" data will appear heavily duplicated if it is assumed to be "per session" data.
 
 In some cases, this could be obvious to detect. 
@@ -181,7 +181,7 @@ You might find a table of orders with a field called `amt_spend`. But what might
 - Someone, somewhere, at some point might have assigned `amt_spend` to the name of the variable containing gross spend (before accounting for any discounts) and there might be a different variable `amt_spend_net` which accounts for discounts applied
 
 It's critical to understand what each variable *actually* means. 
-The upside of this is that it forces analysts to more crisply think about their research questions and what the *ideal* variables for their analysis would be. 
+The upside of this is that it forces analysts to think more crisply about their research questions and what the *ideal* variables for their analysis would be. 
 As we've seen, concepts like "spend" may seem deceptively simple, but are not unambiguous.
 
 ### The Many Meanings of Null
