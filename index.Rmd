@@ -30,6 +30,10 @@ lapply(c('xfun','dplyr','ggplot2','DBI'), function(pkg) {
 
 # Preface {-}
 
+```{r, echo = FALSE, out.width = '90%', fig.align = 'center'}
+knitr::include_graphics("figures/cover.png")
+```
+
 Training in data analysis often begins with Statistics 101 course. 
 Students learn the "happy path" of answer data that adheres to specific assumptions (such as "independent and identically distributed with a Normal density") and answers pre-specified questions (most notably, the infamous null hypothesis significance test). 
 Then, they venture out into the world of real-world data analysis where non-experimental data is rarely so well behaved and the questions asked of it are far more nuanced. 
@@ -52,7 +56,7 @@ Second, while exploring these *data disasters*, we humbly put forth a (woefully 
 
 ## Main Topics
 
-In particular, we will aim to help you avoid ten types of data disasters:
+In particular, we will aim to help you avoid eleven types of data disasters:
 
 - **Data Dalliances**: Misinterpreting or misuing data based on how it was collected or what it represents 
 - **Computational Quandaries**: Letting computers do what you said and not what you meant

@@ -1,6 +1,6 @@
 # (PART\*) Analysis {-} 
 
-# Egregious Aggregations {#eg-agg}
+# Egregious Aggregations (WIP) {#eg-agg}
 
 Once armed with an understanding of the data and tools available for analysis, a common start to analysis is exploring data with *aggregation*. 
 At its heart, any sort of data analysis is the process of condensing raw data into something more manageable and useful while giving up as little of the information as possible.
@@ -10,6 +10,51 @@ We learn rigorous assumptions to consider and validate when studying linear regr
 However, the underlying distributions of our variables and the relationships between them have a significant impact on the how informative and interpretable various summarizations are.
 
 In this chapter, we will explore different ways that univariate and multivariate aggregations can be naive or uninformative.
+
+## Similar in Summary
+
+Anscombe's Quartet
+
+The datasaurus dozen [@datasaurus] and the `datasauRus` R package [@R-datasauRus]
+
+```{r eror = FALSE, warning = FALSE, message = FALSE}
+library(datasauRus)
+```
+
+```{r}
+df <- datasauRus::datasaurus_dozen
+head(df)
+```
+
+```{r datasaurus-tbl, echo = FALSE, error = FALSE, warning = FALSE, message = FALSE}
+library(knitr)
+library(dplyr)
+
+df %>%
+  group_by(dataset) %>%
+  summarize(
+    mean(x),
+    mean(y),
+    var(x),
+    var(y),
+    cor(x,y)
+  ) %>%
+  mutate_if(is.numeric, round, 3) %>%
+  kable(caption = "Summary statistics for Datasaurus Dozen datasets")
+```
+
+
+```{r datasaurus-plot, echo = FALSE, fig.cap = 'Scatterplots for Datasaurus Dozen datasets'}
+library(ggplot2)
+
+ggplot(data = df) +
+  aes(x, y, col = dataset) +
+  geom_point() +
+  facet_wrap(~dataset, ncol = 3) +
+  theme(legend.position = 'none')
+```
+
+While this is clearly a contrived example (and, if you so chose to check out the paper, a very cleverly contrived example!), its also a cautionary tale. Summary statistics are not just insufficient when they focus on central tendency (e.g. mean) instead of spread. In this example, even an examination of variation and covariation led to an overly simplistic view of the underlying data. 
 
 ## Averages 
 

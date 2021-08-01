@@ -15,3 +15,11 @@ This chapter attempts to flip that paradigm by briefly surveying a broad number 
 ## Modeling Observations in a Nested Hierarchy
 
 ## Modeling Time & Space Data
+
+## Bayesian Methods
+
+## Simulation Methods
+
+### Agent-Based
+
+### Discrete Event

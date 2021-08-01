@@ -1,8 +1,12 @@
 # Rejecting Reproducibility (TODO) {#reje-repr}
 
-<!--
-
 "Good Enough Practices in Computational Reproducibility" [@wilson_bryan_cranston_kitzes_nederbragt_teal_2017]
+
+Package managment [@R-renv]
+
+environment management
+
+<!--
 
 "Opinionated Analysis Development" [@parker_2017]
 

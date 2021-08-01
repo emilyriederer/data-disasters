@@ -141,7 +141,7 @@ predict(final_res, new_data = df_test)
 
 ## Evaluation Metrics 
 
-## Clustering
+## Unsupervised Learning
 
 ## Lifecycle Management
 
@@ -164,3 +164,5 @@ How you chose to model depends not just on your target variable and the relation
 ## Strategies
 
 -->
+
+## Fair and Ethical Modeling

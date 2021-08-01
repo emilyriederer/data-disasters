@@ -2,6 +2,52 @@
 
 Previously, we have seen how different inputs like data, tools, and methods can add risks to our data analysis. However, the battle is not won simply when we get our first set of *outputs*. In this chapter, we will explore common errors in interpreting the results of our analysis by exploring aspects of bias, missingness, and confounding. 
 
+## Feature Leakage
+
+```{r}
+n <- 1000
+minutes_month1 <- runif(n, 60, 1200)
+minutes_month2 <- runif(n, 60, 1200) 
+minutes_tot <- minutes_month1 + minutes_month2
+df <- data.frame(minutes_month1, minutes_month2, minutes_tot)
+```
+
+```{r echo = FALSE}
+corr_sep <- cor(minutes_month1, minutes_month2)
+corr_sum <- cor(minutes_month1, minutes_tot)
+```
+
+Figure \@ref(fig:sep-sum) shows...
+
+```{r sep-sum, echo = FALSE, out.width = '90%', fig.align = 'center', fig.cap = 'Correlation of idependent versus cumulative quantities'}
+library(ggplot2)
+library(patchwork)
+
+gg_sep <- 
+  ggplot(df) +
+  aes(minutes_month1, minutes_month2) +
+  geom_point() +
+  labs(title = sprintf('Month 1 vs Month 2 \n (Corr: %f)', round(corr_sep, 2))) +
+  theme(
+    axis.title = element_blank(),
+    plot.title = element_text(hjust = 0.5))
+
+gg_sum <-
+  ggplot(df) +
+  aes(minutes_month1, minutes_tot) +
+  geom_point() +
+  labs(title = sprintf('Month 1 vs Months 1-2 \n (Corr: %f)', round(corr_sum, 2))) +
+  theme(
+    axis.title = element_blank(),
+    plot.title = element_text(hjust = 0.5))
+
+gg_sep + gg_sum
+```
+
+
+
+
+
 <!--
 
 ## No law to use ALL the data

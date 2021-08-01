@@ -1,4 +1,4 @@
-# Computational Quandaries {#comp-quan}
+# Computational Quandaries (WIP) {#comp-quan}
 
 After gaining confidence in one's data (or, at least, making peace with it), the next step in a data analysis is often to start cleaning and exploring that data with summary statistics, plots, and models. 
 Generally, this requires a computational tool like SQL, R, or python. 
@@ -424,6 +424,8 @@ spend %>%
 
 ## Trusting Tools
 
+### Delegating decisions
+
 A theme throughout this book is the fundamentally *social* nature of data analysis. Data analysis is fraught without understanding the countless decisions made along the way by those who generated it (whose data is reflected), those who collected it, those who migrated it, and those who have posed questions of it. On one hand, this is a beautiful aspect of analysis; on the other hand, it means that analysts and their analyses are subject to all of the cognitive and social psychological biases of everyday humans.
 
 One such bias is "social proof": assuming that if a tool behaves a certain way, it must be because it is correct. 
@@ -440,7 +442,7 @@ Assuming that our tools know best is admittedly an attractive proposition. It ap
 
 As a few concrete examples from popular open source tools. We'll look briefly at the prominent python library `scikitlearn` for machine learning and Apache Spark, an engine for large-scale distributed data processing.
 
-### Defaults in `scikitlearn`
+#### Defaults in `scikitlearn`
 
 `scikitlearn`'s default behavior for logistic regression modeling^[A classic modeling technique for predicting binary (yes/no) outcomes] automatically applies L2 regularization. You might or might not know what this means, and you might or might not want to apply it to your problem. That's fine. The important thing is that it *will* change your estimates and predictions, and it is *not* a part of the classical definition of that algorithm (for modelers coming from a statistical background.) 
 
@@ -448,9 +450,9 @@ Of course, there's nothing inherently wrong about this choice; the library autho
 
 However, an analyst could easily miss this nuance if they do not *read* the documentation. Or, if they *misinterpret* this choice as social proof that regularization is always the right approach, they might not make the best choice for their own analysis.
 
-### Algorithms in `Spark`
+#### Algorithms in `Spark`
 
-For example, according to a 2015 [Jira ticket](https://issues.apache.org/jira/browse/SPARK-5133), developers of Spark considered multiple methodologies they could use when adding the functionality to compute feature importance for a random forest. Ultimately, a core contributor advised against permutation importance due to its computational cost. 
+As a second example, according to a 2015 [Jira ticket](https://issues.apache.org/jira/browse/SPARK-5133), developers of Spark considered multiple methodologies they could use when adding the functionality to compute feature importance for a random forest. Ultimately, a core contributor advised against permutation importance due to its computational cost. 
 
 ```{r echo = FALSE, out.width = '90%', fig.align = 'center', fig.cap = "JIRA ticket for Spark with a discussion of which random forest variable importance algorithm to implement"}
 knitr::include_graphics("figures/comp-quan/spark-jira.PNG")
@@ -458,7 +460,14 @@ knitr::include_graphics("figures/comp-quan/spark-jira.PNG")
 
 Clearly, no one wants a workflow that is too costly or timely to run. So, once again, there is no right or wrong. However, since every approach to feature importance has its own biases, pitfalls, and challenges in interpretation, it's a mistake for an end-user to not carefully understand which algorithm is used and why.
 
+### Security (TODO)
+
+namespace squatting
+executable code
+
 ## Strategies (TODO)
+
+## Real World Disasters (TODO)
 
 <!--
 

@@ -1,6 +1,6 @@
 # (PART\*) Data {-} 
 
-# Data Dalliances {#data-dall}
+# Data Dalliances (WIP) {#data-dall}
 
 The first step to data analysis is, in fact, data. While this may seem obvious, statistics textbooks often dodge this detail. 
 Discussions of regression analysis often begin with a statement like:
@@ -87,8 +87,8 @@ To guide our discussion of how data production can affect aspects of data qualit
 This is challenging because data quality is *subjective* and *task-specific*. 
 It matters much more if data is "fit for purpose" and operates in a way that is *transparent* to its users moreso than meeting some preordained quality standard.
 
-Regardless, it's useful for our discussion to think about general dimensions of data quality. Here, we will rely on six dimensions of data quality outlined by Data Management Association. 
-STheir official definitions are: 
+Regardless, it's useful for our discussion to think about general dimensions of data quality. Here, we will rely on six dimensions of data quality outlined by Data Management Association [@dama]. 
+Their official definitions are: 
 
 1. **Completeness**: The proportion of stored data against the potential of “100% complete”
 1. **Uniqueness**: Nothing will be recorded more than once based upon how that thing is identified. It is the inverse of an assessment of the level of duplication
@@ -123,22 +123,34 @@ Reasonably enough, they might compute this rate as the sum of successful events 
 Now, suppose two users attempt to login to their account, and ultimately, one succeeds in accessing their private information and the other doesn't. 
 The analyst would probably hope to compute and report a 50% login success rate. However, depending on how the data is represented, they could quite easily compute nearly any value from 0% to 100%. 
 
-Figure \@ref(fig:login-rate) depicts a few different realistic cases:
-
-```{r login-rate, echo = FALSE, out.width = '90%', fig.align = 'center', fig.cap = 'Login events recorded under different data collection paradigms'}
-knitr::include_graphics("figures/data-dall/login-rate.png")
-```
+For examples, events might be logged as: 
 
 - **Per Attempt**: If data is logged once per overall login attempt, successful attempts only trigger one event, but a user who forgot their password may try (and fail) to login multiple times. In the case illustrated above, that deflates the successful login rate to **25%**.
 - **Per Event**: If the logins table contains a row for every login-related event, each 'success' will trigger a large number of positive events and each 'failure' will trigger a negative event preceded by zero or more positive events. In the case illustrated below, this inflates our successful login rate to **86%**. 
 - **Per Conditional**: If the collector decided to only look at downstream events, perhaps to circumvent record duplication, they might decide to create a record only to denote the success or failure of the final step in the login process (MFA). However, login attempts that failed an upstream step would not generate any record for this stage because they've already fallen out of the funnel. In this case, the computed rate could reach **100%**
 - **Per Intermediate**: Similarly, if the login was defined specifically as successful password verification, the computed rate could his **100%** even if some users subsequently fail MFA
 
-|  	| Session 	| Attempt 	| Attempt 	| Outcome 	| Intermediate 	|
-|-	|-	|-	|-	|-	|-	|
-| Success 	| 1 	| 1 	| 6 	| 1 	| 2 	|
-| Total 	| 2 	| 4 	| 7 	| 1 	| 2 	|
-| Rate 	| 50% 	| **25%** 	| **86%** 	| **100%** 	| **100%** 	|
+These different situations are further illustrated in Figure \@ref(fig:login-rate), and their calculations are shown in Table \@ref(login-rate-tbl).
+
+```{r login-rate, echo = FALSE, out.width = '90%', fig.align = 'center', fig.cap = 'Login events recorded under different data collection paradigms'}
+knitr::include_graphics("figures/data-dall/login-rate.png")
+```
+
+```{r login-rate-tbl, echo = FALSE, error = FALSE, warning = FALSE, message = FALSE}
+library(knitr)
+
+df <- data.frame(
+    Session = c(1, 2, 50),
+    Attempt = c(1, 4, 25),
+    Event = c(6, 7, 86),
+    Outcome = c(1, 1, 100),
+    Intermediate = c(2, 2, 100),
+    row.names = c("Success", "Total", "Rate (%)")
+)
+
+kable(df, caption = "Success rate naively computed under different data collection schemes")
+```
+
 
 While humans have a shared intuition of what concepts like a user, session, or login are, the act of collecting data forces us to map that intuition onto an atomic event . 
 Any misunderstanding in precisely what that definition is can have massive impact on the perceived data quality; "per event" data will appear heavily duplicated if it is assumed to be "per session" data.
@@ -183,37 +195,6 @@ You might find a table of orders with a field called `amt_spend`. But what might
 It's critical to understand what each variable *actually* means. 
 The upside of this is that it forces analysts to more crisply think about their research questions and what the *ideal* variables for their analysis would be. 
 As we've seen, concepts like "spend" may seem deceptively simple, but are not unambiguous.
-
-### The Many Meanings of Null
-
-Related to the presence and absence of full *records* is the presence or absence of individual *fields*. 
-If records contain some but not all relevant information, they may be published with explicitly missing fields or the full record may not be published at all. The difference between implicit and explicit missingness on the resulting data is illustrated in Figure \@ref(fig:null-impl-expl).
-
-```{r null-impl-expl, echo = FALSE, out.width = '90%', fig.align = 'center', fig.cap = "A comparison of explicit versus implicit missingness"}
-knitr::include_graphics("figures/data-dall/missing-imp-exp.png")
-```
-
-Understanding what the system implies by each *explicitly* missing data field is also critical for validation and analysis. 
-Checks for data completeness usually include counting null values, but null data isn't always incorrect. 
-In fact, null data can be highly informative if we know what it means. Some meanings of null data might include:
-
-- **Field is not relevant**: Perhaps our `logins` table reports the mobile phone operating system (iOS or Android) that was used to access the login page to track platform-specific issues. However, there is no valid value for this 
-- **Relevant value is not known**: Our `logins` table might also have an `account_id` field which attempts to match login attempts to known accounts/customers using different metadata like cookies or IP addresses. In theory, almost everyone trying to log in should have an account identifier, but our methods may not be good enough to identify them in all cases
-- **Relevant value is null**: Of course, sometimes someone without an account at all might try to log in for some reason. In this case, the correct value for an `account_id` field truly *is* null
-- **Relevant value was recorded incorrectly**: Sometimes systems have glitches. Without a doubt, every single login attempt *should* have a timestamp, but such a field could be null if this data was somehow lost or corrupted at the source
-
-Similarly, different systems might or might not report out these nulls in different ways such as:
-
-- **True nulls**: Literally the entry in the resulting dataset is null
-- **Null-like non-nulls**: Blank values like an empty string (`''`) that contain a null amount of information but won't be detected when counting null values
-- **Placeholder values**: Meaningless values like an `account_id` of `00000000` for all unidentified accounts which preserve data *validity* (the expected structure) but have no intrinsic meaning
-- **Sentinel/shadow values**: Abnormal values which attempt to indicate the reasons for null-ness such as an `account_id` of `-1` when no browser cookies were found or `-2` when cookies were found but did not help link to any specific customer record
-
-Each of these encoding choices changes the definitions of appropriate completeness and validity for each field and, even more critically, impacts the expectations and assertions we should form for data accuracy. 
-We can't expect 100% completeness if nulls are a relevant value; we can't check validity of ranges as easily if sentinel values are used with values that are outside the normal range (hopefully, or we have much bigger problems!) 
-So, understanding how upstream systems *should* work is essential for assessing if they *do* work.
-
-Similarly, understanding how our null data is collected has significant implications for how we subsequently process it. We will discuss this more in Chapter \@ref(comp-quan) (Computational Quandaries).
 
 ## Data Extraction & Loading
 
@@ -405,10 +386,112 @@ and low-priced orders where customers tend to chose slower shipping.
 In a case like this, not only might naive validation miss the lack of data completeness, but the *sample* of shipments we begin to see on day 5 could be unrepresentative of the population of orders placed on day 3. 
 This is a type of **selection bias** that we will examine further in Chapter \@ref(incr-infe) (Incredible Inferences).
 
-## Data Encoding, Modeling, & Transformation (TODO)
+## Data Encoding & Transformation (WIP)
+
+### Data Transformation
+
+Finally, once the data is roughly where we want it, it likely undergoes many transformations to translate all of the system-generated fields we discussed in data collection into semantically-relevant dimensions for analytical consumers. Of course, the types of transformations that could be done are innumerable with far more variation than data loading. So, we'll just look at a few examples of common failure patterns. 
+
+#### Pre-Aggregation
+
+Data transformations may include aggregating data up to higher levels of granularity for easier analysis. For example, a transformation might add up item-level purchase data to make it easier for an analyst to look at spend per *order* of a specific user. 
+
+Data transformations not only transform our data, but they also transform how the dimensions of data quality manifest. If data with some of the **completeness** or **uniqueness** issues we discussed with data loading is pre-aggregated, these problems can turn into problems of **accuracy**. For example, the duplicate or partial data loads that we discussed when aggregated could suggest inaccurately high or low quantities respectively.
+
+```{r echo = FALSE, out.width = '90%', fig.align = 'center'}
+knitr::include_graphics("figures/data-dall/completeness-accuracy.png")
+```
+
+#### Field Encoding
+
+When we assess data consistency across tables, 
+
+Categorical fields in a data set might be created in any number of ways including:
+
+- Directly taken from the source
+- Coded in a transformation script
+- Transformed with logic in a shared user-defined function ([UDFs](https://docs.snowflake.com/en/sql-reference/user-defined-functions.html)) or [macro](https://docs.getdbt.com/docs/building-a-dbt-project/jinja-macros/#macros)
+- Joined from a shared look-up table
+
+Each approach has different implications on data consistency and usability.
+
+```{r echo = FALSE, out.width = '90%', fig.align = 'center'}
+knitr::include_graphics("figures/data-dall/field-encoding.png")
+```
+
+Using fields from the source simply is what it is -- there's no subjectivity or room for manual human error. If multiple tables come from the same source, it's likely but not guaranteed that they will be encoded in the same way. 
+
+Coding transformations in the ELT process is easy for data producers. There's no need to coordinate across multiple processes or use cases, and the transformation can be immediately modified when needed. However, that same lack of coordination can lead to different results for fields that should be the same. 
+
+Alternatively, macros, UDFs, and look-up tables provided centralized ways to map source data inputs to desired analytical data outputs in a systemic and consistent way. Of course, centralization has its own challenges. If something in the source data changes, the process of updating a centralized UDF or look-up table may be slowed down by the need to seek consensus and collaborate. So, data is more *consistent* but potentially less *accurate*.
+
+Regardless, such engineered values require scrutiny -- paticularly if they are being used as a key to join multiple tables -- and the distinct values in them should be carefully examined.
+
+#### Updating Transformations
+
+Of course, data consistency is not only a problem across different data sources but within one data source. Regardless of the method of field encoding used in the previous step, the intersection of data loading and data transformation strategies can introduce data consistency errors over time.
+
+Often, for computation efficiency, analytical tables are loaded using an *incremental* loading strategy. This means that only new records (determined by time period, a set of unique keys, or other criteria) from the upstream source are loaded to the downstream table. This is in contrast to a *full refresh* where the entire downstream table is recreated on each update.
+
+```{r echo = FALSE, out.width = '90%', fig.align = 'center'}
+knitr::include_graphics("figures/data-dall/incr-full-good.png")
+```
+
+Incremental loads have many advantages. Rebuilding tables in entirety can be very time consuming and computationally expensive. In particular, in non-cloud data warehouses that are not able to scale computing power on demand, this sort of heavy duty processing job can noticeably drain resources from other queries that are trying to run in the database. Additionally, if the upstream staging data is ephemeral, fully rebuilding the table could mean failing to retain history.
+
+However, in the case that our data transformations change, incremental loads may introduce inconsistency in our data overtime as only new records are created and inserted with the new logic.
+
+```{r echo = FALSE, out.width = '90%', fig.align = 'center'}
+knitr::include_graphics("figures/data-dall/incr-full-bad-col.png")
+```
+
+This is also a problem more broadly if some short-term error is discovered either with data loading or transformation in historical data. Incremental strategies may not always update to include the corrected version of the data.
+
+```{r echo = FALSE, out.width = '90%', fig.align = 'center'}
+knitr::include_graphics("figures/data-dall/incr-full-good.png")
+```
+
+Regardless, this underscores the need to validate entire datasets and to re-validate when repulling data. 
+
+### The Many Meanings of Null
+
+Another major encoding decision is how to handle null values. 
+Previously, in the discussion of Data Collection, we considered the presence and absence of full *records*.
+However, when preparing data for analysis, both data produces and consumers need to decide how to cope with the presence or absence of individual *fields*. 
+
+If records contain some but not all relevant information, they may be published with explicitly missing fields or the full record may not be published at all. The difference between implicit and explicit missingness on the resulting data is illustrated in Figure \@ref(fig:null-impl-expl).
+
+```{r null-impl-expl, echo = FALSE, out.width = '90%', fig.align = 'center', fig.cap = "A comparison of explicit versus implicit missingness"}
+knitr::include_graphics("figures/data-dall/missing-imp-exp.png")
+```
+
+Understanding what the system implies by each *explicitly* missing data field is also critical for validation and analysis. 
+Checks for data completeness usually include counting null values, but null data isn't always incorrect. 
+In fact, null data can be highly informative if we know what it means. Some meanings of null data might include:
+
+- **Field is not relevant**: Perhaps our `logins` table reports the mobile phone operating system (iOS or Android) that was used to access the login page to track platform-specific issues. However, there is no valid value for this 
+- **Relevant value is not known**: Our `logins` table might also have an `account_id` field which attempts to match login attempts to known accounts/customers using different metadata like cookies or IP addresses. In theory, almost everyone trying to log in should have an account identifier, but our methods may not be good enough to identify them in all cases
+- **Relevant value is null**: Of course, sometimes someone without an account at all might try to log in for some reason. In this case, the correct value for an `account_id` field truly *is* null
+- **Relevant value was recorded incorrectly**: Sometimes systems have glitches. Without a doubt, every single login attempt *should* have a timestamp, but such a field could be null if this data was somehow lost or corrupted at the source
+
+Similarly, different systems might or might not report out these nulls in different ways such as:
+
+- **True nulls**: Literally the entry in the resulting dataset is null
+- **Null-like non-nulls**: Blank values like an empty string (`''`) that contain a null amount of information but won't be detected when counting null values
+- **Placeholder values**: Meaningless values like an `account_id` of `00000000` for all unidentified accounts which preserve data *validity* (the expected structure) but have no intrinsic meaning
+- **Sentinel/shadow values**: Abnormal values which attempt to indicate the reasons for null-ness such as an `account_id` of `-1` when no browser cookies were found or `-2` when cookies were found but did not help link to any specific customer record
+
+Each of these encoding choices changes the definitions of appropriate completeness and validity for each field and, even more critically, impacts the expectations and assertions we should form for data accuracy. 
+We can't expect 100% completeness if nulls are a relevant value; we can't check validity of ranges as easily if sentinel values are used with values that are outside the normal range (hopefully, or we have much bigger problems!) 
+So, understanding how upstream systems *should* work is essential for assessing if they *do* work.
+
+Similarly, understanding how our null data is collected has significant implications for how we subsequently process it. We will discuss this more in Chapter \@ref(comp-quan) (Computational Quandaries).
+
+## Other Types of Data (TODO)
 
 ## Strategies (TODO)
 
+## Real World Disasters (TODO)
 
 <!--
 ## Strategies 
