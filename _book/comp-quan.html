@@ -4,7 +4,7 @@
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-<title>Chapter 3 Computational Quandaries | Data Disasters</title>
+<title>Chapter 3 Computational Quandaries (WIP) | Data Disasters</title>
 <meta name="author" content="Emily Riederer">
 <!-- JS --><script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/2.0.6/clipboard.min.js" integrity="sha256-inc5kl9MA1hkeYUt+EC3BhlIgyp/2jDIyBLS6k3UxPI=" crossorigin="anonymous"></script><script src="https://cdn.jsdelivr.net/npm/fuse.js@6.4.2"></script><script src="https://kit.fontawesome.com/6ecbd6c532.js" crossorigin="anonymous"></script><script src="libs/header-attrs/header-attrs.js"></script><script src="libs/jquery/jquery-3.6.0.min.js"></script><meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 <link href="libs/bootstrap/bootstrap.min.css" rel="stylesheet">
@@ -41,10 +41,10 @@
 <li><a class="" href="about-the-author.html">About the Author</a></li>
 <li><a class="" href="introduction-todo.html"><span class="header-section-number">1</span> Introduction (TODO)</a></li>
 <li class="book-part">Data</li>
-<li><a class="" href="data-dall.html"><span class="header-section-number">2</span> Data Dalliances</a></li>
-<li><a class="active" href="comp-quan.html"><span class="header-section-number">3</span> Computational Quandaries</a></li>
+<li><a class="" href="data-dall.html"><span class="header-section-number">2</span> Data Dalliances (WIP)</a></li>
+<li><a class="active" href="comp-quan.html"><span class="header-section-number">3</span> Computational Quandaries (WIP)</a></li>
 <li class="book-part">Analysis</li>
-<li><a class="" href="eg-agg.html"><span class="header-section-number">4</span> Egregious Aggregations</a></li>
+<li><a class="" href="eg-agg.html"><span class="header-section-number">4</span> Egregious Aggregations (WIP)</a></li>
 <li><a class="" href="vex-viz.html"><span class="header-section-number">5</span> Vexing Visualization (TODO)</a></li>
 <li><a class="" href="incr-infe.html"><span class="header-section-number">6</span> Incredible Inferences (TODO)</a></li>
 <li><a class="" href="cava-caus.html"><span class="header-section-number">7</span> Cavalier Causality (TODO)</a></li>
@@ -67,7 +67,7 @@
 </div>
   </header><main class="col-sm-12 col-md-9 col-lg-7" id="content"><div id="comp-quan" class="section level1" number="3">
 <h1>
-<span class="header-section-number">3</span> Computational Quandaries<a class="anchor" aria-label="anchor" href="#comp-quan"><i class="fas fa-link"></i></a>
+<span class="header-section-number">3</span> Computational Quandaries (WIP)<a class="anchor" aria-label="anchor" href="#comp-quan"><i class="fas fa-link"></i></a>
 </h1>
 <p>After gaining confidence in one’s data (or, at least, making peace with it), the next step in a data analysis is often to start cleaning and exploring that data with summary statistics, plots, and models.
 Generally, this requires a computational tool like SQL, R, or python.</p>
@@ -443,6 +443,10 @@ We can explicitly encode any residual values as something like “OTHER” or �
 <h2>
 <span class="header-section-number">3.8</span> Trusting Tools<a class="anchor" aria-label="anchor" href="#trusting-tools"><i class="fas fa-link"></i></a>
 </h2>
+<div id="delegating-decisions" class="section level3" number="3.8.1">
+<h3>
+<span class="header-section-number">3.8.1</span> Delegating decisions<a class="anchor" aria-label="anchor" href="#delegating-decisions"><i class="fas fa-link"></i></a>
+</h3>
 <p>A theme throughout this book is the fundamentally <em>social</em> nature of data analysis. Data analysis is fraught without understanding the countless decisions made along the way by those who generated it (whose data is reflected), those who collected it, those who migrated it, and those who have posed questions of it. On one hand, this is a beautiful aspect of analysis; on the other hand, it means that analysts and their analyses are subject to all of the cognitive and social psychological biases of everyday humans.</p>
 <p>One such bias is “social proof”: assuming that if a tool behaves a certain way, it must be because it is correct.</p>
 <p>Assuming that our tools know best is admittedly an attractive proposition. It appeals to a desire to think that someone, somewhere is “in charge” and, perhaps more critically, helps us avoid a domino effect of distrust (If we <em>don’t</em> trust our tools how can we trust our results? And if we can’t trust our results, how can we trust anything at all?) Unfortunately, there are many reasons are tools might not know best. For example, the tool’s developer might have:</p>
@@ -456,21 +460,21 @@ We can explicitly encode any residual values as something like “OTHER” or �
 <li>Not thought about it at all</li>
 </ul>
 <p>As a few concrete examples from popular open source tools. We’ll look briefly at the prominent python library <code>scikitlearn</code> for machine learning and Apache Spark, an engine for large-scale distributed data processing.</p>
-<div id="defaults-in-scikitlearn" class="section level3" number="3.8.1">
-<h3>
-<span class="header-section-number">3.8.1</span> Defaults in <code>scikitlearn</code><a class="anchor" aria-label="anchor" href="#defaults-in-scikitlearn"><i class="fas fa-link"></i></a>
-</h3>
+<div id="defaults-in-scikitlearn" class="section level4" number="3.8.1.1">
+<h4>
+<span class="header-section-number">3.8.1.1</span> Defaults in <code>scikitlearn</code><a class="anchor" aria-label="anchor" href="#defaults-in-scikitlearn"><i class="fas fa-link"></i></a>
+</h4>
 <p><code>scikitlearn</code>’s default behavior for logistic regression modeling<a class="footnote-ref" tabindex="0" data-toggle="popover" data-content="&lt;p&gt;A classic modeling technique for predicting binary (yes/no) outcomes&lt;/p&gt;"><sup>13</sup></a> automatically applies L2 regularization. You might or might not know what this means, and you might or might not want to apply it to your problem. That’s fine. The important thing is that it <em>will</em> change your estimates and predictions, and it is <em>not</em> a part of the classical definition of that algorithm (for modelers coming from a statistical background.)</p>
 <p>Of course, there’s nothing inherently wrong about this choice; the library authors just had different goals than a typical statistical. <code>scikitlearn</code> developer Olivier Grisel explains <a href="https://twitter.com/ogrisel/status/1167438229655773186?s=20">on Twitter</a> that this choice (and others in the library) is explained because “Scikit-learn was always designed to make it easy to get good predictive accuracy (eg as measured by CV) rather than as statistical inference library.” Additionally, this choice is documented in bold <a href="https://scikit-learn.org/stable/modules/generated/sklearn.linear_model.LogisticRegression.html">in the function documentation</a>.</p>
 <p>However, an analyst could easily miss this nuance if they do not <em>read</em> the documentation. Or, if they <em>misinterpret</em> this choice as social proof that regularization is always the right approach, they might not make the best choice for their own analysis.</p>
 </div>
-<div id="algorithms-in-spark" class="section level3" number="3.8.2">
-<h3>
-<span class="header-section-number">3.8.2</span> Algorithms in <code>Spark</code><a class="anchor" aria-label="anchor" href="#algorithms-in-spark"><i class="fas fa-link"></i></a>
-</h3>
-<p>For example, according to a 2015 <a href="https://issues.apache.org/jira/browse/SPARK-5133">Jira ticket</a>, developers of Spark considered multiple methodologies they could use when adding the functionality to compute feature importance for a random forest. Ultimately, a core contributor advised against permutation importance due to its computational cost.</p>
+<div id="algorithms-in-spark" class="section level4" number="3.8.1.2">
+<h4>
+<span class="header-section-number">3.8.1.2</span> Algorithms in <code>Spark</code><a class="anchor" aria-label="anchor" href="#algorithms-in-spark"><i class="fas fa-link"></i></a>
+</h4>
+<p>As a second example, according to a 2015 <a href="https://issues.apache.org/jira/browse/SPARK-5133">Jira ticket</a>, developers of Spark considered multiple methodologies they could use when adding the functionality to compute feature importance for a random forest. Ultimately, a core contributor advised against permutation importance due to its computational cost.</p>
 <div class="figure" style="text-align: center">
-<span id="fig:unnamed-chunk-53"></span>
+<span id="fig:unnamed-chunk-59"></span>
 <img src="figures/comp-quan/spark-jira.PNG" alt="JIRA ticket for Spark with a discussion of which random forest variable importance algorithm to implement" width="90%"><p class="caption">
 FIGURE 3.2: JIRA ticket for Spark with a discussion of which random forest variable importance algorithm to implement
 </p>
@@ -478,9 +482,22 @@ FIGURE 3.2: JIRA ticket for Spark with a discussion of which random forest varia
 <p>Clearly, no one wants a workflow that is too costly or timely to run. So, once again, there is no right or wrong. However, since every approach to feature importance has its own biases, pitfalls, and challenges in interpretation, it’s a mistake for an end-user to not carefully understand which algorithm is used and why.</p>
 </div>
 </div>
+<div id="security-todo" class="section level3" number="3.8.2">
+<h3>
+<span class="header-section-number">3.8.2</span> Security (TODO)<a class="anchor" aria-label="anchor" href="#security-todo"><i class="fas fa-link"></i></a>
+</h3>
+<p>namespace squatting
+executable code</p>
+</div>
+</div>
 <div id="strategies-todo-1" class="section level2" number="3.9">
 <h2>
 <span class="header-section-number">3.9</span> Strategies (TODO)<a class="anchor" aria-label="anchor" href="#strategies-todo-1"><i class="fas fa-link"></i></a>
+</h2>
+</div>
+<div id="real-world-disasters-todo-1" class="section level2" number="3.10">
+<h2>
+<span class="header-section-number">3.10</span> Real World Disasters (TODO)<a class="anchor" aria-label="anchor" href="#real-world-disasters-todo-1"><i class="fas fa-link"></i></a>
 </h2>
 <!--
 
@@ -959,7 +976,7 @@ select
 <div class="knitsql-table">
 
 
-Table: (\#tab:unnamed-chunk-76)1 records
+Table: (\#tab:unnamed-chunk-82)1 records
 
 |max('20200101', '20190301') |max('01012020', '03012019') |max('120','99') |max('120','099') | max(120,99)| max(120,099)|
 |:---------------------------|:---------------------------|:---------------|:----------------|-----------:|------------:|
@@ -1041,7 +1058,7 @@ select
 <div class="knitsql-table">
 
 
-Table: (\#tab:unnamed-chunk-79)1 records
+Table: (\#tab:unnamed-chunk-85)1 records
 
 | '2020' == 2020| '02020' == 2020| cast('2020' as numeric) == 2020| cast('2020' as integer) == 2020|
 |--------------:|---------------:|-------------------------------:|-------------------------------:|
@@ -1433,7 +1450,7 @@ t_for
 ```
 
 ```
-## Time difference of 0.2111 secs
+## Time difference of 0.141 secs
 ```
 
 ```r
@@ -1441,7 +1458,7 @@ t_vec
 ```
 
 ```
-## Time difference of 0.01099 secs
+## Time difference of 0.009993 secs
 ```
 
 ```r
@@ -1449,7 +1466,7 @@ as.numeric(t_for)/as.numeric(t_vec)
 ```
 
 ```
-## [1] 19.2
+## [1] 14.11
 ```
 
 
@@ -1476,7 +1493,7 @@ t_for
 ```
 
 ```
-## 0.38016366958618164
+## 0.27713608741760254
 ```
 
 ```python
@@ -1484,7 +1501,7 @@ t_vec
 ```
 
 ```
-## 0.029007434844970703
+## 0.02499985694885254
 ```
 
 ```python
@@ -1492,7 +1509,7 @@ t_for / t_vec
 ```
 
 ```
-## 13.105732086203211
+## 11.085506928483554
 ```
 
 
@@ -1519,12 +1536,12 @@ t_for / t_vec
 
 
   <div class="chapter-nav">
-<div class="prev"><a href="data-dall.html"><span class="header-section-number">2</span> Data Dalliances</a></div>
-<div class="next"><a href="eg-agg.html"><span class="header-section-number">4</span> Egregious Aggregations</a></div>
+<div class="prev"><a href="data-dall.html"><span class="header-section-number">2</span> Data Dalliances (WIP)</a></div>
+<div class="next"><a href="eg-agg.html"><span class="header-section-number">4</span> Egregious Aggregations (WIP)</a></div>
 </div></main><div class="col-md-3 col-lg-2 d-none d-md-block sidebar sidebar-chapter">
     <nav id="toc" data-toggle="toc" aria-label="On this page"><h2>On this page</h2>
       <ul class="nav navbar-nav">
-<li><a class="nav-link" href="#comp-quan"><span class="header-section-number">3</span> Computational Quandaries</a></li>
+<li><a class="nav-link" href="#comp-quan"><span class="header-section-number">3</span> Computational Quandaries (WIP)</a></li>
 <li>
 <a class="nav-link" href="#preliminaries---data-computation"><span class="header-section-number">3.1</span> Preliminaries - Data Computation</a><ul class="nav navbar-nav">
 <li><a class="nav-link" href="#single-table-operations"><span class="header-section-number">3.1.1</span> Single Table Operations</a></li>
@@ -1546,11 +1563,12 @@ t_for / t_vec
 <li><a class="nav-link" href="#object-references-todo"><span class="header-section-number">3.7</span> Object References (TODO)</a></li>
 <li>
 <a class="nav-link" href="#trusting-tools"><span class="header-section-number">3.8</span> Trusting Tools</a><ul class="nav navbar-nav">
-<li><a class="nav-link" href="#defaults-in-scikitlearn"><span class="header-section-number">3.8.1</span> Defaults in scikitlearn</a></li>
-<li><a class="nav-link" href="#algorithms-in-spark"><span class="header-section-number">3.8.2</span> Algorithms in Spark</a></li>
+<li><a class="nav-link" href="#delegating-decisions"><span class="header-section-number">3.8.1</span> Delegating decisions</a></li>
+<li><a class="nav-link" href="#security-todo"><span class="header-section-number">3.8.2</span> Security (TODO)</a></li>
 </ul>
 </li>
 <li><a class="nav-link" href="#strategies-todo-1"><span class="header-section-number">3.9</span> Strategies (TODO)</a></li>
+<li><a class="nav-link" href="#real-world-disasters-todo-1"><span class="header-section-number">3.10</span> Real World Disasters (TODO)</a></li>
 </ul>
 
       <div class="book-extra">
@@ -1568,7 +1586,7 @@ t_for / t_vec
 <footer class="bg-primary text-light mt-5"><div class="container"><div class="row">
 
   <div class="col-12 col-md-6 mt-3">
-    <p>"<strong>Data Disasters</strong>" was written by Emily Riederer. It was last built on 2021-07-31.</p>
+    <p>"<strong>Data Disasters</strong>" was written by Emily Riederer. It was last built on 2021-08-01.</p>
   </div>
 
   <div class="col-12 col-md-6 mt-3">

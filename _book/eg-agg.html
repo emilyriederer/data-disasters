@@ -4,7 +4,7 @@
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-<title>Chapter 4 Egregious Aggregations | Data Disasters</title>
+<title>Chapter 4 Egregious Aggregations (WIP) | Data Disasters</title>
 <meta name="author" content="Emily Riederer">
 <!-- JS --><script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/2.0.6/clipboard.min.js" integrity="sha256-inc5kl9MA1hkeYUt+EC3BhlIgyp/2jDIyBLS6k3UxPI=" crossorigin="anonymous"></script><script src="https://cdn.jsdelivr.net/npm/fuse.js@6.4.2"></script><script src="https://kit.fontawesome.com/6ecbd6c532.js" crossorigin="anonymous"></script><script src="libs/header-attrs/header-attrs.js"></script><script src="libs/jquery/jquery-3.6.0.min.js"></script><meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 <link href="libs/bootstrap/bootstrap.min.css" rel="stylesheet">
@@ -41,10 +41,10 @@
 <li><a class="" href="about-the-author.html">About the Author</a></li>
 <li><a class="" href="introduction-todo.html"><span class="header-section-number">1</span> Introduction (TODO)</a></li>
 <li class="book-part">Data</li>
-<li><a class="" href="data-dall.html"><span class="header-section-number">2</span> Data Dalliances</a></li>
-<li><a class="" href="comp-quan.html"><span class="header-section-number">3</span> Computational Quandaries</a></li>
+<li><a class="" href="data-dall.html"><span class="header-section-number">2</span> Data Dalliances (WIP)</a></li>
+<li><a class="" href="comp-quan.html"><span class="header-section-number">3</span> Computational Quandaries (WIP)</a></li>
 <li class="book-part">Analysis</li>
-<li><a class="active" href="eg-agg.html"><span class="header-section-number">4</span> Egregious Aggregations</a></li>
+<li><a class="active" href="eg-agg.html"><span class="header-section-number">4</span> Egregious Aggregations (WIP)</a></li>
 <li><a class="" href="vex-viz.html"><span class="header-section-number">5</span> Vexing Visualization (TODO)</a></li>
 <li><a class="" href="incr-infe.html"><span class="header-section-number">6</span> Incredible Inferences (TODO)</a></li>
 <li><a class="" href="cava-caus.html"><span class="header-section-number">7</span> Cavalier Causality (TODO)</a></li>
@@ -67,7 +67,7 @@
 </div>
   </header><main class="col-sm-12 col-md-9 col-lg-7" id="content"><div id="eg-agg" class="section level1" number="4">
 <h1>
-<span class="header-section-number">4</span> Egregious Aggregations<a class="anchor" aria-label="anchor" href="#eg-agg"><i class="fas fa-link"></i></a>
+<span class="header-section-number">4</span> Egregious Aggregations (WIP)<a class="anchor" aria-label="anchor" href="#eg-agg"><i class="fas fa-link"></i></a>
 </h1>
 <p>Once armed with an understanding of the data and tools available for analysis, a common start to analysis is exploring data with <em>aggregation</em>.
 At its heart, any sort of data analysis is the process of condensing raw data into something more manageable and useful while giving up as little of the information as possible.</p>
@@ -75,21 +75,167 @@ At its heart, any sort of data analysis is the process of condensing raw data in
 We learn rigorous assumptions to consider and validate when studying linear regression, but basic arithmetic aggregation presents itself as agnostic and welcome to any type of data.
 However, the underlying distributions of our variables and the relationships between them have a significant impact on the how informative and interpretable various summarizations are.</p>
 <p>In this chapter, we will explore different ways that univariate and multivariate aggregations can be naive or uninformative.</p>
-<div id="averages" class="section level2" number="4.1">
+<div id="similar-in-summary" class="section level2" number="4.1">
 <h2>
-<span class="header-section-number">4.1</span> Averages<a class="anchor" aria-label="anchor" href="#averages"><i class="fas fa-link"></i></a>
+<span class="header-section-number">4.1</span> Similar in Summary<a class="anchor" aria-label="anchor" href="#similar-in-summary"><i class="fas fa-link"></i></a>
 </h2>
-<div id="averaging-skewed-data" class="section level3" number="4.1.1">
+<p>Anscombe’s Quartet</p>
+<p>The datasaurus dozen <span class="citation">(<a href="references.html#ref-datasaurus" role="doc-biblioref">Matejka and Fitzmaurice 2017</a>)</span> and the <code>datasauRus</code> R package <span class="citation">(<a href="references.html#ref-R-datasauRus" role="doc-biblioref">Locke and D’Agostino McGowan 2018</a>)</span></p>
+<div class="sourceCode" id="cb53"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://github.com/lockedata/datasauRus">datasauRus</a></span><span class="op">)</span></code></pre></div>
+<div class="sourceCode" id="cb54"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="va">df</span> <span class="op">&lt;-</span> <span class="fu">datasauRus</span><span class="fu">::</span><span class="va"><a href="https://itsalocke.com/datasauRus/reference/datasaurus_dozen.html">datasaurus_dozen</a></span>
+<span class="fu"><a href="https://rdrr.io/r/utils/head.html">head</a></span><span class="op">(</span><span class="va">df</span><span class="op">)</span></code></pre></div>
+<pre><code>## # A tibble: 6 x 3
+##   dataset     x     y
+##   &lt;chr&gt;   &lt;dbl&gt; &lt;dbl&gt;
+## 1 dino     55.4  97.2
+## 2 dino     51.5  96.0
+## 3 dino     46.2  94.5
+## 4 dino     42.8  91.4
+## 5 dino     40.8  88.3
+## 6 dino     38.7  84.9</code></pre>
+<div class="inline-table"><table class="table table-sm">
+<caption>
+<span id="tab:datasaurus-tbl">TABLE 4.1: </span>Summary statistics for Datasaurus Dozen datasets</caption>
+<thead><tr class="header">
+<th align="left">dataset</th>
+<th align="right">mean(x)</th>
+<th align="right">mean(y)</th>
+<th align="right">var(x)</th>
+<th align="right">var(y)</th>
+<th align="right">cor(x, y)</th>
+</tr></thead>
+<tbody>
+<tr class="odd">
+<td align="left">away</td>
+<td align="right">54.27</td>
+<td align="right">47.84</td>
+<td align="right">281.2</td>
+<td align="right">725.8</td>
+<td align="right">-0.064</td>
+</tr>
+<tr class="even">
+<td align="left">bullseye</td>
+<td align="right">54.27</td>
+<td align="right">47.83</td>
+<td align="right">281.2</td>
+<td align="right">725.5</td>
+<td align="right">-0.069</td>
+</tr>
+<tr class="odd">
+<td align="left">circle</td>
+<td align="right">54.27</td>
+<td align="right">47.84</td>
+<td align="right">280.9</td>
+<td align="right">725.2</td>
+<td align="right">-0.068</td>
+</tr>
+<tr class="even">
+<td align="left">dino</td>
+<td align="right">54.26</td>
+<td align="right">47.83</td>
+<td align="right">281.1</td>
+<td align="right">725.5</td>
+<td align="right">-0.064</td>
+</tr>
+<tr class="odd">
+<td align="left">dots</td>
+<td align="right">54.26</td>
+<td align="right">47.84</td>
+<td align="right">281.2</td>
+<td align="right">725.2</td>
+<td align="right">-0.060</td>
+</tr>
+<tr class="even">
+<td align="left">h_lines</td>
+<td align="right">54.26</td>
+<td align="right">47.83</td>
+<td align="right">281.1</td>
+<td align="right">725.8</td>
+<td align="right">-0.062</td>
+</tr>
+<tr class="odd">
+<td align="left">high_lines</td>
+<td align="right">54.27</td>
+<td align="right">47.84</td>
+<td align="right">281.1</td>
+<td align="right">725.8</td>
+<td align="right">-0.069</td>
+</tr>
+<tr class="even">
+<td align="left">slant_down</td>
+<td align="right">54.27</td>
+<td align="right">47.84</td>
+<td align="right">281.1</td>
+<td align="right">725.6</td>
+<td align="right">-0.069</td>
+</tr>
+<tr class="odd">
+<td align="left">slant_up</td>
+<td align="right">54.27</td>
+<td align="right">47.83</td>
+<td align="right">281.2</td>
+<td align="right">725.7</td>
+<td align="right">-0.069</td>
+</tr>
+<tr class="even">
+<td align="left">star</td>
+<td align="right">54.27</td>
+<td align="right">47.84</td>
+<td align="right">281.2</td>
+<td align="right">725.2</td>
+<td align="right">-0.063</td>
+</tr>
+<tr class="odd">
+<td align="left">v_lines</td>
+<td align="right">54.27</td>
+<td align="right">47.84</td>
+<td align="right">281.2</td>
+<td align="right">725.6</td>
+<td align="right">-0.069</td>
+</tr>
+<tr class="even">
+<td align="left">wide_lines</td>
+<td align="right">54.27</td>
+<td align="right">47.83</td>
+<td align="right">281.2</td>
+<td align="right">725.7</td>
+<td align="right">-0.067</td>
+</tr>
+<tr class="odd">
+<td align="left">x_shape</td>
+<td align="right">54.26</td>
+<td align="right">47.84</td>
+<td align="right">281.2</td>
+<td align="right">725.2</td>
+<td align="right">-0.066</td>
+</tr>
+</tbody>
+</table></div>
+<div class="figure">
+<span id="fig:datasaurus-plot"></span>
+<img src="bookdown_files/figure-html/datasaurus-plot-1.png" alt="Scatterplots for Datasaurus Dozen datasets" width="672"><p class="caption">
+FIGURE 4.1: Scatterplots for Datasaurus Dozen datasets
+</p>
+</div>
+<p>While this is clearly a contrived example (and, if you so chose to check out the paper, a very cleverly contrived example!), its also a cautionary tale. Summary statistics are not just insufficient when they focus on central tendency (e.g. mean) instead of spread. In this example, even an examination of variation and covariation led to an overly simplistic view of the underlying data.</p>
+</div>
+<div id="averages" class="section level2" number="4.2">
+<h2>
+<span class="header-section-number">4.2</span> Averages<a class="anchor" aria-label="anchor" href="#averages"><i class="fas fa-link"></i></a>
+</h2>
+<div id="averaging-skewed-data" class="section level3" number="4.2.1">
 <h3>
-<span class="header-section-number">4.1.1</span> Averaging skewed data<a class="anchor" aria-label="anchor" href="#averaging-skewed-data"><i class="fas fa-link"></i></a>
+<span class="header-section-number">4.2.1</span> Averaging skewed data<a class="anchor" aria-label="anchor" href="#averaging-skewed-data"><i class="fas fa-link"></i></a>
 </h3>
 <p>Arithmetic average versus colloquial meaning of average as “typical”</p>
 <p>Skewed data</p>
 <p>Multimodal data / mixture models</p>
 </div>
-<div id="no-average-observation" class="section level3" number="4.1.2">
+<div id="no-average-observation" class="section level3" number="4.2.2">
 <h3>
-<span class="header-section-number">4.1.2</span> No “average” observation<a class="anchor" aria-label="anchor" href="#no-average-observation"><i class="fas fa-link"></i></a>
+<span class="header-section-number">4.2.2</span> No “average” observation<a class="anchor" aria-label="anchor" href="#no-average-observation"><i class="fas fa-link"></i></a>
 </h3>
 <p>In the previous section, the average represented a point in the relevant data <em>range</em> even if it was not perhaps the one most representative of a “typical” observation.
 We discussed how in some situations this quantity may be a reasonable answer to certain types of questions and an aid for certain types of decisions.</p>
@@ -102,7 +248,7 @@ We might be interested in profiling the age of each account (how long they have 
 (Don’t over-think the specific probability distributions lived here.
 We are concerned with interrogating the properties of the average and not with simulating a realistic data generating process.
 Giving ourselves permission to be wrong or “lazy” about unimportant things gives us more energy to focus on what matters.)</p>
-<div class="sourceCode" id="cb53"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb56"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="fu"><a href="https://rdrr.io/r/base/Random.html">set.seed</a></span><span class="op">(</span><span class="fl">123</span><span class="op">)</span>
 
 <span class="co"># define simulation parameters ----</span>
@@ -119,7 +265,7 @@ Giving ourselves permission to be wrong or “lazy” about unimportant things g
     age <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/stats/Uniform.html">runif</a></span><span class="op">(</span><span class="va">n1</span>,   <span class="fl">0</span>,  <span class="fl">3</span><span class="op">)</span>, <span class="fu"><a href="https://rdrr.io/r/stats/Uniform.html">runif</a></span><span class="op">(</span><span class="va">n2</span>,   <span class="fl">3</span>, <span class="fl">10</span><span class="op">)</span><span class="op">)</span>,
     act <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/stats/Normal.html">rnorm</a></span><span class="op">(</span><span class="va">n1</span>, <span class="fl">100</span>, <span class="fl">10</span><span class="op">)</span>, <span class="fu"><a href="https://rdrr.io/r/stats/Normal.html">rnorm</a></span><span class="op">(</span><span class="va">n2</span>, <span class="fl">500</span>, <span class="fl">10</span><span class="op">)</span><span class="op">)</span>
   <span class="op">)</span></code></pre></div>
-<p>Figure <a href="eg-agg.html#fig:multivar-avg">4.1</a> shows a scatterplot of the relationship between account age (x-axis) and activity level (y-axis).
+<p>Figure <a href="eg-agg.html#fig:multivar-avg">4.2</a> shows a scatterplot of the relationship between account age (x-axis) and activity level (y-axis).
 Meanwhile, the marginal rug plots shows the univariate distribution of each variable.
 The sole red dot denotes the coordinates of the average age and average activity.
 Notably, this dot exists in a region of “zero density”;
@@ -128,13 +274,13 @@ Strategic decisions made with this sort of observation in mind as the “typical
 <div class="figure">
 <span id="fig:multivar-avg"></span>
 <img src="bookdown_files/figure-html/multivar-avg-1.png" alt="A scatterplot of two variables and their averages" width="672"><p class="caption">
-FIGURE 4.1: A scatterplot of two variables and their averages
+FIGURE 4.2: A scatterplot of two variables and their averages
 </p>
 </div>
 </div>
-<div id="the-product-of-averages" class="section level3" number="4.1.3">
+<div id="the-product-of-averages" class="section level3" number="4.2.3">
 <h3>
-<span class="header-section-number">4.1.3</span> The product of averages<a class="anchor" aria-label="anchor" href="#the-product-of-averages"><i class="fas fa-link"></i></a>
+<span class="header-section-number">4.2.3</span> The product of averages<a class="anchor" aria-label="anchor" href="#the-product-of-averages"><i class="fas fa-link"></i></a>
 </h3>
 <p>As the above example shows, averages of multivariate data can produce poor summaries – particularly when these variables are interrelated<a class="footnote-ref" tabindex="0" data-toggle="popover" data-content="&lt;p&gt;We intentionally avoid the word &lt;em&gt;correlated&lt;/em&gt; here to emphasize the fact that &lt;em&gt;correlation&lt;/em&gt; refers more strictly to linear relationships&lt;/p&gt;"><sup>14</sup></a>.</p>
 <p>A second implication of this observation is that deriving additional computations based on pre-averaged numbers is likely to obtain inaccurate results.</p>
@@ -144,7 +290,7 @@ Low-price orders may have a 10% probability of being returned while high price o
 (Again, are these numbers, distributions, or relationships hyper-realistic?
 Not at all.
 However, once again we are telling ourselves a story just to reason about numerical properties, so we have to give ourselves permission to not focus on irrelevant details.)</p>
-<div class="sourceCode" id="cb54"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb57"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="fu"><a href="https://rdrr.io/r/base/Random.html">set.seed</a></span><span class="op">(</span><span class="fl">123</span><span class="op">)</span>
 
 <span class="co"># define simulation parameters ----</span>
@@ -173,7 +319,7 @@ However, if instead we already knew an average spend amount and an average retur
 <p><span class="math display">\[ \frac{\sum_{1}^{n} Spend * I(Return)}{\sum_{1}^{n} 1} \]</span></p>
 <p>If this still feels counterintuitive, we can see how much of the difference is accounted for by the interrelation between our two variables.
 In the following code, we break the relationship between the variables by randomly reordering the <code>ind_return</code> variable so it is no longer has any true relationship to the corresponding <code>amt_spend</code> variable.</p>
-<div class="sourceCode" id="cb55"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb58"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="co"># randomly reorder one of two variables to break relationships ----</span>
 <span class="va">ind_return</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/sample.html">sample</a></span><span class="op">(</span><span class="va">ind_return</span>, size <span class="op">=</span> <span class="fl">200</span><span class="op">)</span>
 
@@ -186,33 +332,33 @@ These are notably still not the same number so that does not mean that these two
 however, this second result once again illustrates the extent to which interrelations can defy our naive intuitions.</p>
 </div>
 </div>
-<div id="ratios" class="section level2" number="4.2">
+<div id="ratios" class="section level2" number="4.3">
 <h2>
-<span class="header-section-number">4.2</span> Ratios<a class="anchor" aria-label="anchor" href="#ratios"><i class="fas fa-link"></i></a>
+<span class="header-section-number">4.3</span> Ratios<a class="anchor" aria-label="anchor" href="#ratios"><i class="fas fa-link"></i></a>
 </h2>
-<div id="picking-the-right-denominator" class="section level3" number="4.2.1">
+<div id="picking-the-right-denominator" class="section level3" number="4.3.1">
 <h3>
-<span class="header-section-number">4.2.1</span> Picking the right denominator<a class="anchor" aria-label="anchor" href="#picking-the-right-denominator"><i class="fas fa-link"></i></a>
+<span class="header-section-number">4.3.1</span> Picking the right denominator<a class="anchor" aria-label="anchor" href="#picking-the-right-denominator"><i class="fas fa-link"></i></a>
 </h3>
 </div>
-<div id="sample-size-effects" class="section level3" number="4.2.2">
+<div id="sample-size-effects" class="section level3" number="4.3.2">
 <h3>
-<span class="header-section-number">4.2.2</span> Sample size effects<a class="anchor" aria-label="anchor" href="#sample-size-effects"><i class="fas fa-link"></i></a>
+<span class="header-section-number">4.3.2</span> Sample size effects<a class="anchor" aria-label="anchor" href="#sample-size-effects"><i class="fas fa-link"></i></a>
 </h3>
 </div>
 </div>
-<div id="trends" class="section level2" number="4.3">
+<div id="trends" class="section level2" number="4.4">
 <h2>
-<span class="header-section-number">4.3</span> Trends<a class="anchor" aria-label="anchor" href="#trends"><i class="fas fa-link"></i></a>
+<span class="header-section-number">4.4</span> Trends<a class="anchor" aria-label="anchor" href="#trends"><i class="fas fa-link"></i></a>
 </h2>
-<div id="if-trends-continue" class="section level3" number="4.3.1">
+<div id="if-trends-continue" class="section level3" number="4.4.1">
 <h3>
-<span class="header-section-number">4.3.1</span> “If trends continue…”<a class="anchor" aria-label="anchor" href="#if-trends-continue"><i class="fas fa-link"></i></a>
+<span class="header-section-number">4.4.1</span> “If trends continue…”<a class="anchor" aria-label="anchor" href="#if-trends-continue"><i class="fas fa-link"></i></a>
 </h3>
 </div>
-<div id="seasonality" class="section level3" number="4.3.2">
+<div id="seasonality" class="section level3" number="4.4.2">
 <h3>
-<span class="header-section-number">4.3.2</span> Seasonality<a class="anchor" aria-label="anchor" href="#seasonality"><i class="fas fa-link"></i></a>
+<span class="header-section-number">4.4.2</span> Seasonality<a class="anchor" aria-label="anchor" href="#seasonality"><i class="fas fa-link"></i></a>
 </h3>
 <!--
 
@@ -432,29 +578,30 @@ Problem with Metrics - https://arxiv.org/abs/2002.08512
 </div>
 
   <div class="chapter-nav">
-<div class="prev"><a href="comp-quan.html"><span class="header-section-number">3</span> Computational Quandaries</a></div>
+<div class="prev"><a href="comp-quan.html"><span class="header-section-number">3</span> Computational Quandaries (WIP)</a></div>
 <div class="next"><a href="vex-viz.html"><span class="header-section-number">5</span> Vexing Visualization (TODO)</a></div>
 </div></main><div class="col-md-3 col-lg-2 d-none d-md-block sidebar sidebar-chapter">
     <nav id="toc" data-toggle="toc" aria-label="On this page"><h2>On this page</h2>
       <ul class="nav navbar-nav">
-<li><a class="nav-link" href="#eg-agg"><span class="header-section-number">4</span> Egregious Aggregations</a></li>
+<li><a class="nav-link" href="#eg-agg"><span class="header-section-number">4</span> Egregious Aggregations (WIP)</a></li>
+<li><a class="nav-link" href="#similar-in-summary"><span class="header-section-number">4.1</span> Similar in Summary</a></li>
 <li>
-<a class="nav-link" href="#averages"><span class="header-section-number">4.1</span> Averages</a><ul class="nav navbar-nav">
-<li><a class="nav-link" href="#averaging-skewed-data"><span class="header-section-number">4.1.1</span> Averaging skewed data</a></li>
-<li><a class="nav-link" href="#no-average-observation"><span class="header-section-number">4.1.2</span> No “average” observation</a></li>
-<li><a class="nav-link" href="#the-product-of-averages"><span class="header-section-number">4.1.3</span> The product of averages</a></li>
+<a class="nav-link" href="#averages"><span class="header-section-number">4.2</span> Averages</a><ul class="nav navbar-nav">
+<li><a class="nav-link" href="#averaging-skewed-data"><span class="header-section-number">4.2.1</span> Averaging skewed data</a></li>
+<li><a class="nav-link" href="#no-average-observation"><span class="header-section-number">4.2.2</span> No “average” observation</a></li>
+<li><a class="nav-link" href="#the-product-of-averages"><span class="header-section-number">4.2.3</span> The product of averages</a></li>
 </ul>
 </li>
 <li>
-<a class="nav-link" href="#ratios"><span class="header-section-number">4.2</span> Ratios</a><ul class="nav navbar-nav">
-<li><a class="nav-link" href="#picking-the-right-denominator"><span class="header-section-number">4.2.1</span> Picking the right denominator</a></li>
-<li><a class="nav-link" href="#sample-size-effects"><span class="header-section-number">4.2.2</span> Sample size effects</a></li>
+<a class="nav-link" href="#ratios"><span class="header-section-number">4.3</span> Ratios</a><ul class="nav navbar-nav">
+<li><a class="nav-link" href="#picking-the-right-denominator"><span class="header-section-number">4.3.1</span> Picking the right denominator</a></li>
+<li><a class="nav-link" href="#sample-size-effects"><span class="header-section-number">4.3.2</span> Sample size effects</a></li>
 </ul>
 </li>
 <li>
-<a class="nav-link" href="#trends"><span class="header-section-number">4.3</span> Trends</a><ul class="nav navbar-nav">
-<li><a class="nav-link" href="#if-trends-continue"><span class="header-section-number">4.3.1</span> “If trends continue…”</a></li>
-<li><a class="nav-link" href="#seasonality"><span class="header-section-number">4.3.2</span> Seasonality</a></li>
+<a class="nav-link" href="#trends"><span class="header-section-number">4.4</span> Trends</a><ul class="nav navbar-nav">
+<li><a class="nav-link" href="#if-trends-continue"><span class="header-section-number">4.4.1</span> “If trends continue…”</a></li>
+<li><a class="nav-link" href="#seasonality"><span class="header-section-number">4.4.2</span> Seasonality</a></li>
 </ul>
 </li>
 </ul>
@@ -474,7 +621,7 @@ Problem with Metrics - https://arxiv.org/abs/2002.08512
 <footer class="bg-primary text-light mt-5"><div class="container"><div class="row">
 
   <div class="col-12 col-md-6 mt-3">
-    <p>"<strong>Data Disasters</strong>" was written by Emily Riederer. It was last built on 2021-07-31.</p>
+    <p>"<strong>Data Disasters</strong>" was written by Emily Riederer. It was last built on 2021-08-01.</p>
   </div>
 
   <div class="col-12 col-md-6 mt-3">

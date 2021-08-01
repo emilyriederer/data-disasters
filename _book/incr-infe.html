@@ -41,10 +41,10 @@
 <li><a class="" href="about-the-author.html">About the Author</a></li>
 <li><a class="" href="introduction-todo.html"><span class="header-section-number">1</span> Introduction (TODO)</a></li>
 <li class="book-part">Data</li>
-<li><a class="" href="data-dall.html"><span class="header-section-number">2</span> Data Dalliances</a></li>
-<li><a class="" href="comp-quan.html"><span class="header-section-number">3</span> Computational Quandaries</a></li>
+<li><a class="" href="data-dall.html"><span class="header-section-number">2</span> Data Dalliances (WIP)</a></li>
+<li><a class="" href="comp-quan.html"><span class="header-section-number">3</span> Computational Quandaries (WIP)</a></li>
 <li class="book-part">Analysis</li>
-<li><a class="" href="eg-agg.html"><span class="header-section-number">4</span> Egregious Aggregations</a></li>
+<li><a class="" href="eg-agg.html"><span class="header-section-number">4</span> Egregious Aggregations (WIP)</a></li>
 <li><a class="" href="vex-viz.html"><span class="header-section-number">5</span> Vexing Visualization (TODO)</a></li>
 <li><a class="active" href="incr-infe.html"><span class="header-section-number">6</span> Incredible Inferences (TODO)</a></li>
 <li><a class="" href="cava-caus.html"><span class="header-section-number">7</span> Cavalier Causality (TODO)</a></li>
@@ -70,6 +70,23 @@
 <span class="header-section-number">6</span> Incredible Inferences (TODO)<a class="anchor" aria-label="anchor" href="#incr-infe"><i class="fas fa-link"></i></a>
 </h1>
 <p>Previously, we have seen how different inputs like data, tools, and methods can add risks to our data analysis. However, the battle is not won simply when we get our first set of <em>outputs</em>. In this chapter, we will explore common errors in interpreting the results of our analysis by exploring aspects of bias, missingness, and confounding.</p>
+<div id="feature-leakage" class="section level2" number="6.1">
+<h2>
+<span class="header-section-number">6.1</span> Feature Leakage<a class="anchor" aria-label="anchor" href="#feature-leakage"><i class="fas fa-link"></i></a>
+</h2>
+<div class="sourceCode" id="cb59"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="va">n</span> <span class="op">&lt;-</span> <span class="fl">1000</span>
+<span class="va">minutes_month1</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/stats/Uniform.html">runif</a></span><span class="op">(</span><span class="va">n</span>, <span class="fl">60</span>, <span class="fl">1200</span><span class="op">)</span>
+<span class="va">minutes_month2</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/stats/Uniform.html">runif</a></span><span class="op">(</span><span class="va">n</span>, <span class="fl">60</span>, <span class="fl">1200</span><span class="op">)</span> 
+<span class="va">minutes_tot</span> <span class="op">&lt;-</span> <span class="va">minutes_month1</span> <span class="op">+</span> <span class="va">minutes_month2</span>
+<span class="va">df</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/data.frame.html">data.frame</a></span><span class="op">(</span><span class="va">minutes_month1</span>, <span class="va">minutes_month2</span>, <span class="va">minutes_tot</span><span class="op">)</span></code></pre></div>
+<p>Figure <a href="incr-infe.html#fig:sep-sum">6.1</a> shows…</p>
+<div class="figure" style="text-align: center">
+<span id="fig:sep-sum"></span>
+<img src="bookdown_files/figure-html/sep-sum-1.png" alt="Correlation of idependent versus cumulative quantities" width="90%"><p class="caption">
+FIGURE 6.1: Correlation of idependent versus cumulative quantities
+</p>
+</div>
 <!--
 
 ## No law to use ALL the data
@@ -167,12 +184,16 @@ The **nullabor** [@R-nullabor] R package
 -->
 
 </div>
+</div>
   <div class="chapter-nav">
 <div class="prev"><a href="vex-viz.html"><span class="header-section-number">5</span> Vexing Visualization (TODO)</a></div>
 <div class="next"><a href="cava-caus.html"><span class="header-section-number">7</span> Cavalier Causality (TODO)</a></div>
 </div></main><div class="col-md-3 col-lg-2 d-none d-md-block sidebar sidebar-chapter">
     <nav id="toc" data-toggle="toc" aria-label="On this page"><h2>On this page</h2>
-      <ul class="nav navbar-nav"><li><a class="nav-link" href="#incr-infe"><span class="header-section-number">6</span> Incredible Inferences (TODO)</a></li></ul>
+      <ul class="nav navbar-nav">
+<li><a class="nav-link" href="#incr-infe"><span class="header-section-number">6</span> Incredible Inferences (TODO)</a></li>
+<li><a class="nav-link" href="#feature-leakage"><span class="header-section-number">6.1</span> Feature Leakage</a></li>
+</ul>
 
       <div class="book-extra">
         <ul class="list-unstyled">
@@ -189,7 +210,7 @@ The **nullabor** [@R-nullabor] R package
 <footer class="bg-primary text-light mt-5"><div class="container"><div class="row">
 
   <div class="col-12 col-md-6 mt-3">
-    <p>"<strong>Data Disasters</strong>" was written by Emily Riederer. It was last built on 2021-07-31.</p>
+    <p>"<strong>Data Disasters</strong>" was written by Emily Riederer. It was last built on 2021-08-01.</p>
   </div>
 
   <div class="col-12 col-md-6 mt-3">

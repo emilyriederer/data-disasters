@@ -172,7 +172,7 @@
 
 \title{Data Disasters}
 \author{Emily Riederer}
-\date{2021-07-24}
+\date{2021-08-01}
 
 \begin{document}
 \maketitle
@@ -203,18 +203,22 @@ To all the mistakes I've made (data, and otherwise) and those who tolerated my m
 \chapter*{Preface}\label{preface}}
 
 
+\begin{center}\includegraphics[width=0.9\linewidth]{figures/cover} \end{center}
+
 Training in data analysis often begins with Statistics 101 course.
 Students learn the ``happy path'' of answer data that adheres to specific assumptions (such as ``independent and identically distributed with a Normal density'') and answers pre-specified questions (most notably, the infamous null hypothesis significance test).
 Then, they venture out into the world of real-world data analysis where non-experimental data is rarely so well behaved and the questions asked of it are far more nuanced.
 
-No one course can aim to teach students everything they should know about statistics. In fact, one of the greatest privileges of a career in statistics is the responsibility and privilege of life-long learning.
+No one course should aim to teach students everything they should know about statistics.
+In fact, one of the best parts about a career in statistics is the responsibility and privilege of life-long learning.
 However, \textbf{the flaw of introductory statistics is not that it's incomplete, but that it's not obvious how it is \emph{not} complete}.
-Statistics is a bad salesman. There's no season finale, no cliff hanger, no teasing and hinting and promising more and better to come.
-Student may leave thinking that answering more complex data analysis questions is trivially easy (by relying on the one-size-fits-all ``panacea'' that they learned) or intractably difficult (when assumptions are not met.)
+Statistics is a bad salesman.
+There's no season finale, no cliff hanger, no teasing and hinting and promising more and better to come.
+Student may leave their studies believing that answering more complex data analysis questions is trivially easy (by relying on the one-size-fits-all ``panacea'' that they learned) or intractably difficult (when the assumptions of that method are not met.)
 
 This book attempts to add more color to all the dimensions of data analysis while showcasing the nuances throughout the true \emph{life cycle} of data analysis using two strategies.
 
-First, it attempts to showcase common pitfalls in all the parts of data analysis: from data management and computation to visualization, interpretation, and modeling and even to communication and collaboration.
+First, it attempts to highlight common pitfalls in all the parts of data analysis: from data management and computation to visualization, interpretation, and modeling and even to communication and collaboration.
 Data analysis is fundamentally a \emph{creative} task, so there are rarely canonical one-size-fits-all solutions.
 Curiously, however, there are plenty of canonical \emph{issues} even if they require different solutions in different settings.
 Thus, the goal of this book is to highlight common \emph{data disasters} and, in doing so, help students cultivate an intuition for how to detect common problems before they occur in an important analysis.
@@ -224,7 +228,7 @@ Second, while exploring these \emph{data disasters}, we humbly put forth a (woef
 \hypertarget{main-topics}{%
 \section{Main Topics}\label{main-topics}}
 
-In particular, we will aim to help you avoid ten types of data disasters:
+In particular, we will aim to help you avoid eleven types of data disasters:
 
 \begin{itemize}
 \tightlist
@@ -244,6 +248,8 @@ In particular, we will aim to help you avoid ten types of data disasters:
   \textbf{Mindless Modeling}: Failing to get the most value out of models by not tailoring the features, targets, and performance metrics
 \item
   \textbf{Alternative Algorithms}: Lacking an understanding of alternative methods which may be better suited for the problem at hand
+\item
+  \textbf{Futile Findings}: Asking and answering questions that aren't useful
 \item
   \textbf{Complexifying Code}: Making projects unwieldy or more difficult to understand than necessary
 \item
@@ -271,12 +277,18 @@ As we go, we will notice how three common themes that challenge the focus of int
 \begin{itemize}
 \tightlist
 \item
-  Summary statistics masks interesting stories that we see when focusing on the \textbf{variation}
+  Summary statistics mask interesting stories that we see when focusing on the \textbf{variation}
 \item
   Similarly, observations and variables are rarely independent; the story is in the \textbf{covariance}
 \item
   Assumptions of Normality, or more broadly symmetry, are often in appropriate in wonky, \textbf{highly skewed} world
 \end{itemize}
+
+\hypertarget{software-information-and-conventions}{%
+\section*{Software information and conventions}\label{software-information-and-conventions}}
+
+
+This book is created with the excellent \textbf{bookdown} package.
 
 \hypertarget{about-the-author}{%
 \chapter*{About the Author}\label{about-the-author}}
@@ -284,10 +296,12 @@ As we go, we will notice how three common themes that challenge the focus of int
 
 \textbf{Emily Riederer} is\ldots{}
 
+Find me on my \href{https://emilyriederer.netlify.com?utm_source=datadisasters}{website} and on \href{https://twitter.com/EmilyRiederer}{Twitter}
+
 \mainmatter
 
-\hypertarget{introduction}{%
-\chapter{Introduction}\label{introduction}}
+\hypertarget{introduction-todo}{%
+\chapter{Introduction (TODO)}\label{introduction-todo}}
 
 Statistics is not synonymous with data analysis; rigor vs practicality
 
@@ -303,65 +317,29 @@ Data is\ldots{}
 \hypertarget{what-is-analysis}{%
 \section{What is analysis?}\label{what-is-analysis}}
 
-Analysis is the process of turning information into insight.
+Analysis is the process of turning information into insight\ldots S
+
+\hypertarget{what-is-workflow}{%
+\section{What is workflow?}\label{what-is-workflow}}
+
+Workflows are an intentional process for accomplishing a complex goal\ldots{}
 
 \hypertarget{what-is-data-analysis}{%
 \section{What is data analysis?}\label{what-is-data-analysis}}
 
 Data analysis altogether is\ldots{}
 
-\hypertarget{a-case-study}{%
-\section{A case study}\label{a-case-study}}
+\hypertarget{what-are-data-disasters}{%
+\section{What are data disasters?}\label{what-are-data-disasters}}
 
-Now unplug your Internet cable, and start doing some serious work.
-
-We have a nice figure in Figure \ref{fig:hello}, and also a table in Table \ref{tab:iris}.
-
-\begin{Shaded}
-\begin{Highlighting}[]
-\FunctionTok{par}\NormalTok{(}\AttributeTok{mar =} \FunctionTok{c}\NormalTok{(}\DecValTok{4}\NormalTok{, }\DecValTok{4}\NormalTok{, }\DecValTok{1}\NormalTok{, .}\DecValTok{1}\NormalTok{))}
-\FunctionTok{plot}\NormalTok{(cars, }\AttributeTok{pch =} \DecValTok{19}\NormalTok{)}
-\end{Highlighting}
-\end{Shaded}
-
-\begin{figure}
-\includegraphics[width=0.9\linewidth]{bookdown_files/figure-latex/hello-1} \caption{Hello World!}\label{fig:hello}
-\end{figure}
-
-\begin{Shaded}
-\begin{Highlighting}[]
-\NormalTok{knitr}\SpecialCharTok{::}\FunctionTok{kable}\NormalTok{(}
-  \FunctionTok{head}\NormalTok{(iris), }\AttributeTok{caption =} \StringTok{\textquotesingle{}The boring iris data.\textquotesingle{}}\NormalTok{,}
-  \AttributeTok{booktabs =} \ConstantTok{TRUE}
-\NormalTok{)}
-\end{Highlighting}
-\end{Shaded}
-
-\begin{table}
-
-\caption{\label{tab:iris}The boring iris data.}
-\centering
-\begin{tabular}[t]{rrrrl}
-\toprule
-Sepal.Length & Sepal.Width & Petal.Length & Petal.Width & Species\\
-\midrule
-5.1 & 3.5 & 1.4 & 0.2 & setosa\\
-4.9 & 3.0 & 1.4 & 0.2 & setosa\\
-4.7 & 3.2 & 1.3 & 0.2 & setosa\\
-4.6 & 3.1 & 1.5 & 0.2 & setosa\\
-5.0 & 3.6 & 1.4 & 0.2 & setosa\\
-\addlinespace
-5.4 & 3.9 & 1.7 & 0.4 & setosa\\
-\bottomrule
-\end{tabular}
-\end{table}
+Data disasters occur when\ldots{}
 
 \hypertarget{part-data}{%
 \part*{Data}\label{part-data}}
 
 
 \hypertarget{data-dall}{%
-\chapter{Data Dalliances}\label{data-dall}}
+\chapter{Data Dalliances (WIP)}\label{data-dall}}
 
 The first step to data analysis is, in fact, data. While this may seem obvious, statistics textbooks often dodge this detail.
 Discussions of regression analysis often begin with a statement like:
@@ -454,7 +432,7 @@ To better theorize about data quality issues, it's useful to think of four DGPs:
 
 }
 
-\caption{A schematic of the data production process}\label{fig:unnamed-chunk-2}
+\caption{A schematic of the data production process}\label{fig:unnamed-chunk-3}
 \end{figure}
 
 For example, consider the role of each of these four DGPs for e-commerce data:
@@ -494,8 +472,8 @@ To guide our discussion of how data production can affect aspects of data qualit
 This is challenging because data quality is \emph{subjective} and \emph{task-specific}.
 It matters much more if data is ``fit for purpose'' and operates in a way that is \emph{transparent} to its users moreso than meeting some preordained quality standard.
 
-Regardless, it's useful for our discussion to think about general dimensions of data quality. Here, we will rely on six dimensions of data quality outlined by Data Management Association.
-STheir official definitions are:
+Regardless, it's useful for our discussion to think about general dimensions of data quality. Here, we will rely on six dimensions of data quality outlined by Data Management Association \citep{dama}.
+Their official definitions are:
 
 \begin{enumerate}
 \def\labelenumi{\arabic{enumi}.}
@@ -547,16 +525,7 @@ Reasonably enough, they might compute this rate as the sum of successful events 
 Now, suppose two users attempt to login to their account, and ultimately, one succeeds in accessing their private information and the other doesn't.
 The analyst would probably hope to compute and report a 50\% login success rate. However, depending on how the data is represented, they could quite easily compute nearly any value from 0\% to 100\%.
 
-Figure \ref{fig:login-rate} depicts a few different realistic cases:
-
-\begin{figure}
-
-{\centering \includegraphics[width=0.9\linewidth]{figures/data-dall/login-rate} 
-
-}
-
-\caption{Login events recorded under different data collection paradigms}\label{fig:login-rate}
-\end{figure}
+For examples, events might be logged as:
 
 \begin{itemize}
 \tightlist
@@ -570,16 +539,33 @@ Figure \ref{fig:login-rate} depicts a few different realistic cases:
   \textbf{Per Intermediate}: Similarly, if the login was defined specifically as successful password verification, the computed rate could his \textbf{100\%} even if some users subsequently fail MFA
 \end{itemize}
 
-\begin{longtable}[]{@{}llllll@{}}
-\toprule
-& Session & Attempt & Attempt & Outcome & Intermediate\tabularnewline
-\midrule
-\endhead
-Success & 1 & 1 & 6 & 1 & 2\tabularnewline
-Total & 2 & 4 & 7 & 1 & 2\tabularnewline
-Rate & 50\% & \textbf{25\%} & \textbf{86\%} & \textbf{100\%} & \textbf{100\%}\tabularnewline
-\bottomrule
-\end{longtable}
+These different situations are further illustrated in Figure \ref{fig:login-rate}, and their calculations are shown in Table \ref{login-rate-tbl}.
+
+\begin{figure}
+
+{\centering \includegraphics[width=0.9\linewidth]{figures/data-dall/login-rate} 
+
+}
+
+\caption{Login events recorded under different data collection paradigms}\label{fig:login-rate}
+\end{figure}
+
+\begin{table}
+
+\caption{\label{tab:login-rate-tbl}Success rate naively computed under different data collection schemes}
+\centering
+\begin{tabular}[t]{l|r|r|r|r|r}
+\hline
+  & Session & Attempt & Event & Outcome & Intermediate\\
+\hline
+Success & 1 & 1 & 6 & 1 & 2\\
+\hline
+Total & 2 & 4 & 7 & 1 & 2\\
+\hline
+Rate (\%) & 50 & 25 & 86 & 100 & 100\\
+\hline
+\end{tabular}
+\end{table}
 
 While humans have a shared intuition of what concepts like a user, session, or login are, the act of collecting data forces us to map that intuition onto an atomic event .
 Any misunderstanding in precisely what that definition is can have massive impact on the perceived data quality; ``per event'' data will appear heavily duplicated if it is assumed to be ``per session'' data.
@@ -633,57 +619,6 @@ You might find a table of orders with a field called \texttt{amt\_spend}. But wh
 It's critical to understand what each variable \emph{actually} means.
 The upside of this is that it forces analysts to more crisply think about their research questions and what the \emph{ideal} variables for their analysis would be.
 As we've seen, concepts like ``spend'' may seem deceptively simple, but are not unambiguous.
-
-\hypertarget{the-many-meanings-of-null}{%
-\subsection{The Many Meanings of Null}\label{the-many-meanings-of-null}}
-
-Related to the presence and absence of full \emph{records} is the presence or absence of individual \emph{fields}.
-If records contain some but not all relevant information, they may be published with explicitly missing fields or the full record may not be published at all. The difference between implicit and explicit missingness on the resulting data is illustrated in Figure \ref{fig:null-impl-expl}.
-
-\begin{figure}
-
-{\centering \includegraphics[width=0.9\linewidth]{figures/data-dall/missing-imp-exp} 
-
-}
-
-\caption{A comparison of explicit versus implicit missingness}\label{fig:null-impl-expl}
-\end{figure}
-
-Understanding what the system implies by each \emph{explicitly} missing data field is also critical for validation and analysis.
-Checks for data completeness usually include counting null values, but null data isn't always incorrect.
-In fact, null data can be highly informative if we know what it means. Some meanings of null data might include:
-
-\begin{itemize}
-\tightlist
-\item
-  \textbf{Field is not relevant}: Perhaps our \texttt{logins} table reports the mobile phone operating system (iOS or Android) that was used to access the login page to track platform-specific issues. However, there is no valid value for this
-\item
-  \textbf{Relevant value is not known}: Our \texttt{logins} table might also have an \texttt{account\_id} field which attempts to match login attempts to known accounts/customers using different metadata like cookies or IP addresses. In theory, almost everyone trying to log in should have an account identifier, but our methods may not be good enough to identify them in all cases
-\item
-  \textbf{Relevant value is null}: Of course, sometimes someone without an account at all might try to log in for some reason. In this case, the correct value for an \texttt{account\_id} field truly \emph{is} null
-\item
-  \textbf{Relevant value was recorded incorrectly}: Sometimes systems have glitches. Without a doubt, every single login attempt \emph{should} have a timestamp, but such a field could be null if this data was somehow lost or corrupted at the source
-\end{itemize}
-
-Similarly, different systems might or might not report out these nulls in different ways such as:
-
-\begin{itemize}
-\tightlist
-\item
-  \textbf{True nulls}: Literally the entry in the resulting dataset is null
-\item
-  \textbf{Null-like non-nulls}: Blank values like an empty string (\texttt{\textquotesingle{}\textquotesingle{}}) that contain a null amount of information but won't be detected when counting null values
-\item
-  \textbf{Placeholder values}: Meaningless values like an \texttt{account\_id} of \texttt{00000000} for all unidentified accounts which preserve data \emph{validity} (the expected structure) but have no intrinsic meaning
-\item
-  \textbf{Sentinel/shadow values}: Abnormal values which attempt to indicate the reasons for null-ness such as an \texttt{account\_id} of \texttt{-1} when no browser cookies were found or \texttt{-2} when cookies were found but did not help link to any specific customer record
-\end{itemize}
-
-Each of these encoding choices changes the definitions of appropriate completeness and validity for each field and, even more critically, impacts the expectations and assertions we should form for data accuracy.
-We can't expect 100\% completeness if nulls are a relevant value; we can't check validity of ranges as easily if sentinel values are used with values that are outside the normal range (hopefully, or we have much bigger problems!)
-So, understanding how upstream systems \emph{should} work is essential for assessing if they \emph{do} work.
-
-Similarly, understanding how our null data is collected has significant implications for how we subsequently process it. We will discuss this more in Chapter \ref{comp-quan} (Computational Quandaries).
 
 \hypertarget{data-extraction-loading}{%
 \section{Data Extraction \& Loading}\label{data-extraction-loading}}
@@ -988,10 +923,10 @@ Let's not imagine that there are 10 orders each day, and each order is shipped s
 ##   dt_subm dt_ship dt_load
 ## 1       1       4       4
 ## 2       1       3       3
-## 3       1       4       4
-## 4       1       5       5
+## 3       1       5       5
+## 4       1       4       4
 ## 5       1       3       3
-## 6       1       4       4
+## 6       1       3       3
 \end{verbatim}
 
 When we repeat the prior analysis, we now see that we have \emph{some} records for orders submitted on day 3 by the time we begin analysis on day 5.
@@ -1006,26 +941,8 @@ and low-priced orders where customers tend to chose slower shipping.
 In a case like this, not only might naive validation miss the lack of data completeness, but the \emph{sample} of shipments we begin to see on day 5 could be unrepresentative of the population of orders placed on day 3.
 This is a type of \textbf{selection bias} that we will examine further in Chapter \ref{incr-infe} (Incredible Inferences).
 
-\hypertarget{data-encoding-modeling-transformation-todo}{%
-\section{Data Encoding, Modeling, \& Transformation (TODO)}\label{data-encoding-modeling-transformation-todo}}
-
-\hypertarget{strategies-todo}{%
-\section{Strategies (TODO)}\label{strategies-todo}}
-
-\begin{Shaded}
-\begin{Highlighting}[]
-\CommentTok{\# but in reality this is just a data loading/recording issue {-}{-}{-}{-}}
-\NormalTok{df }\SpecialCharTok{\%\textgreater{}\%}
-  \FunctionTok{group\_by}\NormalTok{(dt\_order, dt\_ship) }\SpecialCharTok{\%\textgreater{}\%}
-  \FunctionTok{count}\NormalTok{() }\SpecialCharTok{\%\textgreater{}\%}
-  \FunctionTok{group\_by}\NormalTok{(dt\_order) }\SpecialCharTok{\%\textgreater{}\%}
-  \FunctionTok{arrange}\NormalTok{(dt\_ship) }\SpecialCharTok{\%\textgreater{}\%}
-  \FunctionTok{mutate}\NormalTok{(}\AttributeTok{n\_recorded =} \FunctionTok{cumsum}\NormalTok{(n)) }\SpecialCharTok{\%\textgreater{}\%}
-  \FunctionTok{ggplot}\NormalTok{(}\FunctionTok{aes}\NormalTok{(}\AttributeTok{x =}\NormalTok{ dt\_ship, }\AttributeTok{y =}\NormalTok{ n\_recorded, }\AttributeTok{col =} \FunctionTok{as.character}\NormalTok{(dt\_order))) }\SpecialCharTok{+} \FunctionTok{geom\_line}\NormalTok{()}
-\end{Highlighting}
-\end{Shaded}
-
-\includegraphics{bookdown_files/figure-latex/unnamed-chunk-15-2.pdf}
+\hypertarget{data-encoding-transformation-wip}{%
+\section{Data Encoding \& Transformation (WIP)}\label{data-encoding-transformation-wip}}
 
 \hypertarget{data-transformation}{%
 \subsection{Data Transformation}\label{data-transformation}}
@@ -1093,6 +1010,150 @@ This is also a problem more broadly if some short-term error is discovered eithe
 
 Regardless, this underscores the need to validate entire datasets and to re-validate when repulling data.
 
+\hypertarget{the-many-meanings-of-null}{%
+\subsection{The Many Meanings of Null}\label{the-many-meanings-of-null}}
+
+Another major encoding decision is how to handle null values.
+Previously, in the discussion of Data Collection, we considered the presence and absence of full \emph{records}.
+However, when preparing data for analysis, both data produces and consumers need to decide how to cope with the presence or absence of individual \emph{fields}.
+
+If records contain some but not all relevant information, they may be published with explicitly missing fields or the full record may not be published at all. The difference between implicit and explicit missingness on the resulting data is illustrated in Figure \ref{fig:null-impl-expl}.
+
+\begin{figure}
+
+{\centering \includegraphics[width=0.9\linewidth]{figures/data-dall/missing-imp-exp} 
+
+}
+
+\caption{A comparison of explicit versus implicit missingness}\label{fig:null-impl-expl}
+\end{figure}
+
+Understanding what the system implies by each \emph{explicitly} missing data field is also critical for validation and analysis.
+Checks for data completeness usually include counting null values, but null data isn't always incorrect.
+In fact, null data can be highly informative if we know what it means. Some meanings of null data might include:
+
+\begin{itemize}
+\tightlist
+\item
+  \textbf{Field is not relevant}: Perhaps our \texttt{logins} table reports the mobile phone operating system (iOS or Android) that was used to access the login page to track platform-specific issues. However, there is no valid value for this
+\item
+  \textbf{Relevant value is not known}: Our \texttt{logins} table might also have an \texttt{account\_id} field which attempts to match login attempts to known accounts/customers using different metadata like cookies or IP addresses. In theory, almost everyone trying to log in should have an account identifier, but our methods may not be good enough to identify them in all cases
+\item
+  \textbf{Relevant value is null}: Of course, sometimes someone without an account at all might try to log in for some reason. In this case, the correct value for an \texttt{account\_id} field truly \emph{is} null
+\item
+  \textbf{Relevant value was recorded incorrectly}: Sometimes systems have glitches. Without a doubt, every single login attempt \emph{should} have a timestamp, but such a field could be null if this data was somehow lost or corrupted at the source
+\end{itemize}
+
+Similarly, different systems might or might not report out these nulls in different ways such as:
+
+\begin{itemize}
+\tightlist
+\item
+  \textbf{True nulls}: Literally the entry in the resulting dataset is null
+\item
+  \textbf{Null-like non-nulls}: Blank values like an empty string (\texttt{\textquotesingle{}\textquotesingle{}}) that contain a null amount of information but won't be detected when counting null values
+\item
+  \textbf{Placeholder values}: Meaningless values like an \texttt{account\_id} of \texttt{00000000} for all unidentified accounts which preserve data \emph{validity} (the expected structure) but have no intrinsic meaning
+\item
+  \textbf{Sentinel/shadow values}: Abnormal values which attempt to indicate the reasons for null-ness such as an \texttt{account\_id} of \texttt{-1} when no browser cookies were found or \texttt{-2} when cookies were found but did not help link to any specific customer record
+\end{itemize}
+
+Each of these encoding choices changes the definitions of appropriate completeness and validity for each field and, even more critically, impacts the expectations and assertions we should form for data accuracy.
+We can't expect 100\% completeness if nulls are a relevant value; we can't check validity of ranges as easily if sentinel values are used with values that are outside the normal range (hopefully, or we have much bigger problems!)
+So, understanding how upstream systems \emph{should} work is essential for assessing if they \emph{do} work.
+
+Similarly, understanding how our null data is collected has significant implications for how we subsequently process it. We will discuss this more in Chapter \ref{comp-quan} (Computational Quandaries).
+
+\hypertarget{other-types-of-data-todo}{%
+\section{Other Types of Data (TODO)}\label{other-types-of-data-todo}}
+
+\hypertarget{strategies-todo}{%
+\section{Strategies (TODO)}\label{strategies-todo}}
+
+\hypertarget{real-world-disasters-todo}{%
+\section{Real World Disasters (TODO)}\label{real-world-disasters-todo}}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\CommentTok{\# but in reality this is just a data loading/recording issue {-}{-}{-}{-}}
+\NormalTok{df }\SpecialCharTok{\%\textgreater{}\%}
+  \FunctionTok{group\_by}\NormalTok{(dt\_order, dt\_ship) }\SpecialCharTok{\%\textgreater{}\%}
+  \FunctionTok{count}\NormalTok{() }\SpecialCharTok{\%\textgreater{}\%}
+  \FunctionTok{group\_by}\NormalTok{(dt\_order) }\SpecialCharTok{\%\textgreater{}\%}
+  \FunctionTok{arrange}\NormalTok{(dt\_ship) }\SpecialCharTok{\%\textgreater{}\%}
+  \FunctionTok{mutate}\NormalTok{(}\AttributeTok{n\_recorded =} \FunctionTok{cumsum}\NormalTok{(n)) }\SpecialCharTok{\%\textgreater{}\%}
+  \FunctionTok{ggplot}\NormalTok{(}\FunctionTok{aes}\NormalTok{(}\AttributeTok{x =}\NormalTok{ dt\_ship, }\AttributeTok{y =}\NormalTok{ n\_recorded, }\AttributeTok{col =} \FunctionTok{as.character}\NormalTok{(dt\_order))) }\SpecialCharTok{+} \FunctionTok{geom\_line}\NormalTok{()}
+\end{Highlighting}
+\end{Shaded}
+
+\includegraphics{bookdown_files/figure-latex/unnamed-chunk-21-2.pdf}
+
+\hypertarget{data-transformation-1}{%
+\subsection{Data Transformation}\label{data-transformation-1}}
+
+Finally, once the data is roughly where we want it, it likely undergoes many transformations to translate all of the system-generated fields we discussed in data collection into semantically-relevant dimensions for analytical consumers. Of course, the types of transformations that could be done are innumerable with far more variation than data loading. So, we'll just look at a few examples of common failure patterns.
+
+\hypertarget{pre-aggregation-1}{%
+\subsubsection{Pre-Aggregation}\label{pre-aggregation-1}}
+
+Data transformations may include aggregating data up to higher levels of granularity for easier analysis. For example, a transformation might add up item-level purchase data to make it easier for an analyst to look at spend per \emph{order} of a specific user.
+
+Data transformations not only transform our data, but they also transform how the dimensions of data quality manifest. If data with some of the \textbf{completeness} or \textbf{uniqueness} issues we discussed with data loading is pre-aggregated, these problems can turn into problems of \textbf{accuracy}. For example, the duplicate or partial data loads that we discussed when aggregated could suggest inaccurately high or low quantities respectively.
+
+\begin{center}\includegraphics[width=0.9\linewidth]{figures/data-dall/completeness-accuracy} \end{center}
+
+\hypertarget{field-encoding-1}{%
+\subsubsection{Field Encoding}\label{field-encoding-1}}
+
+When we assess data consistency across tables,
+
+Categorical fields in a data set might be created in any number of ways including:
+
+\begin{itemize}
+\tightlist
+\item
+  Directly taken from the source
+\item
+  Coded in a transformation script
+\item
+  Transformed with logic in a shared user-defined function (\href{https://docs.snowflake.com/en/sql-reference/user-defined-functions.html}{UDFs}) or \href{https://docs.getdbt.com/docs/building-a-dbt-project/jinja-macros/\#macros}{macro}
+\item
+  Joined from a shared look-up table
+\end{itemize}
+
+Each approach has different implications on data consistency and usability.
+
+\begin{center}\includegraphics[width=0.9\linewidth]{figures/data-dall/field-encoding} \end{center}
+
+Using fields from the source simply is what it is -- there's no subjectivity or room for manual human error. If multiple tables come from the same source, it's likely but not guaranteed that they will be encoded in the same way.
+
+Coding transformations in the ELT process is easy for data producers. There's no need to coordinate across multiple processes or use cases, and the transformation can be immediately modified when needed. However, that same lack of coordination can lead to different results for fields that should be the same.
+
+Alternatively, macros, UDFs, and look-up tables provided centralized ways to map source data inputs to desired analytical data outputs in a systemic and consistent way. Of course, centralization has its own challenges. If something in the source data changes, the process of updating a centralized UDF or look-up table may be slowed down by the need to seek consensus and collaborate. So, data is more \emph{consistent} but potentially less \emph{accurate}.
+
+Regardless, such engineered values require scrutiny -- paticularly if they are being used as a key to join multiple tables -- and the distinct values in them should be carefully examined.
+
+\hypertarget{updating-transformations-1}{%
+\subsubsection{Updating Transformations}\label{updating-transformations-1}}
+
+Of course, data consistency is not only a problem across different data sources but within one data source. Regardless of the method of field encoding used in the previous step, the intersection of data loading and data transformation strategies can introduce data consistency errors over time.
+
+Often, for computation efficiency, analytical tables are loaded using an \emph{incremental} loading strategy. This means that only new records (determined by time period, a set of unique keys, or other criteria) from the upstream source are loaded to the downstream table. This is in contrast to a \emph{full refresh} where the entire downstream table is recreated on each update.
+
+\begin{center}\includegraphics[width=0.9\linewidth]{figures/data-dall/incr-full-good} \end{center}
+
+Incremental loads have many advantages. Rebuilding tables in entirety can be very time consuming and computationally expensive. In particular, in non-cloud data warehouses that are not able to scale computing power on demand, this sort of heavy duty processing job can noticeably drain resources from other queries that are trying to run in the database. Additionally, if the upstream staging data is ephemeral, fully rebuilding the table could mean failing to retain history.
+
+However, in the case that our data transformations change, incremental loads may introduce inconsistency in our data overtime as only new records are created and inserted with the new logic.
+
+\begin{center}\includegraphics[width=0.9\linewidth]{figures/data-dall/incr-full-bad-col} \end{center}
+
+This is also a problem more broadly if some short-term error is discovered either with data loading or transformation in historical data. Incremental strategies may not always update to include the corrected version of the data.
+
+\begin{center}\includegraphics[width=0.9\linewidth]{figures/data-dall/incr-full-good} \end{center}
+
+Regardless, this underscores the need to validate entire datasets and to re-validate when repulling data.
+
 \hypertarget{human-generated-data}{%
 \section{Human-Generated Data}\label{human-generated-data}}
 
@@ -1115,7 +1176,7 @@ Ahhhh
 --\textgreater{}
 
 \hypertarget{comp-quan}{%
-\chapter{Computational Quandaries}\label{comp-quan}}
+\chapter{Computational Quandaries (WIP)}\label{comp-quan}}
 
 After gaining confidence in one's data (or, at least, making peace with it), the next step in a data analysis is often to start cleaning and exploring that data with summary statistics, plots, and models.
 Generally, this requires a computational tool like SQL, R, or python.
@@ -1217,7 +1278,7 @@ These different values carry different semantic and functional meanings. For exa
 ## [1] 1 0
 \end{verbatim}
 
-As further proof that these are not interchangeable, we may use the helper functions \texttt{is.na()} and \texttt{is.null()}. It's false that \texttt{NA} is \texttt{NULL} and essentially unevaluable if \texttt{NULL} is \texttt{NA} because \texttt{NULL}s are truly nothing.
+As further proof that these are not interchangeable, we may use the helper functions \texttt{is.na()} and \texttt{is.null()}. It's false that \texttt{NA} is \texttt{NULL} and essentially unable to be evaluated if \texttt{NULL} is \texttt{NA} because \texttt{NULL}s are truly nothing.\footnote{You'll notice that the code chunk below contains four inputs but only three outputs. Why is that? \texttt{is.na(NULL)} returns \texttt{logical(0)}, a zero-length value which cannot be stored in the vector. It's yet another form of missingness!}
 
 \begin{Shaded}
 \begin{Highlighting}[]
@@ -1399,7 +1460,7 @@ Consider, for example, if we wish to calculate the average net purchase amount (
 
 Despite what we learned above about SQL's \texttt{avg()} function, the query above returns only a null value.
 What has happened?
-In our \texttt{registration} data set, the \texttt{amt\_return} column is completely null (representing no returns).
+In our \texttt{spend} dataset, the \texttt{amt\_return} column is completely null (representing no returns).
 Because the subtraction occurs before the average is taken, subtracting real numbers in \texttt{amt\_spend} with null values in \texttt{amt\_return} creates a column of all null values which are then fed into the \texttt{avg()} function.
 This process is shown step-by-step below.
 
@@ -1675,6 +1736,9 @@ We can explicitly encode any residual values as something like ``OTHER'' or ``ER
 \hypertarget{trusting-tools}{%
 \section{Trusting Tools}\label{trusting-tools}}
 
+\hypertarget{delegating-decisions}{%
+\subsection{Delegating decisions}\label{delegating-decisions}}
+
 A theme throughout this book is the fundamentally \emph{social} nature of data analysis. Data analysis is fraught without understanding the countless decisions made along the way by those who generated it (whose data is reflected), those who collected it, those who migrated it, and those who have posed questions of it. On one hand, this is a beautiful aspect of analysis; on the other hand, it means that analysts and their analyses are subject to all of the cognitive and social psychological biases of everyday humans.
 
 One such bias is ``social proof'': assuming that if a tool behaves a certain way, it must be because it is correct.
@@ -1702,7 +1766,7 @@ Assuming that our tools know best is admittedly an attractive proposition. It ap
 As a few concrete examples from popular open source tools. We'll look briefly at the prominent python library \texttt{scikitlearn} for machine learning and Apache Spark, an engine for large-scale distributed data processing.
 
 \hypertarget{defaults-in-scikitlearn}{%
-\subsection{\texorpdfstring{Defaults in \texttt{scikitlearn}}{Defaults in scikitlearn}}\label{defaults-in-scikitlearn}}
+\subsubsection{\texorpdfstring{Defaults in \texttt{scikitlearn}}{Defaults in scikitlearn}}\label{defaults-in-scikitlearn}}
 
 \texttt{scikitlearn}'s default behavior for logistic regression modeling\footnote{A classic modeling technique for predicting binary (yes/no) outcomes} automatically applies L2 regularization. You might or might not know what this means, and you might or might not want to apply it to your problem. That's fine. The important thing is that it \emph{will} change your estimates and predictions, and it is \emph{not} a part of the classical definition of that algorithm (for modelers coming from a statistical background.)
 
@@ -1711,23 +1775,39 @@ Of course, there's nothing inherently wrong about this choice; the library autho
 However, an analyst could easily miss this nuance if they do not \emph{read} the documentation. Or, if they \emph{misinterpret} this choice as social proof that regularization is always the right approach, they might not make the best choice for their own analysis.
 
 \hypertarget{algorithms-in-spark}{%
-\subsection{\texorpdfstring{Algorithms in \texttt{Spark}}{Algorithms in Spark}}\label{algorithms-in-spark}}
+\subsubsection{\texorpdfstring{Algorithms in \texttt{Spark}}{Algorithms in Spark}}\label{algorithms-in-spark}}
 
-For example, according to a 2015 \href{https://issues.apache.org/jira/browse/SPARK-5133}{Jira ticket}, developers of Spark considered multiple methodologies they could use when adding the functionality to compute feature importance for a random forest. Ultimately, a core contributor advised against permutation importance due to its computational cost.
+As a second example, according to a 2015 \href{https://issues.apache.org/jira/browse/SPARK-5133}{Jira ticket}, developers of Spark considered multiple methodologies they could use when adding the functionality to compute feature importance for a random forest. Ultimately, a core contributor advised against permutation importance due to its computational cost.
 
-\begin{center}\includegraphics[width=0.9\linewidth]{figures/comp-quan/spark-jira} \end{center}
+\begin{figure}
+
+{\centering \includegraphics[width=0.9\linewidth]{figures/comp-quan/spark-jira} 
+
+}
+
+\caption{JIRA ticket for Spark with a discussion of which random forest variable importance algorithm to implement}\label{fig:unnamed-chunk-59}
+\end{figure}
 
 Clearly, no one wants a workflow that is too costly or timely to run. So, once again, there is no right or wrong. However, since every approach to feature importance has its own biases, pitfalls, and challenges in interpretation, it's a mistake for an end-user to not carefully understand which algorithm is used and why.
 
+\hypertarget{security-todo}{%
+\subsection{Security (TODO)}\label{security-todo}}
+
+namespace squatting
+executable code
+
 \hypertarget{strategies-todo-1}{%
 \section{Strategies (TODO)}\label{strategies-todo-1}}
+
+\hypertarget{real-world-disasters-todo-1}{%
+\section{Real World Disasters (TODO)}\label{real-world-disasters-todo-1}}
 
 \hypertarget{part-analysis}{%
 \part*{Analysis}\label{part-analysis}}
 
 
 \hypertarget{eg-agg}{%
-\chapter{Egregious Aggregations}\label{eg-agg}}
+\chapter{Egregious Aggregations (WIP)}\label{eg-agg}}
 
 Once armed with an understanding of the data and tools available for analysis, a common start to analysis is exploring data with \emph{aggregation}.
 At its heart, any sort of data analysis is the process of condensing raw data into something more manageable and useful while giving up as little of the information as possible.
@@ -1737,6 +1817,83 @@ We learn rigorous assumptions to consider and validate when studying linear regr
 However, the underlying distributions of our variables and the relationships between them have a significant impact on the how informative and interpretable various summarizations are.
 
 In this chapter, we will explore different ways that univariate and multivariate aggregations can be naive or uninformative.
+
+\hypertarget{similar-in-summary}{%
+\section{Similar in Summary}\label{similar-in-summary}}
+
+Anscombe's Quartet
+
+The datasaurus dozen \citep{datasaurus} and the \texttt{datasauRus} R package \citep{R-datasauRus}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\FunctionTok{library}\NormalTok{(datasauRus)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{df }\OtherTok{\textless{}{-}}\NormalTok{ datasauRus}\SpecialCharTok{::}\NormalTok{datasaurus\_dozen}
+\FunctionTok{head}\NormalTok{(df)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## # A tibble: 6 x 3
+##   dataset     x     y
+##   <chr>   <dbl> <dbl>
+## 1 dino     55.4  97.2
+## 2 dino     51.5  96.0
+## 3 dino     46.2  94.5
+## 4 dino     42.8  91.4
+## 5 dino     40.8  88.3
+## 6 dino     38.7  84.9
+\end{verbatim}
+
+\begin{table}
+
+\caption{\label{tab:datasaurus-tbl}Summary statistics for Datasaurus Dozen datasets}
+\centering
+\begin{tabular}[t]{l|r|r|r|r|r}
+\hline
+dataset & mean(x) & mean(y) & var(x) & var(y) & cor(x, y)\\
+\hline
+away & 54.27 & 47.84 & 281.2 & 725.8 & -0.064\\
+\hline
+bullseye & 54.27 & 47.83 & 281.2 & 725.5 & -0.069\\
+\hline
+circle & 54.27 & 47.84 & 280.9 & 725.2 & -0.068\\
+\hline
+dino & 54.26 & 47.83 & 281.1 & 725.5 & -0.064\\
+\hline
+dots & 54.26 & 47.84 & 281.2 & 725.2 & -0.060\\
+\hline
+h\_lines & 54.26 & 47.83 & 281.1 & 725.8 & -0.062\\
+\hline
+high\_lines & 54.27 & 47.84 & 281.1 & 725.8 & -0.069\\
+\hline
+slant\_down & 54.27 & 47.84 & 281.1 & 725.6 & -0.069\\
+\hline
+slant\_up & 54.27 & 47.83 & 281.2 & 725.7 & -0.069\\
+\hline
+star & 54.27 & 47.84 & 281.2 & 725.2 & -0.063\\
+\hline
+v\_lines & 54.27 & 47.84 & 281.2 & 725.6 & -0.069\\
+\hline
+wide\_lines & 54.27 & 47.83 & 281.2 & 725.7 & -0.067\\
+\hline
+x\_shape & 54.26 & 47.84 & 281.2 & 725.2 & -0.066\\
+\hline
+\end{tabular}
+\end{table}
+
+\begin{figure}
+\centering
+\includegraphics{bookdown_files/figure-latex/datasaurus-plot-1.pdf}
+\caption{\label{fig:datasaurus-plot}Scatterplots for Datasaurus Dozen datasets}
+\end{figure}
+
+While this is clearly a contrived example (and, if you so chose to check out the paper, a very cleverly contrived example!), its also a cautionary tale. Summary statistics are not just insufficient when they focus on central tendency (e.g.~mean) instead of spread. In this example, even an examination of variation and covariation led to an overly simplistic view of the underlying data.
 
 \hypertarget{averages}{%
 \section{Averages}\label{averages}}
@@ -1890,20 +2047,44 @@ however, this second result once again illustrates the extent to which interrela
 \subsection{Seasonality}\label{seasonality}}
 
 \hypertarget{vex-viz}{%
-\chapter{Vexing Visualization}\label{vex-viz}}
+\chapter{Vexing Visualization (TODO)}\label{vex-viz}}
 
 \hypertarget{incr-infe}{%
-\chapter{Incredible Inferences}\label{incr-infe}}
+\chapter{Incredible Inferences (TODO)}\label{incr-infe}}
 
 Previously, we have seen how different inputs like data, tools, and methods can add risks to our data analysis. However, the battle is not won simply when we get our first set of \emph{outputs}. In this chapter, we will explore common errors in interpreting the results of our analysis by exploring aspects of bias, missingness, and confounding.
 
+\hypertarget{feature-leakage}{%
+\section{Feature Leakage}\label{feature-leakage}}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{n }\OtherTok{\textless{}{-}} \DecValTok{1000}
+\NormalTok{minutes\_month1 }\OtherTok{\textless{}{-}} \FunctionTok{runif}\NormalTok{(n, }\DecValTok{60}\NormalTok{, }\DecValTok{1200}\NormalTok{)}
+\NormalTok{minutes\_month2 }\OtherTok{\textless{}{-}} \FunctionTok{runif}\NormalTok{(n, }\DecValTok{60}\NormalTok{, }\DecValTok{1200}\NormalTok{) }
+\NormalTok{minutes\_tot }\OtherTok{\textless{}{-}}\NormalTok{ minutes\_month1 }\SpecialCharTok{+}\NormalTok{ minutes\_month2}
+\NormalTok{df }\OtherTok{\textless{}{-}} \FunctionTok{data.frame}\NormalTok{(minutes\_month1, minutes\_month2, minutes\_tot)}
+\end{Highlighting}
+\end{Shaded}
+
+Figure \ref{fig:sep-sum} shows\ldots{}
+
+\begin{figure}
+
+{\centering \includegraphics[width=0.9\linewidth]{bookdown_files/figure-latex/sep-sum-1} 
+
+}
+
+\caption{Correlation of idependent versus cumulative quantities}\label{fig:sep-sum}
+\end{figure}
+
 \hypertarget{cava-caus}{%
-\chapter{Cavalier Causality}\label{cava-caus}}
+\chapter{Cavalier Causality (TODO)}\label{cava-caus}}
 
 In Chapter \ref{incr-infe} (Incredible Inferences), we began to see that we can be tricked by biases when we lack \emph{causal} thinking and an underlying theory for the data generating process. In this chapter, we will revisit some of these same disasters and introduce some specific frameworks to help us more rigorously explore our analysis for errors and biases and, even better, strategize the best ways to fix them.
 
 \hypertarget{mind-mod}{%
-\chapter{Mindless Modeling}\label{mind-mod}}
+\chapter{Mindless Modeling (TODO)}\label{mind-mod}}
 
 \hypertarget{features}{%
 \section{Features}\label{features}}
@@ -1914,14 +2095,17 @@ In Chapter \ref{incr-infe} (Incredible Inferences), we began to see that we can 
 \hypertarget{evaluation-metrics}{%
 \section{Evaluation Metrics}\label{evaluation-metrics}}
 
-\hypertarget{clustering}{%
-\section{Clustering}\label{clustering}}
+\hypertarget{unsupervised-learning}{%
+\section{Unsupervised Learning}\label{unsupervised-learning}}
 
 \hypertarget{lifecycle-management}{%
 \section{Lifecycle Management}\label{lifecycle-management}}
 
+\hypertarget{fair-and-ethical-modeling}{%
+\section{Fair and Ethical Modeling}\label{fair-and-ethical-modeling}}
+
 \hypertarget{alt-alg}{%
-\chapter{Alternative Algorithms}\label{alt-alg}}
+\chapter{Alternative Algorithms (TODO)}\label{alt-alg}}
 
 As the consummate showman, P.T. Barnum is often quoted as saying ``Leave them wanting more''. Unfortunately, statistics professors have less of a flare for drama. Introductory statistics courses will typically introduce a few types of models (for example, linear and \emph{perhaps} logistic regression), and that's a wrap. It's often until students start \emph{taking} the subsequent courses that they are exposed to the true limitations of previous techniques and taught to demand more.
 
@@ -1945,15 +2129,36 @@ This chapter attempts to flip that paradigm by briefly surveying a broad number 
 \hypertarget{modeling-time-space-data}{%
 \section{Modeling Time \& Space Data}\label{modeling-time-space-data}}
 
+\hypertarget{bayesian-methods}{%
+\section{Bayesian Methods}\label{bayesian-methods}}
+
+\hypertarget{simulation-methods}{%
+\section{Simulation Methods}\label{simulation-methods}}
+
+\hypertarget{agent-based}{%
+\subsection{Agent-Based}\label{agent-based}}
+
+\hypertarget{discrete-event}{%
+\subsection{Discrete Event}\label{discrete-event}}
+
 \hypertarget{part-workflow}{%
 \part*{Workflow}\label{part-workflow}}
 
 
+\hypertarget{futi-find}{%
+\chapter{Futile Findings (TODO)}\label{futi-find}}
+
 \hypertarget{comp-code}{%
-\chapter{Complexifying Code}\label{comp-code}}
+\chapter{Complexifying Code (TODO)}\label{comp-code}}
 
 \hypertarget{reje-repr}{%
-\chapter{Rejecting Reproducibility}\label{reje-repr}}
+\chapter{Rejecting Reproducibility (TODO)}\label{reje-repr}}
+
+``Good Enough Practices in Computational Reproducibility'' \citep{wilson_bryan_cranston_kitzes_nederbragt_teal_2017}
+
+Package managment \citep{R-renv}
+
+environment management
 
 \cleardoublepage
 
