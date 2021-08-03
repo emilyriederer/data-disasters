@@ -412,15 +412,286 @@ spend %>%
   count()
 ```
 
-## Dates and Times (TODO)
+## Strings (WIP)
 
-## Strings (TODO)
+String data can be inherently appealing. At their best, strings are used to bring more readable and human interpretable values into a dataset. However, string data and the processing thereof comes with its own challenges. 
 
-## Encoding Choices (TODO)
+First, unlike numbers, human language strings can be ambiguously defined. `2` is the only number to represent the value of two. However, the incorporation of human language means that many different words, phrases, and formatting choices can represent the same concept. This is confounded by instances where string data was manually entered, as is the case with user-input data.^[I can accurately say my name is "Emily", "Emily Riederer", "Emily E. Riederer", "Ms. Emily Riederer". Additionally, if I spell my name over the phone, I can likely end up "Emily Rieder" or if I type it and mindlessly accept autocorrect, I'm "Emily Reindeer". This inconsistently may be problematic if you are trying to combine my data across different sources where I provided my name in different ways.]
 
-## Order of Operations (TODO)
+Secondly, string data is one of the most flexible datatypes and can contain any other types of information -- from should-be-logical values (`"yes"/"no"`, `"true"/"false"`), should-be-numeric values (`"27"`), should-be-date values (`"2020-01-01"`), and even complex data encodings like JSON blobs (`"{"name":{"first":"emily","last":"riederer"},"social":{"twitter":"emilyriederer","github":"emilyriederer","linkedin":"emilyriederer"}}"` with hideous formatting for emphasis.) For a data publisher, this may be a convenience, but as we will see it can turn into a frustration or a liability when functions and comparison operations are attempted with strings that semantically represent a different type of value.
 
-## Object References (TODO)
+### Dirty Strings
+
+whitespace
+
+```{r results="hold"}
+"a" == "a"
+"a b" == "a b"
+"a b" == "a  b"
+"a b" == "a b "
+```
+
+"fancy" characters (alternate encodings like ms word)
+
+```{r results="hold"}
+' " ' == ' " '
+' “ ' == ' " '
+```
+
+special characters and display versus values
+
+```{r results="hold"}
+x <- "a\tb"
+cat(x) # what you see...
+x == "a    b" # ...is not what you get
+```
+
+### Regular Expressions (TODO)
+
+we promised not to be solution oriented, but
+
+*not* knowing regex is a disaster when trying to work with string data...
+
+### Comparison
+
+TODO
+
+#### String ordering
+
+Strings are ranked based on *alphabetical order* just like a dictionary. Some properties of this ordering include that:
+
+- numbers are smaller than letters (`1 < "a"`)
+- lower-case is smaller than upper case (`"a" < "A"`)
+- fewer characters are smaller than more characters (`"a" < "aa"`)
+
+Such rules make perfect sense for true characters. However, when strings are used as a "catch all" to represent other structures, typical comparison operators can produce odd results. For example, its generally uncontroverisal that ninety-one is less than one hundred twenty. However, the string `"91"` is *greater than* `"120"` because only the chacter `"9"` is compared to the character `"1"`.^[Similarly, `"91" > "905"` because since they both start with 9, we move on to compare 1 which is greater than 0.]
+
+```{r results="hold"}
+91 < 120
+"91" < "120"
+```
+
+When strings are used to represent strings, comparison operators may or may not work depending on the precise formatting convertions. Below, we see that "YYYYQQ"-formats sort correctly because the information is hierarchically nested; millenia are compared before centuries, centuries before decades, decades before years, and years before quarters. However, many other string representations of dates, like "QQ-YYYY" will not order correctly. Related topics will be discussed in the "Dates and Times" section.
+
+```{r results="hold"}
+"20190Q4" < "2020Q3" # string (alphabetic) ordering same as semantic ordering
+"Q4-2019" < "Q3-2020" # string and semantic orderings are different
+```
+
+These examples demonstrate that we shouldn't rely on sorting schemes that follow different rules. Before doing comparisons on such types, its a safer bet to cast them to the format most truly representative of their types. If, for some reason, you do wish to keep them as strings, the second example shows that its is wise to format them in the most conducive format possible so things just work. 
+
+#### Type coercion 
+
+We discussed string comparison before when looking at "dirty" strings. More unexpected behavior arises when strings are compared across different data types. Many computing programs will attempt to *coerce* the objects to a similar and comparable type. Sometimes, this can be handy as operations "just work", but as always there is a cost for convenience. As we'll see, delegating important decisions to our computing engine may not always capture the semantic relationships that we are most interested in. 
+
+For example, consider compare a string and a number. To make them more comparable, R will convert them both to strings before checking for equality. Thus, the number `2020` is equivalent to the string `"2020"` but not the string `"02020"`.
+
+```{r results="hold"}
+"2020" == 2020
+"02020" == 2020
+```
+
+In constrast, SQLite^[Different versions of SQL may differ] thinks that the string `'2020'` is greater than the number 2020 and that these two quantities are not equal.
+
+```{r}
+sqldf("select 
+      case when '2020' = 2020 then 1 else 0 end as is_eq,
+      case when not '2020' == 2020 then 1 else 0 end as not_eq,
+      case when '2020' < 2020 then 1 else 0 end as is_lt,
+      case when '2020' > 2020 then 1 else 0 end as is_gt
+      ")
+```
+
+^TODO: where this could cause problems (FIPS example?)
+
+## Dates and Times (WIP)
+
+Unlike character strings, dates and times seem like they should be well defined with distinct, quantifiable components like years, months, and days. However, many different conventions for date formatting and underlying storage formats exist. This leads to similar challenges with dates and times as we saw with strings before.
+
+Some common formats in the wild are:
+
+- YYYYMMDD
+- YYYYMM
+- MMDDYYYY
+- DDMMYYYY
+- MM/DD/YYYY
+- MM/DD/YY
+- DD/MM/YYYY
+- YYYY-MM-DD (ISO8601)
+
+To complicate matters further, many of these formats may be represented either by native date types in various programs or by more basic data types (such as integers for the first four and strings for the last four). In addition, analogous formats exist for *timestamps* which encode both calendar date and time of day (hour, minute, and second information).
+
+TODO: why ISO8601?
+
+### Comparison
+
+Automatic conversion of data types
+Dates versus timestamps 
+
+```{r}
+df_dt <-
+data.frame(
+  DT_ENROLL = as.Date("2020-01-01"),
+  DT_PURCH  = 20200101,
+  DT_LOGIN  = as.POSIXlt("2020-01-01T12:00:00") 
+  )
+```
+
+none of these are equal so nothing returns on filtering
+
+```{r}
+filter(df_dt, DT_ENROLL == DT_PURCH) %>% nrow()
+filter(df_dt, DT_ENROLL == DT_LOGIN) %>% nrow()
+```
+
+the same thing happens in sql 
+
+```{r}
+sqldf("select * from df_dt where DT_ENROLL = DT_PURCH")
+sqldf("select * from df_dt where DT_ENROLL = DT_LOGIN")
+```
+
+in what way aren't they equal? to understand this its helpful to know how the computer encodes these dates
+
+with `as.numeric()` in R we can see the numeric representation of the date
+
+```{r}
+as.numeric(df_dt$DT_ENROLL)
+```
+
+this works the same way in SQL
+
+```{r}
+sqldf("select cast(DT_ENROLL as integer), cast(DT_PURCH as integer) from df_dt")
+```
+
+this has the implication that things that are on the same date have an inequality relationship in both languages
+
+```{r}
+filter(df_dt, DT_ENROLL < DT_PURCH) %>% nrow()
+```
+
+
+```{r}
+sqldf("
+  select 
+    cast(DT_ENROLL as integer), 
+    case when DT_ENROLL < 18000 then 1 else 0 end as lt_18000,
+    case when DT_ENROLL < 19000 then 1 else 0 end as lt_19000,
+    case when DT_ENROLL < DT_PURCH then 1 else 0 end as lt_purch
+  from df_dt")
+```
+
+Note this this can affect both filters and joins
+
+and this similarly causes a more general problem when comparing a date to a date-as-an-integer
+
+```{r}
+as.Date("2020-01-01") > 20160501
+```
+
+```{r}
+sqldf("
+  select cast('2020-01-01' as date) > 20160501
+  ")
+```
+
+
+<!--
+
+### Timestamps versus dates
+
+```{r}
+today <- as.Date(Sys.Date()) 
+now <- as.POSIXct(Sys.time(), "America/New_York")
+today == now
+today > now
+today < now
+```
+
+```{python error = TRUE}
+from datetime import date
+from datetime import datetime
+
+today = date.today()
+now = datetime.now()
+today == now
+today < now
+today > now
+
+today_str = today.strftime('%Y-%m-%d')
+now_str = now.strftime('%Y-%m-%d %H:%M:%S')
+today_str == now_str
+today_str < now_str
+today_str > now_str
+```
+
+-->
+
+## Logicals (TODO)
+
+## Order of Operations (WIP)
+
+```{r results = 'hold'}
+1 + 1  * 2 / 3 - 1
+(1 + 1) * 2 / 3 - 1
+1 + 1 * 2 / (3 - 1)
+```
+
+
+## Object References (WIP)
+
+Copying and modifying object overview
+
+```{r echo = FALSE, out.width = '90%', fig.align = 'center', fig.cap = "Different relationships between named variables and their values"}
+knitr::include_graphics("figures/comp-quan/ref-val.PNG")
+```
+
+When might each be preferred?
+
+What risks are there if we don't understand which we are doing?
+
+In Python
+
+```{python results = 'hold'}
+x = [1,2,3]
+y = x
+y.append(4)
+print(y)
+print(x)
+```
+
+```{python results = 'hold'}
+z = x.copy()
+z.append(5)
+print(z)
+print(x)
+```
+
+pandas DataFrame methods with `inplace` arg (`False` is default)
+
+In R
+
+```{r warning = FALSE, message = FALSE, results = 'hold'}
+library(data.table)
+
+DT <- data.table(a=c(1,2), b=c(11,12))
+print(DT)
+
+newDT <- DT        # reference, not copy
+newDT[1, a := 100] # modify new DT
+
+print(DT)          # DT is modified too.
+
+DT = data.table(a=c(1,2), b=c(11,12))
+newDT <- DT        
+newDT$b[2] <- 200  # new operation
+newDT[1, a := 100]
+
+print(DT)
+```
+
+From https://stackoverflow.com/questions/10225098/understanding-exactly-when-a-data-table-is-a-reference-to-vs-a-copy-of-another
 
 ## Trusting Tools
 
@@ -460,14 +731,44 @@ knitr::include_graphics("figures/comp-quan/spark-jira.PNG")
 
 Clearly, no one wants a workflow that is too costly or timely to run. So, once again, there is no right or wrong. However, since every approach to feature importance has its own biases, pitfalls, and challenges in interpretation, it's a mistake for an end-user to not carefully understand which algorithm is used and why.
 
+### "Off-Label" Use (TODO)
+
+coined in https://www.rstudio.com/resources/rstudioglobal-2021/maintaining-the-house-the-tidyverse-built/
+
 ### Security (TODO)
 
 namespace squatting
+
 executable code
 
-## Strategies (TODO)
+## Inefficient Processing (TODO)
 
-## Real World Disasters (TODO)
+## Strategies (WIP)
+
+Paragraph 1 TODO
+
+Some computational quandaries are inherent to our tools themselves, but often they are a function both of the tools and the ways we chose to use them. More strategies related to writing robust and resilient code will be discussed in Chapter \@ref(comp-code) (Complexify Code).
+
+### Understand the intent
+
+- read the docs
+- look at examples
+
+### Understand the execution
+
+- test out simple examples (like we've been doing)
+- specificlly try out corner cases
+
+### Be explicit not implicit
+
+- default arguments
+- examples above with casting, coalescing
+
+## Real World Disasters (WIP)
+
+https://www.theguardian.com/politics/2020/oct/05/how-excel-may-have-caused-loss-of-16000-covid-tests-in-england
+
+> The data error, which led to 15,841 positive tests being left off the official daily figures, means than 50,000 potentially infectious people may have been missed by contact tracers and not told to self-isolate.
 
 <!--
 
@@ -510,35 +811,9 @@ head(registration)
 ```
 
 
-## Understanding data table structure
-
-Understanding the content and structure of the data you are using is a critical prerequisite to analysis. In this book, we focus on tabular, structured data like one might find in an Excel spreadsheet or relational database.^[Other types of data that one might encounter in the wild include free text, JSON, spatial data, and more. However, many of these require either more advanced analysis techniques or structuring that converts them into tabular data, so they are out of the scope of this discussion.] 
-
-In particular, many tools work best with what R developer Hadley Wickham descibes as "tidy data" [@wickham_tidy]. Namely:
-
-1. Each variable forms a column
-1. Each observation forms a row
-1. Each type of observational unit forms a table
-
-This is analogous to how one generally finds data arranged in a database and how statisticians are used to conceptualizing it. For example, the design matrix of a linear model consists of one column of data for each independent variable to be included in the model and one row for each observation.^[When data is arrange this way in a matrix $X$, linear regression coefficients can be computed as $\beta = (\mathbf{X}^\intercal\mathbf{X})^{-1}\mathbf{X}^\intercal \mathbf{y}$]
 
 
 
-
-Tidy data [@wickham_tidy]
-
-Things you need to know:
-
-- Data **columns**/**variables** - what do they mean (don't assume from name!)
-- Field **encodings** - what do subfields mean and what are their limits?
-- Data **rows** - what is a unique observation? 
-- Data **granularity** - when is it refreshed? How deep does it look when it's refreshed?
-
-Strategies:
-
-- Data dictionaries
-- Business rule checks
-- Consult with experts
 
 ## The meaning of a row
 
@@ -909,97 +1184,11 @@ Note this this can affect both filters and joins
 
 ## Merging mayhem
 
-## Order of operations
-
-```{r}
-1 + 1  * 2 / 3 - 1
-(1 + 1) * 2 / 3 - 1
-1 + 1 * 2 / (3 - 1)
-```
-
 
 ## Modifying versus copying
 
-```{r echo = FALSE, out.width = '90%', fig.align = 'center'}
-knitr::include_graphics("figures/comp-quan/ref-val.PNG")
-```
-
-In Python
-
-```{python}
-x = [1,2,3]
-y = x
-y.append(4)
-print(y)
-print(x)
-```
-
-```{python}
-z = x.copy()
-z.append(5)
-print(z)
-print(x)
-```
-
-In R
-
-```{r}
-library(data.table)
-
-DT <- data.table(a=c(1,2), b=c(11,12))
-print(DT)
-
-newDT <- DT        # reference, not copy
-newDT[1, a := 100] # modify new DT
-
-print(DT)          # DT is modified too.
-
-DT = data.table(a=c(1,2), b=c(11,12))
-newDT <- DT        
-newDT$b[2] <- 200  # new operation
-newDT[1, a := 100]
-
-print(DT)
-```
-
-From https://stackoverflow.com/questions/10225098/understanding-exactly-when-a-data-table-is-a-reference-to-vs-a-copy-of-another
 
 
-## Assuming that "Tool Knows Best"
-
-A theme throughout this book is the fundamentally *social* nature of data analysis. Data analysis is fraught without understanding the countless decisions made along the way by those who generated it (whose data is reflected), those who collected it, those who migrated it, and those who have posed questions of it. On one hand, this is a beautiful aspect of analysis; on the other hand, it means that analysts and their analyses are subject to all of the cognitive and social psychological biases of everyday humans.
-
-One such bias is "social proof": assuming that if a tool behaves a certain way, it must be because it is correct. 
-
-Assuming that our tools know best is admittedly an attractive proposition. It appeals to a desire to think that someone, somewhere is "in charge" and, perhaps more critically, helps us avoid a domino effect of distrust (If we *don't* trust our tools how can we trust our results? And if we can't trust our results, how can we trust anything at all?) Unfortunately, there are many reasons are tools might not know best. For example, the tool's developer might have:
-
-- Made a mistake
-- Had a different analysis problem in mind with a different optimal approach
-- Been optimizing for a different constraint (e.g. explainability vs. accuracy, speed vs. theoretical properties)
-- Come from a community with different norms
-- Been affording users the flexibility to do things many ways even if they don't agree
-- Built a certain feature for a different purpose than how you are using it
-- Not thought about it at all
-
-As a few concrete examples from popular open source tools. We'll look briefly at the prominent python library `scikitlearn` for machine learning and Apache Spark, an engine for large-scale distributed data processing.
-
-### Defaults in `scikitlearn`
-
-`scikitlearn`'s default behavior for logistic regression modeling^[A classic modeling technique for predicting binary (yes/no) outcomes] automatically applies L2 regularization. You might or might not know what this means, and you might or might not want to apply it to your problem. That's fine. The important thing is that it *will* change your estimates and predictions, and it is *not* a part of the classical definition of that algorithm (for modelers coming from a statistical background.) 
-
-Of course, there's nothing inherently wrong about this choice; the library authors just had different goals than a typical statistical. `scikitlearn` developer Olivier Grisel explains [on Twitter](https://twitter.com/ogrisel/status/1167438229655773186?s=20) that this choice (and others in the library) is explained because "Scikit-learn was always designed to make it easy to get good predictive accuracy (eg as measured by CV) rather than as statistical inference library." Additionally, this choice is documented in bold [in the function documentation](https://scikit-learn.org/stable/modules/generated/sklearn.linear_model.LogisticRegression.html). 
-
-However, an analyst could easily miss this nuance if they do not *read* the documentation. Or, if they *misinterpret* this choice as social proof that regularization is always the right approach, they might not make the best choice for their own analysis.
-
-### Algorithms in `Spark`
-
-For example, according to a 2015 [Jira ticket](https://issues.apache.org/jira/browse/SPARK-5133), developers of Spark considered multiple methodologies they could use when adding the functionality to compute feature importance for a random forest. Ultimately, a core contributor advised against permutation importance due to its computational cost. 
-
-```{r echo = FALSE, out.width = '90%', fig.align = 'center'}
-knitr::include_graphics("figures/comp-quan/spark-jira.PNG")
-```
-
-Clearly, no one wants a workflow that is too costly or timely to run. So, once again, there is no right or wrong. However, since every approach to feature importance has its own biases, pitfalls, and challenges in interpretation, it's a mistake for an end-user to not carefully understand which algorithm is used and why.
 
 ## Inefficient processing
 

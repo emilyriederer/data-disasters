@@ -4,17 +4,33 @@ As the consummate showman, P.T. Barnum is often quoted as saying "Leave them wan
 
 This chapter attempts to flip that paradigm by briefly surveying a broad number of modeling techniques. The goal is not to go into all of the rigorous deals that one should understand to use these models. Instead, we hope to build a "mental toolbox" of techniques so that you know where to focus your study when you encounter a problem in the real world.
 
-## Modeling Binary Outcomes
+## Not Modeling
 
-## Modeling Counts
+### First Principles
 
-## Modeling Time Until an Event
+### Simple Analyses
 
-## Modeling Repeated Measures on a Population 
+## Extending Linear Regression
 
-## Modeling Observations in a Nested Hierarchy
+### Modeling Binary Outcomes
 
-## Modeling Time & Space Data
+### Modeling Counts
+
+### Modeling Time Until an Event
+
+### Modeling Repeated Measures on a Population 
+
+### Modeling Observations in a Nested Hierarchy
+
+## Causal Analysis Patterns
+
+Similar to https://emilyriederer.netlify.app/post/causal-design-patterns/
+
+## Special Data Types
+
+### Duration Analysis
+
+### Time & Space Data
 
 ## Bayesian Methods
 
@@ -23,3 +39,10 @@ This chapter attempts to flip that paradigm by briefly surveying a broad number 
 ### Agent-Based
 
 ### Discrete Event
+
+## Clustering (beyond K-Means)
+
+### Density-Based
+
+### Mixture Models
+

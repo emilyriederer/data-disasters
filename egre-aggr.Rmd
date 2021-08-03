@@ -148,7 +148,7 @@ pr_sd <- 5
 re1 <- 0.1
 re2 <- 0.2
 
-# simulate spend amounts and return indicatiors ----
+# simulate spend amounts and return indicators ----
 amt_spend  <- c(rnorm(n, pr1, pr_sd), rnorm(n, pr2, pr_sd))
 ind_return <- c(rbinom(n, 1, re1),    rbinom(n, 1, re2))
 
@@ -197,6 +197,82 @@ however, this second result once again illustrates the extent to which interrela
 ### "If trends continue..."
 
 ### Seasonality 
+
+## Strategies (TODO)
+
+## Real World Disasters (TODO)
+
+Straight vs weighted averages in COVID positivity rates [@indy_rates]
+
+> The changes could result in real-world differences for Hoosiers, because the state uses a county's positivity rate as one of the numbers to determine which restrictions that county will face. Those restrictions determine how many people may gather, among other items.
+
+> Some Hoosiers may see loosened restrictions because of the changes. While Box said the county-level impact will be mixed, she predicted some smaller counties will see a decline in positivity rate after the changes.
+
+> "The change to the methodology is how we calculate the seven-day positivity rate for counties. In the past, similar to many states, we've added each day's positivity rate for seven days and divided by seven to obtain the week's positivity rate. Now we will add all of the positive tests for the week and divide by the total tests done that week to determine the week's positivity rate. This will help to minimize the effect that a high variability in the number of tests done each day can have on the week's overall positivity, especially for our smaller counties."
+
+```{r}
+avg_of_ratios <- (10/100 + 90/100) / 2
+
+ratio_of_sums <- (10 + 90) / (100 + 100)
+
+avg_of_ratios == ratio_of_sums
+
+avg_of_ratios_uneq <- (10/100 + 180 / 200) / 2
+
+ratio_of_sums_uneq <- (10 + 180) / (100 + 200)
+
+avg_of_ratios_uneq == ratio_of_sums_uneq
+
+weightavg_of_ratios_uneq <- (100/300)*(10/100) + (200/300)*(180/200)
+
+ratio_of_sums_uneq == weightavg_of_ratios_uneq
+```
+
+Recall that the standard deviation of sample proportion is $\sqrt(p*(1-p)/n)$
+
+link to discussions of sample size and different types of averages
+
+```{r}
+set.seed(123)
+
+# define simulation parameters ----
+## n: total draws from binomial distribution
+## p: proportion of successes
+p <- 0.5
+n <- 1000
+
+# sample from binomials of different size ----
+s010 <- rbinom(n,  10, p) /  10
+s100 <- rbinom(n, 100, p) / 100
+s500 <- rbinom(n, 500, p) / 500
+
+# set results as dataframe for inspection ----
+df <- data.frame(
+  s = rep(c(10, 100, 500), each = n),
+  x = c(s010, s100, s500)
+)
+```
+
+```{r}
+library(ggplot2)
+
+ggplot(data = df) +
+  aes(x = x, col = as.character(s)) +
+  geom_density() +
+  geom_vline(xintercept = p, col = 'darkgrey', linetype = 2) +
+  labs(
+    title = "Sampling Distribution for p = 0.5",
+    col = "Sample Size"
+  ) +
+  scale_x_continuous(breaks = seq(0, 1, 0.1), labels = seq(0, 1, 0.1)) +
+  theme(
+    plot.title = element_text(hjust = 0.5),
+    legend.position = "bottom"
+  )
+```
+
+
+
 
 <!--
 

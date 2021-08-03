@@ -85,10 +85,6 @@ As we go, we will notice how three common themes that challenge the focus of int
 - Similarly, observations and variables are rarely independent; the story is in the **covariance**
 - Assumptions of Normality, or more broadly symmetry, are often in appropriate in wonky, **highly skewed** world
 
-## Software information and conventions {-}
-
-This book is created with the excellent **bookdown** package. 
-
 
 <!--
 ## Assumed knowledge {-}

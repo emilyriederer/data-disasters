@@ -32,6 +32,8 @@ Before we begin our exploration of data dalliances, we must first establish a ba
 
 ### Data Structure Basics
 
+#### Relational Data Structure
+
 Understanding the content and structure of the data you are using is a critical prerequisite to analysis. 
 In this book, we focus on tabular, structured data like one might find in an Excel spreadsheet or relational database.^[Other types of data that one might encounter in the wild include free text, JSON, spatial data, and more. However, many of these require either more advanced analysis techniques or structuring that converts them into tabular data, so they are out of the scope of this discussion.] 
 
@@ -47,6 +49,8 @@ As Wickham points out, this is also similar to what is called "3rd normal form" 
 
 Using this data structure is valuable not only because it is similar to what many modern data tools expect, but also because it provides us a framework to think critically about what defined each observation and each variable in our dataset.
 
+#### Schemas (TODO)
+
 ### Data Production Processes
 
 In statistical modeling we discuss the **data generating process**: we can build models that describe the mechanisms that create our observations. 
@@ -59,11 +63,13 @@ Regardless of the type of data (experimental, observational, survey, etc.), ther
 - **Load**: The process of loading the extracted data to its final destination
 - **Transform**: The process of modeling and transforming data so that its structure is useful for analysis and its variables are interpretable
 
-To better theorize about data quality issues, it's useful to think of four DGPs: the real-world DGP, the data collection/extraction DGP^[I don't mean to imply statisticians do not regularly think about the data collection DGP! The rich literature on missing data imputation, censored data in survival analysis, and non-response bias is survey data collection are just a few examples of how carefully statisticians think about how data collection impacts analysis. I chose to break it out here to discuss the more technical aspects of collection], the data loading DGP, and the data transformation DGP.  
+To better theorize about data quality issues, it's useful to think of four DGPs (as shown in Figure \@ref(fig:dgp)): the real-world DGP, the data collection/extraction DGP^[I don't mean to imply statisticians do not regularly think about the data collection DGP! The rich literature on missing data imputation, censored data in survival analysis, and non-response bias is survey data collection are just a few examples of how carefully statisticians think about how data collection impacts analysis. I chose to break it out here to discuss the more technical aspects of collection], the data loading DGP, and the data transformation DGP.  
 
-```{r echo = FALSE, out.width = '90%', fig.align = 'center', fig.cap = 'A schematic of the data production process'}
+```{r dgp, echo = FALSE, out.width = '90%', fig.align = 'center', fig.cap = 'A schematic of the data production process'}
 knitr::include_graphics("figures/data-dall/dgp.png")
 ```
+
+#### E-Commerce Data Example
 
 For example, consider the role of each of these four DGPs for e-commerce data:
 
@@ -71,6 +77,8 @@ For example, consider the role of each of these four DGPs for e-commerce data:
 - **Data collection DGP**: Parts of the website are instrumented to log certain customer actions. This log is then extracted from the different operational system (login platforms, payment platforms, account records) to be used for analysis
 - **Data loading DGP**: Data recorded by different systems is moved to a data warehouse for further processing through some sort of manual, scheduled, or orchestrated job. These different systems may make data available at different frequencies.
 - **Data transformation DGP**: To arrive at that final data presentation requires creating a [data model](https://en.wikipedia.org/wiki/Data_model) to describe domain-specific attributes with key variables crafted with data transformations
+
+#### Subway Data Example
 
 Or, consider the role of each of these four DGPs for subway ridership data^[Like NYC's infamously messy [turnstile data](http://web.mta.info/developers/turnstile.html). I don't claim to know precisely how this dataset is created, but many of the specific challenges it contains are highly relevant.]:
 
@@ -99,6 +107,10 @@ being described.
 1. **Consistency**: The absence of difference, when comparing two or more representations of a
 thing against a definition
 
+### Questions to Ask (TODO)
+
+Our goal of understanding data is to ensure can assess its data quality and fit for our purpose. Understanding both its structure and its production process helps to accomplish this. 
+
 ## Data Collection 
 
 One of the tricky nuances of data collection is understanding what precisely is getting captured and logged in the first place. 
@@ -123,14 +135,14 @@ Reasonably enough, they might compute this rate as the sum of successful events 
 Now, suppose two users attempt to login to their account, and ultimately, one succeeds in accessing their private information and the other doesn't. 
 The analyst would probably hope to compute and report a 50% login success rate. However, depending on how the data is represented, they could quite easily compute nearly any value from 0% to 100%. 
 
-For examples, events might be logged as: 
+As a thought experiment, we can consider what types of events might be logged: 
 
 - **Per Attempt**: If data is logged once per overall login attempt, successful attempts only trigger one event, but a user who forgot their password may try (and fail) to login multiple times. In the case illustrated above, that deflates the successful login rate to **25%**.
 - **Per Event**: If the logins table contains a row for every login-related event, each 'success' will trigger a large number of positive events and each 'failure' will trigger a negative event preceded by zero or more positive events. In the case illustrated below, this inflates our successful login rate to **86%**. 
 - **Per Conditional**: If the collector decided to only look at downstream events, perhaps to circumvent record duplication, they might decide to create a record only to denote the success or failure of the final step in the login process (MFA). However, login attempts that failed an upstream step would not generate any record for this stage because they've already fallen out of the funnel. In this case, the computed rate could reach **100%**
 - **Per Intermediate**: Similarly, if the login was defined specifically as successful password verification, the computed rate could his **100%** even if some users subsequently fail MFA
 
-These different situations are further illustrated in Figure \@ref(fig:login-rate), and their calculations are shown in Table \@ref(login-rate-tbl).
+These different situations are further illustrated in Figure \@ref(fig:login-rate), and their calculations are shown in Table \@ref(tab:login-rate-tbl).
 
 ```{r login-rate, echo = FALSE, out.width = '90%', fig.align = 'center', fig.cap = 'Login events recorded under different data collection paradigms'}
 knitr::include_graphics("figures/data-dall/login-rate.png")
@@ -151,6 +163,7 @@ df <- data.frame(
 kable(df, caption = "Success rate naively computed under different data collection schemes")
 ```
 
+(Note that we did not explicitly "simulate" data here, but the workflow is largely the same. We imagine a real-world process, how that might translate into a digital representation, and created a numerical example to understand the implications. Not all simulations require fancy code; sometimes paper and a pencil or a thought experiment works just fine.)
 
 While humans have a shared intuition of what concepts like a user, session, or login are, the act of collecting data forces us to map that intuition onto an atomic event . 
 Any misunderstanding in precisely what that definition is can have massive impact on the perceived data quality; "per event" data will appear heavily duplicated if it is assumed to be "per session" data.
@@ -388,6 +401,69 @@ This is a type of **selection bias** that we will examine further in Chapter \@r
 
 ## Data Encoding & Transformation (WIP)
 
+Once data is loaded into a more suitable location for processing and analysis (such as a data warehouse), it often undergoes numerous transformations to change its shape, structure, and content to be more suited for analytical use. 
+
+For example, recall the `logins` table that we discussed above. It might be filtered to a cleaner versions which represents only a subset of events, or event identifiers like `'1436'` might be recoded to more human-readable names like `'mfa-success'`. 
+
+Unfortunately, although these steps attempt to increase the data's usability, they are also not immune to inserting bugs.
+
+### Data Encoding
+
+#### Data Types
+
+One critical set of decisions in data encoding is what sort of *data types* each field of interest should be. Data types such as integers, reals, character strings, logicals, dates, and times determine how data is stored and the types of manipulations that can be done to it.
+
+We'll see more examples of the computational implications for our data types in Chapter \@ref(comp-quan) (Computational Quandaries). This chapter specifically explores the unique complexities of string and date types. 
+
+#### Indicator Variables (TODO)
+
+what is positive case?
+
+> “We had a bunch of zeros that should have been coded ones and the ones should have been coded zeroes.”
+
+(https://retractionwatch.com/2013/01/04/paper-on-evidence-for-environmental-racism-in-epa-polluter-fines-retracted-for-coding-error/)
+
+#### General Representation (TODO)
+
+> “These data sets often have multiple files that...have unclear and sometimes duplicative variables. Such complexities are commonplace among many data systems... I would not be surprised if coding errors were fairly common, and that the ones discovered constitute only the “tip of the iceberg.”
+”
+
+(https://retractionwatch.com/2015/09/10/divorce-study-felled-by-a-coding-error-gets-a-second-chance/)
+
+#### The Many Meanings of Null
+
+Another major encoding decision is how to handle null values. 
+Previously, in the discussion of Data Collection, we considered the presence and absence of full *records*.
+However, when preparing data for analysis, both data produces and consumers need to decide how to cope with the presence or absence of individual *fields*. 
+
+If records contain some but not all relevant information, they may be published with explicitly missing fields or the full record may not be published at all. The difference between implicit and explicit missingness on the resulting data is illustrated in Figure \@ref(fig:null-impl-expl).
+
+```{r null-impl-expl, echo = FALSE, out.width = '90%', fig.align = 'center', fig.cap = "A comparison of explicit versus implicit missingness"}
+knitr::include_graphics("figures/data-dall/missing-imp-exp.png")
+```
+
+Understanding what the system implies by each *explicitly* missing data field is also critical for validation and analysis. 
+Checks for data completeness usually include counting null values, but null data isn't always incorrect. 
+In fact, null data can be highly informative if we know what it means. Some meanings of null data might include:
+
+- **Field is not relevant**: Perhaps our `logins` table reports the mobile phone operating system (iOS or Android) that was used to access the login page to track platform-specific issues. However, there is no valid value for this 
+- **Relevant value is not known**: Our `logins` table might also have an `account_id` field which attempts to match login attempts to known accounts/customers using different metadata like cookies or IP addresses. In theory, almost everyone trying to log in should have an account identifier, but our methods may not be good enough to identify them in all cases
+- **Relevant value is null**: Of course, sometimes someone without an account at all might try to log in for some reason. In this case, the correct value for an `account_id` field truly *is* null
+- **Relevant value was recorded incorrectly**: Sometimes systems have glitches. Without a doubt, every single login attempt *should* have a timestamp, but such a field could be null if this data was somehow lost or corrupted at the source
+
+Similarly, different systems might or might not report out these nulls in different ways such as:
+
+- **True nulls**: Literally the entry in the resulting dataset is null
+- **Null-like non-nulls**: Blank values like an empty string (`''`) that contain a null amount of information but won't be detected when counting null values
+- **Placeholder values**: Meaningless values like an `account_id` of `00000000` for all unidentified accounts which preserve data *validity* (the expected structure) but have no intrinsic meaning
+- **Sentinel/shadow values**: Abnormal values which attempt to indicate the reasons for null-ness such as an `account_id` of `-1` when no browser cookies were found or `-2` when cookies were found but did not help link to any specific customer record
+
+Each of these encoding choices changes the definitions of appropriate completeness and validity for each field and, even more critically, impacts the expectations and assertions we should form for data accuracy. 
+We can't expect 100% completeness if nulls are a relevant value; we can't check validity of ranges as easily if sentinel values are used with values that are outside the normal range (hopefully, or we have much bigger problems!) 
+So, understanding how upstream systems *should* work is essential for assessing if they *do* work.
+
+Similarly, understanding how our null data is collected has significant implications for how we subsequently process it. We will discuss this more in Chapter \@ref(comp-quan) (Computational Quandaries).
+
 ### Data Transformation
 
 Finally, once the data is roughly where we want it, it likely undergoes many transformations to translate all of the system-generated fields we discussed in data collection into semantically-relevant dimensions for analytical consumers. Of course, the types of transformations that could be done are innumerable with far more variation than data loading. So, we'll just look at a few examples of common failure patterns. 
@@ -453,45 +529,68 @@ knitr::include_graphics("figures/data-dall/incr-full-good.png")
 
 Regardless, this underscores the need to validate entire datasets and to re-validate when repulling data. 
 
-### The Many Meanings of Null
-
-Another major encoding decision is how to handle null values. 
-Previously, in the discussion of Data Collection, we considered the presence and absence of full *records*.
-However, when preparing data for analysis, both data produces and consumers need to decide how to cope with the presence or absence of individual *fields*. 
-
-If records contain some but not all relevant information, they may be published with explicitly missing fields or the full record may not be published at all. The difference between implicit and explicit missingness on the resulting data is illustrated in Figure \@ref(fig:null-impl-expl).
-
-```{r null-impl-expl, echo = FALSE, out.width = '90%', fig.align = 'center', fig.cap = "A comparison of explicit versus implicit missingness"}
-knitr::include_graphics("figures/data-dall/missing-imp-exp.png")
-```
-
-Understanding what the system implies by each *explicitly* missing data field is also critical for validation and analysis. 
-Checks for data completeness usually include counting null values, but null data isn't always incorrect. 
-In fact, null data can be highly informative if we know what it means. Some meanings of null data might include:
-
-- **Field is not relevant**: Perhaps our `logins` table reports the mobile phone operating system (iOS or Android) that was used to access the login page to track platform-specific issues. However, there is no valid value for this 
-- **Relevant value is not known**: Our `logins` table might also have an `account_id` field which attempts to match login attempts to known accounts/customers using different metadata like cookies or IP addresses. In theory, almost everyone trying to log in should have an account identifier, but our methods may not be good enough to identify them in all cases
-- **Relevant value is null**: Of course, sometimes someone without an account at all might try to log in for some reason. In this case, the correct value for an `account_id` field truly *is* null
-- **Relevant value was recorded incorrectly**: Sometimes systems have glitches. Without a doubt, every single login attempt *should* have a timestamp, but such a field could be null if this data was somehow lost or corrupted at the source
-
-Similarly, different systems might or might not report out these nulls in different ways such as:
-
-- **True nulls**: Literally the entry in the resulting dataset is null
-- **Null-like non-nulls**: Blank values like an empty string (`''`) that contain a null amount of information but won't be detected when counting null values
-- **Placeholder values**: Meaningless values like an `account_id` of `00000000` for all unidentified accounts which preserve data *validity* (the expected structure) but have no intrinsic meaning
-- **Sentinel/shadow values**: Abnormal values which attempt to indicate the reasons for null-ness such as an `account_id` of `-1` when no browser cookies were found or `-2` when cookies were found but did not help link to any specific customer record
-
-Each of these encoding choices changes the definitions of appropriate completeness and validity for each field and, even more critically, impacts the expectations and assertions we should form for data accuracy. 
-We can't expect 100% completeness if nulls are a relevant value; we can't check validity of ranges as easily if sentinel values are used with values that are outside the normal range (hopefully, or we have much bigger problems!) 
-So, understanding how upstream systems *should* work is essential for assessing if they *do* work.
-
-Similarly, understanding how our null data is collected has significant implications for how we subsequently process it. We will discuss this more in Chapter \@ref(comp-quan) (Computational Quandaries).
-
 ## Other Types of Data (TODO)
+
+### Survey Data
+
+### Human-Generated 
 
 ## Strategies (TODO)
 
-## Real World Disasters (TODO)
+### Understand the intent
+
+- Why was data originally collected? By whom and for what purpose?
+- Are there clear, unique definitions of key concepts (e.g. entites, measures)? What are they?
+- Documentation (metadata, dictionaries)
+
+### Understand the execution
+
+- learn about the real-world systems
+- understand key steps in data production process
+- documentation (lineage, provenance)
+
+### Seek expertise
+
+- talking to experts (upstream and downstream)
+
+### Trust but verify
+
+- always on data validation
+  + summaries
+  + context-informed assertions
+- exploratory analysis
+
+## Real World Disasters
+
+### Data loading artificially spikes COVID cases
+
+Data loading, particularly when a new process is introduced can go astray and lead to spurious results. 
+The city of El Paso discovered this after reporting an exceedingly high number of daily COVID cases [@borunda_2020]:
+
+> El Paso city and public health officials on Thursday admitted to a major blunder, saying that the more than 3,100 new cases reported a day earlier was incorrect.
+
+> The number was the result of a two-day upload of cases in one day after the public health department went from imputing data manually to an automatic data upload that was intended to increase efficiency, Public Health Director Angela Mora said at news conference.
+
+This instance demonstrates not only how *data* goes wrong but also how easy it is to trust discrepancies and find explanations in real-world phenomena. 
+The article goes on to suggest that the extremely high case numbers were not immediately caught given the overall "alarming" levels:
+
+> Mora said she accepted responsibility and that she should have taken a deeper look after noticing the abnormally high number of new cases.El Paso County is still seeing more than 1,000 new cases on a daily basis, officials said. The correct number of new cases Wednesday was 1,537.
+
+> “The numbers are still high and they are still alarming but they were not as high as we reported,” Mora said.
+
+### Data encoding leads to incorrect BMI calculation
+
+Data that is encoded inconsistently may be mishandled in automated decision processes. 
+For example, data manually entered into electronic health records (EHR) by countless care provides might be compiled into a single source although the meanings could be inconsistent. 
+
+In the early days of the COVID19 vaccination push, some regions chose to prioritize their vaccine supply by certain individual characteristics including a high body mass index (BMI), which is a function of one's weight relative to their height. 
+
+One 6ft 2in tall man's data was misinterpreted to suggest that he was 6.2 *centimeters* tall; this caused his to get high priority for a vaccine.
+
+As described in the BBC [@bbc_north_west_2021]:
+
+> A man in his 30s with no underlying health conditions was offered a Covid vaccine after an NHS error mistakenly listed him as just 6.2cm in height. Liam Thorp was told he qualified for the jab because his measurements gave him a body mass index of 28,000.
+
 
 <!--
 ## Strategies 
