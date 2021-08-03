@@ -2,6 +2,7 @@ bookdown::bs4_book:
   theme:
     primary: "#7BAFD4"
     seconday: "#002366"
+  css: [styles.css]
   repo: https://github.com/emilyriederer/data-disasters
   includes:
     in_header: [ga_script.html]
