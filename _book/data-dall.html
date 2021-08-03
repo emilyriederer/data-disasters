@@ -15,7 +15,7 @@
       gtag('js', new Date());
 
       gtag('config', 'G-C7VEESJ7Z8');
-    </script><script src="https://cdn.jsdelivr.net/autocomplete.js/0/autocomplete.jquery.min.js"></script><script src="https://cdn.jsdelivr.net/npm/mark.js@8.11.1/dist/mark.min.js"></script><!-- CSS -->
+    </script><script src="https://cdn.jsdelivr.net/autocomplete.js/0/autocomplete.jquery.min.js"></script><script src="https://cdn.jsdelivr.net/npm/mark.js@8.11.1/dist/mark.min.js"></script><!-- CSS --><link rel="stylesheet" href="styles.css">
 </head>
 <body data-spy="scroll" data-target="#toc">
 
@@ -99,6 +99,10 @@ In doing so, we will hone sharper intuition for how our data can deceive us and 
 <h3>
 <span class="header-section-number">2.1.1</span> Data Structure Basics<a class="anchor" aria-label="anchor" href="#data-structure-basics"><i class="fas fa-link"></i></a>
 </h3>
+<div id="relational-data-structure" class="section level4" number="2.1.1.1">
+<h4>
+<span class="header-section-number">2.1.1.1</span> Relational Data Structure<a class="anchor" aria-label="anchor" href="#relational-data-structure"><i class="fas fa-link"></i></a>
+</h4>
 <p>Understanding the content and structure of the data you are using is a critical prerequisite to analysis.
 In this book, we focus on tabular, structured data like one might find in an Excel spreadsheet or relational database.<a class="footnote-ref" tabindex="0" data-toggle="popover" data-content="&lt;p&gt;Other types of data that one might encounter in the wild include free text, JSON, spatial data, and more. However, many of these require either more advanced analysis techniques or structuring that converts them into tabular data, so they are out of the scope of this discussion.&lt;/p&gt;"><sup>1</sup></a></p>
 <p>In particular, many tools work best with what R developer Hadley Wickham describes as “tidy data” <span class="citation">(<a href="references.html#ref-wickham_tidy" role="doc-biblioref">Wickham 2014</a>)</span>. Namely:</p>
@@ -111,6 +115,12 @@ In this book, we focus on tabular, structured data like one might find in an Exc
 For example, the design matrix of a linear model consists of one column of data for each independent variable to be included in the model and one row for each observation.<a class="footnote-ref" tabindex="0" data-toggle="popover" data-content='&lt;p&gt;When data is arrange this way in a matrix &lt;span class="math inline"&gt;\(X\)&lt;/span&gt;, linear regression coefficients can be computed as &lt;span class="math inline"&gt;\(\beta = (\mathbf{X}^\intercal\mathbf{X})^{-1}\mathbf{X}^\intercal \mathbf{y}\)&lt;/span&gt;&lt;/p&gt;'><sup>2</sup></a>
 As Wickham points out, this is also similar to what is called “3rd normal form” in the world of relational database management systems.</p>
 <p>Using this data structure is valuable not only because it is similar to what many modern data tools expect, but also because it provides us a framework to think critically about what defined each observation and each variable in our dataset.</p>
+</div>
+<div id="schemas-todo" class="section level4" number="2.1.1.2">
+<h4>
+<span class="header-section-number">2.1.1.2</span> Schemas (TODO)<a class="anchor" aria-label="anchor" href="#schemas-todo"><i class="fas fa-link"></i></a>
+</h4>
+</div>
 </div>
 <div id="data-production-processes" class="section level3" number="2.1.2">
 <h3>
@@ -129,13 +139,17 @@ We can broaden this notion to think about the generating process of each of thes
 <li>
 <strong>Transform</strong>: The process of modeling and transforming data so that its structure is useful for analysis and its variables are interpretable</li>
 </ul>
-<p>To better theorize about data quality issues, it’s useful to think of four DGPs: the real-world DGP, the data collection/extraction DGP<a class="footnote-ref" tabindex="0" data-toggle="popover" data-content="&lt;p&gt;I don’t mean to imply statisticians do not regularly think about the data collection DGP! The rich literature on missing data imputation, censored data in survival analysis, and non-response bias is survey data collection are just a few examples of how carefully statisticians think about how data collection impacts analysis. I chose to break it out here to discuss the more technical aspects of collection&lt;/p&gt;"><sup>4</sup></a>, the data loading DGP, and the data transformation DGP.</p>
+<p>To better theorize about data quality issues, it’s useful to think of four DGPs (as shown in Figure <a href="data-dall.html#fig:dgp">2.1</a>): the real-world DGP, the data collection/extraction DGP<a class="footnote-ref" tabindex="0" data-toggle="popover" data-content="&lt;p&gt;I don’t mean to imply statisticians do not regularly think about the data collection DGP! The rich literature on missing data imputation, censored data in survival analysis, and non-response bias is survey data collection are just a few examples of how carefully statisticians think about how data collection impacts analysis. I chose to break it out here to discuss the more technical aspects of collection&lt;/p&gt;"><sup>4</sup></a>, the data loading DGP, and the data transformation DGP.</p>
 <div class="figure" style="text-align: center">
-<span id="fig:unnamed-chunk-3"></span>
+<span id="fig:dgp"></span>
 <img src="figures/data-dall/dgp.png" alt="A schematic of the data production process" width="90%"><p class="caption">
 FIGURE 2.1: A schematic of the data production process
 </p>
 </div>
+<div id="e-commerce-data-example" class="section level4" number="2.1.2.1">
+<h4>
+<span class="header-section-number">2.1.2.1</span> E-Commerce Data Example<a class="anchor" aria-label="anchor" href="#e-commerce-data-example"><i class="fas fa-link"></i></a>
+</h4>
 <p>For example, consider the role of each of these four DGPs for e-commerce data:</p>
 <ul>
 <li>
@@ -147,6 +161,11 @@ FIGURE 2.1: A schematic of the data production process
 <li>
 <strong>Data transformation DGP</strong>: To arrive at that final data presentation requires creating a <a href="https://en.wikipedia.org/wiki/Data_model">data model</a> to describe domain-specific attributes with key variables crafted with data transformations</li>
 </ul>
+</div>
+<div id="subway-data-example" class="section level4" number="2.1.2.2">
+<h4>
+<span class="header-section-number">2.1.2.2</span> Subway Data Example<a class="anchor" aria-label="anchor" href="#subway-data-example"><i class="fas fa-link"></i></a>
+</h4>
 <p>Or, consider the role of each of these four DGPs for subway ridership data<a class="footnote-ref" tabindex="0" data-toggle="popover" data-content='&lt;p&gt;Like NYC’s infamously messy &lt;a href="http://web.mta.info/developers/turnstile.html"&gt;turnstile data&lt;/a&gt;. I don’t claim to know precisely how this dataset is created, but many of the specific challenges it contains are highly relevant.&lt;/p&gt;'><sup>5</sup></a>:</p>
 <ul>
 <li>
@@ -159,6 +178,7 @@ FIGURE 2.1: A schematic of the data production process
 <strong>Data transformation DGP</strong>: Turnstiles from different companies may have different data formats. Transformation may include harmonizing disparate sources, coding system-generated codes (e.g. Station XYZ) to semantically meaningful names (e.g. Main Street Station), and publishing a final unified representation across stations and across time</li>
 </ul>
 <p>Throughout this chapter, we’ll explore how understanding key concepts about each of these DGPs can help guide our intuition on where to look for problems.</p>
+</div>
 </div>
 <div id="data-quality-dimension" class="section level3" number="2.1.3">
 <h3>
@@ -186,6 +206,12 @@ being described.</li>
 thing against a definition</li>
 </ol>
 </div>
+<div id="questions-to-ask-todo" class="section level3" number="2.1.4">
+<h3>
+<span class="header-section-number">2.1.4</span> Questions to Ask (TODO)<a class="anchor" aria-label="anchor" href="#questions-to-ask-todo"><i class="fas fa-link"></i></a>
+</h3>
+<p>Our goal of understanding data is to ensure can assess its data quality and fit for our purpose. Understanding both its structure and its production process helps to accomplish this.</p>
+</div>
 </div>
 <div id="data-collection" class="section level2" number="2.2">
 <h2>
@@ -212,7 +238,7 @@ In a technical sense, no inclusion/exclusion decision here is <em>incorrect</em>
 Reasonably enough, they might compute this rate as the sum of successful events over the total.
 Now, suppose two users attempt to login to their account, and ultimately, one succeeds in accessing their private information and the other doesn’t.
 The analyst would probably hope to compute and report a 50% login success rate. However, depending on how the data is represented, they could quite easily compute nearly any value from 0% to 100%.</p>
-<p>For examples, events might be logged as:</p>
+<p>As a thought experiment, we can consider what types of events might be logged:</p>
 <ul>
 <li>
 <strong>Per Attempt</strong>: If data is logged once per overall login attempt, successful attempts only trigger one event, but a user who forgot their password may try (and fail) to login multiple times. In the case illustrated above, that deflates the successful login rate to <strong>25%</strong>.</li>
@@ -224,7 +250,7 @@ The analyst would probably hope to compute and report a 50% login success rate. 
 <li>
 <strong>Per Intermediate</strong>: Similarly, if the login was defined specifically as successful password verification, the computed rate could his <strong>100%</strong> even if some users subsequently fail MFA</li>
 </ul>
-<p>These different situations are further illustrated in Figure <a href="data-dall.html#fig:login-rate">2.3</a>, and their calculations are shown in Table <a href="#login-rate-tbl"><strong>??</strong></a>.</p>
+<p>These different situations are further illustrated in Figure <a href="data-dall.html#fig:login-rate">2.3</a>, and their calculations are shown in Table <a href="data-dall.html#tab:login-rate-tbl">2.1</a>.</p>
 <div class="figure" style="text-align: center">
 <span id="fig:login-rate"></span>
 <img src="figures/data-dall/login-rate.png" alt="Login events recorded under different data collection paradigms" width="90%"><p class="caption">
@@ -269,6 +295,7 @@ FIGURE 2.3: Login events recorded under different data collection paradigms
 </tr>
 </tbody>
 </table></div>
+<p>(Note that we did not explicitly “simulate” data here, but the workflow is largely the same. We imagine a real-world process, how that might translate into a digital representation, and created a numerical example to understand the implications. Not all simulations require fancy code; sometimes paper and a pencil or a thought experiment works just fine.)</p>
 <p>While humans have a shared intuition of what concepts like a user, session, or login are, the act of collecting data forces us to map that intuition onto an atomic event .
 Any misunderstanding in precisely what that definition is can have massive impact on the perceived data quality; “per event” data will appear heavily duplicated if it is assumed to be “per session” data.</p>
 <p>In some cases, this could be obvious to detect.
@@ -536,12 +563,12 @@ Let’s not imagine that there are 10 orders each day, and each order is shipped
 <span class="va">df</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/data.frame.html">data.frame</a></span><span class="op">(</span><span class="va">dt_subm</span>, <span class="va">dt_ship</span>, <span class="va">dt_load</span><span class="op">)</span>
 <span class="fu"><a href="https://rdrr.io/r/utils/head.html">head</a></span><span class="op">(</span><span class="va">df</span><span class="op">)</span></code></pre></div>
 <pre><code>##   dt_subm dt_ship dt_load
-## 1       1       3       3
-## 2       1       4       4
+## 1       1       4       4
+## 2       1       3       3
 ## 3       1       3       3
 ## 4       1       4       4
-## 5       1       5       5
-## 6       1       4       4</code></pre>
+## 5       1       4       4
+## 6       1       3       3</code></pre>
 <p>When we repeat the prior analysis, we now see that we have <em>some</em> records for orders submitted on day 3 by the time we begin analysis on day 5.
 In this case, we might be more easily tricked to believe this is <em>all</em> orders.
 However, when we repeat the analysis on day 7, we see the the number of orders on day 3 has increased.</p>
@@ -558,58 +585,44 @@ This is a type of <strong>selection bias</strong> that we will examine further i
 <h2>
 <span class="header-section-number">2.4</span> Data Encoding &amp; Transformation (WIP)<a class="anchor" aria-label="anchor" href="#data-encoding-transformation-wip"><i class="fas fa-link"></i></a>
 </h2>
-<div id="data-transformation" class="section level3" number="2.4.1">
+<p>Once data is loaded into a more suitable location for processing and analysis (such as a data warehouse), it often undergoes numerous transformations to change its shape, structure, and content to be more suited for analytical use.</p>
+<p>For example, recall the <code>logins</code> table that we discussed above. It might be filtered to a cleaner versions which represents only a subset of events, or event identifiers like <code>'1436'</code> might be recoded to more human-readable names like <code>'mfa-success'</code>.</p>
+<p>Unfortunately, although these steps attempt to increase the data’s usability, they are also not immune to inserting bugs.</p>
+<div id="data-encoding" class="section level3" number="2.4.1">
 <h3>
-<span class="header-section-number">2.4.1</span> Data Transformation<a class="anchor" aria-label="anchor" href="#data-transformation"><i class="fas fa-link"></i></a>
+<span class="header-section-number">2.4.1</span> Data Encoding<a class="anchor" aria-label="anchor" href="#data-encoding"><i class="fas fa-link"></i></a>
 </h3>
-<p>Finally, once the data is roughly where we want it, it likely undergoes many transformations to translate all of the system-generated fields we discussed in data collection into semantically-relevant dimensions for analytical consumers. Of course, the types of transformations that could be done are innumerable with far more variation than data loading. So, we’ll just look at a few examples of common failure patterns.</p>
-<div id="pre-aggregation" class="section level4" number="2.4.1.1">
+<div id="data-types" class="section level4" number="2.4.1.1">
 <h4>
-<span class="header-section-number">2.4.1.1</span> Pre-Aggregation<a class="anchor" aria-label="anchor" href="#pre-aggregation"><i class="fas fa-link"></i></a>
+<span class="header-section-number">2.4.1.1</span> Data Types<a class="anchor" aria-label="anchor" href="#data-types"><i class="fas fa-link"></i></a>
 </h4>
-<p>Data transformations may include aggregating data up to higher levels of granularity for easier analysis. For example, a transformation might add up item-level purchase data to make it easier for an analyst to look at spend per <em>order</em> of a specific user.</p>
-<p>Data transformations not only transform our data, but they also transform how the dimensions of data quality manifest. If data with some of the <strong>completeness</strong> or <strong>uniqueness</strong> issues we discussed with data loading is pre-aggregated, these problems can turn into problems of <strong>accuracy</strong>. For example, the duplicate or partial data loads that we discussed when aggregated could suggest inaccurately high or low quantities respectively.</p>
-<div class="inline-figure"><img src="figures/data-dall/completeness-accuracy.png" width="90%" style="display: block; margin: auto;"></div>
+<p>One critical set of decisions in data encoding is what sort of <em>data types</em> each field of interest should be. Data types such as integers, reals, character strings, logicals, dates, and times determine how data is stored and the types of manipulations that can be done to it.</p>
+<p>We’ll see more examples of the computational implications for our data types in Chapter <a href="comp-quan.html#comp-quan">3</a> (Computational Quandaries). This chapter specifically explores the unique complexities of string and date types.</p>
 </div>
-<div id="field-encoding" class="section level4" number="2.4.1.2">
+<div id="indicator-variables-todo" class="section level4" number="2.4.1.2">
 <h4>
-<span class="header-section-number">2.4.1.2</span> Field Encoding<a class="anchor" aria-label="anchor" href="#field-encoding"><i class="fas fa-link"></i></a>
+<span class="header-section-number">2.4.1.2</span> Indicator Variables (TODO)<a class="anchor" aria-label="anchor" href="#indicator-variables-todo"><i class="fas fa-link"></i></a>
 </h4>
-<p>When we assess data consistency across tables,</p>
-<p>Categorical fields in a data set might be created in any number of ways including:</p>
-<ul>
-<li>Directly taken from the source</li>
-<li>Coded in a transformation script</li>
-<li>Transformed with logic in a shared user-defined function (<a href="https://docs.snowflake.com/en/sql-reference/user-defined-functions.html">UDFs</a>) or <a href="https://docs.getdbt.com/docs/building-a-dbt-project/jinja-macros/#macros">macro</a>
-</li>
-<li>Joined from a shared look-up table</li>
-</ul>
-<p>Each approach has different implications on data consistency and usability.</p>
-<div class="inline-figure"><img src="figures/data-dall/field-encoding.png" width="90%" style="display: block; margin: auto;"></div>
-<p>Using fields from the source simply is what it is – there’s no subjectivity or room for manual human error. If multiple tables come from the same source, it’s likely but not guaranteed that they will be encoded in the same way.</p>
-<p>Coding transformations in the ELT process is easy for data producers. There’s no need to coordinate across multiple processes or use cases, and the transformation can be immediately modified when needed. However, that same lack of coordination can lead to different results for fields that should be the same.</p>
-<p>Alternatively, macros, UDFs, and look-up tables provided centralized ways to map source data inputs to desired analytical data outputs in a systemic and consistent way. Of course, centralization has its own challenges. If something in the source data changes, the process of updating a centralized UDF or look-up table may be slowed down by the need to seek consensus and collaborate. So, data is more <em>consistent</em> but potentially less <em>accurate</em>.</p>
-<p>Regardless, such engineered values require scrutiny – paticularly if they are being used as a key to join multiple tables – and the distinct values in them should be carefully examined.</p>
+<p>what is positive case?</p>
+<blockquote>
+<p>“We had a bunch of zeros that should have been coded ones and the ones should have been coded zeroes.”</p>
+</blockquote>
+<p>(<a href="https://retractionwatch.com/2013/01/04/paper-on-evidence-for-environmental-racism-in-epa-polluter-fines-retracted-for-coding-error/" class="uri">https://retractionwatch.com/2013/01/04/paper-on-evidence-for-environmental-racism-in-epa-polluter-fines-retracted-for-coding-error/</a>)</p>
 </div>
-<div id="updating-transformations" class="section level4" number="2.4.1.3">
+<div id="general-representation-todo" class="section level4" number="2.4.1.3">
 <h4>
-<span class="header-section-number">2.4.1.3</span> Updating Transformations<a class="anchor" aria-label="anchor" href="#updating-transformations"><i class="fas fa-link"></i></a>
+<span class="header-section-number">2.4.1.3</span> General Representation (TODO)<a class="anchor" aria-label="anchor" href="#general-representation-todo"><i class="fas fa-link"></i></a>
 </h4>
-<p>Of course, data consistency is not only a problem across different data sources but within one data source. Regardless of the method of field encoding used in the previous step, the intersection of data loading and data transformation strategies can introduce data consistency errors over time.</p>
-<p>Often, for computation efficiency, analytical tables are loaded using an <em>incremental</em> loading strategy. This means that only new records (determined by time period, a set of unique keys, or other criteria) from the upstream source are loaded to the downstream table. This is in contrast to a <em>full refresh</em> where the entire downstream table is recreated on each update.</p>
-<div class="inline-figure"><img src="figures/data-dall/incr-full-good.png" width="90%" style="display: block; margin: auto;"></div>
-<p>Incremental loads have many advantages. Rebuilding tables in entirety can be very time consuming and computationally expensive. In particular, in non-cloud data warehouses that are not able to scale computing power on demand, this sort of heavy duty processing job can noticeably drain resources from other queries that are trying to run in the database. Additionally, if the upstream staging data is ephemeral, fully rebuilding the table could mean failing to retain history.</p>
-<p>However, in the case that our data transformations change, incremental loads may introduce inconsistency in our data overtime as only new records are created and inserted with the new logic.</p>
-<div class="inline-figure"><img src="figures/data-dall/incr-full-bad-col.png" width="90%" style="display: block; margin: auto;"></div>
-<p>This is also a problem more broadly if some short-term error is discovered either with data loading or transformation in historical data. Incremental strategies may not always update to include the corrected version of the data.</p>
-<div class="inline-figure"><img src="figures/data-dall/incr-full-good.png" width="90%" style="display: block; margin: auto;"></div>
-<p>Regardless, this underscores the need to validate entire datasets and to re-validate when repulling data.</p>
+<blockquote>
+<p>“These data sets often have multiple files that…have unclear and sometimes duplicative variables. Such complexities are commonplace among many data systems… I would not be surprised if coding errors were fairly common, and that the ones discovered constitute only the “tip of the iceberg.”
+”</p>
+</blockquote>
+<p>(<a href="https://retractionwatch.com/2015/09/10/divorce-study-felled-by-a-coding-error-gets-a-second-chance/" class="uri">https://retractionwatch.com/2015/09/10/divorce-study-felled-by-a-coding-error-gets-a-second-chance/</a>)</p>
 </div>
-</div>
-<div id="the-many-meanings-of-null" class="section level3" number="2.4.2">
-<h3>
-<span class="header-section-number">2.4.2</span> The Many Meanings of Null<a class="anchor" aria-label="anchor" href="#the-many-meanings-of-null"><i class="fas fa-link"></i></a>
-</h3>
+<div id="the-many-meanings-of-null" class="section level4" number="2.4.1.4">
+<h4>
+<span class="header-section-number">2.4.1.4</span> The Many Meanings of Null<a class="anchor" aria-label="anchor" href="#the-many-meanings-of-null"><i class="fas fa-link"></i></a>
+</h4>
 <p>Another major encoding decision is how to handle null values.
 Previously, in the discussion of Data Collection, we considered the presence and absence of full <em>records</em>.
 However, when preparing data for analysis, both data produces and consumers need to decide how to cope with the presence or absence of individual <em>fields</em>.</p>
@@ -650,20 +663,154 @@ So, understanding how upstream systems <em>should</em> work is essential for ass
 <p>Similarly, understanding how our null data is collected has significant implications for how we subsequently process it. We will discuss this more in Chapter <a href="comp-quan.html#comp-quan">3</a> (Computational Quandaries).</p>
 </div>
 </div>
+<div id="data-transformation" class="section level3" number="2.4.2">
+<h3>
+<span class="header-section-number">2.4.2</span> Data Transformation<a class="anchor" aria-label="anchor" href="#data-transformation"><i class="fas fa-link"></i></a>
+</h3>
+<p>Finally, once the data is roughly where we want it, it likely undergoes many transformations to translate all of the system-generated fields we discussed in data collection into semantically-relevant dimensions for analytical consumers. Of course, the types of transformations that could be done are innumerable with far more variation than data loading. So, we’ll just look at a few examples of common failure patterns.</p>
+<div id="pre-aggregation" class="section level4" number="2.4.2.1">
+<h4>
+<span class="header-section-number">2.4.2.1</span> Pre-Aggregation<a class="anchor" aria-label="anchor" href="#pre-aggregation"><i class="fas fa-link"></i></a>
+</h4>
+<p>Data transformations may include aggregating data up to higher levels of granularity for easier analysis. For example, a transformation might add up item-level purchase data to make it easier for an analyst to look at spend per <em>order</em> of a specific user.</p>
+<p>Data transformations not only transform our data, but they also transform how the dimensions of data quality manifest. If data with some of the <strong>completeness</strong> or <strong>uniqueness</strong> issues we discussed with data loading is pre-aggregated, these problems can turn into problems of <strong>accuracy</strong>. For example, the duplicate or partial data loads that we discussed when aggregated could suggest inaccurately high or low quantities respectively.</p>
+<div class="inline-figure"><img src="figures/data-dall/completeness-accuracy.png" width="90%" style="display: block; margin: auto;"></div>
+</div>
+<div id="field-encoding" class="section level4" number="2.4.2.2">
+<h4>
+<span class="header-section-number">2.4.2.2</span> Field Encoding<a class="anchor" aria-label="anchor" href="#field-encoding"><i class="fas fa-link"></i></a>
+</h4>
+<p>When we assess data consistency across tables,</p>
+<p>Categorical fields in a data set might be created in any number of ways including:</p>
+<ul>
+<li>Directly taken from the source</li>
+<li>Coded in a transformation script</li>
+<li>Transformed with logic in a shared user-defined function (<a href="https://docs.snowflake.com/en/sql-reference/user-defined-functions.html">UDFs</a>) or <a href="https://docs.getdbt.com/docs/building-a-dbt-project/jinja-macros/#macros">macro</a>
+</li>
+<li>Joined from a shared look-up table</li>
+</ul>
+<p>Each approach has different implications on data consistency and usability.</p>
+<div class="inline-figure"><img src="figures/data-dall/field-encoding.png" width="90%" style="display: block; margin: auto;"></div>
+<p>Using fields from the source simply is what it is – there’s no subjectivity or room for manual human error. If multiple tables come from the same source, it’s likely but not guaranteed that they will be encoded in the same way.</p>
+<p>Coding transformations in the ELT process is easy for data producers. There’s no need to coordinate across multiple processes or use cases, and the transformation can be immediately modified when needed. However, that same lack of coordination can lead to different results for fields that should be the same.</p>
+<p>Alternatively, macros, UDFs, and look-up tables provided centralized ways to map source data inputs to desired analytical data outputs in a systemic and consistent way. Of course, centralization has its own challenges. If something in the source data changes, the process of updating a centralized UDF or look-up table may be slowed down by the need to seek consensus and collaborate. So, data is more <em>consistent</em> but potentially less <em>accurate</em>.</p>
+<p>Regardless, such engineered values require scrutiny – paticularly if they are being used as a key to join multiple tables – and the distinct values in them should be carefully examined.</p>
+</div>
+<div id="updating-transformations" class="section level4" number="2.4.2.3">
+<h4>
+<span class="header-section-number">2.4.2.3</span> Updating Transformations<a class="anchor" aria-label="anchor" href="#updating-transformations"><i class="fas fa-link"></i></a>
+</h4>
+<p>Of course, data consistency is not only a problem across different data sources but within one data source. Regardless of the method of field encoding used in the previous step, the intersection of data loading and data transformation strategies can introduce data consistency errors over time.</p>
+<p>Often, for computation efficiency, analytical tables are loaded using an <em>incremental</em> loading strategy. This means that only new records (determined by time period, a set of unique keys, or other criteria) from the upstream source are loaded to the downstream table. This is in contrast to a <em>full refresh</em> where the entire downstream table is recreated on each update.</p>
+<div class="inline-figure"><img src="figures/data-dall/incr-full-good.png" width="90%" style="display: block; margin: auto;"></div>
+<p>Incremental loads have many advantages. Rebuilding tables in entirety can be very time consuming and computationally expensive. In particular, in non-cloud data warehouses that are not able to scale computing power on demand, this sort of heavy duty processing job can noticeably drain resources from other queries that are trying to run in the database. Additionally, if the upstream staging data is ephemeral, fully rebuilding the table could mean failing to retain history.</p>
+<p>However, in the case that our data transformations change, incremental loads may introduce inconsistency in our data overtime as only new records are created and inserted with the new logic.</p>
+<div class="inline-figure"><img src="figures/data-dall/incr-full-bad-col.png" width="90%" style="display: block; margin: auto;"></div>
+<p>This is also a problem more broadly if some short-term error is discovered either with data loading or transformation in historical data. Incremental strategies may not always update to include the corrected version of the data.</p>
+<div class="inline-figure"><img src="figures/data-dall/incr-full-good.png" width="90%" style="display: block; margin: auto;"></div>
+<p>Regardless, this underscores the need to validate entire datasets and to re-validate when repulling data.</p>
+</div>
+</div>
+</div>
 <div id="other-types-of-data-todo" class="section level2" number="2.5">
 <h2>
 <span class="header-section-number">2.5</span> Other Types of Data (TODO)<a class="anchor" aria-label="anchor" href="#other-types-of-data-todo"><i class="fas fa-link"></i></a>
 </h2>
+<div id="survey-data" class="section level3" number="2.5.1">
+<h3>
+<span class="header-section-number">2.5.1</span> Survey Data<a class="anchor" aria-label="anchor" href="#survey-data"><i class="fas fa-link"></i></a>
+</h3>
+</div>
+<div id="human-generated" class="section level3" number="2.5.2">
+<h3>
+<span class="header-section-number">2.5.2</span> Human-Generated<a class="anchor" aria-label="anchor" href="#human-generated"><i class="fas fa-link"></i></a>
+</h3>
+</div>
 </div>
 <div id="strategies-todo" class="section level2" number="2.6">
 <h2>
 <span class="header-section-number">2.6</span> Strategies (TODO)<a class="anchor" aria-label="anchor" href="#strategies-todo"><i class="fas fa-link"></i></a>
 </h2>
+<div id="understand-the-intent" class="section level3" number="2.6.1">
+<h3>
+<span class="header-section-number">2.6.1</span> Understand the intent<a class="anchor" aria-label="anchor" href="#understand-the-intent"><i class="fas fa-link"></i></a>
+</h3>
+<ul>
+<li>Why was data originally collected? By whom and for what purpose?</li>
+<li>Are there clear, unique definitions of key concepts (e.g. entites, measures)? What are they?</li>
+<li>Documentation (metadata, dictionaries)</li>
+</ul>
 </div>
-<div id="real-world-disasters-todo" class="section level2" number="2.7">
+<div id="understand-the-execution" class="section level3" number="2.6.2">
+<h3>
+<span class="header-section-number">2.6.2</span> Understand the execution<a class="anchor" aria-label="anchor" href="#understand-the-execution"><i class="fas fa-link"></i></a>
+</h3>
+<ul>
+<li>learn about the real-world systems</li>
+<li>understand key steps in data production process</li>
+<li>documentation (lineage, provenance)</li>
+</ul>
+</div>
+<div id="seek-expertise" class="section level3" number="2.6.3">
+<h3>
+<span class="header-section-number">2.6.3</span> Seek expertise<a class="anchor" aria-label="anchor" href="#seek-expertise"><i class="fas fa-link"></i></a>
+</h3>
+<ul>
+<li>talking to experts (upstream and downstream)</li>
+</ul>
+</div>
+<div id="trust-but-verify" class="section level3" number="2.6.4">
+<h3>
+<span class="header-section-number">2.6.4</span> Trust but verify<a class="anchor" aria-label="anchor" href="#trust-but-verify"><i class="fas fa-link"></i></a>
+</h3>
+<ul>
+<li>always on data validation
+<ul>
+<li>summaries</li>
+<li>context-informed assertions</li>
+</ul>
+</li>
+<li>exploratory analysis</li>
+</ul>
+</div>
+</div>
+<div id="real-world-disasters" class="section level2" number="2.7">
 <h2>
-<span class="header-section-number">2.7</span> Real World Disasters (TODO)<a class="anchor" aria-label="anchor" href="#real-world-disasters-todo"><i class="fas fa-link"></i></a>
+<span class="header-section-number">2.7</span> Real World Disasters<a class="anchor" aria-label="anchor" href="#real-world-disasters"><i class="fas fa-link"></i></a>
 </h2>
+<div id="data-loading-artificially-spikes-covid-cases" class="section level3" number="2.7.1">
+<h3>
+<span class="header-section-number">2.7.1</span> Data loading artificially spikes COVID cases<a class="anchor" aria-label="anchor" href="#data-loading-artificially-spikes-covid-cases"><i class="fas fa-link"></i></a>
+</h3>
+<p>Data loading, particularly when a new process is introduced can go astray and lead to spurious results.
+The city of El Paso discovered this after reporting an exceedingly high number of daily COVID cases <span class="citation">(<a href="references.html#ref-borunda_2020" role="doc-biblioref">Borunda 2020</a>)</span>:</p>
+<blockquote>
+<p>El Paso city and public health officials on Thursday admitted to a major blunder, saying that the more than 3,100 new cases reported a day earlier was incorrect.</p>
+</blockquote>
+<blockquote>
+<p>The number was the result of a two-day upload of cases in one day after the public health department went from imputing data manually to an automatic data upload that was intended to increase efficiency, Public Health Director Angela Mora said at news conference.</p>
+</blockquote>
+<p>This instance demonstrates not only how <em>data</em> goes wrong but also how easy it is to trust discrepancies and find explanations in real-world phenomena.
+The article goes on to suggest that the extremely high case numbers were not immediately caught given the overall “alarming” levels:</p>
+<blockquote>
+<p>Mora said she accepted responsibility and that she should have taken a deeper look after noticing the abnormally high number of new cases.El Paso County is still seeing more than 1,000 new cases on a daily basis, officials said. The correct number of new cases Wednesday was 1,537.</p>
+</blockquote>
+<blockquote>
+<p>“The numbers are still high and they are still alarming but they were not as high as we reported,” Mora said.</p>
+</blockquote>
+</div>
+<div id="data-encoding-leads-to-incorrect-bmi-calculation" class="section level3" number="2.7.2">
+<h3>
+<span class="header-section-number">2.7.2</span> Data encoding leads to incorrect BMI calculation<a class="anchor" aria-label="anchor" href="#data-encoding-leads-to-incorrect-bmi-calculation"><i class="fas fa-link"></i></a>
+</h3>
+<p>Data that is encoded inconsistently may be mishandled in automated decision processes.
+For example, data manually entered into electronic health records (EHR) by countless care provides might be compiled into a single source although the meanings could be inconsistent.</p>
+<p>In the early days of the COVID19 vaccination push, some regions chose to prioritize their vaccine supply by certain individual characteristics including a high body mass index (BMI), which is a function of one’s weight relative to their height.</p>
+<p>One 6ft 2in tall man’s data was misinterpreted to suggest that he was 6.2 <em>centimeters</em> tall; this caused his to get high priority for a vaccine.</p>
+<p>As described in the BBC <span class="citation">(<a href="references.html#ref-bbc_north_west_2021" role="doc-biblioref"><span>“Covid: Man Offered Vaccine After Error Lists Him as 6.2cm Tall”</span> 2021</a>)</span>:</p>
+<blockquote>
+<p>A man in his 30s with no underlying health conditions was offered a Covid vaccine after an NHS error mistakenly listed him as just 6.2cm in height. Liam Thorp was told he qualified for the jab because his measurements gave him a body mass index of 28,000.</p>
+</blockquote>
 <!--
 ## Strategies 
 
@@ -884,8 +1031,8 @@ df %>% filter(dt_ship <= 3) %>% group_by(dt_order) %>% count()
 ## # Groups:   dt_order [2]
 ##   dt_order     n
 ##      <int> <int>
-## 1        1     5
-## 2        2     1
+## 1        1     3
+## 2        2     2
 ```
 
 ```r
@@ -899,8 +1046,8 @@ df %>% filter(dt_ship <= 5) %>% group_by(dt_order) %>% count()
 ##      <int> <int>
 ## 1        1     5
 ## 2        2     5
-## 3        3     2
-## 4        4     1
+## 3        3     3
+## 4        4     2
 ```
 
 ```r
@@ -916,7 +1063,7 @@ df %>% filter(dt_ship <= 7) %>% group_by(dt_order) %>% count()
 ## 2        2     5
 ## 3        3     5
 ## 4        4     5
-## 5        5     4
+## 5        5     3
 ```
 
 ```r
@@ -928,7 +1075,7 @@ df %>%
   ggplot(aes(dt_order, n)) + geom_line()
 ```
 
-<img src="bookdown_files/figure-html/unnamed-chunk-21-1.png" width="672" />
+<img src="bookdown_files/figure-html/unnamed-chunk-20-1.png" width="672" />
 
 ```r
 # but in reality this is just a data loading/recording issue ----
@@ -941,7 +1088,7 @@ df %>%
   ggplot(aes(x = dt_ship, y = n_recorded, col = as.character(dt_order))) + geom_line()
 ```
 
-<img src="bookdown_files/figure-html/unnamed-chunk-21-2.png" width="672" />
+<img src="bookdown_files/figure-html/unnamed-chunk-20-2.png" width="672" />
 
 
 
@@ -1015,6 +1162,7 @@ Ahhhh
 
 </div>
 </div>
+</div>
 
   <div class="chapter-nav">
 <div class="prev"><a href="introduction-todo.html"><span class="header-section-number">1</span> Introduction (TODO)</a></div>
@@ -1028,6 +1176,7 @@ Ahhhh
 <li><a class="nav-link" href="#data-structure-basics"><span class="header-section-number">2.1.1</span> Data Structure Basics</a></li>
 <li><a class="nav-link" href="#data-production-processes"><span class="header-section-number">2.1.2</span> Data Production Processes</a></li>
 <li><a class="nav-link" href="#data-quality-dimension"><span class="header-section-number">2.1.3</span> Data Quality Dimension</a></li>
+<li><a class="nav-link" href="#questions-to-ask-todo"><span class="header-section-number">2.1.4</span> Questions to Ask (TODO)</a></li>
 </ul>
 </li>
 <li>
@@ -1041,13 +1190,30 @@ Ahhhh
 <li><a class="nav-link" href="#data-extraction-loading"><span class="header-section-number">2.3</span> Data Extraction &amp; Loading</a></li>
 <li>
 <a class="nav-link" href="#data-encoding-transformation-wip"><span class="header-section-number">2.4</span> Data Encoding &amp; Transformation (WIP)</a><ul class="nav navbar-nav">
-<li><a class="nav-link" href="#data-transformation"><span class="header-section-number">2.4.1</span> Data Transformation</a></li>
-<li><a class="nav-link" href="#the-many-meanings-of-null"><span class="header-section-number">2.4.2</span> The Many Meanings of Null</a></li>
+<li><a class="nav-link" href="#data-encoding"><span class="header-section-number">2.4.1</span> Data Encoding</a></li>
+<li><a class="nav-link" href="#data-transformation"><span class="header-section-number">2.4.2</span> Data Transformation</a></li>
 </ul>
 </li>
-<li><a class="nav-link" href="#other-types-of-data-todo"><span class="header-section-number">2.5</span> Other Types of Data (TODO)</a></li>
-<li><a class="nav-link" href="#strategies-todo"><span class="header-section-number">2.6</span> Strategies (TODO)</a></li>
-<li><a class="nav-link" href="#real-world-disasters-todo"><span class="header-section-number">2.7</span> Real World Disasters (TODO)</a></li>
+<li>
+<a class="nav-link" href="#other-types-of-data-todo"><span class="header-section-number">2.5</span> Other Types of Data (TODO)</a><ul class="nav navbar-nav">
+<li><a class="nav-link" href="#survey-data"><span class="header-section-number">2.5.1</span> Survey Data</a></li>
+<li><a class="nav-link" href="#human-generated"><span class="header-section-number">2.5.2</span> Human-Generated</a></li>
+</ul>
+</li>
+<li>
+<a class="nav-link" href="#strategies-todo"><span class="header-section-number">2.6</span> Strategies (TODO)</a><ul class="nav navbar-nav">
+<li><a class="nav-link" href="#understand-the-intent"><span class="header-section-number">2.6.1</span> Understand the intent</a></li>
+<li><a class="nav-link" href="#understand-the-execution"><span class="header-section-number">2.6.2</span> Understand the execution</a></li>
+<li><a class="nav-link" href="#seek-expertise"><span class="header-section-number">2.6.3</span> Seek expertise</a></li>
+<li><a class="nav-link" href="#trust-but-verify"><span class="header-section-number">2.6.4</span> Trust but verify</a></li>
+</ul>
+</li>
+<li>
+<a class="nav-link" href="#real-world-disasters"><span class="header-section-number">2.7</span> Real World Disasters</a><ul class="nav navbar-nav">
+<li><a class="nav-link" href="#data-loading-artificially-spikes-covid-cases"><span class="header-section-number">2.7.1</span> Data loading artificially spikes COVID cases</a></li>
+<li><a class="nav-link" href="#data-encoding-leads-to-incorrect-bmi-calculation"><span class="header-section-number">2.7.2</span> Data encoding leads to incorrect BMI calculation</a></li>
+</ul>
+</li>
 </ul>
 
       <div class="book-extra">
@@ -1065,7 +1231,7 @@ Ahhhh
 <footer class="bg-primary text-light mt-5"><div class="container"><div class="row">
 
   <div class="col-12 col-md-6 mt-3">
-    <p>"<strong>Data Disasters</strong>" was written by Emily Riederer. It was last built on 2021-08-01.</p>
+    <p>"<strong>Data Disasters</strong>" was written by Emily Riederer. It was last built on 2021-08-03.</p>
   </div>
 
   <div class="col-12 col-md-6 mt-3">

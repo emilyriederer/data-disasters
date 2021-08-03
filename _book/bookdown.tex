@@ -172,7 +172,7 @@
 
 \title{Data Disasters}
 \author{Emily Riederer}
-\date{2021-08-01}
+\date{2021-08-03}
 
 \begin{document}
 \maketitle
@@ -284,12 +284,6 @@ As we go, we will notice how three common themes that challenge the focus of int
   Assumptions of Normality, or more broadly symmetry, are often in appropriate in wonky, \textbf{highly skewed} world
 \end{itemize}
 
-\hypertarget{software-information-and-conventions}{%
-\section*{Software information and conventions}\label{software-information-and-conventions}}
-
-
-This book is created with the excellent \textbf{bookdown} package.
-
 \hypertarget{about-the-author}{%
 \chapter*{About the Author}\label{about-the-author}}
 
@@ -382,6 +376,9 @@ Before we begin our exploration of data dalliances, we must first establish a ba
 \hypertarget{data-structure-basics}{%
 \subsection{Data Structure Basics}\label{data-structure-basics}}
 
+\hypertarget{relational-data-structure}{%
+\subsubsection{Relational Data Structure}\label{relational-data-structure}}
+
 Understanding the content and structure of the data you are using is a critical prerequisite to analysis.
 In this book, we focus on tabular, structured data like one might find in an Excel spreadsheet or relational database.\footnote{Other types of data that one might encounter in the wild include free text, JSON, spatial data, and more. However, many of these require either more advanced analysis techniques or structuring that converts them into tabular data, so they are out of the scope of this discussion.}
 
@@ -404,6 +401,9 @@ As Wickham points out, this is also similar to what is called ``3rd normal form'
 
 Using this data structure is valuable not only because it is similar to what many modern data tools expect, but also because it provides us a framework to think critically about what defined each observation and each variable in our dataset.
 
+\hypertarget{schemas-todo}{%
+\subsubsection{Schemas (TODO)}\label{schemas-todo}}
+
 \hypertarget{data-production-processes}{%
 \subsection{Data Production Processes}\label{data-production-processes}}
 
@@ -424,7 +424,7 @@ Regardless of the type of data (experimental, observational, survey, etc.), ther
   \textbf{Transform}: The process of modeling and transforming data so that its structure is useful for analysis and its variables are interpretable
 \end{itemize}
 
-To better theorize about data quality issues, it's useful to think of four DGPs: the real-world DGP, the data collection/extraction DGP\footnote{I don't mean to imply statisticians do not regularly think about the data collection DGP! The rich literature on missing data imputation, censored data in survival analysis, and non-response bias is survey data collection are just a few examples of how carefully statisticians think about how data collection impacts analysis. I chose to break it out here to discuss the more technical aspects of collection}, the data loading DGP, and the data transformation DGP.
+To better theorize about data quality issues, it's useful to think of four DGPs (as shown in Figure \ref{fig:dgp}): the real-world DGP, the data collection/extraction DGP\footnote{I don't mean to imply statisticians do not regularly think about the data collection DGP! The rich literature on missing data imputation, censored data in survival analysis, and non-response bias is survey data collection are just a few examples of how carefully statisticians think about how data collection impacts analysis. I chose to break it out here to discuss the more technical aspects of collection}, the data loading DGP, and the data transformation DGP.
 
 \begin{figure}
 
@@ -432,8 +432,11 @@ To better theorize about data quality issues, it's useful to think of four DGPs:
 
 }
 
-\caption{A schematic of the data production process}\label{fig:unnamed-chunk-3}
+\caption{A schematic of the data production process}\label{fig:dgp}
 \end{figure}
+
+\hypertarget{e-commerce-data-example}{%
+\subsubsection{E-Commerce Data Example}\label{e-commerce-data-example}}
 
 For example, consider the role of each of these four DGPs for e-commerce data:
 
@@ -448,6 +451,9 @@ For example, consider the role of each of these four DGPs for e-commerce data:
 \item
   \textbf{Data transformation DGP}: To arrive at that final data presentation requires creating a \href{https://en.wikipedia.org/wiki/Data_model}{data model} to describe domain-specific attributes with key variables crafted with data transformations
 \end{itemize}
+
+\hypertarget{subway-data-example}{%
+\subsubsection{Subway Data Example}\label{subway-data-example}}
 
 Or, consider the role of each of these four DGPs for subway ridership data\footnote{Like NYC's infamously messy \href{http://web.mta.info/developers/turnstile.html}{turnstile data}. I don't claim to know precisely how this dataset is created, but many of the specific challenges it contains are highly relevant.}:
 
@@ -494,6 +500,11 @@ Their official definitions are:
   thing against a definition
 \end{enumerate}
 
+\hypertarget{questions-to-ask-todo}{%
+\subsection{Questions to Ask (TODO)}\label{questions-to-ask-todo}}
+
+Our goal of understanding data is to ensure can assess its data quality and fit for our purpose. Understanding both its structure and its production process helps to accomplish this.
+
 \hypertarget{data-collection}{%
 \section{Data Collection}\label{data-collection}}
 
@@ -525,7 +536,7 @@ Reasonably enough, they might compute this rate as the sum of successful events 
 Now, suppose two users attempt to login to their account, and ultimately, one succeeds in accessing their private information and the other doesn't.
 The analyst would probably hope to compute and report a 50\% login success rate. However, depending on how the data is represented, they could quite easily compute nearly any value from 0\% to 100\%.
 
-For examples, events might be logged as:
+As a thought experiment, we can consider what types of events might be logged:
 
 \begin{itemize}
 \tightlist
@@ -539,7 +550,7 @@ For examples, events might be logged as:
   \textbf{Per Intermediate}: Similarly, if the login was defined specifically as successful password verification, the computed rate could his \textbf{100\%} even if some users subsequently fail MFA
 \end{itemize}
 
-These different situations are further illustrated in Figure \ref{fig:login-rate}, and their calculations are shown in Table \ref{login-rate-tbl}.
+These different situations are further illustrated in Figure \ref{fig:login-rate}, and their calculations are shown in Table \ref{tab:login-rate-tbl}.
 
 \begin{figure}
 
@@ -566,6 +577,8 @@ Rate (\%) & 50 & 25 & 86 & 100 & 100\\
 \hline
 \end{tabular}
 \end{table}
+
+(Note that we did not explicitly ``simulate'' data here, but the workflow is largely the same. We imagine a real-world process, how that might translate into a digital representation, and created a numerical example to understand the implications. Not all simulations require fancy code; sometimes paper and a pencil or a thought experiment works just fine.)
 
 While humans have a shared intuition of what concepts like a user, session, or login are, the act of collecting data forces us to map that intuition onto an atomic event .
 Any misunderstanding in precisely what that definition is can have massive impact on the perceived data quality; ``per event'' data will appear heavily duplicated if it is assumed to be ``per session'' data.
@@ -922,11 +935,11 @@ Let's not imagine that there are 10 orders each day, and each order is shipped s
 \begin{verbatim}
 ##   dt_subm dt_ship dt_load
 ## 1       1       4       4
-## 2       1       3       3
+## 2       1       5       5
 ## 3       1       5       5
-## 4       1       4       4
-## 5       1       3       3
-## 6       1       3       3
+## 4       1       5       5
+## 5       1       4       4
+## 6       1       4       4
 \end{verbatim}
 
 When we repeat the prior analysis, we now see that we have \emph{some} records for orders submitted on day 3 by the time we begin analysis on day 5.
@@ -943,6 +956,97 @@ This is a type of \textbf{selection bias} that we will examine further in Chapte
 
 \hypertarget{data-encoding-transformation-wip}{%
 \section{Data Encoding \& Transformation (WIP)}\label{data-encoding-transformation-wip}}
+
+Once data is loaded into a more suitable location for processing and analysis (such as a data warehouse), it often undergoes numerous transformations to change its shape, structure, and content to be more suited for analytical use.
+
+For example, recall the \texttt{logins} table that we discussed above. It might be filtered to a cleaner versions which represents only a subset of events, or event identifiers like \texttt{\textquotesingle{}1436\textquotesingle{}} might be recoded to more human-readable names like \texttt{\textquotesingle{}mfa-success\textquotesingle{}}.
+
+Unfortunately, although these steps attempt to increase the data's usability, they are also not immune to inserting bugs.
+
+\hypertarget{data-encoding}{%
+\subsection{Data Encoding}\label{data-encoding}}
+
+\hypertarget{data-types}{%
+\subsubsection{Data Types}\label{data-types}}
+
+One critical set of decisions in data encoding is what sort of \emph{data types} each field of interest should be. Data types such as integers, reals, character strings, logicals, dates, and times determine how data is stored and the types of manipulations that can be done to it.
+
+We'll see more examples of the computational implications for our data types in Chapter \ref{comp-quan} (Computational Quandaries). This chapter specifically explores the unique complexities of string and date types.
+
+\hypertarget{indicator-variables-todo}{%
+\subsubsection{Indicator Variables (TODO)}\label{indicator-variables-todo}}
+
+what is positive case?
+
+\begin{quote}
+``We had a bunch of zeros that should have been coded ones and the ones should have been coded zeroes.''
+\end{quote}
+
+(\url{https://retractionwatch.com/2013/01/04/paper-on-evidence-for-environmental-racism-in-epa-polluter-fines-retracted-for-coding-error/})
+
+\hypertarget{general-representation-todo}{%
+\subsubsection{General Representation (TODO)}\label{general-representation-todo}}
+
+\begin{quote}
+``These data sets often have multiple files that\ldots have unclear and sometimes duplicative variables. Such complexities are commonplace among many data systems\ldots{} I would not be surprised if coding errors were fairly common, and that the ones discovered constitute only the ``tip of the iceberg.''
+''
+\end{quote}
+
+(\url{https://retractionwatch.com/2015/09/10/divorce-study-felled-by-a-coding-error-gets-a-second-chance/})
+
+\hypertarget{the-many-meanings-of-null}{%
+\subsubsection{The Many Meanings of Null}\label{the-many-meanings-of-null}}
+
+Another major encoding decision is how to handle null values.
+Previously, in the discussion of Data Collection, we considered the presence and absence of full \emph{records}.
+However, when preparing data for analysis, both data produces and consumers need to decide how to cope with the presence or absence of individual \emph{fields}.
+
+If records contain some but not all relevant information, they may be published with explicitly missing fields or the full record may not be published at all. The difference between implicit and explicit missingness on the resulting data is illustrated in Figure \ref{fig:null-impl-expl}.
+
+\begin{figure}
+
+{\centering \includegraphics[width=0.9\linewidth]{figures/data-dall/missing-imp-exp} 
+
+}
+
+\caption{A comparison of explicit versus implicit missingness}\label{fig:null-impl-expl}
+\end{figure}
+
+Understanding what the system implies by each \emph{explicitly} missing data field is also critical for validation and analysis.
+Checks for data completeness usually include counting null values, but null data isn't always incorrect.
+In fact, null data can be highly informative if we know what it means. Some meanings of null data might include:
+
+\begin{itemize}
+\tightlist
+\item
+  \textbf{Field is not relevant}: Perhaps our \texttt{logins} table reports the mobile phone operating system (iOS or Android) that was used to access the login page to track platform-specific issues. However, there is no valid value for this
+\item
+  \textbf{Relevant value is not known}: Our \texttt{logins} table might also have an \texttt{account\_id} field which attempts to match login attempts to known accounts/customers using different metadata like cookies or IP addresses. In theory, almost everyone trying to log in should have an account identifier, but our methods may not be good enough to identify them in all cases
+\item
+  \textbf{Relevant value is null}: Of course, sometimes someone without an account at all might try to log in for some reason. In this case, the correct value for an \texttt{account\_id} field truly \emph{is} null
+\item
+  \textbf{Relevant value was recorded incorrectly}: Sometimes systems have glitches. Without a doubt, every single login attempt \emph{should} have a timestamp, but such a field could be null if this data was somehow lost or corrupted at the source
+\end{itemize}
+
+Similarly, different systems might or might not report out these nulls in different ways such as:
+
+\begin{itemize}
+\tightlist
+\item
+  \textbf{True nulls}: Literally the entry in the resulting dataset is null
+\item
+  \textbf{Null-like non-nulls}: Blank values like an empty string (\texttt{\textquotesingle{}\textquotesingle{}}) that contain a null amount of information but won't be detected when counting null values
+\item
+  \textbf{Placeholder values}: Meaningless values like an \texttt{account\_id} of \texttt{00000000} for all unidentified accounts which preserve data \emph{validity} (the expected structure) but have no intrinsic meaning
+\item
+  \textbf{Sentinel/shadow values}: Abnormal values which attempt to indicate the reasons for null-ness such as an \texttt{account\_id} of \texttt{-1} when no browser cookies were found or \texttt{-2} when cookies were found but did not help link to any specific customer record
+\end{itemize}
+
+Each of these encoding choices changes the definitions of appropriate completeness and validity for each field and, even more critically, impacts the expectations and assertions we should form for data accuracy.
+We can't expect 100\% completeness if nulls are a relevant value; we can't check validity of ranges as easily if sentinel values are used with values that are outside the normal range (hopefully, or we have much bigger problems!)
+So, understanding how upstream systems \emph{should} work is essential for assessing if they \emph{do} work.
+
+Similarly, understanding how our null data is collected has significant implications for how we subsequently process it. We will discuss this more in Chapter \ref{comp-quan} (Computational Quandaries).
 
 \hypertarget{data-transformation}{%
 \subsection{Data Transformation}\label{data-transformation}}
@@ -1010,68 +1114,115 @@ This is also a problem more broadly if some short-term error is discovered eithe
 
 Regardless, this underscores the need to validate entire datasets and to re-validate when repulling data.
 
-\hypertarget{the-many-meanings-of-null}{%
-\subsection{The Many Meanings of Null}\label{the-many-meanings-of-null}}
-
-Another major encoding decision is how to handle null values.
-Previously, in the discussion of Data Collection, we considered the presence and absence of full \emph{records}.
-However, when preparing data for analysis, both data produces and consumers need to decide how to cope with the presence or absence of individual \emph{fields}.
-
-If records contain some but not all relevant information, they may be published with explicitly missing fields or the full record may not be published at all. The difference between implicit and explicit missingness on the resulting data is illustrated in Figure \ref{fig:null-impl-expl}.
-
-\begin{figure}
-
-{\centering \includegraphics[width=0.9\linewidth]{figures/data-dall/missing-imp-exp} 
-
-}
-
-\caption{A comparison of explicit versus implicit missingness}\label{fig:null-impl-expl}
-\end{figure}
-
-Understanding what the system implies by each \emph{explicitly} missing data field is also critical for validation and analysis.
-Checks for data completeness usually include counting null values, but null data isn't always incorrect.
-In fact, null data can be highly informative if we know what it means. Some meanings of null data might include:
-
-\begin{itemize}
-\tightlist
-\item
-  \textbf{Field is not relevant}: Perhaps our \texttt{logins} table reports the mobile phone operating system (iOS or Android) that was used to access the login page to track platform-specific issues. However, there is no valid value for this
-\item
-  \textbf{Relevant value is not known}: Our \texttt{logins} table might also have an \texttt{account\_id} field which attempts to match login attempts to known accounts/customers using different metadata like cookies or IP addresses. In theory, almost everyone trying to log in should have an account identifier, but our methods may not be good enough to identify them in all cases
-\item
-  \textbf{Relevant value is null}: Of course, sometimes someone without an account at all might try to log in for some reason. In this case, the correct value for an \texttt{account\_id} field truly \emph{is} null
-\item
-  \textbf{Relevant value was recorded incorrectly}: Sometimes systems have glitches. Without a doubt, every single login attempt \emph{should} have a timestamp, but such a field could be null if this data was somehow lost or corrupted at the source
-\end{itemize}
-
-Similarly, different systems might or might not report out these nulls in different ways such as:
-
-\begin{itemize}
-\tightlist
-\item
-  \textbf{True nulls}: Literally the entry in the resulting dataset is null
-\item
-  \textbf{Null-like non-nulls}: Blank values like an empty string (\texttt{\textquotesingle{}\textquotesingle{}}) that contain a null amount of information but won't be detected when counting null values
-\item
-  \textbf{Placeholder values}: Meaningless values like an \texttt{account\_id} of \texttt{00000000} for all unidentified accounts which preserve data \emph{validity} (the expected structure) but have no intrinsic meaning
-\item
-  \textbf{Sentinel/shadow values}: Abnormal values which attempt to indicate the reasons for null-ness such as an \texttt{account\_id} of \texttt{-1} when no browser cookies were found or \texttt{-2} when cookies were found but did not help link to any specific customer record
-\end{itemize}
-
-Each of these encoding choices changes the definitions of appropriate completeness and validity for each field and, even more critically, impacts the expectations and assertions we should form for data accuracy.
-We can't expect 100\% completeness if nulls are a relevant value; we can't check validity of ranges as easily if sentinel values are used with values that are outside the normal range (hopefully, or we have much bigger problems!)
-So, understanding how upstream systems \emph{should} work is essential for assessing if they \emph{do} work.
-
-Similarly, understanding how our null data is collected has significant implications for how we subsequently process it. We will discuss this more in Chapter \ref{comp-quan} (Computational Quandaries).
-
 \hypertarget{other-types-of-data-todo}{%
 \section{Other Types of Data (TODO)}\label{other-types-of-data-todo}}
+
+\hypertarget{survey-data}{%
+\subsection{Survey Data}\label{survey-data}}
+
+\hypertarget{human-generated}{%
+\subsection{Human-Generated}\label{human-generated}}
 
 \hypertarget{strategies-todo}{%
 \section{Strategies (TODO)}\label{strategies-todo}}
 
-\hypertarget{real-world-disasters-todo}{%
-\section{Real World Disasters (TODO)}\label{real-world-disasters-todo}}
+\hypertarget{understand-the-intent}{%
+\subsection{Understand the intent}\label{understand-the-intent}}
+
+\begin{itemize}
+\tightlist
+\item
+  Why was data originally collected? By whom and for what purpose?
+\item
+  Are there clear, unique definitions of key concepts (e.g.~entites, measures)? What are they?
+\item
+  Documentation (metadata, dictionaries)
+\end{itemize}
+
+\hypertarget{understand-the-execution}{%
+\subsection{Understand the execution}\label{understand-the-execution}}
+
+\begin{itemize}
+\tightlist
+\item
+  learn about the real-world systems
+\item
+  understand key steps in data production process
+\item
+  documentation (lineage, provenance)
+\end{itemize}
+
+\hypertarget{seek-expertise}{%
+\subsection{Seek expertise}\label{seek-expertise}}
+
+\begin{itemize}
+\tightlist
+\item
+  talking to experts (upstream and downstream)
+\end{itemize}
+
+\hypertarget{trust-but-verify}{%
+\subsection{Trust but verify}\label{trust-but-verify}}
+
+\begin{itemize}
+\tightlist
+\item
+  always on data validation
+
+  \begin{itemize}
+  \tightlist
+  \item
+    summaries
+  \item
+    context-informed assertions
+  \end{itemize}
+\item
+  exploratory analysis
+\end{itemize}
+
+\hypertarget{real-world-disasters}{%
+\section{Real World Disasters}\label{real-world-disasters}}
+
+\hypertarget{data-loading-artificially-spikes-covid-cases}{%
+\subsection{Data loading artificially spikes COVID cases}\label{data-loading-artificially-spikes-covid-cases}}
+
+Data loading, particularly when a new process is introduced can go astray and lead to spurious results.
+The city of El Paso discovered this after reporting an exceedingly high number of daily COVID cases \citep{borunda_2020}:
+
+\begin{quote}
+El Paso city and public health officials on Thursday admitted to a major blunder, saying that the more than 3,100 new cases reported a day earlier was incorrect.
+\end{quote}
+
+\begin{quote}
+The number was the result of a two-day upload of cases in one day after the public health department went from imputing data manually to an automatic data upload that was intended to increase efficiency, Public Health Director Angela Mora said at news conference.
+\end{quote}
+
+This instance demonstrates not only how \emph{data} goes wrong but also how easy it is to trust discrepancies and find explanations in real-world phenomena.
+The article goes on to suggest that the extremely high case numbers were not immediately caught given the overall ``alarming'' levels:
+
+\begin{quote}
+Mora said she accepted responsibility and that she should have taken a deeper look after noticing the abnormally high number of new cases.El Paso County is still seeing more than 1,000 new cases on a daily basis, officials said. The correct number of new cases Wednesday was 1,537.
+\end{quote}
+
+\begin{quote}
+``The numbers are still high and they are still alarming but they were not as high as we reported,'' Mora said.
+\end{quote}
+
+\hypertarget{data-encoding-leads-to-incorrect-bmi-calculation}{%
+\subsection{Data encoding leads to incorrect BMI calculation}\label{data-encoding-leads-to-incorrect-bmi-calculation}}
+
+Data that is encoded inconsistently may be mishandled in automated decision processes.
+For example, data manually entered into electronic health records (EHR) by countless care provides might be compiled into a single source although the meanings could be inconsistent.
+
+In the early days of the COVID19 vaccination push, some regions chose to prioritize their vaccine supply by certain individual characteristics including a high body mass index (BMI), which is a function of one's weight relative to their height.
+
+One 6ft 2in tall man's data was misinterpreted to suggest that he was 6.2 \emph{centimeters} tall; this caused his to get high priority for a vaccine.
+
+As described in the BBC \citep{bbc_north_west_2021}:
+
+\begin{quote}
+A man in his 30s with no underlying health conditions was offered a Covid vaccine after an NHS error mistakenly listed him as just 6.2cm in height. Liam Thorp was told he qualified for the jab because his measurements gave him a body mass index of 28,000.
+\end{quote}
 
 \begin{Shaded}
 \begin{Highlighting}[]
@@ -1086,7 +1237,7 @@ Similarly, understanding how our null data is collected has significant implicat
 \end{Highlighting}
 \end{Shaded}
 
-\includegraphics{bookdown_files/figure-latex/unnamed-chunk-21-2.pdf}
+\includegraphics{bookdown_files/figure-latex/unnamed-chunk-20-2.pdf}
 
 \hypertarget{data-transformation-1}{%
 \subsection{Data Transformation}\label{data-transformation-1}}
@@ -1718,20 +1869,447 @@ We can explicitly encode any residual values as something like ``OTHER'' or ``ER
 ## 3 OTHER        1
 \end{verbatim}
 
-\hypertarget{dates-and-times-todo}{%
-\section{Dates and Times (TODO)}\label{dates-and-times-todo}}
+\hypertarget{strings-wip}{%
+\section{Strings (WIP)}\label{strings-wip}}
 
-\hypertarget{strings-todo}{%
-\section{Strings (TODO)}\label{strings-todo}}
+String data can be inherently appealing. At their best, strings are used to bring more readable and human interpretable values into a dataset. However, string data and the processing thereof comes with its own challenges.
 
-\hypertarget{encoding-choices-todo}{%
-\section{Encoding Choices (TODO)}\label{encoding-choices-todo}}
+First, unlike numbers, human language strings can be ambiguously defined. \texttt{2} is the only number to represent the value of two. However, the incorporation of human language means that many different words, phrases, and formatting choices can represent the same concept. This is confounded by instances where string data was manually entered, as is the case with user-input data.\footnote{I can accurately say my name is ``Emily'', ``Emily Riederer'', ``Emily E. Riederer'', ``Ms.~Emily Riederer''. Additionally, if I spell my name over the phone, I can likely end up ``Emily Rieder'' or if I type it and mindlessly accept autocorrect, I'm ``Emily Reindeer''. This inconsistently may be problematic if you are trying to combine my data across different sources where I provided my name in different ways.}
 
-\hypertarget{order-of-operations-todo}{%
-\section{Order of Operations (TODO)}\label{order-of-operations-todo}}
+Secondly, string data is one of the most flexible datatypes and can contain any other types of information -- from should-be-logical values (\texttt{"yes"/"no"}, \texttt{"true"/"false"}), should-be-numeric values (\texttt{"27"}), should-be-date values (\texttt{"2020-01-01"}), and even complex data encodings like JSON blobs (\texttt{"\{"name":\{"first":"emily","last":"riederer"\},"social":\{"twitter":"emilyriederer","github":"emilyriederer","linkedin":"emilyriederer"\}\}"} with hideous formatting for emphasis.) For a data publisher, this may be a convenience, but as we will see it can turn into a frustration or a liability when functions and comparison operations are attempted with strings that semantically represent a different type of value.
 
-\hypertarget{object-references-todo}{%
-\section{Object References (TODO)}\label{object-references-todo}}
+\hypertarget{dirty-strings}{%
+\subsection{Dirty Strings}\label{dirty-strings}}
+
+whitespace
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\StringTok{"a"} \SpecialCharTok{==} \StringTok{"a"}
+\StringTok{"a b"} \SpecialCharTok{==} \StringTok{"a b"}
+\StringTok{"a b"} \SpecialCharTok{==} \StringTok{"a  b"}
+\StringTok{"a b"} \SpecialCharTok{==} \StringTok{"a b "}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## [1] TRUE
+## [1] TRUE
+## [1] FALSE
+## [1] FALSE
+\end{verbatim}
+
+``fancy'' characters (alternate encodings like ms word)
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\StringTok{\textquotesingle{} " \textquotesingle{}} \SpecialCharTok{==} \StringTok{\textquotesingle{} " \textquotesingle{}}
+\StringTok{\textquotesingle{} “ \textquotesingle{}} \SpecialCharTok{==} \StringTok{\textquotesingle{} " \textquotesingle{}}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## [1] TRUE
+## [1] FALSE
+\end{verbatim}
+
+special characters and display versus values
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{x }\OtherTok{\textless{}{-}} \StringTok{"a}\SpecialCharTok{\textbackslash{}t}\StringTok{b"}
+\FunctionTok{cat}\NormalTok{(x) }\CommentTok{\# what you see...}
+\NormalTok{x }\SpecialCharTok{==} \StringTok{"a    b"} \CommentTok{\# ...is not what you get}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## a    b[1] FALSE
+\end{verbatim}
+
+\hypertarget{regular-expressions-todo}{%
+\subsection{Regular Expressions (TODO)}\label{regular-expressions-todo}}
+
+we promised not to be solution oriented, but
+
+\emph{not} knowing regex is a disaster when trying to work with string data\ldots{}
+
+\hypertarget{comparison-1}{%
+\subsection{Comparison}\label{comparison-1}}
+
+TODO
+
+\hypertarget{string-ordering}{%
+\subsubsection{String ordering}\label{string-ordering}}
+
+Strings are ranked based on \emph{alphabetical order} just like a dictionary. Some properties of this ordering include that:
+
+\begin{itemize}
+\tightlist
+\item
+  numbers are smaller than letters (\texttt{1\ \textless{}\ "a"})
+\item
+  lower-case is smaller than upper case (\texttt{"a"\ \textless{}\ "A"})
+\item
+  fewer characters are smaller than more characters (\texttt{"a"\ \textless{}\ "aa"})
+\end{itemize}
+
+Such rules make perfect sense for true characters. However, when strings are used as a ``catch all'' to represent other structures, typical comparison operators can produce odd results. For example, its generally uncontroverisal that ninety-one is less than one hundred twenty. However, the string \texttt{"91"} is \emph{greater than} \texttt{"120"} because only the chacter \texttt{"9"} is compared to the character \texttt{"1"}.\footnote{Similarly, \texttt{"91"\ \textgreater{}\ "905"} because since they both start with 9, we move on to compare 1 which is greater than 0.}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\DecValTok{91} \SpecialCharTok{\textless{}} \DecValTok{120}
+\StringTok{"91"} \SpecialCharTok{\textless{}} \StringTok{"120"}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## [1] TRUE
+## [1] FALSE
+\end{verbatim}
+
+When strings are used to represent strings, comparison operators may or may not work depending on the precise formatting convertions. Below, we see that ``YYYYQQ''-formats sort correctly because the information is hierarchically nested; millenia are compared before centuries, centuries before decades, decades before years, and years before quarters. However, many other string representations of dates, like ``QQ-YYYY'' will not order correctly. Related topics will be discussed in the ``Dates and Times'' section.
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\StringTok{"20190Q4"} \SpecialCharTok{\textless{}} \StringTok{"2020Q3"} \CommentTok{\# string (alphabetic) ordering same as semantic ordering}
+\StringTok{"Q4{-}2019"} \SpecialCharTok{\textless{}} \StringTok{"Q3{-}2020"} \CommentTok{\# string and semantic orderings are different}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## [1] TRUE
+## [1] FALSE
+\end{verbatim}
+
+These examples demonstrate that we shouldn't rely on sorting schemes that follow different rules. Before doing comparisons on such types, its a safer bet to cast them to the format most truly representative of their types. If, for some reason, you do wish to keep them as strings, the second example shows that its is wise to format them in the most conducive format possible so things just work.
+
+\hypertarget{type-coercion}{%
+\subsubsection{Type coercion}\label{type-coercion}}
+
+We discussed string comparison before when looking at ``dirty'' strings. More unexpected behavior arises when strings are compared across different data types. Many computing programs will attempt to \emph{coerce} the objects to a similar and comparable type. Sometimes, this can be handy as operations ``just work'', but as always there is a cost for convenience. As we'll see, delegating important decisions to our computing engine may not always capture the semantic relationships that we are most interested in.
+
+For example, consider compare a string and a number. To make them more comparable, R will convert them both to strings before checking for equality. Thus, the number \texttt{2020} is equivalent to the string \texttt{"2020"} but not the string \texttt{"02020"}.
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\StringTok{"2020"} \SpecialCharTok{==} \DecValTok{2020}
+\StringTok{"02020"} \SpecialCharTok{==} \DecValTok{2020}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## [1] TRUE
+## [1] FALSE
+\end{verbatim}
+
+In constrast, SQLite\footnote{Different versions of SQL may differ} thinks that the string \texttt{\textquotesingle{}2020\textquotesingle{}} is greater than the number 2020 and that these two quantities are not equal.
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\FunctionTok{sqldf}\NormalTok{(}\StringTok{"select }
+\StringTok{      case when \textquotesingle{}2020\textquotesingle{} = 2020 then 1 else 0 end as is\_eq,}
+\StringTok{      case when not \textquotesingle{}2020\textquotesingle{} == 2020 then 1 else 0 end as not\_eq,}
+\StringTok{      case when \textquotesingle{}2020\textquotesingle{} \textless{} 2020 then 1 else 0 end as is\_lt,}
+\StringTok{      case when \textquotesingle{}2020\textquotesingle{} \textgreater{} 2020 then 1 else 0 end as is\_gt}
+\StringTok{      "}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+##   is_eq not_eq is_lt is_gt
+## 1     0      1     0     1
+\end{verbatim}
+
+\^{}TODO: where this could cause problems (FIPS example?)
+
+\hypertarget{dates-and-times-wip}{%
+\section{Dates and Times (WIP)}\label{dates-and-times-wip}}
+
+Unlike character strings, dates and times seem like they should be well defined with distinct, quantifiable components like years, months, and days. However, many different conventions for date formatting and underlying storage formats exist. This leads to similar challenges with dates and times as we saw with strings before.
+
+Some common formats in the wild are:
+
+\begin{itemize}
+\tightlist
+\item
+  YYYYMMDD
+\item
+  YYYYMM
+\item
+  MMDDYYYY
+\item
+  DDMMYYYY
+\item
+  MM/DD/YYYY
+\item
+  MM/DD/YY
+\item
+  DD/MM/YYYY
+\item
+  YYYY-MM-DD (ISO8601)
+\end{itemize}
+
+To complicate matters further, many of these formats may be represented either by native date types in various programs or by more basic data types (such as integers for the first four and strings for the last four). In addition, analogous formats exist for \emph{timestamps} which encode both calendar date and time of day (hour, minute, and second information).
+
+TODO: why ISO8601?
+
+\hypertarget{assessing-equality}{%
+\subsection{Assessing equality}\label{assessing-equality}}
+
+Automatic conversion of data types
+Dates versus timestamps
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{df\_dt }\OtherTok{\textless{}{-}}
+\FunctionTok{data.frame}\NormalTok{(}
+  \AttributeTok{DT\_ENROLL =} \FunctionTok{as.Date}\NormalTok{(}\StringTok{"2020{-}01{-}01"}\NormalTok{),}
+  \AttributeTok{DT\_PURCH  =} \DecValTok{20200101}\NormalTok{,}
+  \AttributeTok{DT\_LOGIN  =} \FunctionTok{as.POSIXlt}\NormalTok{(}\StringTok{"2020{-}01{-}01T12:00:00"}\NormalTok{) }
+\NormalTok{  )}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\FunctionTok{filter}\NormalTok{(df\_dt, DT\_ENROLL }\SpecialCharTok{==}\NormalTok{ DT\_PURCH) }\SpecialCharTok{\%\textgreater{}\%} \FunctionTok{nrow}\NormalTok{()}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## [1] 0
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\FunctionTok{filter}\NormalTok{(df\_dt, DT\_ENROLL }\SpecialCharTok{==}\NormalTok{ DT\_LOGIN) }\SpecialCharTok{\%\textgreater{}\%} \FunctionTok{nrow}\NormalTok{()}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## Warning in mask$eval_all_filter(dots, env_filter):
+## Incompatible methods ("Ops.Date", "Ops.POSIXt") for
+## "=="
+\end{verbatim}
+
+\begin{verbatim}
+## [1] 0
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\FunctionTok{sqldf}\NormalTok{(}\StringTok{"select * from df\_dt where DT\_ENROLL = DT\_PURCH"}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## [1] DT_ENROLL DT_PURCH  DT_LOGIN 
+## <0 rows> (or 0-length row.names)
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\FunctionTok{sqldf}\NormalTok{(}\StringTok{"select * from df\_dt where DT\_ENROLL = DT\_LOGIN"}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## [1] DT_ENROLL DT_PURCH  DT_LOGIN 
+## <0 rows> (or 0-length row.names)
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\FunctionTok{as.numeric}\NormalTok{(df\_dt}\SpecialCharTok{$}\NormalTok{DT\_ENROLL)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## [1] 18262
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\FunctionTok{sqldf}\NormalTok{(}\StringTok{"select cast(DT\_ENROLL as integer), cast(DT\_PURCH as integer) from df\_dt"}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+##   cast(DT_ENROLL as integer) cast(DT_PURCH as integer)
+## 1                      18262                  20200101
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\FunctionTok{sqldf}\NormalTok{(}\StringTok{"}
+\StringTok{  select }
+\StringTok{    cast(DT\_ENROLL as integer), }
+\StringTok{    case when DT\_ENROLL \textless{} 18000 then 1 else 0 end as lt\_18000,}
+\StringTok{    case when DT\_ENROLL \textless{} 19000 then 1 else 0 end as lt\_19000,}
+\StringTok{    case when DT\_ENROLL \textless{} DT\_PURCH then 1 else 0 end as lt\_purch}
+\StringTok{  from df\_dt"}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+##   cast(DT_ENROLL as integer) lt_18000 lt_19000
+## 1                      18262        0        1
+##   lt_purch
+## 1        1
+\end{verbatim}
+
+Note this this can affect both filters and joins
+
+\hypertarget{order-of-operations-wip}{%
+\section{Order of Operations (WIP)}\label{order-of-operations-wip}}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\DecValTok{1} \SpecialCharTok{+} \DecValTok{1}  \SpecialCharTok{*} \DecValTok{2} \SpecialCharTok{/} \DecValTok{3} \SpecialCharTok{{-}} \DecValTok{1}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## [1] 0.6667
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{(}\DecValTok{1} \SpecialCharTok{+} \DecValTok{1}\NormalTok{) }\SpecialCharTok{*} \DecValTok{2} \SpecialCharTok{/} \DecValTok{3} \SpecialCharTok{{-}} \DecValTok{1}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## [1] 0.3333
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\DecValTok{1} \SpecialCharTok{+} \DecValTok{1} \SpecialCharTok{*} \DecValTok{2} \SpecialCharTok{/}\NormalTok{ (}\DecValTok{3} \SpecialCharTok{{-}} \DecValTok{1}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## [1] 2
+\end{verbatim}
+
+\hypertarget{object-references-wip}{%
+\section{Object References (WIP)}\label{object-references-wip}}
+
+Copying and modifying object overview
+
+\begin{figure}
+
+{\centering \includegraphics[width=0.9\linewidth]{figures/comp-quan/ref-val} 
+
+}
+
+\caption{Different relationships between named variables and their values}\label{fig:unnamed-chunk-74}
+\end{figure}
+
+When might each be preferred?
+
+What risks are there if we don't understand which we are doing?
+
+In Python
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{x }\OperatorTok{=}\NormalTok{ [}\DecValTok{1}\NormalTok{,}\DecValTok{2}\NormalTok{,}\DecValTok{3}\NormalTok{]}
+\NormalTok{y }\OperatorTok{=}\NormalTok{ x}
+\NormalTok{y.append(}\DecValTok{4}\NormalTok{)}
+\BuiltInTok{print}\NormalTok{(y)}
+\BuiltInTok{print}\NormalTok{(x)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## [1, 2, 3, 4]
+## [1, 2, 3, 4]
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{z }\OperatorTok{=}\NormalTok{ x.copy()}
+\NormalTok{z.append(}\DecValTok{5}\NormalTok{)}
+\BuiltInTok{print}\NormalTok{(z)}
+\BuiltInTok{print}\NormalTok{(x)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## [1, 2, 3, 4, 5]
+## [1, 2, 3, 4]
+\end{verbatim}
+
+pandas DataFrame methods with \texttt{inplace} arg (\texttt{False} is default)
+
+In R
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\FunctionTok{library}\NormalTok{(data.table)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## 
+## Attaching package: 'data.table'
+\end{verbatim}
+
+\begin{verbatim}
+## The following objects are masked from 'package:dplyr':
+## 
+##     between, first, last
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{DT }\OtherTok{\textless{}{-}} \FunctionTok{data.table}\NormalTok{(}\AttributeTok{a=}\FunctionTok{c}\NormalTok{(}\DecValTok{1}\NormalTok{,}\DecValTok{2}\NormalTok{), }\AttributeTok{b=}\FunctionTok{c}\NormalTok{(}\DecValTok{11}\NormalTok{,}\DecValTok{12}\NormalTok{))}
+\FunctionTok{print}\NormalTok{(DT)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+##    a  b
+## 1: 1 11
+## 2: 2 12
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{newDT }\OtherTok{\textless{}{-}}\NormalTok{ DT        }\CommentTok{\# reference, not copy}
+\NormalTok{newDT[}\DecValTok{1}\NormalTok{, a }\SpecialCharTok{:}\ErrorTok{=} \DecValTok{100}\NormalTok{] }\CommentTok{\# modify new DT}
+
+\FunctionTok{print}\NormalTok{(DT)          }\CommentTok{\# DT is modified too.}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+##      a  b
+## 1: 100 11
+## 2:   2 12
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{DT }\OtherTok{=} \FunctionTok{data.table}\NormalTok{(}\AttributeTok{a=}\FunctionTok{c}\NormalTok{(}\DecValTok{1}\NormalTok{,}\DecValTok{2}\NormalTok{), }\AttributeTok{b=}\FunctionTok{c}\NormalTok{(}\DecValTok{11}\NormalTok{,}\DecValTok{12}\NormalTok{))}
+\NormalTok{newDT }\OtherTok{\textless{}{-}}\NormalTok{ DT        }
+\NormalTok{newDT}\SpecialCharTok{$}\NormalTok{b[}\DecValTok{2}\NormalTok{] }\OtherTok{\textless{}{-}} \DecValTok{200}  \CommentTok{\# new operation}
+\NormalTok{newDT[}\DecValTok{1}\NormalTok{, a }\SpecialCharTok{:}\ErrorTok{=} \DecValTok{100}\NormalTok{]}
+
+\FunctionTok{print}\NormalTok{(DT)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+##    a  b
+## 1: 1 11
+## 2: 2 12
+\end{verbatim}
+
+From \url{https://stackoverflow.com/questions/10225098/understanding-exactly-when-a-data-table-is-a-reference-to-vs-a-copy-of-another}
 
 \hypertarget{trusting-tools}{%
 \section{Trusting Tools}\label{trusting-tools}}
@@ -1785,22 +2363,74 @@ As a second example, according to a 2015 \href{https://issues.apache.org/jira/br
 
 }
 
-\caption{JIRA ticket for Spark with a discussion of which random forest variable importance algorithm to implement}\label{fig:unnamed-chunk-59}
+\caption{JIRA ticket for Spark with a discussion of which random forest variable importance algorithm to implement}\label{fig:unnamed-chunk-78}
 \end{figure}
 
 Clearly, no one wants a workflow that is too costly or timely to run. So, once again, there is no right or wrong. However, since every approach to feature importance has its own biases, pitfalls, and challenges in interpretation, it's a mistake for an end-user to not carefully understand which algorithm is used and why.
+
+\hypertarget{off-label-use-todo}{%
+\subsection{``Off-Label'' Use (TODO)}\label{off-label-use-todo}}
+
+coined in \url{https://www.rstudio.com/resources/rstudioglobal-2021/maintaining-the-house-the-tidyverse-built/}
 
 \hypertarget{security-todo}{%
 \subsection{Security (TODO)}\label{security-todo}}
 
 namespace squatting
+
 executable code
 
-\hypertarget{strategies-todo-1}{%
-\section{Strategies (TODO)}\label{strategies-todo-1}}
+\hypertarget{inefficient-processing-todo}{%
+\section{Inefficient Processing (TODO)}\label{inefficient-processing-todo}}
 
-\hypertarget{real-world-disasters-todo-1}{%
-\section{Real World Disasters (TODO)}\label{real-world-disasters-todo-1}}
+\hypertarget{strategies-wip}{%
+\section{Strategies (WIP)}\label{strategies-wip}}
+
+Paragraph 1 TODO
+
+Some computational quandaries are inherent to our tools themselves, but often they are a function both of the tools and the ways we chose to use them. More strategies related to writing robust and resilient code will be discussed in Chapter \ref{comp-code} (Complexify Code).
+
+\hypertarget{understand-the-intent-1}{%
+\subsection{Understand the intent}\label{understand-the-intent-1}}
+
+\begin{itemize}
+\tightlist
+\item
+  read the docs
+\item
+  look at examples
+\end{itemize}
+
+\hypertarget{understand-the-execution-1}{%
+\subsection{Understand the execution}\label{understand-the-execution-1}}
+
+\begin{itemize}
+\tightlist
+\item
+  test out simple examples (like we've been doing)
+\item
+  specificlly try out corner cases
+\end{itemize}
+
+\hypertarget{be-explicit-not-implicit}{%
+\subsection{Be explicit not implicit}\label{be-explicit-not-implicit}}
+
+\begin{itemize}
+\tightlist
+\item
+  default arguments
+\item
+  examples above with casting, coalescing
+\end{itemize}
+
+\hypertarget{real-world-disasters-wip}{%
+\section{Real World Disasters (WIP)}\label{real-world-disasters-wip}}
+
+\url{https://www.theguardian.com/politics/2020/oct/05/how-excel-may-have-caused-loss-of-16000-covid-tests-in-england}
+
+\begin{quote}
+The data error, which led to 15,841 positive tests being left off the official daily figures, means than 50,000 potentially infectious people may have been missed by contact tracers and not told to self-isolate.
+\end{quote}
 
 \hypertarget{part-analysis}{%
 \part*{Analysis}\label{part-analysis}}
@@ -1987,7 +2617,7 @@ However, once again we are telling ourselves a story just to reason about numeri
 \NormalTok{re1 }\OtherTok{\textless{}{-}} \FloatTok{0.1}
 \NormalTok{re2 }\OtherTok{\textless{}{-}} \FloatTok{0.2}
 
-\CommentTok{\# simulate spend amounts and return indicatiors {-}{-}{-}{-}}
+\CommentTok{\# simulate spend amounts and return indicators {-}{-}{-}{-}}
 \NormalTok{amt\_spend  }\OtherTok{\textless{}{-}} \FunctionTok{c}\NormalTok{(}\FunctionTok{rnorm}\NormalTok{(n, pr1, pr\_sd), }\FunctionTok{rnorm}\NormalTok{(n, pr2, pr\_sd))}
 \NormalTok{ind\_return }\OtherTok{\textless{}{-}} \FunctionTok{c}\NormalTok{(}\FunctionTok{rbinom}\NormalTok{(n, }\DecValTok{1}\NormalTok{, re1),    }\FunctionTok{rbinom}\NormalTok{(n, }\DecValTok{1}\NormalTok{, re2))}
 
@@ -2045,6 +2675,115 @@ however, this second result once again illustrates the extent to which interrela
 
 \hypertarget{seasonality}{%
 \subsection{Seasonality}\label{seasonality}}
+
+\hypertarget{strategies-todo-1}{%
+\section{Strategies (TODO)}\label{strategies-todo-1}}
+
+\hypertarget{real-world-disasters-todo}{%
+\section{Real World Disasters (TODO)}\label{real-world-disasters-todo}}
+
+Straight vs weighted averages in COVID positivity rates \citep{indy_rates}
+
+\begin{quote}
+The changes could result in real-world differences for Hoosiers, because the state uses a county's positivity rate as one of the numbers to determine which restrictions that county will face. Those restrictions determine how many people may gather, among other items.
+\end{quote}
+
+\begin{quote}
+Some Hoosiers may see loosened restrictions because of the changes. While Box said the county-level impact will be mixed, she predicted some smaller counties will see a decline in positivity rate after the changes.
+\end{quote}
+
+\begin{quote}
+``The change to the methodology is how we calculate the seven-day positivity rate for counties. In the past, similar to many states, we've added each day's positivity rate for seven days and divided by seven to obtain the week's positivity rate. Now we will add all of the positive tests for the week and divide by the total tests done that week to determine the week's positivity rate. This will help to minimize the effect that a high variability in the number of tests done each day can have on the week's overall positivity, especially for our smaller counties.''
+\end{quote}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{avg\_of\_ratios }\OtherTok{\textless{}{-}}\NormalTok{ (}\DecValTok{10}\SpecialCharTok{/}\DecValTok{100} \SpecialCharTok{+} \DecValTok{90}\SpecialCharTok{/}\DecValTok{100}\NormalTok{) }\SpecialCharTok{/} \DecValTok{2}
+
+\NormalTok{ratio\_of\_sums }\OtherTok{\textless{}{-}}\NormalTok{ (}\DecValTok{10} \SpecialCharTok{+} \DecValTok{90}\NormalTok{) }\SpecialCharTok{/}\NormalTok{ (}\DecValTok{100} \SpecialCharTok{+} \DecValTok{100}\NormalTok{)}
+
+\NormalTok{avg\_of\_ratios }\SpecialCharTok{==}\NormalTok{ ratio\_of\_sums}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## [1] TRUE
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{avg\_of\_ratios\_uneq }\OtherTok{\textless{}{-}}\NormalTok{ (}\DecValTok{10}\SpecialCharTok{/}\DecValTok{100} \SpecialCharTok{+} \DecValTok{180} \SpecialCharTok{/} \DecValTok{200}\NormalTok{) }\SpecialCharTok{/} \DecValTok{2}
+
+\NormalTok{ratio\_of\_sums\_uneq }\OtherTok{\textless{}{-}}\NormalTok{ (}\DecValTok{10} \SpecialCharTok{+} \DecValTok{180}\NormalTok{) }\SpecialCharTok{/}\NormalTok{ (}\DecValTok{100} \SpecialCharTok{+} \DecValTok{200}\NormalTok{)}
+
+\NormalTok{avg\_of\_ratios\_uneq }\SpecialCharTok{==}\NormalTok{ ratio\_of\_sums\_uneq}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## [1] FALSE
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{weightavg\_of\_ratios\_uneq }\OtherTok{\textless{}{-}}\NormalTok{ (}\DecValTok{100}\SpecialCharTok{/}\DecValTok{300}\NormalTok{)}\SpecialCharTok{*}\NormalTok{(}\DecValTok{10}\SpecialCharTok{/}\DecValTok{100}\NormalTok{) }\SpecialCharTok{+}\NormalTok{ (}\DecValTok{200}\SpecialCharTok{/}\DecValTok{300}\NormalTok{)}\SpecialCharTok{*}\NormalTok{(}\DecValTok{180}\SpecialCharTok{/}\DecValTok{200}\NormalTok{)}
+
+\NormalTok{ratio\_of\_sums\_uneq }\SpecialCharTok{==}\NormalTok{ weightavg\_of\_ratios\_uneq}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## [1] TRUE
+\end{verbatim}
+
+Recall that the standard deviation of sample proportion is \(\sqrt(p*(1-p)/n)\)
+
+link to discussions of sample size and different types of averages
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\FunctionTok{set.seed}\NormalTok{(}\DecValTok{123}\NormalTok{)}
+
+\CommentTok{\# define simulation parameters {-}{-}{-}{-}}
+\DocumentationTok{\#\# n: total draws from binomial distribution}
+\DocumentationTok{\#\# p: proportion of successes}
+\NormalTok{p }\OtherTok{\textless{}{-}} \FloatTok{0.5}
+\NormalTok{n }\OtherTok{\textless{}{-}} \DecValTok{1000}
+
+\CommentTok{\# sample from binomials of different size {-}{-}{-}{-}}
+\NormalTok{s010 }\OtherTok{\textless{}{-}} \FunctionTok{rbinom}\NormalTok{(n,  }\DecValTok{10}\NormalTok{, p) }\SpecialCharTok{/}  \DecValTok{10}
+\NormalTok{s100 }\OtherTok{\textless{}{-}} \FunctionTok{rbinom}\NormalTok{(n, }\DecValTok{100}\NormalTok{, p) }\SpecialCharTok{/} \DecValTok{100}
+\NormalTok{s500 }\OtherTok{\textless{}{-}} \FunctionTok{rbinom}\NormalTok{(n, }\DecValTok{500}\NormalTok{, p) }\SpecialCharTok{/} \DecValTok{500}
+
+\CommentTok{\# set results as dataframe for inspection {-}{-}{-}{-}}
+\NormalTok{df }\OtherTok{\textless{}{-}} \FunctionTok{data.frame}\NormalTok{(}
+  \AttributeTok{s =} \FunctionTok{rep}\NormalTok{(}\FunctionTok{c}\NormalTok{(}\DecValTok{10}\NormalTok{, }\DecValTok{100}\NormalTok{, }\DecValTok{500}\NormalTok{), }\AttributeTok{each =}\NormalTok{ n),}
+  \AttributeTok{x =} \FunctionTok{c}\NormalTok{(s010, s100, s500)}
+\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\FunctionTok{library}\NormalTok{(ggplot2)}
+
+\FunctionTok{ggplot}\NormalTok{(}\AttributeTok{data =}\NormalTok{ df) }\SpecialCharTok{+}
+  \FunctionTok{aes}\NormalTok{(}\AttributeTok{x =}\NormalTok{ x, }\AttributeTok{col =} \FunctionTok{as.character}\NormalTok{(s)) }\SpecialCharTok{+}
+  \FunctionTok{geom\_density}\NormalTok{() }\SpecialCharTok{+}
+  \FunctionTok{geom\_vline}\NormalTok{(}\AttributeTok{xintercept =}\NormalTok{ p, }\AttributeTok{col =} \StringTok{\textquotesingle{}darkgrey\textquotesingle{}}\NormalTok{, }\AttributeTok{linetype =} \DecValTok{2}\NormalTok{) }\SpecialCharTok{+}
+  \FunctionTok{labs}\NormalTok{(}
+    \AttributeTok{title =} \StringTok{"Sampling Distribution for p = 0.5"}\NormalTok{,}
+    \AttributeTok{col =} \StringTok{"Sample Size"}
+\NormalTok{  ) }\SpecialCharTok{+}
+  \FunctionTok{scale\_x\_continuous}\NormalTok{(}\AttributeTok{breaks =} \FunctionTok{seq}\NormalTok{(}\DecValTok{0}\NormalTok{, }\DecValTok{1}\NormalTok{, }\FloatTok{0.1}\NormalTok{), }\AttributeTok{labels =} \FunctionTok{seq}\NormalTok{(}\DecValTok{0}\NormalTok{, }\DecValTok{1}\NormalTok{, }\FloatTok{0.1}\NormalTok{)) }\SpecialCharTok{+}
+  \FunctionTok{theme}\NormalTok{(}
+    \AttributeTok{plot.title =} \FunctionTok{element\_text}\NormalTok{(}\AttributeTok{hjust =} \FloatTok{0.5}\NormalTok{),}
+    \AttributeTok{legend.position =} \StringTok{"bottom"}
+\NormalTok{  )}
+\end{Highlighting}
+\end{Shaded}
+
+\includegraphics{bookdown_files/figure-latex/unnamed-chunk-123-1.pdf}
 
 \hypertarget{vex-viz}{%
 \chapter{Vexing Visualization (TODO)}\label{vex-viz}}
@@ -2111,23 +2850,46 @@ As the consummate showman, P.T. Barnum is often quoted as saying ``Leave them wa
 
 This chapter attempts to flip that paradigm by briefly surveying a broad number of modeling techniques. The goal is not to go into all of the rigorous deals that one should understand to use these models. Instead, we hope to build a ``mental toolbox'' of techniques so that you know where to focus your study when you encounter a problem in the real world.
 
+\hypertarget{not-modeling}{%
+\section{Not Modeling}\label{not-modeling}}
+
+\hypertarget{first-principles}{%
+\subsection{First Principles}\label{first-principles}}
+
+\hypertarget{simple-analyses}{%
+\subsection{Simple Analyses}\label{simple-analyses}}
+
+\hypertarget{extending-linear-regression}{%
+\section{Extending Linear Regression}\label{extending-linear-regression}}
+
 \hypertarget{modeling-binary-outcomes}{%
-\section{Modeling Binary Outcomes}\label{modeling-binary-outcomes}}
+\subsection{Modeling Binary Outcomes}\label{modeling-binary-outcomes}}
 
 \hypertarget{modeling-counts}{%
-\section{Modeling Counts}\label{modeling-counts}}
+\subsection{Modeling Counts}\label{modeling-counts}}
 
 \hypertarget{modeling-time-until-an-event}{%
-\section{Modeling Time Until an Event}\label{modeling-time-until-an-event}}
+\subsection{Modeling Time Until an Event}\label{modeling-time-until-an-event}}
 
 \hypertarget{modeling-repeated-measures-on-a-population}{%
-\section{Modeling Repeated Measures on a Population}\label{modeling-repeated-measures-on-a-population}}
+\subsection{Modeling Repeated Measures on a Population}\label{modeling-repeated-measures-on-a-population}}
 
 \hypertarget{modeling-observations-in-a-nested-hierarchy}{%
-\section{Modeling Observations in a Nested Hierarchy}\label{modeling-observations-in-a-nested-hierarchy}}
+\subsection{Modeling Observations in a Nested Hierarchy}\label{modeling-observations-in-a-nested-hierarchy}}
 
-\hypertarget{modeling-time-space-data}{%
-\section{Modeling Time \& Space Data}\label{modeling-time-space-data}}
+\hypertarget{causal-analysis-patterns}{%
+\section{Causal Analysis Patterns}\label{causal-analysis-patterns}}
+
+Similar to \url{https://emilyriederer.netlify.app/post/causal-design-patterns/}
+
+\hypertarget{special-data-types}{%
+\section{Special Data Types}\label{special-data-types}}
+
+\hypertarget{duration-analysis}{%
+\subsection{Duration Analysis}\label{duration-analysis}}
+
+\hypertarget{time-space-data}{%
+\subsection{Time \& Space Data}\label{time-space-data}}
 
 \hypertarget{bayesian-methods}{%
 \section{Bayesian Methods}\label{bayesian-methods}}
@@ -2140,6 +2902,15 @@ This chapter attempts to flip that paradigm by briefly surveying a broad number 
 
 \hypertarget{discrete-event}{%
 \subsection{Discrete Event}\label{discrete-event}}
+
+\hypertarget{clustering-beyond-k-means}{%
+\section{Clustering (beyond K-Means)}\label{clustering-beyond-k-means}}
+
+\hypertarget{density-based}{%
+\subsection{Density-Based}\label{density-based}}
+
+\hypertarget{mixture-models}{%
+\subsection{Mixture Models}\label{mixture-models}}
 
 \hypertarget{part-workflow}{%
 \part*{Workflow}\label{part-workflow}}
