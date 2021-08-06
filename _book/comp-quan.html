@@ -158,7 +158,7 @@ In this section, we will explore these potential failure modes.</p>
 <h4>
 <span class="header-section-number">3.2.1.1</span> Language representations<a class="anchor" aria-label="anchor" href="#language-representations"><i class="fas fa-link"></i></a>
 </h4>
-<p>Different programming languages each offer their own versions of null values – and sometimes more than one. For example, the R language includes <code>NA</code>, typed <code>NA</code>s (e.g. <code>NA_integer</code>, <code>NA_character</code>), <code>NaN</code>, and <code>NULL</code>; meanwhile, core python has <code>None</code> and the <code>numpy</code> module provides a <code>nan</code>.</p>
+<p>Different programming languages each offer their own versions of null values – and sometimes more than one. For example, the R language includes <code>NA</code>, typed <code>NA</code>s (e.g. <code>NA_integer_</code>, <code>NA_character_</code>), <code>NaN</code>, and <code>NULL</code>; meanwhile, core python has <code>None</code> and the <code>numpy</code> module provides a <code>nan</code>.</p>
 <p>These different values carry different semantic and functional meanings. For example R’s <code>NA</code> generally means “the presence of an absence” whereas <code>NULL</code> is “the absence of a presence.” This is articulated more clearly if we examine the lengths of these objects and observe that <code>NA</code> has a length 1 whereas <code>NULL</code> has a length 0.</p>
 <div class="sourceCode" id="cb9"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/length.html">length</a></span><span class="op">(</span><span class="cn">NA</span><span class="op">)</span>, <span class="fu"><a href="https://rdrr.io/r/base/length.html">length</a></span><span class="op">(</span><span class="cn">NULL</span><span class="op">)</span><span class="op">)</span></code></pre></div>
@@ -425,19 +425,71 @@ We can explicitly encode any residual values as something like “OTHER” or �
 </div>
 </div>
 </div>
-<div id="strings-wip" class="section level2" number="3.3">
+<div id="numbers-todo" class="section level2" number="3.3">
 <h2>
-<span class="header-section-number">3.3</span> Strings (WIP)<a class="anchor" aria-label="anchor" href="#strings-wip"><i class="fas fa-link"></i></a>
+<span class="header-section-number">3.3</span> Numbers (TODO)<a class="anchor" aria-label="anchor" href="#numbers-todo"><i class="fas fa-link"></i></a>
+</h2>
+<div id="integer-division" class="section level3" number="3.3.1">
+<h3>
+<span class="header-section-number">3.3.1</span> Integer division<a class="anchor" aria-label="anchor" href="#integer-division"><i class="fas fa-link"></i></a>
+</h3>
+<p>In R (mostly what we’d expect)</p>
+<div class="sourceCode" id="cb53"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="fl">1</span><span class="op">/</span><span class="fl">2</span></code></pre></div>
+<pre><code>## [1] 0.5</code></pre>
+<div class="sourceCode" id="cb55"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="fu"><a href="https://rdrr.io/r/base/ifelse.html">ifelse</a></span><span class="op">(</span><span class="fl">3</span><span class="op">/</span><span class="fl">4</span> <span class="op">&gt;</span> <span class="fl">0.5</span>, <span class="st">'High'</span>, <span class="st">'Low'</span><span class="op">)</span></code></pre></div>
+<pre><code>## [1] "High"</code></pre>
+<p>In SQL (varies by dialect)</p>
+<div class="sourceCode" id="cb57"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="fu">sqldf</span><span class="op">(</span><span class="st">"select 1/2"</span><span class="op">)</span></code></pre></div>
+<pre><code>##   1/2
+## 1   0</code></pre>
+<div class="sourceCode" id="cb59"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="fu">sqldf</span><span class="op">(</span><span class="st">"select 
+      case 
+        when 3/4 &gt; 0.5 then 'High' else 'Low' 
+        end 
+      as high_or_low
+      "</span><span class="op">)</span></code></pre></div>
+<pre><code>##   high_or_low
+## 1         Low</code></pre>
+<div class="sourceCode" id="cb61"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="fu">sqldf</span><span class="op">(</span><span class="st">"select 
+      case 
+        when 3.0/4 &gt; 0.5 then 'High' else 'Low' 
+        end 
+      as high_or_low
+      "</span><span class="op">)</span></code></pre></div>
+<pre><code>##   high_or_low
+## 1        High</code></pre>
+</div>
+<div id="inexact-storage-and-comparison" class="section level3" number="3.3.2">
+<h3>
+<span class="header-section-number">3.3.2</span> Inexact storage and comparison<a class="anchor" aria-label="anchor" href="#inexact-storage-and-comparison"><i class="fas fa-link"></i></a>
+</h3>
+<div class="sourceCode" id="cb63"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="op">(</span><span class="fl">3</span> <span class="op">-</span> <span class="fl">2.9</span><span class="op">)</span> <span class="op">&lt;=</span><span class="fl">0.1</span>
+<span class="op">(</span><span class="fl">2</span> <span class="op">-</span> <span class="fl">1.9</span><span class="op">)</span> <span class="op">&lt;=</span><span class="fl">0.1</span>
+<span class="op">(</span><span class="fl">1</span> <span class="op">-</span> <span class="fl">0.9</span><span class="op">)</span> <span class="op">&lt;=</span><span class="fl">0.1</span></code></pre></div>
+<pre><code>## [1] FALSE
+## [1] FALSE
+## [1] TRUE</code></pre>
+</div>
+</div>
+<div id="strings-wip" class="section level2" number="3.4">
+<h2>
+<span class="header-section-number">3.4</span> Strings (WIP)<a class="anchor" aria-label="anchor" href="#strings-wip"><i class="fas fa-link"></i></a>
 </h2>
 <p>String data can be inherently appealing. At their best, strings are used to bring more readable and human interpretable values into a dataset. However, string data and the processing thereof comes with its own challenges.</p>
 <p>First, unlike numbers, human language strings can be ambiguously defined. <code>2</code> is the only number to represent the value of two. However, the incorporation of human language means that many different words, phrases, and formatting choices can represent the same concept. This is confounded by instances where string data was manually entered, as is the case with user-input data.<a class="footnote-ref" tabindex="0" data-toggle="popover" data-content="&lt;p&gt;I can accurately say my name is “Emily,” “Emily Riederer,” “Emily E. Riederer,” “Ms. Emily Riederer.” Additionally, if I spell my name over the phone, I can likely end up “Emily Rieder” or if I type it and mindlessly accept autocorrect, I’m “Emily Reindeer.” This inconsistently may be problematic if you are trying to combine my data across different sources where I provided my name in different ways.&lt;/p&gt;"><sup>13</sup></a></p>
 <p>Secondly, string data is one of the most flexible datatypes and can contain any other types of information – from should-be-logical values (<code>"yes"/"no"</code>, <code>"true"/"false"</code>), should-be-numeric values (<code>"27"</code>), should-be-date values (<code>"2020-01-01"</code>), and even complex data encodings like JSON blobs (<code>"{"name":{"first":"emily","last":"riederer"},"social":{"twitter":"emilyriederer","github":"emilyriederer","linkedin":"emilyriederer"}}"</code> with hideous formatting for emphasis.) For a data publisher, this may be a convenience, but as we will see it can turn into a frustration or a liability when functions and comparison operations are attempted with strings that semantically represent a different type of value.</p>
-<div id="dirty-strings-todo" class="section level3" number="3.3.1">
+<div id="dirty-strings-todo" class="section level3" number="3.4.1">
 <h3>
-<span class="header-section-number">3.3.1</span> Dirty Strings (TODO)<a class="anchor" aria-label="anchor" href="#dirty-strings-todo"><i class="fas fa-link"></i></a>
+<span class="header-section-number">3.4.1</span> Dirty Strings (TODO)<a class="anchor" aria-label="anchor" href="#dirty-strings-todo"><i class="fas fa-link"></i></a>
 </h3>
 <p>whitespace</p>
-<div class="sourceCode" id="cb53"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb65"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="st">"a"</span> <span class="op">==</span> <span class="st">"a"</span>
 <span class="st">"a b"</span> <span class="op">==</span> <span class="st">"a b"</span>
 <span class="st">"a b"</span> <span class="op">==</span> <span class="st">"a  b"</span>
@@ -447,33 +499,33 @@ We can explicitly encode any residual values as something like “OTHER” or �
 ## [1] FALSE
 ## [1] FALSE</code></pre>
 <p>“fancy” characters (alternate encodings like ms word)</p>
-<div class="sourceCode" id="cb55"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb67"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="st">' " '</span> <span class="op">==</span> <span class="st">' " '</span>
 <span class="st">' “ '</span> <span class="op">==</span> <span class="st">' " '</span></code></pre></div>
 <pre><code>## [1] TRUE
 ## [1] FALSE</code></pre>
 <p>special characters and display versus values</p>
-<div class="sourceCode" id="cb57"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb69"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="va">x</span> <span class="op">&lt;-</span> <span class="st">"a\tb"</span>
 <span class="fu"><a href="https://rdrr.io/r/base/cat.html">cat</a></span><span class="op">(</span><span class="va">x</span><span class="op">)</span> <span class="co"># what you see...</span>
 <span class="va">x</span> <span class="op">==</span> <span class="st">"a    b"</span> <span class="co"># ...is not what you get</span></code></pre></div>
 <pre><code>## a    b[1] FALSE</code></pre>
 </div>
-<div id="regular-expressions-todo" class="section level3" number="3.3.2">
+<div id="regular-expressions-todo" class="section level3" number="3.4.2">
 <h3>
-<span class="header-section-number">3.3.2</span> Regular Expressions (TODO)<a class="anchor" aria-label="anchor" href="#regular-expressions-todo"><i class="fas fa-link"></i></a>
+<span class="header-section-number">3.4.2</span> Regular Expressions (TODO)<a class="anchor" aria-label="anchor" href="#regular-expressions-todo"><i class="fas fa-link"></i></a>
 </h3>
 <p>we promised not to be solution oriented, but</p>
 <p><em>not</em> knowing regex is a disaster when trying to work with string data…</p>
 </div>
-<div id="comparison-1" class="section level3" number="3.3.3">
+<div id="comparison-1" class="section level3" number="3.4.3">
 <h3>
-<span class="header-section-number">3.3.3</span> Comparison<a class="anchor" aria-label="anchor" href="#comparison-1"><i class="fas fa-link"></i></a>
+<span class="header-section-number">3.4.3</span> Comparison<a class="anchor" aria-label="anchor" href="#comparison-1"><i class="fas fa-link"></i></a>
 </h3>
 <p>TODO</p>
-<div id="string-ordering" class="section level4" number="3.3.3.1">
+<div id="string-ordering" class="section level4" number="3.4.3.1">
 <h4>
-<span class="header-section-number">3.3.3.1</span> String ordering<a class="anchor" aria-label="anchor" href="#string-ordering"><i class="fas fa-link"></i></a>
+<span class="header-section-number">3.4.3.1</span> String ordering<a class="anchor" aria-label="anchor" href="#string-ordering"><i class="fas fa-link"></i></a>
 </h4>
 <p>Strings are ranked based on <em>alphabetical order</em> just like a dictionary. Some properties of this ordering include that:</p>
 <ul>
@@ -482,32 +534,32 @@ We can explicitly encode any residual values as something like “OTHER” or �
 <li>fewer characters are smaller than more characters (<code>"a" &lt; "aa"</code>)</li>
 </ul>
 <p>Such rules make perfect sense for true characters. However, when strings are used as a “catch all” to represent other structures, typical comparison operators can produce odd results. For example, its generally uncontroverisal that ninety-one is less than one hundred twenty. However, the string <code>"91"</code> is <em>greater than</em> <code>"120"</code> because only the chacter <code>"9"</code> is compared to the character <code>"1"</code>.<a class="footnote-ref" tabindex="0" data-toggle="popover" data-content='&lt;p&gt;Similarly, &lt;code&gt;"91" &amp;gt; "905"&lt;/code&gt; because since they both start with 9, we move on to compare 1 which is greater than 0.&lt;/p&gt;'><sup>14</sup></a></p>
-<div class="sourceCode" id="cb59"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb71"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="fl">91</span> <span class="op">&lt;</span> <span class="fl">120</span>
 <span class="st">"91"</span> <span class="op">&lt;</span> <span class="st">"120"</span></code></pre></div>
 <pre><code>## [1] TRUE
 ## [1] FALSE</code></pre>
 <p>When strings are used to represent strings, comparison operators may or may not work depending on the precise formatting convertions. Below, we see that “YYYYQQ”-formats sort correctly because the information is hierarchically nested; millenia are compared before centuries, centuries before decades, decades before years, and years before quarters. However, many other string representations of dates, like “QQ-YYYY” will not order correctly. Related topics will be discussed in the “Dates and Times” section.</p>
-<div class="sourceCode" id="cb61"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb73"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="st">"20190Q4"</span> <span class="op">&lt;</span> <span class="st">"2020Q3"</span> <span class="co"># string (alphabetic) ordering same as semantic ordering</span>
 <span class="st">"Q4-2019"</span> <span class="op">&lt;</span> <span class="st">"Q3-2020"</span> <span class="co"># string and semantic orderings are different</span></code></pre></div>
 <pre><code>## [1] TRUE
 ## [1] FALSE</code></pre>
 <p>These examples demonstrate that we shouldn’t rely on sorting schemes that follow different rules. Before doing comparisons on such types, its a safer bet to cast them to the format most truly representative of their types. If, for some reason, you do wish to keep them as strings, the second example shows that its is wise to format them in the most conducive format possible so things just work.</p>
 </div>
-<div id="type-coercion" class="section level4" number="3.3.3.2">
+<div id="type-coercion" class="section level4" number="3.4.3.2">
 <h4>
-<span class="header-section-number">3.3.3.2</span> Type coercion<a class="anchor" aria-label="anchor" href="#type-coercion"><i class="fas fa-link"></i></a>
+<span class="header-section-number">3.4.3.2</span> Type coercion<a class="anchor" aria-label="anchor" href="#type-coercion"><i class="fas fa-link"></i></a>
 </h4>
 <p>We discussed string comparison before when looking at “dirty” strings. More unexpected behavior arises when strings are compared across different data types. Many computing programs will attempt to <em>coerce</em> the objects to a similar and comparable type. Sometimes, this can be handy as operations “just work,” but as always there is a cost for convenience. As we’ll see, delegating important decisions to our computing engine may not always capture the semantic relationships that we are most interested in.</p>
 <p>For example, consider compare a string and a number. To make them more comparable, R will convert them both to strings before checking for equality. Thus, the number <code>2020</code> is equivalent to the string <code>"2020"</code> but not the string <code>"02020"</code>.</p>
-<div class="sourceCode" id="cb63"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb75"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="st">"2020"</span> <span class="op">==</span> <span class="fl">2020</span>
 <span class="st">"02020"</span> <span class="op">==</span> <span class="fl">2020</span></code></pre></div>
 <pre><code>## [1] TRUE
 ## [1] FALSE</code></pre>
 <p>In constrast, SQLite<a class="footnote-ref" tabindex="0" data-toggle="popover" data-content="&lt;p&gt;Different versions of SQL may differ&lt;/p&gt;"><sup>15</sup></a> thinks that the string <code>'2020'</code> is greater than the number 2020 and that these two quantities are not equal.</p>
-<div class="sourceCode" id="cb65"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb77"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="fu">sqldf</span><span class="op">(</span><span class="st">"select 
       case when '2020' = 2020 then 1 else 0 end as is_eq,
       case when not '2020' == 2020 then 1 else 0 end as not_eq,
@@ -520,9 +572,9 @@ We can explicitly encode any residual values as something like “OTHER” or �
 </div>
 </div>
 </div>
-<div id="dates-and-times-wip" class="section level2" number="3.4">
+<div id="dates-and-times-wip" class="section level2" number="3.5">
 <h2>
-<span class="header-section-number">3.4</span> Dates and Times (WIP)<a class="anchor" aria-label="anchor" href="#dates-and-times-wip"><i class="fas fa-link"></i></a>
+<span class="header-section-number">3.5</span> Dates and Times (WIP)<a class="anchor" aria-label="anchor" href="#dates-and-times-wip"><i class="fas fa-link"></i></a>
 </h2>
 <p>Unlike character strings, dates and times seem like they should be well defined with distinct, quantifiable components like years, months, and days. However, many different conventions for date formatting and underlying storage formats exist. This leads to similar challenges with dates and times as we saw with strings before.</p>
 <p>Some common formats in the wild are:</p>
@@ -536,15 +588,16 @@ We can explicitly encode any residual values as something like “OTHER” or �
 <li>DD/MM/YYYY</li>
 <li>YYYY-MM-DD (ISO8601)</li>
 </ul>
+<p>In addition to how dates are <em>formatted</em>, they may be stored in a variety of different ways “under the hood” such as <a href="https://en.wikipedia.org/wiki/Unix_time">Unix time</a> (TODO).</p>
 <p>To complicate matters further, many of these formats may be represented either by native date types in various programs or by more basic data types (such as integers for the first four and strings for the last four). In addition, analogous formats exist for <em>timestamps</em> which encode both calendar date and time of day (hour, minute, and second information).</p>
 <p>TODO: why ISO8601?</p>
-<div id="comparison-2" class="section level3" number="3.4.1">
+<div id="comparison-2" class="section level3" number="3.5.1">
 <h3>
-<span class="header-section-number">3.4.1</span> Comparison<a class="anchor" aria-label="anchor" href="#comparison-2"><i class="fas fa-link"></i></a>
+<span class="header-section-number">3.5.1</span> Comparison<a class="anchor" aria-label="anchor" href="#comparison-2"><i class="fas fa-link"></i></a>
 </h3>
 <p>Automatic conversion of data types
 Dates versus timestamps</p>
-<div class="sourceCode" id="cb67"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb79"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="va">df_dt</span> <span class="op">&lt;-</span>
 <span class="fu"><a href="https://rdrr.io/r/base/data.frame.html">data.frame</a></span><span class="op">(</span>
   DT_ENROLL <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/as.Date.html">as.Date</a></span><span class="op">(</span><span class="st">"2020-01-01"</span><span class="op">)</span>,
@@ -552,39 +605,39 @@ Dates versus timestamps</p>
   DT_LOGIN  <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/as.POSIXlt.html">as.POSIXlt</a></span><span class="op">(</span><span class="st">"2020-01-01T12:00:00"</span><span class="op">)</span> 
   <span class="op">)</span></code></pre></div>
 <p>none of these are equal so nothing returns on filtering</p>
-<div class="sourceCode" id="cb68"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb80"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="fu"><a href="https://dplyr.tidyverse.org/reference/filter.html">filter</a></span><span class="op">(</span><span class="va">df_dt</span>, <span class="va">DT_ENROLL</span> <span class="op">==</span> <span class="va">DT_PURCH</span><span class="op">)</span> <span class="op">%&gt;%</span> <span class="fu"><a href="https://rdrr.io/r/base/nrow.html">nrow</a></span><span class="op">(</span><span class="op">)</span></code></pre></div>
 <pre><code>## [1] 0</code></pre>
-<div class="sourceCode" id="cb70"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb82"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="fu"><a href="https://dplyr.tidyverse.org/reference/filter.html">filter</a></span><span class="op">(</span><span class="va">df_dt</span>, <span class="va">DT_ENROLL</span> <span class="op">==</span> <span class="va">DT_LOGIN</span><span class="op">)</span> <span class="op">%&gt;%</span> <span class="fu"><a href="https://rdrr.io/r/base/nrow.html">nrow</a></span><span class="op">(</span><span class="op">)</span></code></pre></div>
 <pre><code>## Warning in mask$eval_all_filter(dots, env_filter):
 ## Incompatible methods ("Ops.Date", "Ops.POSIXt") for
 ## "=="</code></pre>
 <pre><code>## [1] 0</code></pre>
 <p>the same thing happens in sql</p>
-<div class="sourceCode" id="cb73"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb85"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="fu">sqldf</span><span class="op">(</span><span class="st">"select * from df_dt where DT_ENROLL = DT_PURCH"</span><span class="op">)</span></code></pre></div>
 <pre><code>## [1] DT_ENROLL DT_PURCH  DT_LOGIN 
 ## &lt;0 rows&gt; (or 0-length row.names)</code></pre>
-<div class="sourceCode" id="cb75"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb87"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="fu">sqldf</span><span class="op">(</span><span class="st">"select * from df_dt where DT_ENROLL = DT_LOGIN"</span><span class="op">)</span></code></pre></div>
 <pre><code>## [1] DT_ENROLL DT_PURCH  DT_LOGIN 
 ## &lt;0 rows&gt; (or 0-length row.names)</code></pre>
 <p>in what way aren’t they equal? to understand this its helpful to know how the computer encodes these dates</p>
 <p>with <code><a href="https://rdrr.io/r/base/numeric.html">as.numeric()</a></code> in R we can see the numeric representation of the date</p>
-<div class="sourceCode" id="cb77"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb89"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="fu"><a href="https://rdrr.io/r/base/numeric.html">as.numeric</a></span><span class="op">(</span><span class="va">df_dt</span><span class="op">$</span><span class="va">DT_ENROLL</span><span class="op">)</span></code></pre></div>
 <pre><code>## [1] 18262</code></pre>
 <p>this works the same way in SQL</p>
-<div class="sourceCode" id="cb79"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb91"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="fu">sqldf</span><span class="op">(</span><span class="st">"select cast(DT_ENROLL as integer), cast(DT_PURCH as integer) from df_dt"</span><span class="op">)</span></code></pre></div>
 <pre><code>##   cast(DT_ENROLL as integer) cast(DT_PURCH as integer)
 ## 1                      18262                  20200101</code></pre>
 <p>this has the implication that things that are on the same date have an inequality relationship in both languages</p>
-<div class="sourceCode" id="cb81"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb93"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="fu"><a href="https://dplyr.tidyverse.org/reference/filter.html">filter</a></span><span class="op">(</span><span class="va">df_dt</span>, <span class="va">DT_ENROLL</span> <span class="op">&lt;</span> <span class="va">DT_PURCH</span><span class="op">)</span> <span class="op">%&gt;%</span> <span class="fu"><a href="https://rdrr.io/r/base/nrow.html">nrow</a></span><span class="op">(</span><span class="op">)</span></code></pre></div>
 <pre><code>## [1] 1</code></pre>
-<div class="sourceCode" id="cb83"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb95"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="fu">sqldf</span><span class="op">(</span><span class="st">"
   select 
     cast(DT_ENROLL as integer), 
@@ -598,10 +651,10 @@ Dates versus timestamps</p>
 ## 1        1</code></pre>
 <p>Note this this can affect both filters and joins</p>
 <p>and this similarly causes a more general problem when comparing a date to a date-as-an-integer</p>
-<div class="sourceCode" id="cb85"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb97"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="fu"><a href="https://rdrr.io/r/base/as.Date.html">as.Date</a></span><span class="op">(</span><span class="st">"2020-01-01"</span><span class="op">)</span> <span class="op">&gt;</span> <span class="fl">20160501</span></code></pre></div>
 <pre><code>## [1] FALSE</code></pre>
-<div class="sourceCode" id="cb87"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb99"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="fu">sqldf</span><span class="op">(</span><span class="st">"
   select cast('2020-01-01' as date) &gt; 20160501
   "</span><span class="op">)</span></code></pre></div>
@@ -718,23 +771,23 @@ today_str > now_str
 -->
 </div>
 </div>
-<div id="logicals-todo" class="section level2" number="3.5">
+<div id="logicals-todo" class="section level2" number="3.6">
 <h2>
-<span class="header-section-number">3.5</span> Logicals (TODO)<a class="anchor" aria-label="anchor" href="#logicals-todo"><i class="fas fa-link"></i></a>
+<span class="header-section-number">3.6</span> Logicals (TODO)<a class="anchor" aria-label="anchor" href="#logicals-todo"><i class="fas fa-link"></i></a>
 </h2>
-<div class="sourceCode" id="cb89"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb101"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="st">"TRUE"</span> <span class="op">==</span> <span class="cn">TRUE</span></code></pre></div>
 <pre><code>## [1] TRUE</code></pre>
-<div class="sourceCode" id="cb91"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb103"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="fl">1</span> <span class="op">==</span> <span class="cn">TRUE</span></code></pre></div>
 <pre><code>## [1] TRUE</code></pre>
-<div class="sourceCode" id="cb93"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb105"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="st">"True"</span> <span class="op">==</span> <span class="cn">TRUE</span></code></pre></div>
 <pre><code>## [1] FALSE</code></pre>
-<div class="sourceCode" id="cb95"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb107"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="st">"TRUE"</span><span class="op">*</span><span class="fl">5</span></code></pre></div>
 <pre><code>## Error in "TRUE" * 5: non-numeric argument to binary operator</code></pre>
-<div class="sourceCode" id="cb97"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb109"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="fu">sqldf</span><span class="op">(</span><span class="st">"select 
       (TRUE == 1) as is_int_true,
       (TRUE == 'TRUE') as is_char_true,
@@ -746,12 +799,12 @@ today_str > now_str
 ##   false_times_five
 ## 1                0</code></pre>
 </div>
-<div id="order-of-operations-wip" class="section level2" number="3.6">
+<div id="order-of-operations-wip" class="section level2" number="3.7">
 <h2>
-<span class="header-section-number">3.6</span> Order of Operations (WIP)<a class="anchor" aria-label="anchor" href="#order-of-operations-wip"><i class="fas fa-link"></i></a>
+<span class="header-section-number">3.7</span> Order of Operations (WIP)<a class="anchor" aria-label="anchor" href="#order-of-operations-wip"><i class="fas fa-link"></i></a>
 </h2>
 <p>PEMDAS but sometimes still ambiguous</p>
-<div class="sourceCode" id="cb99"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb111"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="fl">1</span> <span class="op">+</span> <span class="fl">1</span>  <span class="op">*</span> <span class="fl">2</span> <span class="op">/</span> <span class="fl">3</span> <span class="op">-</span> <span class="fl">1</span>
 <span class="op">(</span><span class="fl">1</span> <span class="op">+</span> <span class="fl">1</span><span class="op">)</span> <span class="op">*</span> <span class="fl">2</span> <span class="op">/</span> <span class="fl">3</span> <span class="op">-</span> <span class="fl">1</span>
 <span class="fl">1</span> <span class="op">+</span> <span class="fl">1</span> <span class="op">*</span> <span class="fl">2</span> <span class="op">/</span> <span class="op">(</span><span class="fl">3</span> <span class="op">-</span> <span class="fl">1</span><span class="op">)</span></code></pre></div>
@@ -759,13 +812,13 @@ today_str > now_str
 ## [1] 0.3333
 ## [1] 2</code></pre>
 </div>
-<div id="object-references-wip" class="section level2" number="3.7">
+<div id="object-references-wip" class="section level2" number="3.8">
 <h2>
-<span class="header-section-number">3.7</span> Object References (WIP)<a class="anchor" aria-label="anchor" href="#object-references-wip"><i class="fas fa-link"></i></a>
+<span class="header-section-number">3.8</span> Object References (WIP)<a class="anchor" aria-label="anchor" href="#object-references-wip"><i class="fas fa-link"></i></a>
 </h2>
 <p>Copying and modifying object overview</p>
 <div class="figure" style="text-align: center">
-<span style="display:block;" id="fig:unnamed-chunk-78"></span>
+<span style="display:block;" id="fig:unnamed-chunk-84"></span>
 <img src="figures/comp-quan/ref-val.png" alt="Different relationships between named variables and their values" width="90%"><p class="caption">
 FIGURE 3.2: Different relationships between named variables and their values
 </p>
@@ -773,22 +826,22 @@ FIGURE 3.2: Different relationships between named variables and their values
 <p>When might each be preferred?</p>
 <p>What risks are there if we don’t understand which we are doing?</p>
 <p>In Python</p>
-<div class="sourceCode" id="cb101"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb101-1"><a href="comp-quan.html#cb101-1" aria-hidden="true" tabindex="-1"></a>x <span class="op">=</span> [<span class="dv">1</span>,<span class="dv">2</span>,<span class="dv">3</span>]</span>
-<span id="cb101-2"><a href="comp-quan.html#cb101-2" aria-hidden="true" tabindex="-1"></a>y <span class="op">=</span> x</span>
-<span id="cb101-3"><a href="comp-quan.html#cb101-3" aria-hidden="true" tabindex="-1"></a>y.append(<span class="dv">4</span>)</span>
-<span id="cb101-4"><a href="comp-quan.html#cb101-4" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(y)</span>
-<span id="cb101-5"><a href="comp-quan.html#cb101-5" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(x)</span></code></pre></div>
+<div class="sourceCode" id="cb113"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb113-1"><a href="comp-quan.html#cb113-1" aria-hidden="true" tabindex="-1"></a>x <span class="op">=</span> [<span class="dv">1</span>,<span class="dv">2</span>,<span class="dv">3</span>]</span>
+<span id="cb113-2"><a href="comp-quan.html#cb113-2" aria-hidden="true" tabindex="-1"></a>y <span class="op">=</span> x</span>
+<span id="cb113-3"><a href="comp-quan.html#cb113-3" aria-hidden="true" tabindex="-1"></a>y.append(<span class="dv">4</span>)</span>
+<span id="cb113-4"><a href="comp-quan.html#cb113-4" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(y)</span>
+<span id="cb113-5"><a href="comp-quan.html#cb113-5" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(x)</span></code></pre></div>
 <pre><code>## [1, 2, 3, 4]
 ## [1, 2, 3, 4]</code></pre>
-<div class="sourceCode" id="cb103"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb103-1"><a href="comp-quan.html#cb103-1" aria-hidden="true" tabindex="-1"></a>z <span class="op">=</span> x.copy()</span>
-<span id="cb103-2"><a href="comp-quan.html#cb103-2" aria-hidden="true" tabindex="-1"></a>z.append(<span class="dv">5</span>)</span>
-<span id="cb103-3"><a href="comp-quan.html#cb103-3" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(z)</span>
-<span id="cb103-4"><a href="comp-quan.html#cb103-4" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(x)</span></code></pre></div>
+<div class="sourceCode" id="cb115"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb115-1"><a href="comp-quan.html#cb115-1" aria-hidden="true" tabindex="-1"></a>z <span class="op">=</span> x.copy()</span>
+<span id="cb115-2"><a href="comp-quan.html#cb115-2" aria-hidden="true" tabindex="-1"></a>z.append(<span class="dv">5</span>)</span>
+<span id="cb115-3"><a href="comp-quan.html#cb115-3" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(z)</span>
+<span id="cb115-4"><a href="comp-quan.html#cb115-4" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(x)</span></code></pre></div>
 <pre><code>## [1, 2, 3, 4, 5]
 ## [1, 2, 3, 4]</code></pre>
 <p>pandas DataFrame methods with <code>inplace</code> arg (<code>False</code> is default)</p>
 <p>In R</p>
-<div class="sourceCode" id="cb105"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb117"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="http://r-datatable.com">data.table</a></span><span class="op">)</span>
 
 <span class="va">DT</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://Rdatatable.gitlab.io/data.table/reference/data.table.html">data.table</a></span><span class="op">(</span>a<span class="op">=</span><span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="fl">1</span>,<span class="fl">2</span><span class="op">)</span>, b<span class="op">=</span><span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="fl">11</span>,<span class="fl">12</span><span class="op">)</span><span class="op">)</span>
@@ -816,13 +869,13 @@ FIGURE 3.2: Different relationships between named variables and their values
 ## 2: 2 12</code></pre>
 <p>From <a href="https://stackoverflow.com/questions/10225098/understanding-exactly-when-a-data-table-is-a-reference-to-vs-a-copy-of-another" class="uri">https://stackoverflow.com/questions/10225098/understanding-exactly-when-a-data-table-is-a-reference-to-vs-a-copy-of-another</a></p>
 </div>
-<div id="trusting-tools" class="section level2" number="3.8">
+<div id="trusting-tools" class="section level2" number="3.9">
 <h2>
-<span class="header-section-number">3.8</span> Trusting Tools<a class="anchor" aria-label="anchor" href="#trusting-tools"><i class="fas fa-link"></i></a>
+<span class="header-section-number">3.9</span> Trusting Tools<a class="anchor" aria-label="anchor" href="#trusting-tools"><i class="fas fa-link"></i></a>
 </h2>
-<div id="delegating-decisions" class="section level3" number="3.8.1">
+<div id="delegating-decisions" class="section level3" number="3.9.1">
 <h3>
-<span class="header-section-number">3.8.1</span> Delegating decisions<a class="anchor" aria-label="anchor" href="#delegating-decisions"><i class="fas fa-link"></i></a>
+<span class="header-section-number">3.9.1</span> Delegating decisions<a class="anchor" aria-label="anchor" href="#delegating-decisions"><i class="fas fa-link"></i></a>
 </h3>
 <p>A theme throughout this book is the fundamentally <em>social</em> nature of data analysis. Data analysis is fraught without understanding the countless decisions made along the way by those who generated it (whose data is reflected), those who collected it, those who migrated it, and those who have posed questions of it. On one hand, this is a beautiful aspect of analysis; on the other hand, it means that analysts and their analyses are subject to all of the cognitive and social psychological biases of everyday humans.</p>
 <p>One such bias is “social proof”: assuming that if a tool behaves a certain way, it must be because it is correct.</p>
@@ -837,21 +890,21 @@ FIGURE 3.2: Different relationships between named variables and their values
 <li>Not thought about it at all</li>
 </ul>
 <p>As a few concrete examples from popular open source tools. We’ll look briefly at the prominent python library <code>scikitlearn</code> for machine learning and Apache Spark, an engine for large-scale distributed data processing.</p>
-<div id="defaults-in-scikitlearn" class="section level4" number="3.8.1.1">
+<div id="defaults-in-scikitlearn" class="section level4" number="3.9.1.1">
 <h4>
-<span class="header-section-number">3.8.1.1</span> Defaults in <code>scikitlearn</code><a class="anchor" aria-label="anchor" href="#defaults-in-scikitlearn"><i class="fas fa-link"></i></a>
+<span class="header-section-number">3.9.1.1</span> Defaults in <code>scikitlearn</code><a class="anchor" aria-label="anchor" href="#defaults-in-scikitlearn"><i class="fas fa-link"></i></a>
 </h4>
 <p><code>scikitlearn</code>’s default behavior for logistic regression modeling<a class="footnote-ref" tabindex="0" data-toggle="popover" data-content="&lt;p&gt;A classic modeling technique for predicting binary (yes/no) outcomes&lt;/p&gt;"><sup>16</sup></a> automatically applies L2 regularization. You might or might not know what this means, and you might or might not want to apply it to your problem. That’s fine. The important thing is that it <em>will</em> change your estimates and predictions, and it is <em>not</em> a part of the classical definition of that algorithm (for modelers coming from a statistical background.)</p>
 <p>Of course, there’s nothing inherently wrong about this choice; the library authors just had different goals than a typical statistical. <code>scikitlearn</code> developer Olivier Grisel explains <a href="https://twitter.com/ogrisel/status/1167438229655773186?s=20">on Twitter</a> that this choice (and others in the library) is explained because “Scikit-learn was always designed to make it easy to get good predictive accuracy (eg as measured by CV) rather than as statistical inference library.” Additionally, this choice is documented in bold <a href="https://scikit-learn.org/stable/modules/generated/sklearn.linear_model.LogisticRegression.html">in the function documentation</a>.</p>
 <p>However, an analyst could easily miss this nuance if they do not <em>read</em> the documentation. Or, if they <em>misinterpret</em> this choice as social proof that regularization is always the right approach, they might not make the best choice for their own analysis.</p>
 </div>
-<div id="algorithms-in-spark" class="section level4" number="3.8.1.2">
+<div id="algorithms-in-spark" class="section level4" number="3.9.1.2">
 <h4>
-<span class="header-section-number">3.8.1.2</span> Algorithms in <code>Spark</code><a class="anchor" aria-label="anchor" href="#algorithms-in-spark"><i class="fas fa-link"></i></a>
+<span class="header-section-number">3.9.1.2</span> Algorithms in <code>Spark</code><a class="anchor" aria-label="anchor" href="#algorithms-in-spark"><i class="fas fa-link"></i></a>
 </h4>
 <p>As a second example, according to a 2015 <a href="https://issues.apache.org/jira/browse/SPARK-5133">Jira ticket</a>, developers of Spark considered multiple methodologies they could use when adding the functionality to compute feature importance for a random forest. Ultimately, a core contributor advised against permutation importance due to its computational cost.</p>
 <div class="figure" style="text-align: center">
-<span style="display:block;" id="fig:unnamed-chunk-82"></span>
+<span style="display:block;" id="fig:unnamed-chunk-88"></span>
 <img src="figures/comp-quan/spark-jira.PNG" alt="JIRA ticket for Spark with a discussion of which random forest variable importance algorithm to implement" width="90%"><p class="caption">
 FIGURE 3.3: JIRA ticket for Spark with a discussion of which random forest variable importance algorithm to implement
 </p>
@@ -859,52 +912,52 @@ FIGURE 3.3: JIRA ticket for Spark with a discussion of which random forest varia
 <p>Clearly, no one wants a workflow that is too costly or timely to run. So, once again, there is no right or wrong. However, since every approach to feature importance has its own biases, pitfalls, and challenges in interpretation, it’s a mistake for an end-user to not carefully understand which algorithm is used and why.</p>
 </div>
 </div>
-<div id="off-label-use-todo" class="section level3" number="3.8.2">
+<div id="off-label-use-todo" class="section level3" number="3.9.2">
 <h3>
-<span class="header-section-number">3.8.2</span> “Off-Label” Use (TODO)<a class="anchor" aria-label="anchor" href="#off-label-use-todo"><i class="fas fa-link"></i></a>
+<span class="header-section-number">3.9.2</span> “Off-Label” Use (TODO)<a class="anchor" aria-label="anchor" href="#off-label-use-todo"><i class="fas fa-link"></i></a>
 </h3>
 <p>coined in <a href="https://www.rstudio.com/resources/rstudioglobal-2021/maintaining-the-house-the-tidyverse-built/" class="uri">https://www.rstudio.com/resources/rstudioglobal-2021/maintaining-the-house-the-tidyverse-built/</a></p>
 </div>
-<div id="security-todo" class="section level3" number="3.8.3">
+<div id="security-todo" class="section level3" number="3.9.3">
 <h3>
-<span class="header-section-number">3.8.3</span> Security (TODO)<a class="anchor" aria-label="anchor" href="#security-todo"><i class="fas fa-link"></i></a>
+<span class="header-section-number">3.9.3</span> Security (TODO)<a class="anchor" aria-label="anchor" href="#security-todo"><i class="fas fa-link"></i></a>
 </h3>
 <p>namespace squatting</p>
 <p>executable code</p>
 </div>
 </div>
-<div id="inefficient-processing-todo" class="section level2" number="3.9">
+<div id="inefficient-processing-todo" class="section level2" number="3.10">
 <h2>
-<span class="header-section-number">3.9</span> Inefficient Processing (TODO)<a class="anchor" aria-label="anchor" href="#inefficient-processing-todo"><i class="fas fa-link"></i></a>
+<span class="header-section-number">3.10</span> Inefficient Processing (TODO)<a class="anchor" aria-label="anchor" href="#inefficient-processing-todo"><i class="fas fa-link"></i></a>
 </h2>
 </div>
-<div id="strategies-wip" class="section level2" number="3.10">
+<div id="strategies-wip" class="section level2" number="3.11">
 <h2>
-<span class="header-section-number">3.10</span> Strategies (WIP)<a class="anchor" aria-label="anchor" href="#strategies-wip"><i class="fas fa-link"></i></a>
+<span class="header-section-number">3.11</span> Strategies (WIP)<a class="anchor" aria-label="anchor" href="#strategies-wip"><i class="fas fa-link"></i></a>
 </h2>
 <p>Paragraph 1 TODO</p>
 <p>Some computational quandaries are inherent to our tools themselves, but often they are a function both of the tools and the ways we chose to use them. More strategies related to writing robust and resilient code will be discussed in Chapter <a href="comp-code.html#comp-code">11</a> (Complexify Code).</p>
-<div id="understand-the-intent-1" class="section level3" number="3.10.1">
+<div id="understand-the-intent-1" class="section level3" number="3.11.1">
 <h3>
-<span class="header-section-number">3.10.1</span> Understand the intent<a class="anchor" aria-label="anchor" href="#understand-the-intent-1"><i class="fas fa-link"></i></a>
+<span class="header-section-number">3.11.1</span> Understand the intent<a class="anchor" aria-label="anchor" href="#understand-the-intent-1"><i class="fas fa-link"></i></a>
 </h3>
 <ul>
 <li>read the docs</li>
 <li>look at examples</li>
 </ul>
 </div>
-<div id="understand-the-execution-1" class="section level3" number="3.10.2">
+<div id="understand-the-execution-1" class="section level3" number="3.11.2">
 <h3>
-<span class="header-section-number">3.10.2</span> Understand the execution<a class="anchor" aria-label="anchor" href="#understand-the-execution-1"><i class="fas fa-link"></i></a>
+<span class="header-section-number">3.11.2</span> Understand the execution<a class="anchor" aria-label="anchor" href="#understand-the-execution-1"><i class="fas fa-link"></i></a>
 </h3>
 <ul>
 <li>test out simple examples (like we’ve been doing)</li>
 <li>specificlly try out corner cases</li>
 </ul>
 </div>
-<div id="be-explicit-not-implicit" class="section level3" number="3.10.3">
+<div id="be-explicit-not-implicit" class="section level3" number="3.11.3">
 <h3>
-<span class="header-section-number">3.10.3</span> Be explicit not implicit<a class="anchor" aria-label="anchor" href="#be-explicit-not-implicit"><i class="fas fa-link"></i></a>
+<span class="header-section-number">3.11.3</span> Be explicit not implicit<a class="anchor" aria-label="anchor" href="#be-explicit-not-implicit"><i class="fas fa-link"></i></a>
 </h3>
 <ul>
 <li>default arguments</li>
@@ -912,9 +965,9 @@ FIGURE 3.3: JIRA ticket for Spark with a discussion of which random forest varia
 </ul>
 </div>
 </div>
-<div id="real-world-disasters-wip" class="section level2" number="3.11">
+<div id="real-world-disasters-wip" class="section level2" number="3.12">
 <h2>
-<span class="header-section-number">3.11</span> Real World Disasters (WIP)<a class="anchor" aria-label="anchor" href="#real-world-disasters-wip"><i class="fas fa-link"></i></a>
+<span class="header-section-number">3.12</span> Real World Disasters (WIP)<a class="anchor" aria-label="anchor" href="#real-world-disasters-wip"><i class="fas fa-link"></i></a>
 </h2>
 <p><a href="https://www.theguardian.com/politics/2020/oct/05/how-excel-may-have-caused-loss-of-16000-covid-tests-in-england" class="uri">https://www.theguardian.com/politics/2020/oct/05/how-excel-may-have-caused-loss-of-16000-covid-tests-in-england</a></p>
 <blockquote>
@@ -1371,7 +1424,7 @@ select
 <div class="knitsql-table">
 
 
-Table: (\#tab:unnamed-chunk-105)1 records
+Table: (\#tab:unnamed-chunk-111)1 records
 
 |max('20200101', '20190301') |max('01012020', '03012019') |max('120','99') |max('120','099') | max(120,99)| max(120,099)|
 |:---------------------------|:---------------------------|:---------------|:----------------|-----------:|------------:|
@@ -1453,7 +1506,7 @@ select
 <div class="knitsql-table">
 
 
-Table: (\#tab:unnamed-chunk-108)1 records
+Table: (\#tab:unnamed-chunk-114)1 records
 
 | '2020' == 2020| '02020' == 2020| cast('2020' as numeric) == 2020| cast('2020' as integer) == 2020|
 |--------------:|---------------:|-------------------------------:|-------------------------------:|
@@ -1692,7 +1745,7 @@ t_vec
 ```
 
 ```
-## Time difference of 0.009954 secs
+## Time difference of 0.008999 secs
 ```
 
 ```r
@@ -1700,7 +1753,7 @@ as.numeric(t_for)/as.numeric(t_vec)
 ```
 
 ```
-## [1] 13.86
+## [1] 15.33
 ```
 
 
@@ -1727,7 +1780,7 @@ t_for
 ```
 
 ```
-## 0.2969992160797119
+## 0.29103565216064453
 ```
 
 ```python
@@ -1735,7 +1788,7 @@ t_vec
 ```
 
 ```
-## 0.029042482376098633
+## 0.025037527084350586
 ```
 
 ```python
@@ -1743,7 +1796,7 @@ t_for / t_vec
 ```
 
 ```
-## 10.226371569536914
+## 11.62397752701995
 ```
 
 
@@ -1791,34 +1844,40 @@ t_for / t_vec
 </ul>
 </li>
 <li>
-<a class="nav-link" href="#strings-wip"><span class="header-section-number">3.3</span> Strings (WIP)</a><ul class="nav navbar-nav">
-<li><a class="nav-link" href="#dirty-strings-todo"><span class="header-section-number">3.3.1</span> Dirty Strings (TODO)</a></li>
-<li><a class="nav-link" href="#regular-expressions-todo"><span class="header-section-number">3.3.2</span> Regular Expressions (TODO)</a></li>
-<li><a class="nav-link" href="#comparison-1"><span class="header-section-number">3.3.3</span> Comparison</a></li>
+<a class="nav-link" href="#numbers-todo"><span class="header-section-number">3.3</span> Numbers (TODO)</a><ul class="nav navbar-nav">
+<li><a class="nav-link" href="#integer-division"><span class="header-section-number">3.3.1</span> Integer division</a></li>
+<li><a class="nav-link" href="#inexact-storage-and-comparison"><span class="header-section-number">3.3.2</span> Inexact storage and comparison</a></li>
 </ul>
 </li>
 <li>
-<a class="nav-link" href="#dates-and-times-wip"><span class="header-section-number">3.4</span> Dates and Times (WIP)</a><ul class="nav navbar-nav"><li><a class="nav-link" href="#comparison-2"><span class="header-section-number">3.4.1</span> Comparison</a></li></ul>
-</li>
-<li><a class="nav-link" href="#logicals-todo"><span class="header-section-number">3.5</span> Logicals (TODO)</a></li>
-<li><a class="nav-link" href="#order-of-operations-wip"><span class="header-section-number">3.6</span> Order of Operations (WIP)</a></li>
-<li><a class="nav-link" href="#object-references-wip"><span class="header-section-number">3.7</span> Object References (WIP)</a></li>
-<li>
-<a class="nav-link" href="#trusting-tools"><span class="header-section-number">3.8</span> Trusting Tools</a><ul class="nav navbar-nav">
-<li><a class="nav-link" href="#delegating-decisions"><span class="header-section-number">3.8.1</span> Delegating decisions</a></li>
-<li><a class="nav-link" href="#off-label-use-todo"><span class="header-section-number">3.8.2</span> “Off-Label” Use (TODO)</a></li>
-<li><a class="nav-link" href="#security-todo"><span class="header-section-number">3.8.3</span> Security (TODO)</a></li>
+<a class="nav-link" href="#strings-wip"><span class="header-section-number">3.4</span> Strings (WIP)</a><ul class="nav navbar-nav">
+<li><a class="nav-link" href="#dirty-strings-todo"><span class="header-section-number">3.4.1</span> Dirty Strings (TODO)</a></li>
+<li><a class="nav-link" href="#regular-expressions-todo"><span class="header-section-number">3.4.2</span> Regular Expressions (TODO)</a></li>
+<li><a class="nav-link" href="#comparison-1"><span class="header-section-number">3.4.3</span> Comparison</a></li>
 </ul>
 </li>
-<li><a class="nav-link" href="#inefficient-processing-todo"><span class="header-section-number">3.9</span> Inefficient Processing (TODO)</a></li>
 <li>
-<a class="nav-link" href="#strategies-wip"><span class="header-section-number">3.10</span> Strategies (WIP)</a><ul class="nav navbar-nav">
-<li><a class="nav-link" href="#understand-the-intent-1"><span class="header-section-number">3.10.1</span> Understand the intent</a></li>
-<li><a class="nav-link" href="#understand-the-execution-1"><span class="header-section-number">3.10.2</span> Understand the execution</a></li>
-<li><a class="nav-link" href="#be-explicit-not-implicit"><span class="header-section-number">3.10.3</span> Be explicit not implicit</a></li>
+<a class="nav-link" href="#dates-and-times-wip"><span class="header-section-number">3.5</span> Dates and Times (WIP)</a><ul class="nav navbar-nav"><li><a class="nav-link" href="#comparison-2"><span class="header-section-number">3.5.1</span> Comparison</a></li></ul>
+</li>
+<li><a class="nav-link" href="#logicals-todo"><span class="header-section-number">3.6</span> Logicals (TODO)</a></li>
+<li><a class="nav-link" href="#order-of-operations-wip"><span class="header-section-number">3.7</span> Order of Operations (WIP)</a></li>
+<li><a class="nav-link" href="#object-references-wip"><span class="header-section-number">3.8</span> Object References (WIP)</a></li>
+<li>
+<a class="nav-link" href="#trusting-tools"><span class="header-section-number">3.9</span> Trusting Tools</a><ul class="nav navbar-nav">
+<li><a class="nav-link" href="#delegating-decisions"><span class="header-section-number">3.9.1</span> Delegating decisions</a></li>
+<li><a class="nav-link" href="#off-label-use-todo"><span class="header-section-number">3.9.2</span> “Off-Label” Use (TODO)</a></li>
+<li><a class="nav-link" href="#security-todo"><span class="header-section-number">3.9.3</span> Security (TODO)</a></li>
 </ul>
 </li>
-<li><a class="nav-link" href="#real-world-disasters-wip"><span class="header-section-number">3.11</span> Real World Disasters (WIP)</a></li>
+<li><a class="nav-link" href="#inefficient-processing-todo"><span class="header-section-number">3.10</span> Inefficient Processing (TODO)</a></li>
+<li>
+<a class="nav-link" href="#strategies-wip"><span class="header-section-number">3.11</span> Strategies (WIP)</a><ul class="nav navbar-nav">
+<li><a class="nav-link" href="#understand-the-intent-1"><span class="header-section-number">3.11.1</span> Understand the intent</a></li>
+<li><a class="nav-link" href="#understand-the-execution-1"><span class="header-section-number">3.11.2</span> Understand the execution</a></li>
+<li><a class="nav-link" href="#be-explicit-not-implicit"><span class="header-section-number">3.11.3</span> Be explicit not implicit</a></li>
+</ul>
+</li>
+<li><a class="nav-link" href="#real-world-disasters-wip"><span class="header-section-number">3.12</span> Real World Disasters (WIP)</a></li>
 </ul>
 
       <div class="book-extra">

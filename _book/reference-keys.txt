@@ -7,8 +7,8 @@ fig:order-log
 fig:order-date
 fig:null-impl-expl
 fig:filt-aggr-tran
-fig:unnamed-chunk-78
-fig:unnamed-chunk-82
+fig:unnamed-chunk-84
+fig:unnamed-chunk-88
 tab:datasaurus-tbl
 fig:datasaurus-plot
 fig:multivar-avg
@@ -77,6 +77,9 @@ comparison
 filtering
 joining
 transformation
+numbers-todo
+integer-division
+inexact-storage-and-comparison
 strings-wip
 dirty-strings-todo
 regular-expressions-todo

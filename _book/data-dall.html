@@ -575,11 +575,11 @@ Let’s not imagine that there are 10 orders each day, and each order is shipped
 <span class="fu"><a href="https://rdrr.io/r/utils/head.html">head</a></span><span class="op">(</span><span class="va">df</span><span class="op">)</span></code></pre></div>
 <pre><code>##   dt_subm dt_ship dt_load
 ## 1       1       3       3
-## 2       1       4       4
-## 3       1       5       5
+## 2       1       3       3
+## 3       1       3       3
 ## 4       1       4       4
-## 5       1       3       3
-## 6       1       5       5</code></pre>
+## 5       1       4       4
+## 6       1       3       3</code></pre>
 <p>When we repeat the prior analysis, we now see that we have <em>some</em> records for orders submitted on day 3 by the time we begin analysis on day 5.
 In this case, we might be more easily tricked to believe this is <em>all</em> orders.
 However, when we repeat the analysis on day 7, we see the the number of orders on day 3 has increased.</p>
@@ -1049,11 +1049,12 @@ df %>% filter(dt_ship <= 3) %>% group_by(dt_order) %>% count()
 ```
 
 ```
-## # A tibble: 1 x 2
-## # Groups:   dt_order [1]
+## # A tibble: 2 x 2
+## # Groups:   dt_order [2]
 ##   dt_order     n
 ##      <int> <int>
-## 1        1     3
+## 1        1     4
+## 2        2     3
 ```
 
 ```r
@@ -1067,8 +1068,8 @@ df %>% filter(dt_ship <= 5) %>% group_by(dt_order) %>% count()
 ##      <int> <int>
 ## 1        1     5
 ## 2        2     5
-## 3        3     2
-## 4        4     2
+## 3        3     3
+## 4        4     1
 ```
 
 ```r
@@ -1084,7 +1085,7 @@ df %>% filter(dt_ship <= 7) %>% group_by(dt_order) %>% count()
 ## 2        2     5
 ## 3        3     5
 ## 4        4     5
-## 5        5     3
+## 5        5     1
 ```
 
 ```r

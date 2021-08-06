@@ -81,7 +81,7 @@ Not only can null values represent many different things (as explored in Chapter
 
 #### Language representations 
 
-Different programming languages each offer their own versions of null values -- and sometimes more than one. For example, the R language includes `NA`, typed `NA`s (e.g. `NA_integer`, `NA_character`), `NaN`, and `NULL`; meanwhile, core python has `None` and the `numpy` module provides a `nan`. 
+Different programming languages each offer their own versions of null values -- and sometimes more than one. For example, the R language includes `NA`, typed `NA`s (e.g. `NA_integer_`, `NA_character_`), `NaN`, and `NULL`; meanwhile, core python has `None` and the `numpy` module provides a `nan`. 
 
 These different values carry different semantic and functional meanings. For example R's `NA` generally means "the presence of an absence" whereas `NULL` is "the absence of a presence". This is articulated more clearly if we examine the lengths of these objects and observe that `NA` has a length 1 whereas `NULL` has a length 0.
 
@@ -412,6 +412,52 @@ spend %>%
   count()
 ```
 
+## Numbers (TODO)
+
+### Integer division
+
+In R (mostly what we'd expect)
+
+```{r}
+1/2
+```
+
+```{r}
+ifelse(3/4 > 0.5, 'High', 'Low')
+```
+
+In SQL (varies by dialect)
+
+```{r}
+sqldf("select 1/2")
+```
+
+```{r}
+sqldf("select 
+      case 
+        when 3/4 > 0.5 then 'High' else 'Low' 
+        end 
+      as high_or_low
+      ")
+```
+
+```{r}
+sqldf("select 
+      case 
+        when 3.0/4 > 0.5 then 'High' else 'Low' 
+        end 
+      as high_or_low
+      ")
+```
+
+### Inexact storage and comparison
+
+```{r results = "hold"}
+(3 - 2.9) <=0.1
+(2 - 1.9) <=0.1
+(1 - 0.9) <=0.1
+```
+
 ## Strings (WIP)
 
 String data can be inherently appealing. At their best, strings are used to bring more readable and human interpretable values into a dataset. However, string data and the processing thereof comes with its own challenges. 
@@ -518,6 +564,8 @@ Some common formats in the wild are:
 - MM/DD/YY
 - DD/MM/YYYY
 - YYYY-MM-DD (ISO8601)
+
+In addition to how dates are *formatted*, they may be stored in a variety of different ways "under the hood" such as [Unix time](https://en.wikipedia.org/wiki/Unix_time) (TODO). 
 
 To complicate matters further, many of these formats may be represented either by native date types in various programs or by more basic data types (such as integers for the first four and strings for the last four). In addition, analogous formats exist for *timestamps* which encode both calendar date and time of day (hour, minute, and second information).
 

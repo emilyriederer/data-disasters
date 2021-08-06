@@ -92,9 +92,9 @@ However, the underlying distributions of our variables and the relationships bet
 </h2>
 <p>Anscombe’s Quartet</p>
 <p>The datasaurus dozen <span class="citation">(<a href="references.html#ref-datasaurus" role="doc-biblioref">Matejka and Fitzmaurice 2017</a>)</span> and the <code>datasauRus</code> R package <span class="citation">(<a href="references.html#ref-R-datasauRus" role="doc-biblioref">Locke and D’Agostino McGowan 2018</a>)</span></p>
-<div class="sourceCode" id="cb107"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb119"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://github.com/lockedata/datasauRus">datasauRus</a></span><span class="op">)</span></code></pre></div>
-<div class="sourceCode" id="cb108"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb120"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="va">df</span> <span class="op">&lt;-</span> <span class="fu">datasauRus</span><span class="fu">::</span><span class="va"><a href="https://itsalocke.com/datasauRus/reference/datasaurus_dozen.html">datasaurus_dozen</a></span>
 <span class="fu"><a href="https://rdrr.io/r/utils/head.html">head</a></span><span class="op">(</span><span class="va">df</span><span class="op">)</span></code></pre></div>
 <pre><code>## # A tibble: 6 x 3
@@ -259,7 +259,7 @@ We might be interested in profiling the age of each account (how long they have 
 (Don’t over-think the specific probability distributions lived here.
 We are concerned with interrogating the properties of the average and not with simulating a realistic data generating process.
 Giving ourselves permission to be wrong or “lazy” about unimportant things gives us more energy to focus on what matters.)</p>
-<div class="sourceCode" id="cb110"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb122"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="fu"><a href="https://rdrr.io/r/base/Random.html">set.seed</a></span><span class="op">(</span><span class="fl">123</span><span class="op">)</span>
 
 <span class="co"># define simulation parameters ----</span>
@@ -301,7 +301,7 @@ Low-price orders may have a 10% probability of being returned while high price o
 (Again, are these numbers, distributions, or relationships hyper-realistic?
 Not at all.
 However, once again we are telling ourselves a story just to reason about numerical properties, so we have to give ourselves permission to not focus on irrelevant details.)</p>
-<div class="sourceCode" id="cb111"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb123"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="fu"><a href="https://rdrr.io/r/base/Random.html">set.seed</a></span><span class="op">(</span><span class="fl">123</span><span class="op">)</span>
 
 <span class="co"># define simulation parameters ----</span>
@@ -330,7 +330,7 @@ However, if instead we already knew an average spend amount and an average retur
 <p><span class="math display">\[ \frac{\sum_{1}^{n} Spend * I(Return)}{\sum_{1}^{n} 1} \]</span></p>
 <p>If this still feels counterintuitive, we can see how much of the difference is accounted for by the interrelation between our two variables.
 In the following code, we break the relationship between the variables by randomly reordering the <code>ind_return</code> variable so it is no longer has any true relationship to the corresponding <code>amt_spend</code> variable.</p>
-<div class="sourceCode" id="cb112"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb124"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="co"># randomly reorder one of two variables to break relationships ----</span>
 <span class="va">ind_return</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/sample.html">sample</a></span><span class="op">(</span><span class="va">ind_return</span>, size <span class="op">=</span> <span class="fl">200</span><span class="op">)</span>
 
@@ -355,7 +355,7 @@ however, this second result once again illustrates the extent to which interrela
 <h3>
 <span class="header-section-number">4.2.5</span> Dichotomization and distributions<a class="anchor" aria-label="anchor" href="#dichotomization-and-distributions"><i class="fas fa-link"></i></a>
 </h3>
-<div class="sourceCode" id="cb113"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb125"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="va">n</span> <span class="op">&lt;-</span> <span class="fl">1000</span>
 
 <span class="co"># simulate x and y: uniformly distributed x ----</span>
@@ -374,21 +374,21 @@ however, this second result once again illustrates the extent to which interrela
 <span class="va">means1</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/mean.html">mean</a></span><span class="op">(</span><span class="va">y1</span><span class="op">[</span><span class="va">g1</span> <span class="op">==</span> <span class="fl">0</span><span class="op">]</span><span class="op">)</span>, <span class="fu"><a href="https://rdrr.io/r/base/mean.html">mean</a></span><span class="op">(</span><span class="va">y1</span><span class="op">[</span><span class="va">g1</span> <span class="op">==</span> <span class="fl">1</span><span class="op">]</span><span class="op">)</span><span class="op">)</span>
 <span class="va">means1</span> </code></pre></div>
 <pre><code>## [1] 5.814 7.254</code></pre>
-<div class="sourceCode" id="cb115"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb127"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="va">g2</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://Rdatatable.gitlab.io/data.table/reference/fifelse.html">ifelse</a></span><span class="op">(</span><span class="va">x2</span> <span class="op">&lt;</span> <span class="fl">0.5</span>, <span class="fl">0</span>, <span class="fl">1</span><span class="op">)</span>
 <span class="va">means2</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/mean.html">mean</a></span><span class="op">(</span><span class="va">y2</span><span class="op">[</span><span class="va">g2</span> <span class="op">==</span> <span class="fl">0</span><span class="op">]</span><span class="op">)</span>, <span class="fu"><a href="https://rdrr.io/r/base/mean.html">mean</a></span><span class="op">(</span><span class="va">y2</span><span class="op">[</span><span class="va">g2</span> <span class="op">==</span> <span class="fl">1</span><span class="op">]</span><span class="op">)</span><span class="op">)</span>
 <span class="va">means2</span></code></pre></div>
 <pre><code>## [1] 6.218 6.763</code></pre>
-<div class="sourceCode" id="cb117"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb129"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="va">means1</span></code></pre></div>
 <pre><code>## [1] 5.814 7.254</code></pre>
-<div class="sourceCode" id="cb119"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb131"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="va">means2</span></code></pre></div>
 <pre><code>## [1] 6.218 6.763</code></pre>
-<div class="sourceCode" id="cb121"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb133"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="fu"><a href="https://rdrr.io/r/stats/cor.html">cor</a></span><span class="op">(</span><span class="va">x1</span>, <span class="va">y1</span><span class="op">)</span></code></pre></div>
 <pre><code>## [1] 0.6424</code></pre>
-<div class="sourceCode" id="cb123"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb135"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="fu"><a href="https://rdrr.io/r/stats/cor.html">cor</a></span><span class="op">(</span><span class="va">x2</span>, <span class="va">y2</span><span class="op">)</span></code></pre></div>
 <pre><code>## [1] 0.3688</code></pre>
 </div>
@@ -417,20 +417,20 @@ however, this second result once again illustrates the extent to which interrela
 <span class="header-section-number">4.4.1</span> Unobservable (censored) data<a class="anchor" aria-label="anchor" href="#unobservable-censored-data"><i class="fas fa-link"></i></a>
 </h3>
 <p>time-to-event</p>
-<div class="sourceCode" id="cb125"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb137"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="va">n</span> <span class="op">&lt;-</span> <span class="fl">1000</span>
 <span class="va">times</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/stats/Uniform.html">runif</a></span><span class="op">(</span><span class="va">n</span>, <span class="fl">1</span>, <span class="fl">5</span><span class="op">)</span>
 <span class="fu"><a href="https://rdrr.io/r/base/mean.html">mean</a></span><span class="op">(</span><span class="va">times</span><span class="op">)</span></code></pre></div>
 <pre><code>## [1] 2.982</code></pre>
 <p>but we only observe it at a given point in time</p>
-<div class="sourceCode" id="cb127"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb139"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="va">current_time</span> <span class="op">&lt;-</span> <span class="fl">2</span></code></pre></div>
 <p>so what can we do?</p>
-<div class="sourceCode" id="cb128"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb140"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="co"># only use observable values? </span>
 <span class="fu"><a href="https://rdrr.io/r/base/mean.html">mean</a></span><span class="op">(</span><span class="va">times</span><span class="op">[</span><span class="va">times</span> <span class="op">&lt;</span> <span class="va">current_time</span><span class="op">]</span><span class="op">)</span></code></pre></div>
 <pre><code>## [1] 1.487</code></pre>
-<div class="sourceCode" id="cb130"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb142"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="co"># use current time for </span>
 <span class="fu"><a href="https://rdrr.io/r/base/mean.html">mean</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/Extremes.html">pmax</a></span><span class="op">(</span><span class="va">times</span>, <span class="va">current_time</span><span class="op">)</span><span class="op">)</span></code></pre></div>
 <pre><code>## [1] 3.112</code></pre>
@@ -474,7 +474,7 @@ however, this second result once again illustrates the extent to which interrela
 </blockquote>
 <p>three issues here</p>
 <p>first straight versus weighted averages</p>
-<div class="sourceCode" id="cb132"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb144"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="va">avg_of_ratios</span> <span class="op">&lt;-</span> <span class="op">(</span><span class="fl">10</span><span class="op">/</span><span class="fl">100</span> <span class="op">+</span> <span class="fl">90</span><span class="op">/</span><span class="fl">100</span><span class="op">)</span> <span class="op">/</span> <span class="fl">2</span>
 
 <span class="va">ratio_of_sums</span> <span class="op">&lt;-</span> <span class="op">(</span><span class="fl">10</span> <span class="op">+</span> <span class="fl">90</span><span class="op">)</span> <span class="op">/</span> <span class="op">(</span><span class="fl">100</span> <span class="op">+</span> <span class="fl">100</span><span class="op">)</span>
@@ -497,7 +497,7 @@ however, this second result once again illustrates the extent to which interrela
 <p>if data is from same distribution, this could increase variance but shouldn’t effect mean</p>
 <p>Recall that the standard deviation of sample proportion is <span class="math inline">\(\sqrt(p*(1-p)/n)\)</span></p>
 <p>link to discussions of sample size and different types of averages</p>
-<div class="sourceCode" id="cb134"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb146"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="fu"><a href="https://rdrr.io/r/base/Random.html">set.seed</a></span><span class="op">(</span><span class="fl">123</span><span class="op">)</span>
 
 <span class="co"># define simulation parameters ----</span>
@@ -516,7 +516,7 @@ however, this second result once again illustrates the extent to which interrela
   s <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/rep.html">rep</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="fl">10</span>, <span class="fl">100</span>, <span class="fl">500</span><span class="op">)</span>, each <span class="op">=</span> <span class="va">n</span><span class="op">)</span>,
   x <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="va">s010</span>, <span class="va">s100</span>, <span class="va">s500</span><span class="op">)</span>
 <span class="op">)</span></code></pre></div>
-<div class="sourceCode" id="cb135"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb147"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="http://ggplot2.tidyverse.org">ggplot2</a></span><span class="op">)</span>
 
 <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/ggplot.html">ggplot</a></span><span class="op">(</span>data <span class="op">=</span> <span class="va">df</span><span class="op">)</span> <span class="op">+</span>
@@ -532,7 +532,7 @@ however, this second result once again illustrates the extent to which interrela
     plot.title <span class="op">=</span> <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/element.html">element_text</a></span><span class="op">(</span>hjust <span class="op">=</span> <span class="fl">0.5</span><span class="op">)</span>,
     legend.position <span class="op">=</span> <span class="st">"bottom"</span>
   <span class="op">)</span></code></pre></div>
-<div class="inline-figure"><img src="bookdown_files/figure-html/unnamed-chunk-131-1.png" width="672"></div>
+<div class="inline-figure"><img src="bookdown_files/figure-html/unnamed-chunk-137-1.png" width="672"></div>
 <p>but low sample days based on real world are probably also a sign of a different distribution (only very urgent cases get tested?)</p>
 <!--
 
