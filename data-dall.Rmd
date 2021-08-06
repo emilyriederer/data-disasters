@@ -529,6 +529,10 @@ knitr::include_graphics("figures/data-dall/incr-full-good.png")
 
 Regardless, this underscores the need to validate entire datasets and to re-validate when repulling data. 
 
+## More on Missing Data (TODO)
+
+MCAR / MAR / MNAR
+
 ## Other Types of Data (TODO)
 
 ### Survey Data
@@ -577,6 +581,12 @@ The article goes on to suggest that the extremely high case numbers were not imm
 > Mora said she accepted responsibility and that she should have taken a deeper look after noticing the abnormally high number of new cases.El Paso County is still seeing more than 1,000 new cases on a daily basis, officials said. The correct number of new cases Wednesday was 1,537.
 
 > “The numbers are still high and they are still alarming but they were not as high as we reported,” Mora said.
+
+Similar data artifacts also arose from a variety of other factors besides system changes. For example, delays in 9-to-5 office paperwork (the real-world events triggering the creation of some key data elements) over the holidays led to more artificial trends in data reporting around the end-of-year holidays:
+
+> While 238 deaths is the most reported in Illinois since the start of the pandemic, the IDPH noted in its release that some data was, “delayed from the weekends, including this past holiday weekend.”
+
+\- [Illinois sees biggest spike in reported COVID-19 deaths to date after holidays delay some data, officials say](https://wgntv.com/news/coronavirus/illinois-sees-biggest-spike-in-reported-covid-19-deaths-to-date-after-officials-say-holidays-delayed-some-data/), WGN9 (TODO CITATION)
 
 ### Data encoding leads to incorrect BMI calculation
 

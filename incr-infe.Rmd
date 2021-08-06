@@ -2,7 +2,33 @@
 
 Previously, we have seen how different inputs like data, tools, and methods can add risks to our data analysis. However, the battle is not won simply when we get our first set of *outputs*. In this chapter, we will explore common errors in interpreting the results of our analysis by exploring aspects of bias, missingness, and confounding. 
 
-## Feature Leakage
+## Common Biases
+
+## Policy-induced relationships
+
+```{r results = "hold"}
+set.seed(123)
+
+n <- 1000
+x1 <- runif(n)
+x2 <- runif(n)
+y <- x1 + x2 > 1
+df <- data.frame(x1, x2, y)
+
+with(df, cor(x1, x2))
+with(df[df$y,], cor(x1, x2))
+```
+
+```{r}
+library(ggplot2)
+
+ggplot(df) +
+  aes(x = x1, y = x2, col = y) +
+  geom_point()
+```
+
+
+## Feature leakage
 
 ```{r}
 n <- 1000
@@ -19,7 +45,7 @@ corr_sum <- cor(minutes_month1, minutes_tot)
 
 Figure \@ref(fig:sep-sum) shows...
 
-```{r sep-sum, echo = FALSE, out.width = '90%', fig.align = 'center', fig.cap = 'Correlation of idependent versus cumulative quantities'}
+```{r sep-sum, echo = FALSE, out.width = '90%', fig.align = 'center', fig.cap = 'Correlation of independent versus cumulative quantities'}
 library(ggplot2)
 library(patchwork)
 
@@ -44,7 +70,147 @@ gg_sum <-
 gg_sep + gg_sum
 ```
 
+## "Diligent" data dredging
 
+```{r}
+set.seed(123)
+
+n <- 1000
+x <- rnorm(n)
+
+random_test <- function(x) {
+  
+  indices <- sample(1:length(x), length(x)/2, replace = FALSE)
+  group1 <- x[indices]
+  group2 <- x[-indices]
+  tt <- t.test(group1, group2)
+  return(tt$p.value)
+  
+}
+
+p <- vapply(1:10000, FUN = function(...) {random_test(x)}, FUN.VALUE = numeric(1))
+sum(p < 0.05)
+```
+
+```{r}
+n_obsv <- 1000
+n_vars <- 100
+mat_cat <- matrix(
+  data = rbinom(n_obsv * n_vars, 1, 0.5),
+  nrow = n_obsv,
+  ncol = n_vars
+  )
+mat_all <- cbind(x, mat_cat)
+df <- as.data.frame(mat_all)
+names(df) <- c("x", paste0("v", 1:n_vars))
+head(df)
+```
+
+```{r results = "hold"}
+t.test(x ~ v1, data = df)$p.value
+t.test(x ~ v2, data = df)$p.value
+t.test(x ~ v3, data = df)$p.value
+t.test(x ~ v4, data = df)$p.value
+# etc.
+```
+
+Success! ..Or success?
+
+sample splitting with "train"
+
+(obviously a very ugly way to do this, but that's the point)
+
+```{r results = "hold"}
+t.test(x ~ v1, data = df[1:(n_obsv/2),])$p.value
+t.test(x ~ v2, data = df[1:(n_obsv/2),])$p.value
+t.test(x ~ v3, data = df[1:(n_obsv/2),])$p.value
+t.test(x ~ v4, data = df[1:(n_obsv/2),])$p.value
+t.test(x ~ v5, data = df[1:(n_obsv/2),])$p.value
+t.test(x ~ v6, data = df[1:(n_obsv/2),])$p.value
+t.test(x ~ v7, data = df[1:(n_obsv/2),])$p.value
+t.test(x ~ v8, data = df[1:(n_obsv/2),])$p.value
+t.test(x ~ v9, data = df[1:(n_obsv/2),])$p.value
+t.test(x ~ v10, data = df[1:(n_obsv/2),])$p.value
+t.test(x ~ v11, data = df[1:(n_obsv/2),])$p.value
+t.test(x ~ v12, data = df[1:(n_obsv/2),])$p.value
+t.test(x ~ v13, data = df[1:(n_obsv/2),])$p.value
+t.test(x ~ v14, data = df[1:(n_obsv/2),])$p.value
+t.test(x ~ v15, data = df[1:(n_obsv/2),])$p.value
+t.test(x ~ v16, data = df[1:(n_obsv/2),])$p.value
+t.test(x ~ v17, data = df[1:(n_obsv/2),])$p.value
+t.test(x ~ v18, data = df[1:(n_obsv/2),])$p.value
+t.test(x ~ v19, data = df[1:(n_obsv/2),])$p.value
+```
+
+and "test"
+
+```{r}
+t.test(x ~ v18, data = df[(n_obsv/2 + 1):n_obsv,])$p.value
+```
+
+
+
+## Regression to the mean
+
+simulate truly independent spend amounts across two periods
+
+```{r}
+set.seed(123)
+
+n  <- 1000
+mu <- 100
+sd <- 10
+spend1 <- rnorm(n, mu, sd)
+spend2 <- rnorm(n, mu, sd)
+
+df <- data.frame(spend1, spend2)
+```
+
+
+```{r}
+library(dplyr)
+
+df %>% 
+  group_by(spend1 > mu) %>%
+  summarize_at(vars(starts_with("spend")), mean) %>%
+  mutate(pct_change = round((spend2 - spend1) / spend1, 3))
+```
+
+```{r}
+df %>%
+  mutate(spend1_bin = cut(spend1, 5)) %>%
+  group_by(spend1_bin) %>%
+  summarize_at(vars(starts_with("spend")), mean) %>%
+  mutate(pct_change = round((spend2 - spend1) / spend1, 3))
+```
+
+```{r}
+df %>%
+  mutate(spend1_bin = cut(spend1, 5)) %>%
+  group_by(spend1_bin) %>%
+  summarize(corr = cor(spend1, spend2))
+```
+
+
+```{r results = "hold"}
+mean(spend1 > spend2)
+mean(spend1 < spend2)
+```
+
+```{r results = "hold"}
+sum((spend1 > mu) * (spend1 > spend2)) / sum(spend1 > mu)
+sum((spend1 < mu) * (spend1 < spend2)) / sum(spend1 > mu)
+```
+
+
+
+```{r}
+library(ggplot2)
+
+ggplot(df) +
+  aes(x = spend1, y = spend2) + 
+  geom_point()
+```
 
 
 

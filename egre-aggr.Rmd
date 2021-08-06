@@ -186,11 +186,53 @@ After redoing the calculations, we find that th two values are much closer.
 These are notably still not the same number so that does not mean that these two equations are equivalent if variables are unrelated; 
 however, this second result once again illustrates the extent to which interrelations can defy our naive intuitions.
 
+### Average over what? (TODO)
+
+no such thing as an unweighted average (just sometimes weights are equal)
+
+formal definition of expected value forces you to pick a probability distribution
+
+eg avg mpg by time vs by mileage?
+
+not strictly an error but our language allows an ill-defined problem
+
 ## Ratios
 
 ### Picking the right denominator
 
 ### Sample size effects
+
+## Misc - Deciding where this goes (TODO)
+
+### Unobservable (censored) data
+
+time-to-event
+
+```{r}
+n <- 1000
+times <- runif(n, 1, 5)
+mean(times)
+```
+
+but we only observe it at a given point in time
+
+```{r}
+current_time <- 2
+```
+
+so what can we do?
+
+```{r}
+# only use observable values? 
+mean(times[times < current_time])
+
+# use current time for 
+mean(pmax(times, current_time))
+```
+
+bias
+
+example of **censored data**
 
 ## Trends
 
@@ -210,7 +252,11 @@ Straight vs weighted averages in COVID positivity rates [@indy_rates]
 
 > "The change to the methodology is how we calculate the seven-day positivity rate for counties. In the past, similar to many states, we've added each day's positivity rate for seven days and divided by seven to obtain the week's positivity rate. Now we will add all of the positive tests for the week and divide by the total tests done that week to determine the week's positivity rate. This will help to minimize the effect that a high variability in the number of tests done each day can have on the week's overall positivity, especially for our smaller counties."
 
-```{r}
+three issues here
+
+first straight versus weighted averages
+
+```{r results = "hold"}
 avg_of_ratios <- (10/100 + 90/100) / 2
 
 ratio_of_sums <- (10 + 90) / (100 + 100)
@@ -227,6 +273,10 @@ weightavg_of_ratios_uneq <- (100/300)*(10/100) + (200/300)*(180/200)
 
 ratio_of_sums_uneq == weightavg_of_ratios_uneq
 ```
+
+then back to the data for why it matters. 
+
+if data is from same distribution, this could increase variance but shouldn't effect mean
 
 Recall that the standard deviation of sample proportion is $\sqrt(p*(1-p)/n)$
 
@@ -270,6 +320,8 @@ ggplot(data = df) +
     legend.position = "bottom"
   )
 ```
+
+but low sample days based on real world are probably also a sign of a different distribution (only very urgent cases get tested?) 
 
 
 

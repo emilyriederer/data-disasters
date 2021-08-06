@@ -420,7 +420,7 @@ First, unlike numbers, human language strings can be ambiguously defined. `2` is
 
 Secondly, string data is one of the most flexible datatypes and can contain any other types of information -- from should-be-logical values (`"yes"/"no"`, `"true"/"false"`), should-be-numeric values (`"27"`), should-be-date values (`"2020-01-01"`), and even complex data encodings like JSON blobs (`"{"name":{"first":"emily","last":"riederer"},"social":{"twitter":"emilyriederer","github":"emilyriederer","linkedin":"emilyriederer"}}"` with hideous formatting for emphasis.) For a data publisher, this may be a convenience, but as we will see it can turn into a frustration or a liability when functions and comparison operations are attempted with strings that semantically represent a different type of value.
 
-### Dirty Strings
+### Dirty Strings (TODO)
 
 whitespace
 
@@ -630,7 +630,26 @@ today_str > now_str
 
 ## Logicals (TODO)
 
+```{r results == "hold", error = TRUE}
+"TRUE" == TRUE
+1 == TRUE
+"True" == TRUE
+"TRUE"*5
+```
+
+```{r}
+sqldf("select 
+      (TRUE == 1) as is_int_true,
+      (TRUE == 'TRUE') as is_char_true,
+      TRUE*5 as true_times_five,
+      FALSE*5 as false_times_five
+      ")
+```
+
+
 ## Order of Operations (WIP)
+
+PEMDAS but sometimes still ambiguous
 
 ```{r results = 'hold'}
 1 + 1  * 2 / 3 - 1

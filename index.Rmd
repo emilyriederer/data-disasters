@@ -11,10 +11,10 @@ colorlinks: yes
 lot: yes
 lof: yes
 site: bookdown::bookdown_site
-description: "An introduction to data analysis in the real world"
+description: "Navigating the complexities of real-world data analysis"
 github-repo: emilyriederer/data-disasters
 graphics: yes
-#cover-image: images/cover.jpg
+cover-image: figures/cover.png
 ---
 
 ```{r setup, include=FALSE}
