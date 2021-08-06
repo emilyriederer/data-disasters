@@ -107,6 +107,7 @@ averaging-skewed-data
 no-average-observation
 the-product-of-averages
 average-over-what-todo
+dichotomization-and-distributions
 ratios
 picking-the-right-denominator
 sample-size-effects

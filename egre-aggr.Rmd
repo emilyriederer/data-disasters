@@ -196,6 +196,39 @@ eg avg mpg by time vs by mileage?
 
 not strictly an error but our language allows an ill-defined problem
 
+### Dichotomization and distributions
+
+```{r}
+n <- 1000
+
+# simulate x and y: uniformly distributed x ----
+x1 <- runif(n)
+y1 <- 5 + 3*x1 + rnorm(n)
+
+# simulate x and y: same relationship, more concentrated distribution of x ----
+x2 <- c( runif(n*0.1, 0.00, 0.44), 
+         runif(n*0.8, 0.45, 0.55), 
+         runif(n*0.1, 0.55, 1.00) 
+        )
+y2 <- 5 + 3*x2 + rnorm(n)
+
+# com
+g1 <- ifelse(x1 < 0.5, 0, 1)
+means1 <- c(mean(y1[g1 == 0]), mean(y1[g1 == 1]))
+means1 
+
+g2 <- ifelse(x2 < 0.5, 0, 1)
+means2 <- c(mean(y2[g2 == 0]), mean(y2[g2 == 1]))
+means2
+
+means1
+means2
+
+cor(x1, y1)
+cor(x2, y2)
+```
+
+
 ## Ratios
 
 ### Picking the right denominator

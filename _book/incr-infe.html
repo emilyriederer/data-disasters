@@ -90,7 +90,7 @@
 <h2>
 <span class="header-section-number">6.2</span> Policy-induced relationships<a class="anchor" aria-label="anchor" href="#policy-induced-relationships"><i class="fas fa-link"></i></a>
 </h2>
-<div class="sourceCode" id="cb124"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb136"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="fu"><a href="https://rdrr.io/r/base/Random.html">set.seed</a></span><span class="op">(</span><span class="fl">123</span><span class="op">)</span>
 
 <span class="va">n</span> <span class="op">&lt;-</span> <span class="fl">1000</span>
@@ -103,19 +103,19 @@
 <span class="fu"><a href="https://rdrr.io/r/base/with.html">with</a></span><span class="op">(</span><span class="va">df</span><span class="op">[</span><span class="va">df</span><span class="op">$</span><span class="va">y</span>,<span class="op">]</span>, <span class="fu"><a href="https://rdrr.io/r/stats/cor.html">cor</a></span><span class="op">(</span><span class="va">x1</span>, <span class="va">x2</span><span class="op">)</span><span class="op">)</span></code></pre></div>
 <pre><code>## [1] -0.05928
 ## [1] -0.5003</code></pre>
-<div class="sourceCode" id="cb126"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb138"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="http://ggplot2.tidyverse.org">ggplot2</a></span><span class="op">)</span>
 
 <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/ggplot.html">ggplot</a></span><span class="op">(</span><span class="va">df</span><span class="op">)</span> <span class="op">+</span>
   <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/aes.html">aes</a></span><span class="op">(</span>x <span class="op">=</span> <span class="va">x1</span>, y <span class="op">=</span> <span class="va">x2</span>, col <span class="op">=</span> <span class="va">y</span><span class="op">)</span> <span class="op">+</span>
   <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/geom_point.html">geom_point</a></span><span class="op">(</span><span class="op">)</span></code></pre></div>
-<div class="inline-figure"><img src="bookdown_files/figure-html/unnamed-chunk-136-1.png" width="672"></div>
+<div class="inline-figure"><img src="bookdown_files/figure-html/unnamed-chunk-137-1.png" width="672"></div>
 </div>
 <div id="feature-leakage" class="section level2" number="6.3">
 <h2>
 <span class="header-section-number">6.3</span> Feature leakage<a class="anchor" aria-label="anchor" href="#feature-leakage"><i class="fas fa-link"></i></a>
 </h2>
-<div class="sourceCode" id="cb127"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb139"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="va">n</span> <span class="op">&lt;-</span> <span class="fl">1000</span>
 <span class="va">minutes_month1</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/stats/Uniform.html">runif</a></span><span class="op">(</span><span class="va">n</span>, <span class="fl">60</span>, <span class="fl">1200</span><span class="op">)</span>
 <span class="va">minutes_month2</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/stats/Uniform.html">runif</a></span><span class="op">(</span><span class="va">n</span>, <span class="fl">60</span>, <span class="fl">1200</span><span class="op">)</span> 
@@ -133,7 +133,7 @@ FIGURE 6.1: Correlation of independent versus cumulative quantities
 <h2>
 <span class="header-section-number">6.4</span> “Diligent” data dredging<a class="anchor" aria-label="anchor" href="#diligent-data-dredging"><i class="fas fa-link"></i></a>
 </h2>
-<div class="sourceCode" id="cb128"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb140"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="fu"><a href="https://rdrr.io/r/base/Random.html">set.seed</a></span><span class="op">(</span><span class="fl">123</span><span class="op">)</span>
 
 <span class="va">n</span> <span class="op">&lt;-</span> <span class="fl">1000</span>
@@ -152,7 +152,7 @@ FIGURE 6.1: Correlation of independent versus cumulative quantities
 <span class="va">p</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/lapply.html">vapply</a></span><span class="op">(</span><span class="fl">1</span><span class="op">:</span><span class="fl">10000</span>, FUN <span class="op">=</span> <span class="kw">function</span><span class="op">(</span><span class="va">...</span><span class="op">)</span> <span class="op">{</span><span class="fu">random_test</span><span class="op">(</span><span class="va">x</span><span class="op">)</span><span class="op">}</span>, FUN.VALUE <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/numeric.html">numeric</a></span><span class="op">(</span><span class="fl">1</span><span class="op">)</span><span class="op">)</span>
 <span class="fu"><a href="https://rdrr.io/r/base/sum.html">sum</a></span><span class="op">(</span><span class="va">p</span> <span class="op">&lt;</span> <span class="fl">0.05</span><span class="op">)</span></code></pre></div>
 <pre><code>## [1] 500</code></pre>
-<div class="sourceCode" id="cb130"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb142"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="va">n_obsv</span> <span class="op">&lt;-</span> <span class="fl">1000</span>
 <span class="va">n_vars</span> <span class="op">&lt;-</span> <span class="fl">100</span>
 <span class="va">mat_cat</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/matrix.html">matrix</a></span><span class="op">(</span>
@@ -220,7 +220,7 @@ FIGURE 6.1: Correlation of independent versus cumulative quantities
 ## 4   0   0   1   1   0   0   1   1    1
 ## 5   0   1   1   1   1   1   0   1    0
 ## 6   0   0   0   0   1   1   0   0    1</code></pre>
-<div class="sourceCode" id="cb132"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb144"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="fu"><a href="https://rdrr.io/r/stats/t.test.html">t.test</a></span><span class="op">(</span><span class="va">x</span> <span class="op">~</span> <span class="va">v1</span>, data <span class="op">=</span> <span class="va">df</span><span class="op">)</span><span class="op">$</span><span class="va">p.value</span>
 <span class="fu"><a href="https://rdrr.io/r/stats/t.test.html">t.test</a></span><span class="op">(</span><span class="va">x</span> <span class="op">~</span> <span class="va">v2</span>, data <span class="op">=</span> <span class="va">df</span><span class="op">)</span><span class="op">$</span><span class="va">p.value</span>
 <span class="fu"><a href="https://rdrr.io/r/stats/t.test.html">t.test</a></span><span class="op">(</span><span class="va">x</span> <span class="op">~</span> <span class="va">v3</span>, data <span class="op">=</span> <span class="va">df</span><span class="op">)</span><span class="op">$</span><span class="va">p.value</span>
@@ -233,7 +233,7 @@ FIGURE 6.1: Correlation of independent versus cumulative quantities
 <p>Success! ..Or success?</p>
 <p>sample splitting with “train”</p>
 <p>(obviously a very ugly way to do this, but that’s the point)</p>
-<div class="sourceCode" id="cb134"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb146"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="fu"><a href="https://rdrr.io/r/stats/t.test.html">t.test</a></span><span class="op">(</span><span class="va">x</span> <span class="op">~</span> <span class="va">v1</span>, data <span class="op">=</span> <span class="va">df</span><span class="op">[</span><span class="fl">1</span><span class="op">:</span><span class="op">(</span><span class="va">n_obsv</span><span class="op">/</span><span class="fl">2</span><span class="op">)</span>,<span class="op">]</span><span class="op">)</span><span class="op">$</span><span class="va">p.value</span>
 <span class="fu"><a href="https://rdrr.io/r/stats/t.test.html">t.test</a></span><span class="op">(</span><span class="va">x</span> <span class="op">~</span> <span class="va">v2</span>, data <span class="op">=</span> <span class="va">df</span><span class="op">[</span><span class="fl">1</span><span class="op">:</span><span class="op">(</span><span class="va">n_obsv</span><span class="op">/</span><span class="fl">2</span><span class="op">)</span>,<span class="op">]</span><span class="op">)</span><span class="op">$</span><span class="va">p.value</span>
 <span class="fu"><a href="https://rdrr.io/r/stats/t.test.html">t.test</a></span><span class="op">(</span><span class="va">x</span> <span class="op">~</span> <span class="va">v3</span>, data <span class="op">=</span> <span class="va">df</span><span class="op">[</span><span class="fl">1</span><span class="op">:</span><span class="op">(</span><span class="va">n_obsv</span><span class="op">/</span><span class="fl">2</span><span class="op">)</span>,<span class="op">]</span><span class="op">)</span><span class="op">$</span><span class="va">p.value</span>
@@ -273,7 +273,7 @@ FIGURE 6.1: Correlation of independent versus cumulative quantities
 ## [1] 0.01318
 ## [1] 0.2556</code></pre>
 <p>and “test”</p>
-<div class="sourceCode" id="cb136"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb148"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="fu"><a href="https://rdrr.io/r/stats/t.test.html">t.test</a></span><span class="op">(</span><span class="va">x</span> <span class="op">~</span> <span class="va">v18</span>, data <span class="op">=</span> <span class="va">df</span><span class="op">[</span><span class="op">(</span><span class="va">n_obsv</span><span class="op">/</span><span class="fl">2</span> <span class="op">+</span> <span class="fl">1</span><span class="op">)</span><span class="op">:</span><span class="va">n_obsv</span>,<span class="op">]</span><span class="op">)</span><span class="op">$</span><span class="va">p.value</span></code></pre></div>
 <pre><code>## [1] 0.1691</code></pre>
 </div>
@@ -282,7 +282,7 @@ FIGURE 6.1: Correlation of independent versus cumulative quantities
 <span class="header-section-number">6.5</span> Regression to the mean<a class="anchor" aria-label="anchor" href="#regression-to-the-mean"><i class="fas fa-link"></i></a>
 </h2>
 <p>simulate truly independent spend amounts across two periods</p>
-<div class="sourceCode" id="cb138"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb150"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="fu"><a href="https://rdrr.io/r/base/Random.html">set.seed</a></span><span class="op">(</span><span class="fl">123</span><span class="op">)</span>
 
 <span class="va">n</span>  <span class="op">&lt;-</span> <span class="fl">1000</span>
@@ -292,7 +292,7 @@ FIGURE 6.1: Correlation of independent versus cumulative quantities
 <span class="va">spend2</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/stats/Normal.html">rnorm</a></span><span class="op">(</span><span class="va">n</span>, <span class="va">mu</span>, <span class="va">sd</span><span class="op">)</span>
 
 <span class="va">df</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/data.frame.html">data.frame</a></span><span class="op">(</span><span class="va">spend1</span>, <span class="va">spend2</span><span class="op">)</span></code></pre></div>
-<div class="sourceCode" id="cb139"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb151"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://dplyr.tidyverse.org">dplyr</a></span><span class="op">)</span>
 
 <span class="va">df</span> <span class="op">%&gt;%</span> 
@@ -304,7 +304,7 @@ FIGURE 6.1: Correlation of independent versus cumulative quantities
 ##   &lt;lgl&gt;          &lt;dbl&gt;  &lt;dbl&gt;      &lt;dbl&gt;
 ## 1 FALSE           92.2   99.7      0.081
 ## 2 TRUE           108.   101.      -0.063</code></pre>
-<div class="sourceCode" id="cb141"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb153"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="va">df</span> <span class="op">%&gt;%</span>
   <span class="fu"><a href="https://dplyr.tidyverse.org/reference/mutate.html">mutate</a></span><span class="op">(</span>spend1_bin <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/cut.html">cut</a></span><span class="op">(</span><span class="va">spend1</span>, <span class="fl">5</span><span class="op">)</span><span class="op">)</span> <span class="op">%&gt;%</span>
   <span class="fu"><a href="https://dplyr.tidyverse.org/reference/group_by.html">group_by</a></span><span class="op">(</span><span class="va">spend1_bin</span><span class="op">)</span> <span class="op">%&gt;%</span>
@@ -318,7 +318,7 @@ FIGURE 6.1: Correlation of independent versus cumulative quantities
 ## 3 (96.1,108]  102.   101.      -0.012
 ## 4 (108,120]   113.   101.      -0.101
 ## 5 (120,132]   124.   103.      -0.167</code></pre>
-<div class="sourceCode" id="cb143"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb155"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="va">df</span> <span class="op">%&gt;%</span>
   <span class="fu"><a href="https://dplyr.tidyverse.org/reference/mutate.html">mutate</a></span><span class="op">(</span>spend1_bin <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/cut.html">cut</a></span><span class="op">(</span><span class="va">spend1</span>, <span class="fl">5</span><span class="op">)</span><span class="op">)</span> <span class="op">%&gt;%</span>
   <span class="fu"><a href="https://dplyr.tidyverse.org/reference/group_by.html">group_by</a></span><span class="op">(</span><span class="va">spend1_bin</span><span class="op">)</span> <span class="op">%&gt;%</span>
@@ -332,23 +332,23 @@ FIGURE 6.1: Correlation of independent versus cumulative quantities
 ## 3 (96.1,108]  0.0438
 ## 4 (108,120]   0.101 
 ## 5 (120,132]  -0.165</code></pre>
-<div class="sourceCode" id="cb146"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb158"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="fu"><a href="https://rdrr.io/r/base/mean.html">mean</a></span><span class="op">(</span><span class="va">spend1</span> <span class="op">&gt;</span> <span class="va">spend2</span><span class="op">)</span>
 <span class="fu"><a href="https://rdrr.io/r/base/mean.html">mean</a></span><span class="op">(</span><span class="va">spend1</span> <span class="op">&lt;</span> <span class="va">spend2</span><span class="op">)</span></code></pre></div>
 <pre><code>## [1] 0.49
 ## [1] 0.51</code></pre>
-<div class="sourceCode" id="cb148"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb160"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="fu"><a href="https://rdrr.io/r/base/sum.html">sum</a></span><span class="op">(</span><span class="op">(</span><span class="va">spend1</span> <span class="op">&gt;</span> <span class="va">mu</span><span class="op">)</span> <span class="op">*</span> <span class="op">(</span><span class="va">spend1</span> <span class="op">&gt;</span> <span class="va">spend2</span><span class="op">)</span><span class="op">)</span> <span class="op">/</span> <span class="fu"><a href="https://rdrr.io/r/base/sum.html">sum</a></span><span class="op">(</span><span class="va">spend1</span> <span class="op">&gt;</span> <span class="va">mu</span><span class="op">)</span>
 <span class="fu"><a href="https://rdrr.io/r/base/sum.html">sum</a></span><span class="op">(</span><span class="op">(</span><span class="va">spend1</span> <span class="op">&lt;</span> <span class="va">mu</span><span class="op">)</span> <span class="op">*</span> <span class="op">(</span><span class="va">spend1</span> <span class="op">&lt;</span> <span class="va">spend2</span><span class="op">)</span><span class="op">)</span> <span class="op">/</span> <span class="fu"><a href="https://rdrr.io/r/base/sum.html">sum</a></span><span class="op">(</span><span class="va">spend1</span> <span class="op">&gt;</span> <span class="va">mu</span><span class="op">)</span></code></pre></div>
 <pre><code>## [1] 0.7168
 ## [1] 0.7267</code></pre>
-<div class="sourceCode" id="cb150"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb162"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="http://ggplot2.tidyverse.org">ggplot2</a></span><span class="op">)</span>
 
 <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/ggplot.html">ggplot</a></span><span class="op">(</span><span class="va">df</span><span class="op">)</span> <span class="op">+</span>
   <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/aes.html">aes</a></span><span class="op">(</span>x <span class="op">=</span> <span class="va">spend1</span>, y <span class="op">=</span> <span class="va">spend2</span><span class="op">)</span> <span class="op">+</span> 
   <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/geom_point.html">geom_point</a></span><span class="op">(</span><span class="op">)</span></code></pre></div>
-<div class="inline-figure"><img src="bookdown_files/figure-html/unnamed-chunk-150-1.png" width="672"></div>
+<div class="inline-figure"><img src="bookdown_files/figure-html/unnamed-chunk-151-1.png" width="672"></div>
 <!--
 
 ## No law to use ALL the data
