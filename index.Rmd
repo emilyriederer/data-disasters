@@ -15,6 +15,7 @@ description: "Navigating the complexities of real-world data analysis"
 github-repo: emilyriederer/data-disasters
 graphics: yes
 cover-image: figures/cover.png
+url: data-disasters.netlify.app
 ---
 
 ```{r setup, include=FALSE}

@@ -6,7 +6,18 @@
 <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 <title>Chapter 2 Data Dalliances (WIP) | Data Disasters</title>
 <meta name="author" content="Emily Riederer">
-<!-- JS --><script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/2.0.6/clipboard.min.js" integrity="sha256-inc5kl9MA1hkeYUt+EC3BhlIgyp/2jDIyBLS6k3UxPI=" crossorigin="anonymous"></script><script src="https://cdn.jsdelivr.net/npm/fuse.js@6.4.2"></script><script src="https://kit.fontawesome.com/6ecbd6c532.js" crossorigin="anonymous"></script><script src="libs/header-attrs/header-attrs.js"></script><script src="libs/jquery/jquery-3.6.0.min.js"></script><meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+<meta name="description" content="The first step to data analysis is, in fact, data. While this may seem obvious, statistics textbooks often dodge this detail. Discussions of regression analysis often begin with a statement like:...">
+<meta name="generator" content="bookdown 0.22.17 with bs4_book()">
+<meta property="og:title" content="Chapter 2 Data Dalliances (WIP) | Data Disasters">
+<meta property="og:type" content="book">
+<meta property="og:url" content="data-disasters.netlify.app/data-dall.html">
+<meta property="og:image" content="data-disasters.netlify.app/figures/cover.png">
+<meta property="og:description" content="The first step to data analysis is, in fact, data. While this may seem obvious, statistics textbooks often dodge this detail. Discussions of regression analysis often begin with a statement like:...">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Chapter 2 Data Dalliances (WIP) | Data Disasters">
+<meta name="twitter:description" content="The first step to data analysis is, in fact, data. While this may seem obvious, statistics textbooks often dodge this detail. Discussions of regression analysis often begin with a statement like:...">
+<meta name="twitter:image" content="data-disasters.netlify.app/figures/cover.png">
+<!-- JS --><script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/2.0.6/clipboard.min.js" integrity="sha256-inc5kl9MA1hkeYUt+EC3BhlIgyp/2jDIyBLS6k3UxPI=" crossorigin="anonymous"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/fuse.js/6.4.6/fuse.js" integrity="sha512-zv6Ywkjyktsohkbp9bb45V6tEMoWhzFzXis+LrMehmJZZSys19Yxf1dopHx7WzIKxr5tK2dVcYmaCk2uqdjF4A==" crossorigin="anonymous"></script><script src="https://kit.fontawesome.com/6ecbd6c532.js" crossorigin="anonymous"></script><script src="libs/header-attrs/header-attrs.js"></script><script src="libs/jquery/jquery-3.6.0.min.js"></script><meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 <link href="libs/bootstrap/bootstrap.min.css" rel="stylesheet">
 <script src="libs/bootstrap/bootstrap.bundle.min.js"></script><script src="libs/bs3compat/tabs.js"></script><script src="libs/bs3compat/bs3compat.js"></script><link href="libs/bs4_book/bs4_book.css" rel="stylesheet">
 <script src="libs/bs4_book/bs4_book.js"></script><!-- Global site tag (gtag.js) - Google Analytics --><script async src="https://www.googletagmanager.com/gtag/js?id=G-C7VEESJ7Z8"></script><script>
@@ -15,7 +26,7 @@
       gtag('js', new Date());
 
       gtag('config', 'G-C7VEESJ7Z8');
-    </script><script src="https://cdn.jsdelivr.net/autocomplete.js/0/autocomplete.jquery.min.js"></script><script src="https://cdn.jsdelivr.net/npm/mark.js@8.11.1/dist/mark.min.js"></script><!-- CSS --><link rel="stylesheet" href="styles.css">
+    </script><script src="https://cdnjs.cloudflare.com/ajax/libs/autocomplete.js/0.38.0/autocomplete.jquery.min.js" integrity="sha512-GU9ayf+66Xx2TmpxqJpliWbT5PiGYxpaG8rfnBEk1LL8l1KGkRShhngwdXK1UgqhAzWpZHSiYPc09/NwDQIGyg==" crossorigin="anonymous"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/mark.js/8.11.1/mark.min.js" integrity="sha512-5CYOlHXGh6QpOFA/TeTylKLWfB3ftPsde7AnmhuitiTX4K5SqCLBeKro6sPS8ilsz1Q4NRx3v8Ko2IBiszzdww==" crossorigin="anonymous"></script><!-- CSS --><link rel="stylesheet" href="styles.css">
 </head>
 <body data-spy="scroll" data-target="#toc">
 
@@ -141,7 +152,7 @@ We can broaden this notion to think about the generating process of each of thes
 </ul>
 <p>To better theorize about data quality issues, it’s useful to think of four DGPs (as shown in Figure <a href="data-dall.html#fig:dgp">2.1</a>): the real-world DGP, the data collection/extraction DGP<a class="footnote-ref" tabindex="0" data-toggle="popover" data-content="&lt;p&gt;I don’t mean to imply statisticians do not regularly think about the data collection DGP! The rich literature on missing data imputation, censored data in survival analysis, and non-response bias is survey data collection are just a few examples of how carefully statisticians think about how data collection impacts analysis. I chose to break it out here to discuss the more technical aspects of collection&lt;/p&gt;"><sup>4</sup></a>, the data loading DGP, and the data transformation DGP.</p>
 <div class="figure" style="text-align: center">
-<span id="fig:dgp"></span>
+<span style="display:block;" id="fig:dgp"></span>
 <img src="figures/data-dall/dgp.png" alt="A schematic of the data production process" width="90%"><p class="caption">
 FIGURE 2.1: A schematic of the data production process
 </p>
@@ -227,7 +238,7 @@ In the next section, we will see how what data gets collected (and our understan
 <p>The first priority when starting to work with a dataset is understanding what a single record (row) represents and what causes it to be generated.</p>
 <p>Consider something as simple as a login system where users must enter their credentials, endure a Captcha-like verification process to prove that they are not a robot, and enter a multi-factor authentication code. Figure <a href="data-dall.html#fig:login-log">2.2</a> depicts such a process.</p>
 <div class="figure" style="text-align: center">
-<span id="fig:login-log"></span>
+<span style="display:block;" id="fig:login-log"></span>
 <img src="figures/data-dall/login-log.png" alt="A diagram illustrating a multi-step process for a user to login to a website or app" width="90%"><p class="caption">
 FIGURE 2.2: A diagram illustrating a multi-step process for a user to login to a website or app
 </p>
@@ -252,7 +263,7 @@ The analyst would probably hope to compute and report a 50% login success rate. 
 </ul>
 <p>These different situations are further illustrated in Figure <a href="data-dall.html#fig:login-rate">2.3</a>, and their calculations are shown in Table <a href="data-dall.html#tab:login-rate-tbl">2.1</a>.</p>
 <div class="figure" style="text-align: center">
-<span id="fig:login-rate"></span>
+<span style="display:block;" id="fig:login-rate"></span>
 <img src="figures/data-dall/login-rate.png" alt="Login events recorded under different data collection paradigms" width="90%"><p class="caption">
 FIGURE 2.3: Login events recorded under different data collection paradigms
 </p>
@@ -367,7 +378,7 @@ Regardless of the method, all approaches must be carefully configured to handle 
 <p>To develop our understanding of the true data generating process and to formulate theories on how our data could be broken (and what we should validate), it is useful to understand the different ways data extraction and loading can fail.</p>
 <p>Figure <a href="data-dall.html#fig:data-load">2.4</a> illustrates a number of examples. Suppose that each row of boxes in the diagram represents one day of records in a table.</p>
 <div class="figure" style="text-align: center">
-<span id="fig:data-load"></span>
+<span style="display:block;" id="fig:data-load"></span>
 <img src="figures/data-dall/data-load.png" alt="Different modes of data loading failure" width="90%"><p class="caption">
 FIGURE 2.4: Different modes of data loading failure
 </p>
@@ -483,7 +494,7 @@ Of course, this concern could be somewhat easily allayed if they then checked a 
 <p>Consider an <code>orders</code> table for an e-commerce company that analysts may use to track customer orders.
 It might contain one record per <code>order_id</code> x <code>event</code> (placement, processing, shipment), one record per order placed, one record per order shipping, or one record per order with a <code>status</code> field that changes over time to denote the order’s current stage of life. Some of these options are illustrated in Figure <a href="data-dall.html#fig:order-log">2.5</a>.</p>
 <div class="figure" style="text-align: center">
-<span id="fig:order-log"></span>
+<span style="display:block;" id="fig:order-log"></span>
 <img src="figures/data-dall/order-log.png" alt="Illustration of alternative data collection and extraction strategies for order data" width="90%"><p class="caption">
 FIGURE 2.5: Illustration of alternative data collection and extraction strategies for order data
 </p>
@@ -494,7 +505,7 @@ Perhaps this might be operationally easier if shipment come from one source syst
 However, an interesting thing about shipments is that they are often lagged in a variable way from the order date.</p>
 <p>Suppose the e-commerce company in question offers three shipping speeds at checkout. Figure <a href="data-dall.html#fig:order-date">2.6</a> shows the range of possible shipment dates based on the order dates for the three different speeds (shown in different bars/colors).</p>
 <div class="figure" style="text-align: center">
-<span id="fig:order-date"></span>
+<span style="display:block;" id="fig:order-date"></span>
 <img src="figures/data-dall/order-date.png" alt="A conceptual chart of when different classes of real-world events might materialize as records in our dataset" width="90%"><p class="caption">
 FIGURE 2.6: A conceptual chart of when different classes of real-world events might materialize as records in our dataset
 </p>
@@ -563,12 +574,12 @@ Let’s not imagine that there are 10 orders each day, and each order is shipped
 <span class="va">df</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/data.frame.html">data.frame</a></span><span class="op">(</span><span class="va">dt_subm</span>, <span class="va">dt_ship</span>, <span class="va">dt_load</span><span class="op">)</span>
 <span class="fu"><a href="https://rdrr.io/r/utils/head.html">head</a></span><span class="op">(</span><span class="va">df</span><span class="op">)</span></code></pre></div>
 <pre><code>##   dt_subm dt_ship dt_load
-## 1       1       5       5
+## 1       1       3       3
 ## 2       1       3       3
-## 3       1       5       5
-## 4       1       5       5
+## 3       1       4       4
+## 4       1       3       3
 ## 5       1       3       3
-## 6       1       3       3</code></pre>
+## 6       1       4       4</code></pre>
 <p>When we repeat the prior analysis, we now see that we have <em>some</em> records for orders submitted on day 3 by the time we begin analysis on day 5.
 In this case, we might be more easily tricked to believe this is <em>all</em> orders.
 However, when we repeat the analysis on day 7, we see the the number of orders on day 3 has increased.</p>
@@ -628,7 +639,7 @@ Previously, in the discussion of Data Collection, we considered the presence and
 However, when preparing data for analysis, both data produces and consumers need to decide how to cope with the presence or absence of individual <em>fields</em>.</p>
 <p>If records contain some but not all relevant information, they may be published with explicitly missing fields or the full record may not be published at all. The difference between implicit and explicit missingness on the resulting data is illustrated in Figure <a href="data-dall.html#fig:null-impl-expl">2.7</a>.</p>
 <div class="figure" style="text-align: center">
-<span id="fig:null-impl-expl"></span>
+<span style="display:block;" id="fig:null-impl-expl"></span>
 <img src="figures/data-dall/missing-imp-exp.png" alt="A comparison of explicit versus implicit missingness" width="90%"><p class="caption">
 FIGURE 2.7: A comparison of explicit versus implicit missingness
 </p>
@@ -1043,7 +1054,7 @@ df %>% filter(dt_ship <= 3) %>% group_by(dt_order) %>% count()
 ##   dt_order     n
 ##      <int> <int>
 ## 1        1     3
-## 2        2     2
+## 2        2     1
 ```
 
 ```r
@@ -1057,7 +1068,7 @@ df %>% filter(dt_ship <= 5) %>% group_by(dt_order) %>% count()
 ##      <int> <int>
 ## 1        1     5
 ## 2        2     5
-## 3        3     2
+## 3        3     4
 ## 4        4     1
 ```
 
@@ -1074,7 +1085,7 @@ df %>% filter(dt_ship <= 7) %>% group_by(dt_order) %>% count()
 ## 2        2     5
 ## 3        3     5
 ## 4        4     5
-## 5        5     4
+## 5        5     3
 ```
 
 ```r
@@ -1263,6 +1274,22 @@ Ahhhh
     script.src = src;
     document.getElementsByTagName("head")[0].appendChild(script);
   })();
+</script><script type="text/x-mathjax-config">const popovers = document.querySelectorAll('a.footnote-ref[data-toggle="popover"]');
+for (let popover of popovers) {
+  const div = document.createElement('div');
+  div.setAttribute('style', 'position: absolute; top: 0, left:0; width:0, height:0, overflow: hidden; visibility: hidden;');
+  div.innerHTML = popover.getAttribute('data-content');
+
+  var has_math = div.querySelector("span.math");
+  if (has_math) {
+    document.body.appendChild(div);
+    MathJax.Hub.Queue(["Typeset", MathJax.Hub, div]);
+    MathJax.Hub.Queue(function() {
+      popover.setAttribute('data-content', div.innerHTML);
+      document.body.removeChild(div);
+    })
+  }
+}
 </script>
 </body>
 </html>
