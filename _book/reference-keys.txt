@@ -7,8 +7,8 @@ fig:order-log
 fig:order-date
 fig:null-impl-expl
 fig:filt-aggr-tran
-fig:unnamed-chunk-77
-fig:unnamed-chunk-81
+fig:unnamed-chunk-78
+fig:unnamed-chunk-82
 tab:datasaurus-tbl
 fig:datasaurus-plot
 fig:multivar-avg
@@ -51,6 +51,7 @@ data-transformation
 pre-aggregation
 field-encoding
 updating-transformations
+more-on-missing-data-todo
 other-types-of-data-todo
 survey-data
 human-generated
@@ -77,7 +78,7 @@ filtering
 joining
 transformation
 strings-wip
-dirty-strings
+dirty-strings-todo
 regular-expressions-todo
 comparison-1
 string-ordering
@@ -105,9 +106,12 @@ averages
 averaging-skewed-data
 no-average-observation
 the-product-of-averages
+average-over-what-todo
 ratios
 picking-the-right-denominator
 sample-size-effects
+misc---deciding-where-this-goes-todo
+unobservable-censored-data
 trends
 if-trends-continue
 seasonality
@@ -115,7 +119,11 @@ strategies-todo-1
 real-world-disasters-todo
 vex-viz
 incr-infe
+common-biases
+policy-induced-relationships
 feature-leakage
+diligent-data-dredging
+regression-to-the-mean
 cava-caus
 mind-mod
 features
@@ -147,6 +155,14 @@ density-based
 mixture-models
 futi-find
 comp-code
+making-code-unreadable
+naming
+whitespace
+making-a-monolith
+making-code-inflexible-variables
+making-useful-code-chunks-hard-to-reuse-functions
+project-organization
+decoding
 reje-repr
 useful-data-generation-functions-todo
 common-probability-distributions-todo

@@ -81,9 +81,9 @@ However, the underlying distributions of our variables and the relationships bet
 </h2>
 <p>Anscombe’s Quartet</p>
 <p>The datasaurus dozen <span class="citation">(<a href="references.html#ref-datasaurus" role="doc-biblioref">Matejka and Fitzmaurice 2017</a>)</span> and the <code>datasauRus</code> R package <span class="citation">(<a href="references.html#ref-R-datasauRus" role="doc-biblioref">Locke and D’Agostino McGowan 2018</a>)</span></p>
-<div class="sourceCode" id="cb97"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb107"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://github.com/lockedata/datasauRus">datasauRus</a></span><span class="op">)</span></code></pre></div>
-<div class="sourceCode" id="cb98"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb108"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="va">df</span> <span class="op">&lt;-</span> <span class="fu">datasauRus</span><span class="fu">::</span><span class="va"><a href="https://itsalocke.com/datasauRus/reference/datasaurus_dozen.html">datasaurus_dozen</a></span>
 <span class="fu"><a href="https://rdrr.io/r/utils/head.html">head</a></span><span class="op">(</span><span class="va">df</span><span class="op">)</span></code></pre></div>
 <pre><code>## # A tibble: 6 x 3
@@ -248,7 +248,7 @@ We might be interested in profiling the age of each account (how long they have 
 (Don’t over-think the specific probability distributions lived here.
 We are concerned with interrogating the properties of the average and not with simulating a realistic data generating process.
 Giving ourselves permission to be wrong or “lazy” about unimportant things gives us more energy to focus on what matters.)</p>
-<div class="sourceCode" id="cb100"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb110"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="fu"><a href="https://rdrr.io/r/base/Random.html">set.seed</a></span><span class="op">(</span><span class="fl">123</span><span class="op">)</span>
 
 <span class="co"># define simulation parameters ----</span>
@@ -290,7 +290,7 @@ Low-price orders may have a 10% probability of being returned while high price o
 (Again, are these numbers, distributions, or relationships hyper-realistic?
 Not at all.
 However, once again we are telling ourselves a story just to reason about numerical properties, so we have to give ourselves permission to not focus on irrelevant details.)</p>
-<div class="sourceCode" id="cb101"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb111"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="fu"><a href="https://rdrr.io/r/base/Random.html">set.seed</a></span><span class="op">(</span><span class="fl">123</span><span class="op">)</span>
 
 <span class="co"># define simulation parameters ----</span>
@@ -319,7 +319,7 @@ However, if instead we already knew an average spend amount and an average retur
 <p><span class="math display">\[ \frac{\sum_{1}^{n} Spend * I(Return)}{\sum_{1}^{n} 1} \]</span></p>
 <p>If this still feels counterintuitive, we can see how much of the difference is accounted for by the interrelation between our two variables.
 In the following code, we break the relationship between the variables by randomly reordering the <code>ind_return</code> variable so it is no longer has any true relationship to the corresponding <code>amt_spend</code> variable.</p>
-<div class="sourceCode" id="cb102"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb112"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="co"># randomly reorder one of two variables to break relationships ----</span>
 <span class="va">ind_return</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/sample.html">sample</a></span><span class="op">(</span><span class="va">ind_return</span>, size <span class="op">=</span> <span class="fl">200</span><span class="op">)</span>
 
@@ -330,6 +330,15 @@ In the following code, we break the relationship between the variables by random
 <code>average_of_product</code> is now 24.1041 and <code>product_of_average</code> is now 26.9923.
 These are notably still not the same number so that does not mean that these two equations are equivalent if variables are unrelated;
 however, this second result once again illustrates the extent to which interrelations can defy our naive intuitions.</p>
+</div>
+<div id="average-over-what-todo" class="section level3" number="4.2.4">
+<h3>
+<span class="header-section-number">4.2.4</span> Average over what? (TODO)<a class="anchor" aria-label="anchor" href="#average-over-what-todo"><i class="fas fa-link"></i></a>
+</h3>
+<p>no such thing as an unweighted average (just sometimes weights are equal)</p>
+<p>formal definition of expected value forces you to pick a probability distribution</p>
+<p>eg avg mpg by time vs by mileage?</p>
+<p>not strictly an error but our language allows an ill-defined problem</p>
 </div>
 </div>
 <div id="ratios" class="section level2" number="4.3">
@@ -347,29 +356,59 @@ however, this second result once again illustrates the extent to which interrela
 </h3>
 </div>
 </div>
-<div id="trends" class="section level2" number="4.4">
+<div id="misc---deciding-where-this-goes-todo" class="section level2" number="4.4">
 <h2>
-<span class="header-section-number">4.4</span> Trends<a class="anchor" aria-label="anchor" href="#trends"><i class="fas fa-link"></i></a>
+<span class="header-section-number">4.4</span> Misc - Deciding where this goes (TODO)<a class="anchor" aria-label="anchor" href="#misc---deciding-where-this-goes-todo"><i class="fas fa-link"></i></a>
 </h2>
-<div id="if-trends-continue" class="section level3" number="4.4.1">
+<div id="unobservable-censored-data" class="section level3" number="4.4.1">
 <h3>
-<span class="header-section-number">4.4.1</span> “If trends continue…”<a class="anchor" aria-label="anchor" href="#if-trends-continue"><i class="fas fa-link"></i></a>
+<span class="header-section-number">4.4.1</span> Unobservable (censored) data<a class="anchor" aria-label="anchor" href="#unobservable-censored-data"><i class="fas fa-link"></i></a>
+</h3>
+<p>time-to-event</p>
+<div class="sourceCode" id="cb113"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="va">n</span> <span class="op">&lt;-</span> <span class="fl">1000</span>
+<span class="va">times</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/stats/Uniform.html">runif</a></span><span class="op">(</span><span class="va">n</span>, <span class="fl">1</span>, <span class="fl">5</span><span class="op">)</span>
+<span class="fu"><a href="https://rdrr.io/r/base/mean.html">mean</a></span><span class="op">(</span><span class="va">times</span><span class="op">)</span></code></pre></div>
+<pre><code>## [1] 3.013</code></pre>
+<p>but we only observe it at a given point in time</p>
+<div class="sourceCode" id="cb115"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="va">current_time</span> <span class="op">&lt;-</span> <span class="fl">2</span></code></pre></div>
+<p>so what can we do?</p>
+<div class="sourceCode" id="cb116"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="co"># only use observable values? </span>
+<span class="fu"><a href="https://rdrr.io/r/base/mean.html">mean</a></span><span class="op">(</span><span class="va">times</span><span class="op">[</span><span class="va">times</span> <span class="op">&lt;</span> <span class="va">current_time</span><span class="op">]</span><span class="op">)</span></code></pre></div>
+<pre><code>## [1] 1.487</code></pre>
+<div class="sourceCode" id="cb118"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="co"># use current time for </span>
+<span class="fu"><a href="https://rdrr.io/r/base/mean.html">mean</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/Extremes.html">pmax</a></span><span class="op">(</span><span class="va">times</span>, <span class="va">current_time</span><span class="op">)</span><span class="op">)</span></code></pre></div>
+<pre><code>## [1] 3.137</code></pre>
+<p>bias</p>
+<p>example of <strong>censored data</strong></p>
+</div>
+</div>
+<div id="trends" class="section level2" number="4.5">
+<h2>
+<span class="header-section-number">4.5</span> Trends<a class="anchor" aria-label="anchor" href="#trends"><i class="fas fa-link"></i></a>
+</h2>
+<div id="if-trends-continue" class="section level3" number="4.5.1">
+<h3>
+<span class="header-section-number">4.5.1</span> “If trends continue…”<a class="anchor" aria-label="anchor" href="#if-trends-continue"><i class="fas fa-link"></i></a>
 </h3>
 </div>
-<div id="seasonality" class="section level3" number="4.4.2">
+<div id="seasonality" class="section level3" number="4.5.2">
 <h3>
-<span class="header-section-number">4.4.2</span> Seasonality<a class="anchor" aria-label="anchor" href="#seasonality"><i class="fas fa-link"></i></a>
+<span class="header-section-number">4.5.2</span> Seasonality<a class="anchor" aria-label="anchor" href="#seasonality"><i class="fas fa-link"></i></a>
 </h3>
 </div>
 </div>
-<div id="strategies-todo-1" class="section level2" number="4.5">
+<div id="strategies-todo-1" class="section level2" number="4.6">
 <h2>
-<span class="header-section-number">4.5</span> Strategies (TODO)<a class="anchor" aria-label="anchor" href="#strategies-todo-1"><i class="fas fa-link"></i></a>
+<span class="header-section-number">4.6</span> Strategies (TODO)<a class="anchor" aria-label="anchor" href="#strategies-todo-1"><i class="fas fa-link"></i></a>
 </h2>
 </div>
-<div id="real-world-disasters-todo" class="section level2" number="4.6">
+<div id="real-world-disasters-todo" class="section level2" number="4.7">
 <h2>
-<span class="header-section-number">4.6</span> Real World Disasters (TODO)<a class="anchor" aria-label="anchor" href="#real-world-disasters-todo"><i class="fas fa-link"></i></a>
+<span class="header-section-number">4.7</span> Real World Disasters (TODO)<a class="anchor" aria-label="anchor" href="#real-world-disasters-todo"><i class="fas fa-link"></i></a>
 </h2>
 <p>Straight vs weighted averages in COVID positivity rates <span class="citation">(<a href="references.html#ref-indy_rates" role="doc-biblioref">May 2020</a>)</span></p>
 <blockquote>
@@ -381,28 +420,32 @@ however, this second result once again illustrates the extent to which interrela
 <blockquote>
 <p>“The change to the methodology is how we calculate the seven-day positivity rate for counties. In the past, similar to many states, we’ve added each day’s positivity rate for seven days and divided by seven to obtain the week’s positivity rate. Now we will add all of the positive tests for the week and divide by the total tests done that week to determine the week’s positivity rate. This will help to minimize the effect that a high variability in the number of tests done each day can have on the week’s overall positivity, especially for our smaller counties.”</p>
 </blockquote>
-<div class="sourceCode" id="cb103"><pre class="downlit sourceCode r">
+<p>three issues here</p>
+<p>first straight versus weighted averages</p>
+<div class="sourceCode" id="cb120"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="va">avg_of_ratios</span> <span class="op">&lt;-</span> <span class="op">(</span><span class="fl">10</span><span class="op">/</span><span class="fl">100</span> <span class="op">+</span> <span class="fl">90</span><span class="op">/</span><span class="fl">100</span><span class="op">)</span> <span class="op">/</span> <span class="fl">2</span>
 
 <span class="va">ratio_of_sums</span> <span class="op">&lt;-</span> <span class="op">(</span><span class="fl">10</span> <span class="op">+</span> <span class="fl">90</span><span class="op">)</span> <span class="op">/</span> <span class="op">(</span><span class="fl">100</span> <span class="op">+</span> <span class="fl">100</span><span class="op">)</span>
 
-<span class="va">avg_of_ratios</span> <span class="op">==</span> <span class="va">ratio_of_sums</span></code></pre></div>
-<pre><code>## [1] TRUE</code></pre>
-<div class="sourceCode" id="cb105"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="va">avg_of_ratios_uneq</span> <span class="op">&lt;-</span> <span class="op">(</span><span class="fl">10</span><span class="op">/</span><span class="fl">100</span> <span class="op">+</span> <span class="fl">180</span> <span class="op">/</span> <span class="fl">200</span><span class="op">)</span> <span class="op">/</span> <span class="fl">2</span>
+<span class="va">avg_of_ratios</span> <span class="op">==</span> <span class="va">ratio_of_sums</span>
+
+<span class="va">avg_of_ratios_uneq</span> <span class="op">&lt;-</span> <span class="op">(</span><span class="fl">10</span><span class="op">/</span><span class="fl">100</span> <span class="op">+</span> <span class="fl">180</span> <span class="op">/</span> <span class="fl">200</span><span class="op">)</span> <span class="op">/</span> <span class="fl">2</span>
 
 <span class="va">ratio_of_sums_uneq</span> <span class="op">&lt;-</span> <span class="op">(</span><span class="fl">10</span> <span class="op">+</span> <span class="fl">180</span><span class="op">)</span> <span class="op">/</span> <span class="op">(</span><span class="fl">100</span> <span class="op">+</span> <span class="fl">200</span><span class="op">)</span>
 
-<span class="va">avg_of_ratios_uneq</span> <span class="op">==</span> <span class="va">ratio_of_sums_uneq</span></code></pre></div>
-<pre><code>## [1] FALSE</code></pre>
-<div class="sourceCode" id="cb107"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="va">weightavg_of_ratios_uneq</span> <span class="op">&lt;-</span> <span class="op">(</span><span class="fl">100</span><span class="op">/</span><span class="fl">300</span><span class="op">)</span><span class="op">*</span><span class="op">(</span><span class="fl">10</span><span class="op">/</span><span class="fl">100</span><span class="op">)</span> <span class="op">+</span> <span class="op">(</span><span class="fl">200</span><span class="op">/</span><span class="fl">300</span><span class="op">)</span><span class="op">*</span><span class="op">(</span><span class="fl">180</span><span class="op">/</span><span class="fl">200</span><span class="op">)</span>
+<span class="va">avg_of_ratios_uneq</span> <span class="op">==</span> <span class="va">ratio_of_sums_uneq</span>
+
+<span class="va">weightavg_of_ratios_uneq</span> <span class="op">&lt;-</span> <span class="op">(</span><span class="fl">100</span><span class="op">/</span><span class="fl">300</span><span class="op">)</span><span class="op">*</span><span class="op">(</span><span class="fl">10</span><span class="op">/</span><span class="fl">100</span><span class="op">)</span> <span class="op">+</span> <span class="op">(</span><span class="fl">200</span><span class="op">/</span><span class="fl">300</span><span class="op">)</span><span class="op">*</span><span class="op">(</span><span class="fl">180</span><span class="op">/</span><span class="fl">200</span><span class="op">)</span>
 
 <span class="va">ratio_of_sums_uneq</span> <span class="op">==</span> <span class="va">weightavg_of_ratios_uneq</span></code></pre></div>
-<pre><code>## [1] TRUE</code></pre>
+<pre><code>## [1] TRUE
+## [1] FALSE
+## [1] TRUE</code></pre>
+<p>then back to the data for why it matters.</p>
+<p>if data is from same distribution, this could increase variance but shouldn’t effect mean</p>
 <p>Recall that the standard deviation of sample proportion is <span class="math inline">\(\sqrt(p*(1-p)/n)\)</span></p>
 <p>link to discussions of sample size and different types of averages</p>
-<div class="sourceCode" id="cb109"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb122"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="fu"><a href="https://rdrr.io/r/base/Random.html">set.seed</a></span><span class="op">(</span><span class="fl">123</span><span class="op">)</span>
 
 <span class="co"># define simulation parameters ----</span>
@@ -421,7 +464,7 @@ however, this second result once again illustrates the extent to which interrela
   s <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/rep.html">rep</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="fl">10</span>, <span class="fl">100</span>, <span class="fl">500</span><span class="op">)</span>, each <span class="op">=</span> <span class="va">n</span><span class="op">)</span>,
   x <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="va">s010</span>, <span class="va">s100</span>, <span class="va">s500</span><span class="op">)</span>
 <span class="op">)</span></code></pre></div>
-<div class="sourceCode" id="cb110"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb123"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="http://ggplot2.tidyverse.org">ggplot2</a></span><span class="op">)</span>
 
 <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/ggplot.html">ggplot</a></span><span class="op">(</span>data <span class="op">=</span> <span class="va">df</span><span class="op">)</span> <span class="op">+</span>
@@ -437,7 +480,8 @@ however, this second result once again illustrates the extent to which interrela
     plot.title <span class="op">=</span> <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/element.html">element_text</a></span><span class="op">(</span>hjust <span class="op">=</span> <span class="fl">0.5</span><span class="op">)</span>,
     legend.position <span class="op">=</span> <span class="st">"bottom"</span>
   <span class="op">)</span></code></pre></div>
-<div class="inline-figure"><img src="bookdown_files/figure-html/unnamed-chunk-126-1.png" width="672"></div>
+<div class="inline-figure"><img src="bookdown_files/figure-html/unnamed-chunk-130-1.png" width="672"></div>
+<p>but low sample days based on real world are probably also a sign of a different distribution (only very urgent cases get tested?)</p>
 <!--
 
 ## Trends
@@ -667,6 +711,7 @@ Problem with Metrics - https://arxiv.org/abs/2002.08512
 <li><a class="nav-link" href="#averaging-skewed-data"><span class="header-section-number">4.2.1</span> Averaging skewed data</a></li>
 <li><a class="nav-link" href="#no-average-observation"><span class="header-section-number">4.2.2</span> No “average” observation</a></li>
 <li><a class="nav-link" href="#the-product-of-averages"><span class="header-section-number">4.2.3</span> The product of averages</a></li>
+<li><a class="nav-link" href="#average-over-what-todo"><span class="header-section-number">4.2.4</span> Average over what? (TODO)</a></li>
 </ul>
 </li>
 <li>
@@ -676,13 +721,16 @@ Problem with Metrics - https://arxiv.org/abs/2002.08512
 </ul>
 </li>
 <li>
-<a class="nav-link" href="#trends"><span class="header-section-number">4.4</span> Trends</a><ul class="nav navbar-nav">
-<li><a class="nav-link" href="#if-trends-continue"><span class="header-section-number">4.4.1</span> “If trends continue…”</a></li>
-<li><a class="nav-link" href="#seasonality"><span class="header-section-number">4.4.2</span> Seasonality</a></li>
+<a class="nav-link" href="#misc---deciding-where-this-goes-todo"><span class="header-section-number">4.4</span> Misc - Deciding where this goes (TODO)</a><ul class="nav navbar-nav"><li><a class="nav-link" href="#unobservable-censored-data"><span class="header-section-number">4.4.1</span> Unobservable (censored) data</a></li></ul>
+</li>
+<li>
+<a class="nav-link" href="#trends"><span class="header-section-number">4.5</span> Trends</a><ul class="nav navbar-nav">
+<li><a class="nav-link" href="#if-trends-continue"><span class="header-section-number">4.5.1</span> “If trends continue…”</a></li>
+<li><a class="nav-link" href="#seasonality"><span class="header-section-number">4.5.2</span> Seasonality</a></li>
 </ul>
 </li>
-<li><a class="nav-link" href="#strategies-todo-1"><span class="header-section-number">4.5</span> Strategies (TODO)</a></li>
-<li><a class="nav-link" href="#real-world-disasters-todo"><span class="header-section-number">4.6</span> Real World Disasters (TODO)</a></li>
+<li><a class="nav-link" href="#strategies-todo-1"><span class="header-section-number">4.6</span> Strategies (TODO)</a></li>
+<li><a class="nav-link" href="#real-world-disasters-todo"><span class="header-section-number">4.7</span> Real World Disasters (TODO)</a></li>
 </ul>
 
       <div class="book-extra">
@@ -700,7 +748,7 @@ Problem with Metrics - https://arxiv.org/abs/2002.08512
 <footer class="bg-primary text-light mt-5"><div class="container"><div class="row">
 
   <div class="col-12 col-md-6 mt-3">
-    <p>"<strong>Data Disasters</strong>" was written by Emily Riederer. It was last built on 2021-08-03.</p>
+    <p>"<strong>Data Disasters</strong>" was written by Emily Riederer. It was last built on 2021-08-06.</p>
   </div>
 
   <div class="col-12 col-md-6 mt-3">

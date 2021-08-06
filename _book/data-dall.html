@@ -77,7 +77,7 @@ Discussions of regression analysis often begin with a statement like:</p>
 <p>but in practice this statement is as absurd as writing a book about how to win a basketball game, assuming your team already has a 20 point lead with 1 minute left to play.</p>
 <p>It’s very convenient but typically incorrect to assume that the data we happen to have is the ideal (or, more humbly, sufficient) data for the questions we wish to analyze.
 The specific vagaries of data vary greatly by domain, but a commonality across many fields (such as political science, economics, epidemiology, and market research) is that we are often called to work with <em>found data</em> (or, more formally, “observational data”) from administrative sources or production systems.
-In contrast to artisanally crafted data experimental data (like the carefully controlled agricultural experiments which motivated many early methods developments in statistics), this data was generated neither by us not for us.
+In contrast to artisanally crafted data experimental data (like the carefully controlled agricultural experiments which motivated many early methods developments in statistics), this data was generated neither by us nor for us.
 To quote Angela Bassa, the head of data science at an e-commerce company: “Data isn’t ground truth. Data are artifacts of systems” <span class="citation">(<a href="references.html#ref-bassa_2017" role="doc-biblioref">Bassa 2017</a>)</span>.</p>
 <p>The analytical implications of observational versus experimental data are well explored in the field of causal inference (which we will discuss some in Chapters <a href="incr-infe.html#incr-infe">6</a> and <a href="cava-caus.html#cava-caus">7</a>).
 However, this distinction has implications far earlier in the data analysis process, as well.
@@ -296,7 +296,7 @@ FIGURE 2.3: Login events recorded under different data collection paradigms
 </tbody>
 </table></div>
 <p>(Note that we did not explicitly “simulate” data here, but the workflow is largely the same. We imagine a real-world process, how that might translate into a digital representation, and created a numerical example to understand the implications. Not all simulations require fancy code; sometimes paper and a pencil or a thought experiment works just fine.)</p>
-<p>While humans have a shared intuition of what concepts like a user, session, or login are, the act of collecting data forces us to map that intuition onto an atomic event .
+<p>While humans have a shared intuition of what concepts like a user, session, or login are, the act of collecting data forces us to map that intuition onto an atomic event.
 Any misunderstanding in precisely what that definition is can have massive impact on the perceived data quality; “per event” data will appear heavily duplicated if it is assumed to be “per session” data.</p>
 <p>In some cases, this could be obvious to detect.
 If the system outputs fields that are incredibly specific (e.g. with some hyperbole, imagine a <code>step_in_the_login_process</code> field with values taking any of the human-readable descriptions of the fifteen processes listed in the image above), but depending how this source is organized (e.g. in contrast to above, if we only have fields like <code>sourceid</code> and <code>processid</code> with unintuitive alphanumeric encoded values) and defined, it could be nearly impossible to understand the nuances without uncovering quality metadata or talking to a data producer.</p>
@@ -338,7 +338,7 @@ You might find a table of orders with a field called <code>amt_spend</code>. But
 <li>Someone, somewhere, at some point might have assigned <code>amt_spend</code> to the name of the variable containing gross spend (before accounting for any discounts) and there might be a different variable <code>amt_spend_net</code> which accounts for discounts applied</li>
 </ul>
 <p>It’s critical to understand what each variable <em>actually</em> means.
-The upside of this is that it forces analysts to more crisply think about their research questions and what the <em>ideal</em> variables for their analysis would be.
+The upside of this is that it forces analysts to think more crisply about their research questions and what the <em>ideal</em> variables for their analysis would be.
 As we’ve seen, concepts like “spend” may seem deceptively simple, but are not unambiguous.</p>
 </div>
 </div>
@@ -563,11 +563,11 @@ Let’s not imagine that there are 10 orders each day, and each order is shipped
 <span class="va">df</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/data.frame.html">data.frame</a></span><span class="op">(</span><span class="va">dt_subm</span>, <span class="va">dt_ship</span>, <span class="va">dt_load</span><span class="op">)</span>
 <span class="fu"><a href="https://rdrr.io/r/utils/head.html">head</a></span><span class="op">(</span><span class="va">df</span><span class="op">)</span></code></pre></div>
 <pre><code>##   dt_subm dt_ship dt_load
-## 1       1       4       4
+## 1       1       5       5
 ## 2       1       3       3
-## 3       1       3       3
-## 4       1       4       4
-## 5       1       4       4
+## 3       1       5       5
+## 4       1       5       5
+## 5       1       3       3
 ## 6       1       3       3</code></pre>
 <p>When we repeat the prior analysis, we now see that we have <em>some</em> records for orders submitted on day 3 by the time we begin analysis on day 5.
 In this case, we might be more easily tricked to believe this is <em>all</em> orders.
@@ -712,28 +712,34 @@ So, understanding how upstream systems <em>should</em> work is essential for ass
 </div>
 </div>
 </div>
-<div id="other-types-of-data-todo" class="section level2" number="2.5">
+<div id="more-on-missing-data-todo" class="section level2" number="2.5">
 <h2>
-<span class="header-section-number">2.5</span> Other Types of Data (TODO)<a class="anchor" aria-label="anchor" href="#other-types-of-data-todo"><i class="fas fa-link"></i></a>
+<span class="header-section-number">2.5</span> More on Missing Data (TODO)<a class="anchor" aria-label="anchor" href="#more-on-missing-data-todo"><i class="fas fa-link"></i></a>
 </h2>
-<div id="survey-data" class="section level3" number="2.5.1">
+<p>MCAR / MAR / MNAR</p>
+</div>
+<div id="other-types-of-data-todo" class="section level2" number="2.6">
+<h2>
+<span class="header-section-number">2.6</span> Other Types of Data (TODO)<a class="anchor" aria-label="anchor" href="#other-types-of-data-todo"><i class="fas fa-link"></i></a>
+</h2>
+<div id="survey-data" class="section level3" number="2.6.1">
 <h3>
-<span class="header-section-number">2.5.1</span> Survey Data<a class="anchor" aria-label="anchor" href="#survey-data"><i class="fas fa-link"></i></a>
+<span class="header-section-number">2.6.1</span> Survey Data<a class="anchor" aria-label="anchor" href="#survey-data"><i class="fas fa-link"></i></a>
 </h3>
 </div>
-<div id="human-generated" class="section level3" number="2.5.2">
+<div id="human-generated" class="section level3" number="2.6.2">
 <h3>
-<span class="header-section-number">2.5.2</span> Human-Generated<a class="anchor" aria-label="anchor" href="#human-generated"><i class="fas fa-link"></i></a>
+<span class="header-section-number">2.6.2</span> Human-Generated<a class="anchor" aria-label="anchor" href="#human-generated"><i class="fas fa-link"></i></a>
 </h3>
 </div>
 </div>
-<div id="strategies-todo" class="section level2" number="2.6">
+<div id="strategies-todo" class="section level2" number="2.7">
 <h2>
-<span class="header-section-number">2.6</span> Strategies (TODO)<a class="anchor" aria-label="anchor" href="#strategies-todo"><i class="fas fa-link"></i></a>
+<span class="header-section-number">2.7</span> Strategies (TODO)<a class="anchor" aria-label="anchor" href="#strategies-todo"><i class="fas fa-link"></i></a>
 </h2>
-<div id="understand-the-intent" class="section level3" number="2.6.1">
+<div id="understand-the-intent" class="section level3" number="2.7.1">
 <h3>
-<span class="header-section-number">2.6.1</span> Understand the intent<a class="anchor" aria-label="anchor" href="#understand-the-intent"><i class="fas fa-link"></i></a>
+<span class="header-section-number">2.7.1</span> Understand the intent<a class="anchor" aria-label="anchor" href="#understand-the-intent"><i class="fas fa-link"></i></a>
 </h3>
 <ul>
 <li>Why was data originally collected? By whom and for what purpose?</li>
@@ -741,9 +747,9 @@ So, understanding how upstream systems <em>should</em> work is essential for ass
 <li>Documentation (metadata, dictionaries)</li>
 </ul>
 </div>
-<div id="understand-the-execution" class="section level3" number="2.6.2">
+<div id="understand-the-execution" class="section level3" number="2.7.2">
 <h3>
-<span class="header-section-number">2.6.2</span> Understand the execution<a class="anchor" aria-label="anchor" href="#understand-the-execution"><i class="fas fa-link"></i></a>
+<span class="header-section-number">2.7.2</span> Understand the execution<a class="anchor" aria-label="anchor" href="#understand-the-execution"><i class="fas fa-link"></i></a>
 </h3>
 <ul>
 <li>learn about the real-world systems</li>
@@ -751,17 +757,17 @@ So, understanding how upstream systems <em>should</em> work is essential for ass
 <li>documentation (lineage, provenance)</li>
 </ul>
 </div>
-<div id="seek-expertise" class="section level3" number="2.6.3">
+<div id="seek-expertise" class="section level3" number="2.7.3">
 <h3>
-<span class="header-section-number">2.6.3</span> Seek expertise<a class="anchor" aria-label="anchor" href="#seek-expertise"><i class="fas fa-link"></i></a>
+<span class="header-section-number">2.7.3</span> Seek expertise<a class="anchor" aria-label="anchor" href="#seek-expertise"><i class="fas fa-link"></i></a>
 </h3>
 <ul>
 <li>talking to experts (upstream and downstream)</li>
 </ul>
 </div>
-<div id="trust-but-verify" class="section level3" number="2.6.4">
+<div id="trust-but-verify" class="section level3" number="2.7.4">
 <h3>
-<span class="header-section-number">2.6.4</span> Trust but verify<a class="anchor" aria-label="anchor" href="#trust-but-verify"><i class="fas fa-link"></i></a>
+<span class="header-section-number">2.7.4</span> Trust but verify<a class="anchor" aria-label="anchor" href="#trust-but-verify"><i class="fas fa-link"></i></a>
 </h3>
 <ul>
 <li>always on data validation
@@ -774,13 +780,13 @@ So, understanding how upstream systems <em>should</em> work is essential for ass
 </ul>
 </div>
 </div>
-<div id="real-world-disasters" class="section level2" number="2.7">
+<div id="real-world-disasters" class="section level2" number="2.8">
 <h2>
-<span class="header-section-number">2.7</span> Real World Disasters<a class="anchor" aria-label="anchor" href="#real-world-disasters"><i class="fas fa-link"></i></a>
+<span class="header-section-number">2.8</span> Real World Disasters<a class="anchor" aria-label="anchor" href="#real-world-disasters"><i class="fas fa-link"></i></a>
 </h2>
-<div id="data-loading-artificially-spikes-covid-cases" class="section level3" number="2.7.1">
+<div id="data-loading-artificially-spikes-covid-cases" class="section level3" number="2.8.1">
 <h3>
-<span class="header-section-number">2.7.1</span> Data loading artificially spikes COVID cases<a class="anchor" aria-label="anchor" href="#data-loading-artificially-spikes-covid-cases"><i class="fas fa-link"></i></a>
+<span class="header-section-number">2.8.1</span> Data loading artificially spikes COVID cases<a class="anchor" aria-label="anchor" href="#data-loading-artificially-spikes-covid-cases"><i class="fas fa-link"></i></a>
 </h3>
 <p>Data loading, particularly when a new process is introduced can go astray and lead to spurious results.
 The city of El Paso discovered this after reporting an exceedingly high number of daily COVID cases <span class="citation">(<a href="references.html#ref-borunda_2020" role="doc-biblioref">Borunda 2020</a>)</span>:</p>
@@ -798,10 +804,15 @@ The article goes on to suggest that the extremely high case numbers were not imm
 <blockquote>
 <p>“The numbers are still high and they are still alarming but they were not as high as we reported,” Mora said.</p>
 </blockquote>
+<p>Similar data artifacts also arose from a variety of other factors besides system changes. For example, delays in 9-to-5 office paperwork (the real-world events triggering the creation of some key data elements) over the holidays led to more artificial trends in data reporting around the end-of-year holidays:</p>
+<blockquote>
+<p>While 238 deaths is the most reported in Illinois since the start of the pandemic, the IDPH noted in its release that some data was, “delayed from the weekends, including this past holiday weekend.”</p>
+</blockquote>
+<p>- <a href="https://wgntv.com/news/coronavirus/illinois-sees-biggest-spike-in-reported-covid-19-deaths-to-date-after-officials-say-holidays-delayed-some-data/">Illinois sees biggest spike in reported COVID-19 deaths to date after holidays delay some data, officials say</a>, WGN9 (TODO CITATION)</p>
 </div>
-<div id="data-encoding-leads-to-incorrect-bmi-calculation" class="section level3" number="2.7.2">
+<div id="data-encoding-leads-to-incorrect-bmi-calculation" class="section level3" number="2.8.2">
 <h3>
-<span class="header-section-number">2.7.2</span> Data encoding leads to incorrect BMI calculation<a class="anchor" aria-label="anchor" href="#data-encoding-leads-to-incorrect-bmi-calculation"><i class="fas fa-link"></i></a>
+<span class="header-section-number">2.8.2</span> Data encoding leads to incorrect BMI calculation<a class="anchor" aria-label="anchor" href="#data-encoding-leads-to-incorrect-bmi-calculation"><i class="fas fa-link"></i></a>
 </h3>
 <p>Data that is encoded inconsistently may be mishandled in automated decision processes.
 For example, data manually entered into electronic health records (EHR) by countless care provides might be compiled into a single source although the meanings could be inconsistent.</p>
@@ -1046,8 +1057,8 @@ df %>% filter(dt_ship <= 5) %>% group_by(dt_order) %>% count()
 ##      <int> <int>
 ## 1        1     5
 ## 2        2     5
-## 3        3     3
-## 4        4     2
+## 3        3     2
+## 4        4     1
 ```
 
 ```r
@@ -1063,7 +1074,7 @@ df %>% filter(dt_ship <= 7) %>% group_by(dt_order) %>% count()
 ## 2        2     5
 ## 3        3     5
 ## 4        4     5
-## 5        5     3
+## 5        5     4
 ```
 
 ```r
@@ -1194,24 +1205,25 @@ Ahhhh
 <li><a class="nav-link" href="#data-transformation"><span class="header-section-number">2.4.2</span> Data Transformation</a></li>
 </ul>
 </li>
+<li><a class="nav-link" href="#more-on-missing-data-todo"><span class="header-section-number">2.5</span> More on Missing Data (TODO)</a></li>
 <li>
-<a class="nav-link" href="#other-types-of-data-todo"><span class="header-section-number">2.5</span> Other Types of Data (TODO)</a><ul class="nav navbar-nav">
-<li><a class="nav-link" href="#survey-data"><span class="header-section-number">2.5.1</span> Survey Data</a></li>
-<li><a class="nav-link" href="#human-generated"><span class="header-section-number">2.5.2</span> Human-Generated</a></li>
+<a class="nav-link" href="#other-types-of-data-todo"><span class="header-section-number">2.6</span> Other Types of Data (TODO)</a><ul class="nav navbar-nav">
+<li><a class="nav-link" href="#survey-data"><span class="header-section-number">2.6.1</span> Survey Data</a></li>
+<li><a class="nav-link" href="#human-generated"><span class="header-section-number">2.6.2</span> Human-Generated</a></li>
 </ul>
 </li>
 <li>
-<a class="nav-link" href="#strategies-todo"><span class="header-section-number">2.6</span> Strategies (TODO)</a><ul class="nav navbar-nav">
-<li><a class="nav-link" href="#understand-the-intent"><span class="header-section-number">2.6.1</span> Understand the intent</a></li>
-<li><a class="nav-link" href="#understand-the-execution"><span class="header-section-number">2.6.2</span> Understand the execution</a></li>
-<li><a class="nav-link" href="#seek-expertise"><span class="header-section-number">2.6.3</span> Seek expertise</a></li>
-<li><a class="nav-link" href="#trust-but-verify"><span class="header-section-number">2.6.4</span> Trust but verify</a></li>
+<a class="nav-link" href="#strategies-todo"><span class="header-section-number">2.7</span> Strategies (TODO)</a><ul class="nav navbar-nav">
+<li><a class="nav-link" href="#understand-the-intent"><span class="header-section-number">2.7.1</span> Understand the intent</a></li>
+<li><a class="nav-link" href="#understand-the-execution"><span class="header-section-number">2.7.2</span> Understand the execution</a></li>
+<li><a class="nav-link" href="#seek-expertise"><span class="header-section-number">2.7.3</span> Seek expertise</a></li>
+<li><a class="nav-link" href="#trust-but-verify"><span class="header-section-number">2.7.4</span> Trust but verify</a></li>
 </ul>
 </li>
 <li>
-<a class="nav-link" href="#real-world-disasters"><span class="header-section-number">2.7</span> Real World Disasters</a><ul class="nav navbar-nav">
-<li><a class="nav-link" href="#data-loading-artificially-spikes-covid-cases"><span class="header-section-number">2.7.1</span> Data loading artificially spikes COVID cases</a></li>
-<li><a class="nav-link" href="#data-encoding-leads-to-incorrect-bmi-calculation"><span class="header-section-number">2.7.2</span> Data encoding leads to incorrect BMI calculation</a></li>
+<a class="nav-link" href="#real-world-disasters"><span class="header-section-number">2.8</span> Real World Disasters</a><ul class="nav navbar-nav">
+<li><a class="nav-link" href="#data-loading-artificially-spikes-covid-cases"><span class="header-section-number">2.8.1</span> Data loading artificially spikes COVID cases</a></li>
+<li><a class="nav-link" href="#data-encoding-leads-to-incorrect-bmi-calculation"><span class="header-section-number">2.8.2</span> Data encoding leads to incorrect BMI calculation</a></li>
 </ul>
 </li>
 </ul>
@@ -1231,7 +1243,7 @@ Ahhhh
 <footer class="bg-primary text-light mt-5"><div class="container"><div class="row">
 
   <div class="col-12 col-md-6 mt-3">
-    <p>"<strong>Data Disasters</strong>" was written by Emily Riederer. It was last built on 2021-08-03.</p>
+    <p>"<strong>Data Disasters</strong>" was written by Emily Riederer. It was last built on 2021-08-06.</p>
   </div>
 
   <div class="col-12 col-md-6 mt-3">

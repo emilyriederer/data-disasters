@@ -1,3 +1,25 @@
 # Complexifying Code (TODO) {#comp-code}
 
+## Making code unreadable
 
+### Naming
+
+structure for sorting, ordering, clear semantics
+
+### Whitespace
+
+linters / stylers
+
+## Making a monolith
+
+not using functions / files / templates / variables
+
+### Making code inflexible (variables)
+
+### Making useful code chunks hard to reuse (functions)
+
+## Project organization
+
+## Decoding
+
+rubber duck decoding

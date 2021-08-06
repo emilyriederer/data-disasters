@@ -421,9 +421,9 @@ We can explicitly encode any residual values as something like “OTHER” or �
 <p>String data can be inherently appealing. At their best, strings are used to bring more readable and human interpretable values into a dataset. However, string data and the processing thereof comes with its own challenges.</p>
 <p>First, unlike numbers, human language strings can be ambiguously defined. <code>2</code> is the only number to represent the value of two. However, the incorporation of human language means that many different words, phrases, and formatting choices can represent the same concept. This is confounded by instances where string data was manually entered, as is the case with user-input data.<a class="footnote-ref" tabindex="0" data-toggle="popover" data-content="&lt;p&gt;I can accurately say my name is “Emily,” “Emily Riederer,” “Emily E. Riederer,” “Ms. Emily Riederer.” Additionally, if I spell my name over the phone, I can likely end up “Emily Rieder” or if I type it and mindlessly accept autocorrect, I’m “Emily Reindeer.” This inconsistently may be problematic if you are trying to combine my data across different sources where I provided my name in different ways.&lt;/p&gt;"><sup>13</sup></a></p>
 <p>Secondly, string data is one of the most flexible datatypes and can contain any other types of information – from should-be-logical values (<code>"yes"/"no"</code>, <code>"true"/"false"</code>), should-be-numeric values (<code>"27"</code>), should-be-date values (<code>"2020-01-01"</code>), and even complex data encodings like JSON blobs (<code>"{"name":{"first":"emily","last":"riederer"},"social":{"twitter":"emilyriederer","github":"emilyriederer","linkedin":"emilyriederer"}}"</code> with hideous formatting for emphasis.) For a data publisher, this may be a convenience, but as we will see it can turn into a frustration or a liability when functions and comparison operations are attempted with strings that semantically represent a different type of value.</p>
-<div id="dirty-strings" class="section level3" number="3.3.1">
+<div id="dirty-strings-todo" class="section level3" number="3.3.1">
 <h3>
-<span class="header-section-number">3.3.1</span> Dirty Strings<a class="anchor" aria-label="anchor" href="#dirty-strings"><i class="fas fa-link"></i></a>
+<span class="header-section-number">3.3.1</span> Dirty Strings (TODO)<a class="anchor" aria-label="anchor" href="#dirty-strings-todo"><i class="fas fa-link"></i></a>
 </h3>
 <p>whitespace</p>
 <div class="sourceCode" id="cb53"><pre class="downlit sourceCode r">
@@ -711,12 +711,36 @@ today_str > now_str
 <h2>
 <span class="header-section-number">3.5</span> Logicals (TODO)<a class="anchor" aria-label="anchor" href="#logicals-todo"><i class="fas fa-link"></i></a>
 </h2>
+<div class="sourceCode" id="cb89"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="st">"TRUE"</span> <span class="op">==</span> <span class="cn">TRUE</span></code></pre></div>
+<pre><code>## [1] TRUE</code></pre>
+<div class="sourceCode" id="cb91"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="fl">1</span> <span class="op">==</span> <span class="cn">TRUE</span></code></pre></div>
+<pre><code>## [1] TRUE</code></pre>
+<div class="sourceCode" id="cb93"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="st">"True"</span> <span class="op">==</span> <span class="cn">TRUE</span></code></pre></div>
+<pre><code>## [1] FALSE</code></pre>
+<div class="sourceCode" id="cb95"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="st">"TRUE"</span><span class="op">*</span><span class="fl">5</span></code></pre></div>
+<pre><code>## Error in "TRUE" * 5: non-numeric argument to binary operator</code></pre>
+<div class="sourceCode" id="cb97"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="fu">sqldf</span><span class="op">(</span><span class="st">"select 
+      (TRUE == 1) as is_int_true,
+      (TRUE == 'TRUE') as is_char_true,
+      TRUE*5 as true_times_five,
+      FALSE*5 as false_times_five
+      "</span><span class="op">)</span></code></pre></div>
+<pre><code>##   is_int_true is_char_true true_times_five
+## 1           1            0               5
+##   false_times_five
+## 1                0</code></pre>
 </div>
 <div id="order-of-operations-wip" class="section level2" number="3.6">
 <h2>
 <span class="header-section-number">3.6</span> Order of Operations (WIP)<a class="anchor" aria-label="anchor" href="#order-of-operations-wip"><i class="fas fa-link"></i></a>
 </h2>
-<div class="sourceCode" id="cb89"><pre class="downlit sourceCode r">
+<p>PEMDAS but sometimes still ambiguous</p>
+<div class="sourceCode" id="cb99"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="fl">1</span> <span class="op">+</span> <span class="fl">1</span>  <span class="op">*</span> <span class="fl">2</span> <span class="op">/</span> <span class="fl">3</span> <span class="op">-</span> <span class="fl">1</span>
 <span class="op">(</span><span class="fl">1</span> <span class="op">+</span> <span class="fl">1</span><span class="op">)</span> <span class="op">*</span> <span class="fl">2</span> <span class="op">/</span> <span class="fl">3</span> <span class="op">-</span> <span class="fl">1</span>
 <span class="fl">1</span> <span class="op">+</span> <span class="fl">1</span> <span class="op">*</span> <span class="fl">2</span> <span class="op">/</span> <span class="op">(</span><span class="fl">3</span> <span class="op">-</span> <span class="fl">1</span><span class="op">)</span></code></pre></div>
@@ -730,7 +754,7 @@ today_str > now_str
 </h2>
 <p>Copying and modifying object overview</p>
 <div class="figure" style="text-align: center">
-<span id="fig:unnamed-chunk-77"></span>
+<span id="fig:unnamed-chunk-78"></span>
 <img src="figures/comp-quan/ref-val.png" alt="Different relationships between named variables and their values" width="90%"><p class="caption">
 FIGURE 3.2: Different relationships between named variables and their values
 </p>
@@ -738,22 +762,22 @@ FIGURE 3.2: Different relationships between named variables and their values
 <p>When might each be preferred?</p>
 <p>What risks are there if we don’t understand which we are doing?</p>
 <p>In Python</p>
-<div class="sourceCode" id="cb91"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb91-1"><a href="comp-quan.html#cb91-1" aria-hidden="true" tabindex="-1"></a>x <span class="op">=</span> [<span class="dv">1</span>,<span class="dv">2</span>,<span class="dv">3</span>]</span>
-<span id="cb91-2"><a href="comp-quan.html#cb91-2" aria-hidden="true" tabindex="-1"></a>y <span class="op">=</span> x</span>
-<span id="cb91-3"><a href="comp-quan.html#cb91-3" aria-hidden="true" tabindex="-1"></a>y.append(<span class="dv">4</span>)</span>
-<span id="cb91-4"><a href="comp-quan.html#cb91-4" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(y)</span>
-<span id="cb91-5"><a href="comp-quan.html#cb91-5" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(x)</span></code></pre></div>
+<div class="sourceCode" id="cb101"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb101-1"><a href="comp-quan.html#cb101-1" aria-hidden="true" tabindex="-1"></a>x <span class="op">=</span> [<span class="dv">1</span>,<span class="dv">2</span>,<span class="dv">3</span>]</span>
+<span id="cb101-2"><a href="comp-quan.html#cb101-2" aria-hidden="true" tabindex="-1"></a>y <span class="op">=</span> x</span>
+<span id="cb101-3"><a href="comp-quan.html#cb101-3" aria-hidden="true" tabindex="-1"></a>y.append(<span class="dv">4</span>)</span>
+<span id="cb101-4"><a href="comp-quan.html#cb101-4" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(y)</span>
+<span id="cb101-5"><a href="comp-quan.html#cb101-5" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(x)</span></code></pre></div>
 <pre><code>## [1, 2, 3, 4]
 ## [1, 2, 3, 4]</code></pre>
-<div class="sourceCode" id="cb93"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb93-1"><a href="comp-quan.html#cb93-1" aria-hidden="true" tabindex="-1"></a>z <span class="op">=</span> x.copy()</span>
-<span id="cb93-2"><a href="comp-quan.html#cb93-2" aria-hidden="true" tabindex="-1"></a>z.append(<span class="dv">5</span>)</span>
-<span id="cb93-3"><a href="comp-quan.html#cb93-3" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(z)</span>
-<span id="cb93-4"><a href="comp-quan.html#cb93-4" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(x)</span></code></pre></div>
+<div class="sourceCode" id="cb103"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb103-1"><a href="comp-quan.html#cb103-1" aria-hidden="true" tabindex="-1"></a>z <span class="op">=</span> x.copy()</span>
+<span id="cb103-2"><a href="comp-quan.html#cb103-2" aria-hidden="true" tabindex="-1"></a>z.append(<span class="dv">5</span>)</span>
+<span id="cb103-3"><a href="comp-quan.html#cb103-3" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(z)</span>
+<span id="cb103-4"><a href="comp-quan.html#cb103-4" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(x)</span></code></pre></div>
 <pre><code>## [1, 2, 3, 4, 5]
 ## [1, 2, 3, 4]</code></pre>
 <p>pandas DataFrame methods with <code>inplace</code> arg (<code>False</code> is default)</p>
 <p>In R</p>
-<div class="sourceCode" id="cb95"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb105"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="http://r-datatable.com">data.table</a></span><span class="op">)</span>
 
 <span class="va">DT</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://Rdatatable.gitlab.io/data.table/reference/data.table.html">data.table</a></span><span class="op">(</span>a<span class="op">=</span><span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="fl">1</span>,<span class="fl">2</span><span class="op">)</span>, b<span class="op">=</span><span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="fl">11</span>,<span class="fl">12</span><span class="op">)</span><span class="op">)</span>
@@ -816,7 +840,7 @@ FIGURE 3.2: Different relationships between named variables and their values
 </h4>
 <p>As a second example, according to a 2015 <a href="https://issues.apache.org/jira/browse/SPARK-5133">Jira ticket</a>, developers of Spark considered multiple methodologies they could use when adding the functionality to compute feature importance for a random forest. Ultimately, a core contributor advised against permutation importance due to its computational cost.</p>
 <div class="figure" style="text-align: center">
-<span id="fig:unnamed-chunk-81"></span>
+<span id="fig:unnamed-chunk-82"></span>
 <img src="figures/comp-quan/spark-jira.PNG" alt="JIRA ticket for Spark with a discussion of which random forest variable importance algorithm to implement" width="90%"><p class="caption">
 FIGURE 3.3: JIRA ticket for Spark with a discussion of which random forest variable importance algorithm to implement
 </p>
@@ -1336,7 +1360,7 @@ select
 <div class="knitsql-table">
 
 
-Table: (\#tab:unnamed-chunk-104)1 records
+Table: (\#tab:unnamed-chunk-105)1 records
 
 |max('20200101', '20190301') |max('01012020', '03012019') |max('120','99') |max('120','099') | max(120,99)| max(120,099)|
 |:---------------------------|:---------------------------|:---------------|:----------------|-----------:|------------:|
@@ -1418,7 +1442,7 @@ select
 <div class="knitsql-table">
 
 
-Table: (\#tab:unnamed-chunk-107)1 records
+Table: (\#tab:unnamed-chunk-108)1 records
 
 | '2020' == 2020| '02020' == 2020| cast('2020' as numeric) == 2020| cast('2020' as integer) == 2020|
 |--------------:|---------------:|-------------------------------:|-------------------------------:|
@@ -1649,7 +1673,7 @@ t_for
 ```
 
 ```
-## Time difference of 0.134 secs
+## Time difference of 0.129 secs
 ```
 
 ```r
@@ -1657,7 +1681,7 @@ t_vec
 ```
 
 ```
-## Time difference of 0.01 secs
+## Time difference of 0.008 secs
 ```
 
 ```r
@@ -1665,7 +1689,7 @@ as.numeric(t_for)/as.numeric(t_vec)
 ```
 
 ```
-## [1] 13.4
+## [1] 16.13
 ```
 
 
@@ -1692,7 +1716,7 @@ t_for
 ```
 
 ```
-## 0.30899548530578613
+## 0.28516197204589844
 ```
 
 ```python
@@ -1700,7 +1724,7 @@ t_vec
 ```
 
 ```
-## 0.023999691009521484
+## 0.03824472427368164
 ```
 
 ```python
@@ -1708,7 +1732,7 @@ t_for / t_vec
 ```
 
 ```
-## 12.874977647970436
+## 7.456243376348108
 ```
 
 
@@ -1757,7 +1781,7 @@ t_for / t_vec
 </li>
 <li>
 <a class="nav-link" href="#strings-wip"><span class="header-section-number">3.3</span> Strings (WIP)</a><ul class="nav navbar-nav">
-<li><a class="nav-link" href="#dirty-strings"><span class="header-section-number">3.3.1</span> Dirty Strings</a></li>
+<li><a class="nav-link" href="#dirty-strings-todo"><span class="header-section-number">3.3.1</span> Dirty Strings (TODO)</a></li>
 <li><a class="nav-link" href="#regular-expressions-todo"><span class="header-section-number">3.3.2</span> Regular Expressions (TODO)</a></li>
 <li><a class="nav-link" href="#comparison-1"><span class="header-section-number">3.3.3</span> Comparison</a></li>
 </ul>
@@ -1801,7 +1825,7 @@ t_for / t_vec
 <footer class="bg-primary text-light mt-5"><div class="container"><div class="row">
 
   <div class="col-12 col-md-6 mt-3">
-    <p>"<strong>Data Disasters</strong>" was written by Emily Riederer. It was last built on 2021-08-03.</p>
+    <p>"<strong>Data Disasters</strong>" was written by Emily Riederer. It was last built on 2021-08-06.</p>
   </div>
 
   <div class="col-12 col-md-6 mt-3">
