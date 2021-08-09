@@ -59,7 +59,7 @@ Second, while exploring these *data disasters*, we humbly put forth a (woefully 
 
 In particular, we will aim to help you avoid eleven types of data disasters:
 
-- **Data Dalliances**: Misinterpreting or misuing data based on how it was collected or what it represents 
+- **Data Dalliances**: Misinterpreting or misusing data based on how it was collected or what it represents 
 - **Computational Quandaries**: Letting computers do what you said and not what you meant
 - **Egregious Aggregations**: Losing critical information when information is condensed
 - **Vexing Visualization**: Confusing ourselves or others with plotting choices
