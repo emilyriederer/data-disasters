@@ -4,6 +4,7 @@
 
 Once armed with an understanding of the data and tools available for analysis, a common start to analysis is exploring data with *aggregation*. 
 At its heart, any sort of data analysis is the process of condensing raw data into something more manageable and useful while giving up as little of the information as possible.
+From linear regressions and hypothesis testing to random forests and beyond, much of data analysis could truly be called "applied sums an averages".
 
 Many elementary tools for this task are much better at the comprehension task than the preservation one. 
 We learn rigorous assumptions to consider and validate when studying linear regression, but basic arithmetic aggregation presents itself as agnostic and welcome to any type of data. 
@@ -11,20 +12,26 @@ However, the underlying distributions of our variables and the relationships bet
 
 In this chapter, we will explore different ways that univariate and multivariate aggregations can be naive or uninformative.
 
-## Similar in Summary
+## Motivating Example: Similar in Summary
 
-Anscombe's Quartet
-
-The datasaurus dozen [@datasaurus] and the `datasauRus` R package [@R-datasauRus]
+To begin, we will look at a whimsical toy example. 
+This may feel trite or manufactured, but the subsequent sections will aim to convince you that these issues are not just esoteric.
+Consider the "datasaurus dozen" dataset [@datasaurus] which is available within the `datasauRus` R package [@R-datasauRus]. 
 
 ```{r eror = FALSE, warning = FALSE, message = FALSE}
 library(datasauRus)
 ```
 
+This dataset contains 12 sets of data stacked on top of one another and identified by the `dataset` column.^[If you are following along in R, you might run `unique(df$dataset)` to see all the values of this column. We won't do that now as to not ruin the surprise].
+Besides the identifier column, the data is fairly small and contains only two variables `x` and `y`.
+
 ```{r}
 df <- datasauRus::datasaurus_dozen
 head(df)
 ```
+
+A quick analysis of summary statistics reveals that each of the 12 datasets is very consistent in its summary statistics. 
+The means and variances of `x` and `y` and even their correlations are nearly identifcal.
 
 ```{r datasaurus-tbl, echo = FALSE, error = FALSE, warning = FALSE, message = FALSE}
 library(knitr)
@@ -43,6 +50,7 @@ df %>%
   kable(caption = "Summary statistics for Datasaurus Dozen datasets")
 ```
 
+However, as shown in Figure \@ref(fig:datasaurus-plot), when we visualize this data, we find that the 12 datasets reveal remarkably different patterns.
 
 ```{r datasaurus-plot, echo = FALSE, fig.cap = 'Scatterplots for Datasaurus Dozen datasets'}
 library(ggplot2)
@@ -54,9 +62,58 @@ ggplot(data = df) +
   theme(legend.position = 'none')
 ```
 
-While this is clearly a contrived example (and, if you so chose to check out the paper, a very cleverly contrived example!), its also a cautionary tale. Summary statistics are not just insufficient when they focus on central tendency (e.g. mean) instead of spread. In this example, even an examination of variation and covariation led to an overly simplistic view of the underlying data. 
+This dataset is a more elaborate version of Anscombe's Quartet, a well-known set of four datasets which exhibit similar properties. 
+Examining a simiilar plot for Anscombe's Quartet (with data from the `anscombe` dataset which ships in R's `datasets` package), we can get better intuition for how the phenomenon is manufactured. 
+Figure \@ref(fig:anscombe) shows as similar plot to \@ref(fig:datasaurus-plot).
+Comparing datasets 1 and 3, for example, we can see a trade-off between a semi-strong trend with a consistent-seeming amount of noise and an nearly perfect linear trend with a single outlier.
 
-## Averages 
+```{r anscombe, echo = FALSE, fig.cap = "Scatterplots for Anscombe's Quartet"}
+library(tidyr)
+
+df <- datasets::anscombe
+df_long <-
+  df %>%
+  pivot_longer(
+    cols = everything(),
+    names_to = c("var", "dataset"),
+    names_pattern = "([xy])([1234])",
+    values_to = "val") %>%
+  pivot_wider(names_from = var, values_from = val) %>%
+  unnest()
+
+ggplot(data = df_long) +
+  aes(x, y, col = dataset) +
+  geom_point() +
+  geom_smooth(method = "lm", se = FALSE, size = 0.5, linetype = 2) +
+  facet_wrap(~dataset, ncol = 2) +
+  theme(legend.position = 'none')
+```
+
+Figure \@ref(fig:anscombe) also plots the simple linear regression line for each dataset.
+Similar to the summary statistics, these are also identical. 
+We know this because the regression coefficient for a simple linear regression is given by `cov(x,y)`/`sd(x)sd(y)`. You'll notice I do not write "we can see that..." because, in fact, we can only *see* similarity not equality. 
+The message of this section may seem to be "don't summarize your data without plotting it", but conducting "visual analytics" without looking at the numbers is also problematic.
+We'll explore the latter topic more in Chapter \@ref(vexi-visu) (Vexing Visualiztions).
+
+While there are clearly a contrived example (and, if you so chose to check out the "Datasaurus Dozen" paper, a very cleverly contrived example!), its also a cautionary tale. 
+Summary statistics are not just insufficient when they focus on central tendency (e.g. mean) instead of spread. 
+In this example, even an examination of variation and covariation led to an overly simplistic view of the underlying data. 
+
+## Averages (WIP)
+
+### Implicit assumptions (TODO)
+
+When statistics students study linear regression, they are introduced to a number of canonical assumptions including:
+
+- The true functional form between the dependent and independent variables is linear / additive
+- Errors are independent
+- Errors have constant variance (that is, they are homoskedastic)
+- Errors have a normal distribution
+
+Of course, whether or not these assumptions hold, there's nothing stopping anyone from *mechanically* fit at linear regression^[In fact, the only mechanical constraint to computing linear regression output is that no column of the design matrix (no independent variable) is a precise linear combination of the other columns. Yet this constraint is not typically included among the standard statement of assumptions.]. Instead, these assumptions are required to make the output of a linear regression *meaningful* and, more specifically, for conducting correct inference.
+
+Similarly, there are no limitations on mechanically computing an average
+
 
 ### Averaging skewed data
 
@@ -228,50 +285,237 @@ cor(x1, y1)
 cor(x2, y2)
 ```
 
+### Small sample sizes
 
-## Ratios
+
+## Proportions (WIP)
+
+note that these are of course just a type of average (average of indicators) but helpful to examine challenges separately
 
 ### Picking the right denominator
 
 ### Sample size effects
 
-## Misc - Deciding where this goes (TODO)
+## Variation (TODO)
 
-### Unobservable (censored) data
-
-time-to-event
-
-```{r}
-n <- 1000
-times <- runif(n, 1, 5)
-mean(times)
+```{r results = "hold"}
+x <- c(-20, -10, -5, 0, 5, 10, 20)
+mean(x)
+var(x)
 ```
 
-but we only observe it at a given point in time
-
-```{r}
-current_time <- 2
+```{r results = "hold"}
+x <- c(-15, -15, -5, 0, 5, 15, 15)
+mean(x)
+var(x)
 ```
 
-so what can we do?
+## Correlation (WIP)
 
-```{r}
-# only use observable values? 
-mean(times[times < current_time])
+As shown in \@ref(fig:fig-fun-corr), 
 
-# use current time for 
-mean(pmax(times, current_time))
+```{r fig-fun-corr, fig.cap = "Plots of x from 1 to 10 over a range of common functions", echo = FALSE}
+library(ggplot2)
+library(patchwork)
+
+gg1 <-
+ggplot(data.frame(x = 1:10)) +
+  aes(x = x) +
+  geom_line(aes(y = x**1, col = "linear")) +
+  geom_line(aes(y = x**2, col = "quadratic")) +
+  geom_line(aes(y = x**3, col = "cubic")) +
+  labs(title = "Polynomial Functions")
+
+gg2 <-
+ggplot(data.frame(x = 1:10)) +
+  aes(x = x) +
+  geom_line(aes(y = sin(x) , col = "sin")) +
+  geom_line(aes(y = sqrt(x), col = "sqrt")) +
+  geom_line(aes(y = log(x) , col = "log")) +
+  labs(title = "Other Functions")
+
+gg1 + gg2
 ```
 
-bias
+### Linear relationships only
 
-example of **censored data**
+```{r}
+x <- 1:10
+y <- list(linear = x, quadratic = x**2, cubic = x**3, quartic = x**4)
+
+vapply(y, FUN = function(z) cor(x, z, method = "pearson"), FUN.VALUE = numeric(1))
+```
+
+### Multiple forms
+
+Traditional (Pearson) correlation depends on specific values whereas Spearman and Kendall focus on order statistics
+
+```{r results = "hold"}
+# polynomials ----
+x <- 1:10
+y <- list(linear = x, quadratic = x**2, cubic = x**3, quartic = x**4)
+
+vapply(y, FUN = function(z) cor(x, z, method = "pearson"), FUN.VALUE = numeric(1))
+vapply(y, FUN = function(z) cor(x, z, method = "spearman"), FUN.VALUE = numeric(1))
+vapply(y, FUN = function(z) cor(x, z, method = "kendall"), FUN.VALUE = numeric(1))
+```
+
+Similar results with a different set of functions
+
+```{r results = "hold"}
+# other functional forms ----
+x <- 1:10
+y <- list(sin(x), sqrt(x), exp(x), log(x))
+
+vapply(y, FUN = function(z) cor(x, z, method = "pearson"), FUN.VALUE = numeric(1))
+vapply(y, FUN = function(z) cor(x, z, method = "spearman"), FUN.VALUE = numeric(1))
+vapply(y, FUN = function(z) cor(x, z, method = "kendall"), FUN.VALUE = numeric(1))
+```
+
+### Sensitivity to domain
+
+The "strength of relationship" (completely deterministic) is the same in both cases    
+However, the summarization of the relationships changes
+
+Here's same case as before:
+
+```{r results = "hold"}
+# polynomials ----
+x <- 1:10
+y <- list(linear = x, quadratic = x**2, cubic = x**3, quartic = x**4)
+
+vapply(y, FUN = function(z) cor(x, z, method = "pearson"), FUN.VALUE = numeric(1))
+vapply(y, FUN = function(z) cor(x, z, method = "spearman"), FUN.VALUE = numeric(1))
+vapply(y, FUN = function(z) cor(x, z, method = "kendall"), FUN.VALUE = numeric(1))
+```
+
+And here's a different range:
+
+```{r results = "hold"}
+# polynomials, diff range ----
+x <- -10:10
+y <- list(linear = x, quadratic = x**2, cubic = x**3, quartic = x**4)
+
+vapply(y, FUN = function(z) cor(x, z, method = "pearson"), FUN.VALUE = numeric(1))
+vapply(y, FUN = function(z) cor(x, z, method = "spearman"), FUN.VALUE = numeric(1))
+vapply(y, FUN = function(z) cor(x, z, method = "kendall"), FUN.VALUE = numeric(1))
+```
+
+### Partial correlation
+
+A lot of EDA starts with some sort of correlation matrix    
+This won't always account for the fact that some variables can mask correlation between others
+
+Consider two groups with trends in different directions
+
+```{r}
+n_obsvs <- 10
+n_group <-  2
+
+group <- rep(1:n_group, each = n_obsvs)
+var1  <- rep(1:n_obsvs, times = n_group)
+var2  <- var1 * rep(c(5, -5), each = n_obsvs)
+var3  <- var1 * rep(c(1,  5), each = n_obsvs)
+```
+
+As Figure \@ref(fig:fig-cor-0) shows
+
+```{r fig-cor-0, echo = FALSE, fig.cap = "Subgroups demonstrating opposing linear relationships"}
+library(ggplot2)
+
+ggplot(data.frame(var1, var2, group)) +
+  aes(x = var1, y = var2, col = as.character(group)) +
+  geom_point()
+```
+
+Because of the opposing trends, their correlation becomes zero
+
+```{r results = "hold"}
+cor(var1, var2, method = "pearson")
+cor(var1, var2, method = "spearman")
+cor(var1, var2, method = "kendall")
+```
+However, by group the correlation is 1
+
+```{r results = "hold"}
+cor(var1[group == 1], var2[group == 1])
+cor(var1[group == 2], var2[group == 2])
+```
+
+A similar thing happens when the relationship has the same sign but different slopes
+
+```{r}
+cor(var1, var3, method = "pearson")
+```
+
+while the correlation is still one within group
+
+```{r results = "hold"}
+cor(var1[group == 1], var3[group == 1])
+cor(var1[group == 2], var3[group == 2])
+```
+
+
+Even partial correlation doesn't help in case of opposing signs
+
+```{r}
+library(ppcor)
+
+pcor(data.frame(var1, var2, group))$estimate
+```
+
+It *improves* the strength of the estimated correlation in the case of `var3` but still failes to estimate it correctly. 
+Partial correlation would be assuming a form like `var3 ~ var1 + group` and not `var3 ~ var1 * group`
+
+```{r}
+pcor(data.frame(var1, var3, group))$estimate
+```
 
 ## Trends
 
 ### "If trends continue..."
 
+Figure \@ref(fig:fig-if-trends-continue) shows that...
+
+```{r fig-if-trends-continue, fig.cap = "Extrapolated linear, quadratic, and cubic fits of data"}
+library(ggplot2)
+
+n <- 300
+x <- runif(n)
+y <- x + rnorm(n)
+
+ggplot(
+  data.frame(x, y),
+  aes(x, y)
+  ) +
+  geom_point() +
+  geom_smooth(method = "lm", formula = y ~ I(x**1), se = FALSE, fullrange = TRUE) +
+  geom_smooth(method = "lm", formula = y ~ I(x**2), se = FALSE, fullrange = TRUE) +
+  geom_smooth(method = "lm", formula = y ~ I(x**3), se = FALSE, fullrange = TRUE) +
+  scale_x_continuous(limit = c(0,2))
+```
+
 ### Seasonality 
+
+## Comparisons (TODO)
+
+### Percents versus percentage points
+
+```{r}
+
+```
+
+### Changes with small bases
+
+```{r results = "hold"}
+(0.015 - 0.010) / 0.010
+(0.805 - 0.800) / 0.800
+```
+
+```{r results = "hold"}
+0.015 / 0.010
+0.805 / 0.800
+```
 
 ## Strategies (TODO)
 

@@ -148,9 +148,9 @@ and "test"
 t.test(x ~ v18, data = df[(n_obsv/2 + 1):n_obsv,])$p.value
 ```
 
+## Superficial stories
 
-
-## Regression to the mean
+### Regression to the mean
 
 simulate truly independent spend amounts across two periods
 
@@ -202,8 +202,6 @@ sum((spend1 > mu) * (spend1 > spend2)) / sum(spend1 > mu)
 sum((spend1 < mu) * (spend1 < spend2)) / sum(spend1 > mu)
 ```
 
-
-
 ```{r}
 library(ggplot2)
 
@@ -212,7 +210,177 @@ ggplot(df) +
   geom_point()
 ```
 
+### Distribution shifts
 
+```{r dist-shift-data, echo = FALSE}
+hi_engagement <- 10
+lo_engagement <- 2
+pr_engagement <- 0.85^(0:24)
+avg_engagement <- 10*pr_engagement + 2*(1-pr_engagement)
+
+df <- 
+  data.frame(
+    t = 1:length(avg_engagement), 
+    avg_engagement, 
+    hi_engagement, 
+    lo_engagement
+    )
+```
+
+Figure \@ref(fig:fig-shift) shows that...
+
+```{r fig-shift, fig.cap = "Trends within and between customer behavioral groups", echo = FALSE}
+library(ggplot2)
+
+gg <- 
+ggplot(df) +
+  aes(x = t, y = avg_engagement) +
+  geom_line(aes(color = "Observed")) +
+  scale_color_manual(values = c("Observed" = "black", "High" = "blue", "Low" = "red")) +
+  scale_y_continuous(limits = c(0, 10), breaks = 0:10) +
+  theme_minimal() +
+  theme(
+    legend.position = "bottom",
+    legend.title = element_blank(),
+    axis.title = element_blank(),
+    plot.title = element_text(hjust = 0.5)
+  ) +
+  labs(title = "Engagement ")
+
+gg
+```
+
+Figure \@ref(fig:fig-shift-v2) shows that...
+
+```{r fig-shift-v2, fig.cap = "Possible subgroup trends contributing to aggregate trend", echo = FALSE}
+library(patchwork)
+
+gg_v1 <-
+  gg + 
+  geom_line(aes(y = avg_engagement + 1, color = "High"), linetype = 2) +
+  geom_line(aes(y = avg_engagement - 1, color = "Low"), linetype = 2) +
+  labs(title = "Consistent Trend \n Different Levels")
+
+gg_v2 <-
+  gg + 
+  geom_line(aes(y = hi_engagement, color = "High"), linetype = 2) +
+  geom_line(aes(y = lo_engagement, color = "Low"), linetype = 2) +
+  labs(title = "Flat Trend \n Shifting Mixture")
+
+gg_v3 <-
+  gg + 
+  geom_line(aes(y = avg_engagement * seq(1.5, 0.5, length.out = 25), color = "High"), linetype = 2) +
+  geom_line(aes(y = avg_engagement * (2 - seq(1.5, 0.5, length.out = 25)), color = "Low"), linetype = 2) +
+  labs(title = "Different Shapes \n Constant Groups")
+
+gg_v1 + gg_v2 + gg_v3 +
+  plot_layout(guides = "collect") & theme(legend.position = 'bottom')
+```
+
+
+The code used to generate this mock dataset is shown below.
+
+```{r dist-shift-data}
+```
+
+
+
+## Tricky timing issues (WIP)
+
+### Censored data
+
+Suppose we are wondering how long our subscription customers will stay put    
+mean lifetime of customers in 24 and uses exponential distrib (see appendix on distribs)    
+we are analyzing a cohort of customers 18 months after they first subscribed 
+
+```{r}
+# time-to-event censored ----
+set.seed(123)
+n <- 1000
+curr_time <- 18
+mean_lifetime <- 24
+
+lifetime <- rexp(n, rate = 1 / mean_lifetime)
+mean(lifetime)
+```
+
+Because we are only 18 months in, we cannot observe the lifetimes of all customers     
+for those that left before 18 months we have complete data    
+but for those who left after 18 months we only know their lifetime exceeds 18 months.    
+Thus, if we look at the mean only where we can observe it, it's biased towards lower lifetimes.
+(Recall that we know what the correct value is)
+
+```{r}
+#> observed ----
+lifetime_observed <- lifetime
+lifetime_observed[lifetime > curr_time] <- NA
+mean(lifetime_observed, na.rm = TRUE)
+```
+
+Of course, we do know more than nothing (null) about the "surviving customers". 
+We know that their lifetime is *at least* as large as the current time. 
+So alternatively, we could use the current time in our calculations.
+This makes for a slightly less biased estimate, but it is still wrong and guaranteed to underestimate the actual average.
+
+```{r}
+#> max ----
+lifetime_max <- pmin(lifetime, curr_time)
+mean(lifetime_max)
+```
+
+This scenario illustrates the concept of **censored data**. Figure \@ref(fig:fig-censor) illustrates the fundamental problem more clearly. 
+
+```{r fig-censor, echo = FALSE, fig.cap = "A sample of observations of customer lifetimes showing observed and censored data"}
+#> plot ----
+library(ggplot2)
+library(dplyr)
+df <- data.frame(lifetime, lifetime_max, ind_censor = (lifetime > curr_time))
+df_sub <- 
+  df %>% 
+  group_by(ind_censor) %>% 
+  filter(row_number() <= 10) %>%
+  ungroup() %>%
+  arrange(desc(lifetime)) %>%
+  mutate(id = row_number())
+ggplot(df_sub) +
+  aes(y = id, yend = id, x = 0) + 
+  geom_segment(aes(xend = lifetime, color = "Actual"), size = 1.1) +
+  geom_segment(aes(xend = lifetime_max, color = "Observed"), size = 2) +
+  geom_vline(xintercept = curr_time, color = "darkgrey", linetype = 2) +
+  scale_y_reverse(breaks = 1:20, labels = 1:20) +
+  scale_color_manual(values = c("Observed" = "darkblue", "Actual" = "lightblue")) +
+  labs(title = "Sample customer lifetime trajectories") +
+  theme_minimal() +
+  theme(
+    axis.title = element_blank(),
+    plot.title = element_text(hjust = 0.5),
+    legend.title = element_blank(),
+    legend.position = "bottom"
+    )
+```
+
+So what can we do instead? 
+A common approach is to examine *quantiles* (such as the median) which can make more full use of the data we have.
+Since we know that rank of our observations (that is, that the censored observations are all larger than the observed datapoints),
+we can reliable calculate the p-th quantile so long as p percent of the data is not censored.
+
+```{r}
+#> quantile ----
+sum(!is.na(lifetime_observed)) / n
+lifetime_quantile <- lifetime_observed
+lifetime_observed[is.na(lifetime_observed)] <- 100*curr_time
+quantile(lifetime_observed, p = c(0.5))
+```
+
+### Immortal time bias
+
+```{r}
+rollout_time <- 12
+used_feature <- (lifetime > rollout_time) * rbinom(n, size = 1, prob = 0.5)
+aggregate(lifetime, by = list(used_feature), FUN = mean)
+```
+
+## 
 
 <!--
 

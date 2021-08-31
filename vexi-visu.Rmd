@@ -1,4 +1,4 @@
-# Vexing Visualization (TODO) {#vex-viz}
+# Vexing Visualization (TODO) {#vexi-visu}
 
 <!--
 

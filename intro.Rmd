@@ -8,6 +8,8 @@ Statistics is not synonymous with data analysis; rigor vs practicality
 
 "Data Alone is not Ground Truth" [@bassa_2017]
 
+## Case Study
+
 ## What is data?
 
 Data is...

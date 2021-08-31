@@ -55,6 +55,14 @@ Thus, the goal of this book is to highlight common *data disasters* and, in doin
 
 Second, while exploring these *data disasters*, we humbly put forth a (woefully incomplete!) literature review of more advanced methods from statistics and other quantitative disciplines (e.g. economics, epidemiology), to help learners build a "mental index" of terms to search and techniques to study should they encounter a relevant problem. 
 
+:::rmdwarning
+The content in this book is currently being developed and is all subject to change.
+
+Chapters and sections tagged as **WIP** (work-in-progress) have substantial content and are suitable for reading.
+
+Chapters and sections tagged as **TODO** have minimal outlines or code examples (if that).
+:::
+
 ## Main Topics
 
 In particular, we will aim to help you avoid eleven types of data disasters:
@@ -86,6 +94,11 @@ As we go, we will notice how three common themes that challenge the focus of int
 - Similarly, observations and variables are rarely independent; the story is in the **covariance**
 - Assumptions of Normality, or more broadly symmetry, are often in appropriate in wonky, **highly skewed** world
 
+## Acknowledgements
+
+This book is built by the excelent **bookdown** R package with styling tips heavily inspired by the [Tidy Maching Leaning with R](https://github.com/tidymodels/TMwR) repo. 
+
+Sidebar icons used throughout the book are credited to [Vector Markets](https://www.flaticon.com/authors/vectors-market) (lightbulb) and [Freepik](https://www.freepik.com") (notepad and caution sign) on [www.flaticon.com](https://www.flaticon.com/). All other images are my own and made with either [Excalidraw](https://excalidraw.com/) or [Inkscape](https://inkscape.org/).
 
 <!--
 ## Assumed knowledge {-}

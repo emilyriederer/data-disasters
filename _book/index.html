@@ -17,16 +17,16 @@
 <meta name="twitter:title" content="Preface | Data Disasters">
 <meta name="twitter:description" content="Navigating the complexities of real-world data analysis">
 <meta name="twitter:image" content="data-disasters.netlify.app/figures/cover.png">
-<!-- JS --><script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/2.0.6/clipboard.min.js" integrity="sha256-inc5kl9MA1hkeYUt+EC3BhlIgyp/2jDIyBLS6k3UxPI=" crossorigin="anonymous"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/fuse.js/6.4.6/fuse.js" integrity="sha512-zv6Ywkjyktsohkbp9bb45V6tEMoWhzFzXis+LrMehmJZZSys19Yxf1dopHx7WzIKxr5tK2dVcYmaCk2uqdjF4A==" crossorigin="anonymous"></script><script src="https://kit.fontawesome.com/6ecbd6c532.js" crossorigin="anonymous"></script><script src="libs/header-attrs/header-attrs.js"></script><script src="libs/jquery/jquery-3.6.0.min.js"></script><meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+<!-- JS --><script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/2.0.6/clipboard.min.js" integrity="sha256-inc5kl9MA1hkeYUt+EC3BhlIgyp/2jDIyBLS6k3UxPI=" crossorigin="anonymous"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/fuse.js/6.4.6/fuse.js" integrity="sha512-zv6Ywkjyktsohkbp9bb45V6tEMoWhzFzXis+LrMehmJZZSys19Yxf1dopHx7WzIKxr5tK2dVcYmaCk2uqdjF4A==" crossorigin="anonymous"></script><script src="https://kit.fontawesome.com/6ecbd6c532.js" crossorigin="anonymous"></script><script src="libs/jquery/jquery-3.6.0.min.js"></script><meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 <link href="libs/bootstrap/bootstrap.min.css" rel="stylesheet">
 <script src="libs/bootstrap/bootstrap.bundle.min.js"></script><script src="libs/bs3compat/tabs.js"></script><script src="libs/bs3compat/bs3compat.js"></script><link href="libs/bs4_book/bs4_book.css" rel="stylesheet">
-<script src="libs/bs4_book/bs4_book.js"></script><!-- Global site tag (gtag.js) - Google Analytics --><script async src="https://www.googletagmanager.com/gtag/js?id=G-C7VEESJ7Z8"></script><script>
-      window.dataLayer = window.dataLayer || [];
-      function gtag(){dataLayer.push(arguments);}
-      gtag('js', new Date());
-
-      gtag('config', 'G-C7VEESJ7Z8');
-    </script><script src="https://cdnjs.cloudflare.com/ajax/libs/autocomplete.js/0.38.0/autocomplete.jquery.min.js" integrity="sha512-GU9ayf+66Xx2TmpxqJpliWbT5PiGYxpaG8rfnBEk1LL8l1KGkRShhngwdXK1UgqhAzWpZHSiYPc09/NwDQIGyg==" crossorigin="anonymous"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/mark.js/8.11.1/mark.min.js" integrity="sha512-5CYOlHXGh6QpOFA/TeTylKLWfB3ftPsde7AnmhuitiTX4K5SqCLBeKro6sPS8ilsz1Q4NRx3v8Ko2IBiszzdww==" crossorigin="anonymous"></script><!-- CSS --><link rel="stylesheet" href="styles.css">
+<script src="libs/bs4_book/bs4_book.js"></script><script src="libs/accessible-code-block/empty-anchor.js"></script><!-- Global site tag (gtag.js) - Google Analytics --><script async src="https://www.googletagmanager.com/gtag/js?id=G-C7VEESJ7Z8"></script><script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+  
+    gtag('config', 'G-C7VEESJ7Z8');
+  </script><script src="https://cdnjs.cloudflare.com/ajax/libs/autocomplete.js/0.38.0/autocomplete.jquery.min.js" integrity="sha512-GU9ayf+66Xx2TmpxqJpliWbT5PiGYxpaG8rfnBEk1LL8l1KGkRShhngwdXK1UgqhAzWpZHSiYPc09/NwDQIGyg==" crossorigin="anonymous"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/mark.js/8.11.1/mark.min.js" integrity="sha512-5CYOlHXGh6QpOFA/TeTylKLWfB3ftPsde7AnmhuitiTX4K5SqCLBeKro6sPS8ilsz1Q4NRx3v8Ko2IBiszzdww==" crossorigin="anonymous"></script><!-- CSS --><link rel="stylesheet" href="styles.css">
 </head>
 <body data-spy="scroll" data-target="#toc">
 
@@ -56,7 +56,7 @@
 <li><a class="" href="comp-quan.html"><span class="header-section-number">3</span> Computational Quandaries (WIP)</a></li>
 <li class="book-part">Analysis</li>
 <li><a class="" href="eg-agg.html"><span class="header-section-number">4</span> Egregious Aggregations (WIP)</a></li>
-<li><a class="" href="vex-viz.html"><span class="header-section-number">5</span> Vexing Visualization (TODO)</a></li>
+<li><a class="" href="vexi-visu.html"><span class="header-section-number">5</span> Vexing Visualization (TODO)</a></li>
 <li><a class="" href="incr-infe.html"><span class="header-section-number">6</span> Incredible Inferences (TODO)</a></li>
 <li><a class="" href="cava-caus.html"><span class="header-section-number">7</span> Cavalier Causality (TODO)</a></li>
 <li><a class="" href="mind-mod.html"><span class="header-section-number">8</span> Mindless Modeling (TODO)</a></li>
@@ -95,7 +95,12 @@ Data analysis is fundamentally a <em>creative</em> task, so there are rarely can
 Curiously, however, there are plenty of canonical <em>issues</em> even if they require different solutions in different settings.
 Thus, the goal of this book is to highlight common <em>data disasters</em> and, in doing so, help students cultivate an intuition for how to detect common problems before they occur in an important analysis.</p>
 <p>Second, while exploring these <em>data disasters</em>, we humbly put forth a (woefully incomplete!) literature review of more advanced methods from statistics and other quantitative disciplines (e.g. economics, epidemiology), to help learners build a “mental index” of terms to search and techniques to study should they encounter a relevant problem.</p>
-<div id="main-topics" class="section level2" number="0.1">
+<div class="rmdwarning">
+<p>The content in this book is currently being developed and is all subject to change.</p>
+<p>Chapters and sections tagged as <strong>WIP</strong> (work-in-progress) have substantial content and are suitable for reading.</p>
+<p>Chapters and sections tagged as <strong>TODO</strong> have minimal outlines or code examples (if that).</p>
+</div>
+<div id="main-topics" class="section level2">
 <h2>
 <span class="header-section-number">0.1</span> Main Topics<a class="anchor" aria-label="anchor" href="#main-topics"><i class="fas fa-link"></i></a>
 </h2>
@@ -125,7 +130,7 @@ Thus, the goal of this book is to highlight common <em>data disasters</em> and, 
 <strong>Rejecting Reproducibility</strong>: Working inefficiently instead of an efficient, reproducible, and sharable workflow</li>
 </ul>
 </div>
-<div id="common-themes" class="section level2" number="0.2">
+<div id="common-themes" class="section level2">
 <h2>
 <span class="header-section-number">0.2</span> Common Themes<a class="anchor" aria-label="anchor" href="#common-themes"><i class="fas fa-link"></i></a>
 </h2>
@@ -144,6 +149,13 @@ Along the way, we’ll emphasize:</p>
 </li>
 <li>Assumptions of Normality, or more broadly symmetry, are often in appropriate in wonky, <strong>highly skewed</strong> world</li>
 </ul>
+</div>
+<div id="acknowledgements" class="section level2">
+<h2>
+<span class="header-section-number">0.3</span> Acknowledgements<a class="anchor" aria-label="anchor" href="#acknowledgements"><i class="fas fa-link"></i></a>
+</h2>
+<p>This book is built by the excelent <strong>bookdown</strong> R package with styling tips heavily inspired by the <a href="https://github.com/tidymodels/TMwR">Tidy Maching Leaning with R</a> repo.</p>
+<p>Sidebar icons used throughout the book are credited to <a href="https://www.flaticon.com/authors/vectors-market">Vector Markets</a> (lightbulb) and <a href="https://www.freepik.com%22">Freepik</a> (notepad and caution sign) on <a href="https://www.flaticon.com/">www.flaticon.com</a>. All other images are my own and made with either <a href="https://excalidraw.com/">Excalidraw</a> or <a href="https://inkscape.org/">Inkscape</a>.</p>
 <!--
 ## Assumed knowledge {-}
 
@@ -187,7 +199,7 @@ xfun::session_info()
 ##   graphics_4.0.2    grDevices_4.0.2  
 ##   highr_0.8         htmltools_0.5.1.1
 ##   jquerylib_0.1.4   jsonlite_1.7.0   
-##   knitr_1.30        lifecycle_0.2.0  
+##   knitr_1.33.8      lifecycle_0.2.0  
 ##   magrittr_2.0.1    markdown_1.1     
 ##   methods_4.0.2     mime_0.10        
 ##   pillar_1.4.6      pkgconfig_2.0.3  
@@ -204,6 +216,7 @@ xfun::session_info()
 
 Package names are in bold text (e.g., **rmarkdown**), and inline code and filenames are formatted in a typewriter font (e.g., `knitr::knit('foo.Rmd')`). Function names are followed by parentheses (e.g., `bookdown::render_book()`).
 -->
+
 </div>
 </div>
   <div class="chapter-nav">
@@ -215,6 +228,7 @@ Package names are in bold text (e.g., **rmarkdown**), and inline code and filena
 <li><a class="nav-link" href="#preface">Preface</a></li>
 <li><a class="nav-link" href="#main-topics"><span class="header-section-number">0.1</span> Main Topics</a></li>
 <li><a class="nav-link" href="#common-themes"><span class="header-section-number">0.2</span> Common Themes</a></li>
+<li><a class="nav-link" href="#acknowledgements"><span class="header-section-number">0.3</span> Acknowledgements</a></li>
 </ul>
 
       <div class="book-extra">
@@ -232,7 +246,7 @@ Package names are in bold text (e.g., **rmarkdown**), and inline code and filena
 <footer class="bg-primary text-light mt-5"><div class="container"><div class="row">
 
   <div class="col-12 col-md-6 mt-3">
-    <p>"<strong>Data Disasters</strong>" was written by Emily Riederer. It was last built on 2021-08-06.</p>
+    <p>"<strong>Data Disasters</strong>" was written by Emily Riederer. It was last built on 2021-08-31.</p>
   </div>
 
   <div class="col-12 col-md-6 mt-3">

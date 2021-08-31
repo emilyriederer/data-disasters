@@ -164,6 +164,7 @@
 \makeatother
 
 \frontmatter
+
 \ifluatex
   \usepackage{selnolig}  % disable illegal ligatures
 \fi
@@ -172,7 +173,7 @@
 
 \title{Data Disasters}
 \author{Emily Riederer}
-\date{2021-08-03}
+\date{2021-08-28}
 
 \begin{document}
 \maketitle
@@ -224,6 +225,12 @@ Curiously, however, there are plenty of canonical \emph{issues} even if they req
 Thus, the goal of this book is to highlight common \emph{data disasters} and, in doing so, help students cultivate an intuition for how to detect common problems before they occur in an important analysis.
 
 Second, while exploring these \emph{data disasters}, we humbly put forth a (woefully incomplete!) literature review of more advanced methods from statistics and other quantitative disciplines (e.g.~economics, epidemiology), to help learners build a ``mental index'' of terms to search and techniques to study should they encounter a relevant problem.
+
+The content in this book is currently being developed and is all subject to change.
+
+Chapters and sections tagged as \textbf{WIP} (work-in-progress) have substantial content and are suitable for reading.
+
+Chapters and sections tagged as \textbf{TODO} have minimal outlines or code examples (if that).
 
 \hypertarget{main-topics}{%
 \section{Main Topics}\label{main-topics}}
@@ -284,6 +291,13 @@ As we go, we will notice how three common themes that challenge the focus of int
   Assumptions of Normality, or more broadly symmetry, are often in appropriate in wonky, \textbf{highly skewed} world
 \end{itemize}
 
+\hypertarget{acknowledgements}{%
+\section{Acknowledgements}\label{acknowledgements}}
+
+This book is built by the excelent \textbf{bookdown} R package with styling tips heavily inspired by the \href{https://github.com/tidymodels/TMwR}{Tidy Maching Leaning with R} repo.
+
+Sidebar icons used throughout the book are credited to \href{https://www.flaticon.com/authors/vectors-market}{Vector Markets} (lightbulb) and \href{https://www.freepik.com\%22}{Freepik} (notepad and caution sign) on \href{https://www.flaticon.com/}{www.flaticon.com}. All other images are my own and made with either \href{https://excalidraw.com/}{Excalidraw} or \href{https://inkscape.org/}{Inkscape}.
+
 \hypertarget{about-the-author}{%
 \chapter*{About the Author}\label{about-the-author}}
 
@@ -302,6 +316,9 @@ Statistics is not synonymous with data analysis; rigor vs practicality
 ``Evaluating the Success of a Data Analysis'' \citep{hicks2019evaluating}
 
 ``Data Alone is not Ground Truth'' \citep{bassa_2017}
+
+\hypertarget{case-study}{%
+\section{Case Study}\label{case-study}}
 
 \hypertarget{what-is-data}{%
 \section{What is data?}\label{what-is-data}}
@@ -346,7 +363,7 @@ but in practice this statement is as absurd as writing a book about how to win a
 
 It's very convenient but typically incorrect to assume that the data we happen to have is the ideal (or, more humbly, sufficient) data for the questions we wish to analyze.
 The specific vagaries of data vary greatly by domain, but a commonality across many fields (such as political science, economics, epidemiology, and market research) is that we are often called to work with \emph{found data} (or, more formally, ``observational data'') from administrative sources or production systems.
-In contrast to artisanally crafted data experimental data (like the carefully controlled agricultural experiments which motivated many early methods developments in statistics), this data was generated neither by us not for us.
+In contrast to artisanally crafted data experimental data (like the carefully controlled agricultural experiments which motivated many early methods developments in statistics), this data was generated neither by us nor for us.
 To quote Angela Bassa, the head of data science at an e-commerce company: ``Data isn't ground truth. Data are artifacts of systems'' \citep{bassa_2017}.
 
 The analytical implications of observational versus experimental data are well explored in the field of causal inference (which we will discuss some in Chapters \ref{incr-infe} and \ref{cava-caus}).
@@ -580,7 +597,7 @@ Rate (\%) & 50 & 25 & 86 & 100 & 100\\
 
 (Note that we did not explicitly ``simulate'' data here, but the workflow is largely the same. We imagine a real-world process, how that might translate into a digital representation, and created a numerical example to understand the implications. Not all simulations require fancy code; sometimes paper and a pencil or a thought experiment works just fine.)
 
-While humans have a shared intuition of what concepts like a user, session, or login are, the act of collecting data forces us to map that intuition onto an atomic event .
+While humans have a shared intuition of what concepts like a user, session, or login are, the act of collecting data forces us to map that intuition onto an atomic event.
 Any misunderstanding in precisely what that definition is can have massive impact on the perceived data quality; ``per event'' data will appear heavily duplicated if it is assumed to be ``per session'' data.
 
 In some cases, this could be obvious to detect.
@@ -630,7 +647,7 @@ You might find a table of orders with a field called \texttt{amt\_spend}. But wh
 \end{itemize}
 
 It's critical to understand what each variable \emph{actually} means.
-The upside of this is that it forces analysts to more crisply think about their research questions and what the \emph{ideal} variables for their analysis would be.
+The upside of this is that it forces analysts to think more crisply about their research questions and what the \emph{ideal} variables for their analysis would be.
 As we've seen, concepts like ``spend'' may seem deceptively simple, but are not unambiguous.
 
 \hypertarget{data-extraction-loading}{%
@@ -934,12 +951,12 @@ Let's not imagine that there are 10 orders each day, and each order is shipped s
 
 \begin{verbatim}
 ##   dt_subm dt_ship dt_load
-## 1       1       4       4
-## 2       1       5       5
-## 3       1       5       5
+## 1       1       5       5
+## 2       1       4       4
+## 3       1       3       3
 ## 4       1       5       5
-## 5       1       4       4
-## 6       1       4       4
+## 5       1       5       5
+## 6       1       5       5
 \end{verbatim}
 
 When we repeat the prior analysis, we now see that we have \emph{some} records for orders submitted on day 3 by the time we begin analysis on day 5.
@@ -1114,6 +1131,11 @@ This is also a problem more broadly if some short-term error is discovered eithe
 
 Regardless, this underscores the need to validate entire datasets and to re-validate when repulling data.
 
+\hypertarget{more-on-missing-data-todo}{%
+\section{More on Missing Data (TODO)}\label{more-on-missing-data-todo}}
+
+MCAR / MAR / MNAR
+
 \hypertarget{other-types-of-data-todo}{%
 \section{Other Types of Data (TODO)}\label{other-types-of-data-todo}}
 
@@ -1207,6 +1229,14 @@ Mora said she accepted responsibility and that she should have taken a deeper lo
 \begin{quote}
 ``The numbers are still high and they are still alarming but they were not as high as we reported,'' Mora said.
 \end{quote}
+
+Similar data artifacts also arose from a variety of other factors besides system changes. For example, delays in 9-to-5 office paperwork (the real-world events triggering the creation of some key data elements) over the holidays led to more artificial trends in data reporting around the end-of-year holidays:
+
+\begin{quote}
+While 238 deaths is the most reported in Illinois since the start of the pandemic, the IDPH noted in its release that some data was, ``delayed from the weekends, including this past holiday weekend.''
+\end{quote}
+
+- \href{https://wgntv.com/news/coronavirus/illinois-sees-biggest-spike-in-reported-covid-19-deaths-to-date-after-officials-say-holidays-delayed-some-data/}{Illinois sees biggest spike in reported COVID-19 deaths to date after holidays delay some data, officials say}, WGN9 (TODO CITATION)
 
 \hypertarget{data-encoding-leads-to-incorrect-bmi-calculation}{%
 \subsection{Data encoding leads to incorrect BMI calculation}\label{data-encoding-leads-to-incorrect-bmi-calculation}}
@@ -1415,55 +1445,58 @@ Not only can null values represent many different things (as explored in Chapter
 \hypertarget{language-representations}{%
 \subsubsection{Language representations}\label{language-representations}}
 
-Different programming languages each offer their own versions of null values -- and sometimes more than one. For example, the R language includes \texttt{NA}, typed \texttt{NA}s (e.g.~\texttt{NA\_integer}, \texttt{NA\_character}), \texttt{NaN}, and \texttt{NULL}; meanwhile, core python has \texttt{None} and the \texttt{numpy} module provides a \texttt{nan}.
+Different programming languages each offer their own versions of null values -- and sometimes more than one. For example, the R language includes \texttt{NA}, typed \texttt{NA}s (e.g.~\texttt{NA\_integer\_}, \texttt{NA\_character\_}), \texttt{NaN}, and \texttt{NULL}; meanwhile, core python has \texttt{None} and the \texttt{numpy} module provides a \texttt{nan}.
 
 These different values carry different semantic and functional meanings. For example R's \texttt{NA} generally means ``the presence of an absence'' whereas \texttt{NULL} is ``the absence of a presence''. This is articulated more clearly if we examine the lengths of these objects and observe that \texttt{NA} has a length 1 whereas \texttt{NULL} has a length 0.
 
 \begin{Shaded}
 \begin{Highlighting}[]
-\FunctionTok{c}\NormalTok{(}\FunctionTok{length}\NormalTok{(}\ConstantTok{NA}\NormalTok{), }\FunctionTok{length}\NormalTok{(}\ConstantTok{NULL}\NormalTok{))}
+\FunctionTok{length}\NormalTok{(}\ConstantTok{NA}\NormalTok{)}
+\FunctionTok{length}\NormalTok{(}\ConstantTok{NULL}\NormalTok{)}
 \end{Highlighting}
 \end{Shaded}
 
 \begin{verbatim}
-## [1] 1 0
+## [1] 1
+## [1] 0
 \end{verbatim}
 
-As further proof that these are not interchangeable, we may use the helper functions \texttt{is.na()} and \texttt{is.null()}. It's false that \texttt{NA} is \texttt{NULL} and essentially unable to be evaluated if \texttt{NULL} is \texttt{NA} because \texttt{NULL}s are truly nothing.\footnote{You'll notice that the code chunk below contains four inputs but only three outputs. Why is that? \texttt{is.na(NULL)} returns \texttt{logical(0)}, a zero-length value which cannot be stored in the vector. It's yet another form of missingness!}
+As further proof that these are not interchangeable, we may use the helper functions \texttt{is.na()} and \texttt{is.null()}. It's false that \texttt{NA} is \texttt{NULL} and essentially unable to be evaluated if \texttt{NULL} is \texttt{NA} because \texttt{NULL}s are truly nothing.\footnote{You'll notice that the code chunk below contains four commands but only three boolean outputs. Why is that? \texttt{is.na(NULL)} returns \texttt{logical(0)}, a zero-length value. It's yet another form of missingness!}
 
 \begin{Shaded}
 \begin{Highlighting}[]
-\FunctionTok{c}\NormalTok{(}
-  \FunctionTok{is.na}\NormalTok{(}\ConstantTok{NA}\NormalTok{),}
-  \FunctionTok{is.null}\NormalTok{(}\ConstantTok{NULL}\NormalTok{),}
-  \FunctionTok{is.na}\NormalTok{(}\ConstantTok{NULL}\NormalTok{),}
-  \FunctionTok{is.null}\NormalTok{(}\ConstantTok{NA}\NormalTok{)}
-\NormalTok{)}
+\FunctionTok{is.na}\NormalTok{(}\ConstantTok{NA}\NormalTok{)}
+\FunctionTok{is.null}\NormalTok{(}\ConstantTok{NULL}\NormalTok{)}
+\FunctionTok{is.na}\NormalTok{(}\ConstantTok{NULL}\NormalTok{)}
+\FunctionTok{is.null}\NormalTok{(}\ConstantTok{NA}\NormalTok{)}
 \end{Highlighting}
 \end{Shaded}
 
 \begin{verbatim}
-## [1]  TRUE  TRUE FALSE
+## [1] TRUE
+## [1] TRUE
+## logical(0)
+## [1] FALSE
 \end{verbatim}
 
 To further complicate matters, we have \texttt{NaN} (``not a number''), along with \texttt{-Inf} and \texttt{Inf}, which generally arise when we attempt to abuse R's calculator. Somewhat charmingly, \texttt{Inf} and \texttt{-Inf} may be used in some rudimentary calculations where the limit is returned.\footnote{From calculus, we know 1/Inf approaches 0, but Inf/Inf is undefined.}
 
 \begin{Shaded}
 \begin{Highlighting}[]
-\FunctionTok{c}\NormalTok{(}
-  \DecValTok{1}\SpecialCharTok{/}\DecValTok{0}\NormalTok{,   }\CommentTok{\# returns Inf}
-  \DecValTok{0}\SpecialCharTok{/}\DecValTok{0}\NormalTok{,   }\CommentTok{\# returns NaN}
-  \DecValTok{1}\SpecialCharTok{/}\ConstantTok{Inf}  \CommentTok{\# returns 0}
-\NormalTok{)}
+\DecValTok{1}\SpecialCharTok{/}\DecValTok{0}
+\DecValTok{0}\SpecialCharTok{/}\DecValTok{0}
+\DecValTok{1}\SpecialCharTok{/}\ConstantTok{Inf}
 \end{Highlighting}
 \end{Shaded}
 
 \begin{verbatim}
-## [1] Inf NaN   0
+## [1] Inf
+## [1] NaN
+## [1] 0
 \end{verbatim}
 
-\hypertarget{data-encoding-choices-todo}{%
-\subsubsection{Data encoding choices (TODO)}\label{data-encoding-choices-todo}}
+\hypertarget{sentinel-value-encoding}{%
+\subsubsection{Sentinel value encoding}\label{sentinel-value-encoding}}
 
 Beyond these null types offered natively by different programming languages, there are also many different data management \emph{conventions} for null values. Because null values can have many meanings, sometimes missing fields are encoded with ``out of range'' values which intend to suggest a type of missingness.
 
@@ -1486,29 +1519,95 @@ Consider a survey of a population of retired adults where age is coded as \textt
 \FunctionTok{set.seed}\NormalTok{(}\DecValTok{123}\NormalTok{)}
 
 \NormalTok{n }\OtherTok{\textless{}{-}} \DecValTok{100000}
-\NormalTok{p }\OtherTok{\textless{}{-}} \FloatTok{0.005}
+\NormalTok{p }\OtherTok{\textless{}{-}} \FloatTok{0.01} \SpecialCharTok{/} \DecValTok{2}
 \NormalTok{ages }\OtherTok{\textless{}{-}} \FunctionTok{runif}\NormalTok{(n, }\DecValTok{65}\NormalTok{, }\DecValTok{95}\NormalTok{)}
 
 \NormalTok{ages\_nulls }\OtherTok{\textless{}{-}}\NormalTok{ ages}
 \NormalTok{ages\_nulls[}\DecValTok{1}\SpecialCharTok{:}\NormalTok{(n}\SpecialCharTok{*}\NormalTok{p)] }\OtherTok{\textless{}{-}} \DecValTok{999}
 
-\FunctionTok{c}\NormalTok{(}\FunctionTok{mean}\NormalTok{(ages), }\FunctionTok{mean}\NormalTok{(ages\_nulls))}
+\FunctionTok{mean}\NormalTok{(ages)}
+\FunctionTok{mean}\NormalTok{(ages\_nulls)}
 \end{Highlighting}
 \end{Shaded}
 
 \begin{verbatim}
-## [1] 79.98 84.57
+## [1] 79.98
+## [1] 84.57
 \end{verbatim}
 
-So, the first order of business with null values is understanding how they are encoded and translation them to the most computationally appropriate form. However, that is only the beginning of the story.
+So, the first order of business with null values is understanding how they are encoded and translating them to the most computationally appropriate form. However, that is only the beginning of the story.
+
+\hypertarget{other-types-of-nulls-todo}{%
+\subsubsection{Other types of nulls (TODO)}\label{other-types-of-nulls-todo}}
+
+might be blank string which won't get detected in standard null checks
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{x }\OtherTok{\textless{}{-}} \StringTok{""}
+\FunctionTok{is.na}\NormalTok{(x)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## [1] FALSE
+\end{verbatim}
+
+same thing is true in dataframes
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\FunctionTok{library}\NormalTok{(dplyr)}
+\NormalTok{df }\OtherTok{\textless{}{-}} \FunctionTok{data.frame}\NormalTok{(}\AttributeTok{x =} \FunctionTok{c}\NormalTok{(}\StringTok{"a"}\NormalTok{, }\StringTok{"b"}\NormalTok{, }\StringTok{""}\NormalTok{, }\StringTok{"d"}\NormalTok{))}
+\FunctionTok{summarize\_all}\NormalTok{(df, }\SpecialCharTok{\textasciitilde{}}\FunctionTok{sum}\NormalTok{(}\FunctionTok{is.na}\NormalTok{(.)))}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+##   x
+## 1 0
+\end{verbatim}
+
+in such cases, need to explicitly check for such alternative encodings like blank strings
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{x }\OtherTok{\textless{}{-}} \StringTok{""}
+\FunctionTok{is.na}\NormalTok{(x) }\SpecialCharTok{|}\NormalTok{ x }\SpecialCharTok{==} \StringTok{""}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## [1] TRUE
+\end{verbatim}
+
+of course, a blank string isn't the only choice\\
+could also have an empty string of any length
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{x }\OtherTok{\textless{}{-}} \StringTok{"  "}
+\FunctionTok{is.na}\NormalTok{(x) }\SpecialCharTok{|}\NormalTok{ x }\SpecialCharTok{==} \StringTok{""}
+\FunctionTok{is.na}\NormalTok{(x) }\SpecialCharTok{|} \FunctionTok{trimws}\NormalTok{(x) }\SpecialCharTok{==} \StringTok{""}
+\FunctionTok{is.na}\NormalTok{(x) }\SpecialCharTok{|} \FunctionTok{nchar}\NormalTok{(}\FunctionTok{trimws}\NormalTok{(x)) }\SpecialCharTok{==} \DecValTok{0}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## [1] FALSE
+## [1] TRUE
+## [1] TRUE
+\end{verbatim}
+
+we'll see more about how fluid strings can be in the string section below
 
 \hypertarget{aggregation}{%
 \subsection{Aggregation}\label{aggregation}}
 
-How null values are handled in the simple aggregation of data varies both across different languages and across different functions within a language.
+Once null values are coded as ``true'' nulls, how these nulls are handled in the simple aggregation of data varies both across different languages and across different functions within a language.
 To better understand the problems this might cause, we will look at examples in R and SQL.
 
-To explore aggregation, let's build a simple dataset. We will suppose that we are working with a subscription-based e-commerce service and that we are looking at a \texttt{monthly\_spend} dataset with one record per customer and information about the amount they spent and returned in a given month:
+To explore aggregation, let's build a simple dataset. We will suppose that we are working with a subscription-based e-commerce service and that we are looking at a \texttt{spend} dataset with one record per customer and information about the amount they spent and returned in a given month:
 
 \begin{Shaded}
 \begin{Highlighting}[]
@@ -1517,13 +1616,23 @@ To explore aggregation, let's build a simple dataset. We will suppose that we ar
     \AttributeTok{AMT\_SPEND =} \FunctionTok{c}\NormalTok{(}\DecValTok{10}\NormalTok{, }\DecValTok{20}\NormalTok{, }\ConstantTok{NA}\NormalTok{),}
     \AttributeTok{AMT\_RETURN =} \FunctionTok{rep}\NormalTok{(}\ConstantTok{NA}\NormalTok{, }\DecValTok{3}\NormalTok{)}
 \NormalTok{  )}
+
+\FunctionTok{head}\NormalTok{(spend)}
 \end{Highlighting}
 \end{Shaded}
+
+\begin{verbatim}
+##   AMT_SPEND AMT_RETURN
+## 1        10         NA
+## 2        20         NA
+## 3        NA         NA
+\end{verbatim}
 
 To compute the average amount spent (\texttt{AMT\_SPEND}) with the \texttt{dplyr} package, an analyst might first reasonably write the following \texttt{summarize()} statement.
 However, as we can see, due to the presence of null values within the \texttt{AMT\_SPEND} column, the result of this aggregation is for the whole quantity of \texttt{AVG\_SPEND} to be set to the value \texttt{NA}.
 
-A glance at the documentation for the \texttt{mean()} function reveals that it has an \texttt{na.rm} parameter which, when set to true, removes null values from our dataset.
+A glance at the documentation for the \texttt{mean()} function\footnote{This documentation can be obtained in R by typing \texttt{?mean} in the console.} reveals that the function has a parameter called \texttt{na.rm}.
+This parameter's default value is \texttt{FALSE}, but, when it is set to \texttt{TRUE}, it removes null values from our dataset.
 Adding this argument to the previous statement allows us to reach a numerical answer.
 
 \begin{Shaded}
@@ -1540,8 +1649,8 @@ Adding this argument to the previous statement allows us to reach a numerical an
 \end{verbatim}
 
 However, is this the \emph{right} numerical answer?
-What \texttt{na.rm\ =\ TRUE} does is \emph{drop} the null values from the set of numbers being averaged.
-However, suppose the null values represent that no purchases were made.
+Recall that what \texttt{na.rm\ =\ TRUE} does is \emph{drop} the null values from the set of numbers being averaged.
+However, suppose the null values represent that no purchases were made for a given customer in a given month.
 That is, zero dollars were spent.
 In effect, we have removed all non-purchasers from the data being averaged.
 
@@ -1551,15 +1660,16 @@ More precisely, we have switched from taking the average
 
 to taking the average
 
-\[ \frac{ \sum_{Spend > 0} Spend }{\sum_{Spend > 0} 1} \] over only those customers with spend
+\[ \frac{ \sum_{Spend > 0} Spend }{\sum_{Spend > 0} 1} \] over only those customers with spend.
 
 At face value, we could say that the code above is giving the incorrect answer; by dropping some low (zero) purchase amounts, the average amount spend per customer is inflated.
 A second perspective, which is someone more philosophically troubling, is that this tiny change to the code which fixed the \emph{obvious} problem (returning a null value) has introduced a \emph{non-obvious} problem by fundamentally changing the question that we are asking.
-By dropping all accounts from our table who made no purchases, we are no longer answering ``What is the average amount spent by a new registrant?'' but rather ``What is the average amount spent by an actively engaged customer?''
+By dropping all accounts from our table who made no purchases, we are no longer answering ``What is the average amount spent by all of our customer?'' but rather ``What is the average amount spent by an actively engaged customer?''
+In the language of probability theory, we might say that we have then changed our estimand from the expected value of spend to expected value of spend conditional on spend being positive.
 This technical quirk has significant analytical impact.
 
-To answer the real question at hand, we would instead have a couple of options.
-We could manually \texttt{sum()} the amount spent with the option to drop nulls but then divide by the correct denominator (all observations -- not just those with spend) or we could explicitly recode null values in \texttt{AMT\_SPEND} to zero before taking the average.\footnote{Recoding can be done with a number of different general purpose functions like \texttt{ifelse} or \texttt{dplyr::case\_when} in R. Different SQL varaints often offer different options for this purpose with functions such as \texttt{nvl()} or \texttt{zeroifnull()}. A common version across many platforms is \texttt{coalesce()} which takes the first non-null argument listed.}
+To answer the real question at hand, we have a couple of options.
+We could manually \texttt{sum()} the amount spent with the option to drop nulls but then divide by the correct denominator (all observations -- not just those with spend) or we could explicitly recode null values in \texttt{AMT\_SPEND} to zero before taking the average.\footnote{Recoding can be done with a number of different general purpose functions like \texttt{ifelse} or \texttt{dplyr::case\_when} in R. Different SQL varaints often offer different options for this purpose with functions such as \texttt{nvl()} or \texttt{zeroifnull()}. A common version across many language is \texttt{coalesce()} which takes the first non-null argument listed.}
 Either of these options lead to the correct conclusion of a lower average spend amount.
 
 \begin{Shaded}
@@ -1578,12 +1688,16 @@ Either of these options lead to the correct conclusion of a lower average spend 
 \end{verbatim}
 
 This is all well and good if we could just accept that the behaviors above are simply how nulls work, but further complexity comes as we see that there is no industry standard across tools.
-For example, as the SQL code below shows, SQL's \texttt{avg()} function behaves more like R's \texttt{mean()} \emph{with} the \texttt{na.rm\ =\ TRUE} option set.
+For example, as the SQL code below shows, SQL's \texttt{avg()} function behaves more like R's \texttt{mean()} \emph{with} the \texttt{na.rm\ =\ TRUE} option set (whereas, you may recall that R's \texttt{mean()} behaves with \texttt{na.rm\ =\ FALSE} by default).
 That is, the default behavior of SQL is to only operate on the valid and available values.
+The result of this default may mean that it is less obvious when our dataset has null values.
+SQL, unlike R, does not ask for ``permission'' to drop out nulls;
+instead, it unilaterally makes a decision how to handle these variables.
 
 \begin{Shaded}
 \begin{Highlighting}[]
-\KeywordTok{SELECT} \FunctionTok{avg}\NormalTok{(amt\_spend) }\KeywordTok{as}\NormalTok{ AVG\_SPEND}
+\KeywordTok{SELECT} 
+  \FunctionTok{avg}\NormalTok{(amt\_spend) }\KeywordTok{as}\NormalTok{ AVG\_SPEND}
 \KeywordTok{FROM}\NormalTok{ spend}
 \end{Highlighting}
 \end{Shaded}
@@ -1593,13 +1707,14 @@ That is, the default behavior of SQL is to only operate on the valid and availab
 ## 1        15
 \end{verbatim}
 
-However, this is not to suggest that null values cannot also be destructive in SQL.
+However, this is not to suggest that null values cannot also be ``destructive'' in SQL (that is, returning null).
 While aggregation functions (which compute over the \emph{rows/records}) like \texttt{sum()} and \texttt{avg()} drop nulls, operators like \texttt{+} and \texttt{-} (which compute \emph{across columns/variables} in the \emph{same row/record}) do not exhibit the same behavior.
 Consider, for example, if we wish to calculate the average net purchase amount (purchases minus returns) instead of the gross (total) purchase amount.
 
 \begin{Shaded}
 \begin{Highlighting}[]
-\KeywordTok{SELECT} \FunctionTok{avg}\NormalTok{(amt\_spend}\OperatorTok{{-}}\NormalTok{amt\_return) }\KeywordTok{as}\NormalTok{ AVG\_SPEND\_NET}
+\KeywordTok{SELECT} 
+  \FunctionTok{avg}\NormalTok{(amt\_spend }\OperatorTok{{-}}\NormalTok{ amt\_return) }\KeywordTok{as}\NormalTok{ AVG\_SPEND\_NET}
 \KeywordTok{FROM}\NormalTok{ spend}
 \end{Highlighting}
 \end{Shaded}
@@ -1611,8 +1726,9 @@ Consider, for example, if we wish to calculate the average net purchase amount (
 
 Despite what we learned above about SQL's \texttt{avg()} function, the query above returns only a null value.
 What has happened?
-In our \texttt{spend} dataset, the \texttt{amt\_return} column is completely null (representing no returns).
-Because the subtraction occurs before the average is taken, subtracting real numbers in \texttt{amt\_spend} with null values in \texttt{amt\_return} creates a column of all null values which are then fed into the \texttt{avg()} function.
+In our \texttt{spend} dataset, the \texttt{amt\_return} column is completely null (representing no return purchases).
+Because the subtraction occurs before the average is taken, subtracting null values in the \texttt{amt\_return} variable from valid numbers in \texttt{amt\_spend} variable creates a new variable of all null values.
+This new variable, which is already all null, is passed to the \texttt{avg()} function.
 This process is shown step-by-step below.
 
 \begin{Shaded}
@@ -1635,22 +1751,24 @@ This process is shown step-by-step below.
 \hypertarget{comparison}{%
 \subsection{Comparison}\label{comparison}}
 
-Null values don't just introduce complexity when doing arithmetic. Difficulties also arise any time multiple variables are assessed for equality or inequality. Since a null value is unknown, most programming languages generally will \emph{not} consider nulls to be comparable with other nulls.
+Null values don't just introduce complexity when doing arithmetic.
+Difficulties also arise any time multiple variables are assessed for equality or inequality.
+Since a null value is unknown, most programming languages generally will \emph{not} consider nulls to be comparable with other nulls.
 
-We can simple examples of this in both R and SQL.
+We can observe simple examples of this in both R and SQL. In neither language can a null value be assessed for equality or inequality versus either another number or another null.
 
 \begin{Shaded}
 \begin{Highlighting}[]
-\FunctionTok{c}\NormalTok{(}
-  \ConstantTok{NA} \SpecialCharTok{==} \DecValTok{3}\NormalTok{, }
-  \ConstantTok{NA} \SpecialCharTok{\textgreater{}} \DecValTok{10}\NormalTok{, }
-  \ConstantTok{NA} \SpecialCharTok{==} \ConstantTok{NA}
-\NormalTok{  )}
+\ConstantTok{NA} \SpecialCharTok{==} \DecValTok{3} 
+\ConstantTok{NA} \SpecialCharTok{\textgreater{}} \DecValTok{10} 
+\ConstantTok{NA} \SpecialCharTok{==} \ConstantTok{NA}
 \end{Highlighting}
 \end{Shaded}
 
 \begin{verbatim}
-## [1] NA NA NA
+## [1] NA
+## [1] NA
+## [1] NA
 \end{verbatim}
 
 \begin{Shaded}
@@ -1671,11 +1789,15 @@ In these toy examples, such outcomes may seem perfectly logical.
 However, this same reasoning can arise in sneakier ways and lead to uninteded results when equality evaluations are \emph{implicit} in the task at hand instead of the singular focus.
 We'll now see examples from data filtering, joining, and transformation.
 
+If you're familiar with SQL, you may have been surprised to notice that there is no \texttt{FROM} clause in the query above. In fact, SQL queries can treat values just like variables containing only a single record.
+
+We will use this trick throughout the chapter for exploring how SQL works when we don't have an ideal sample dataset to test certain scenarios. Beyond exposition in this book, this trick is also useful in practice.
+
 \hypertarget{filtering}{%
 \subsubsection{Filtering}\label{filtering}}
 
 Suppose we want to split our dataset into two datasets based on high or low values of spend.
-We might assume the following two lines of code will create a clear partition\footnote{A \textbf{paritition} of our data would imply that every record is contained in precisely one group} of results.
+We might assume the following two lines of code will create a clear partition (implying that each record would fall into exactly one group.)
 
 \begin{Shaded}
 \begin{Highlighting}[]
@@ -1684,7 +1806,7 @@ We might assume the following two lines of code will create a clear partition\fo
 \end{Highlighting}
 \end{Shaded}
 
-However, examining the resulting datasets, we see than \emph{neither} contains the null records.
+However, if we examine the resulting datasets, we see that \emph{neither} contains the third record which had a null value for the \texttt{AMT\_SPEND} variable.
 
 \begin{Shaded}
 \begin{Highlighting}[]
@@ -1736,6 +1858,26 @@ The same situation results in SQL.
 ## 1        20         NA
 \end{verbatim}
 
+This is a direct result of the fact that nulls cannot be compared for equality any inequality.
+We can think of data filtering as a two-step process:
+first evaluate whether the condition is TRUE or FALSE,
+then return only the records for which the condition holds true.
+When we conduct the more manual process of filtering step-by-step, we see that the null value of \texttt{AMT\_SPEND} does not get a ``truth value'' when compared with a number.
+Thus, it is not contained in either ``truth value'' subset.
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\FunctionTok{mutate}\NormalTok{(spend, }\AttributeTok{is\_lt20 =}\NormalTok{ (AMT\_SPEND }\SpecialCharTok{\textless{}} \DecValTok{20}\NormalTok{))}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+##   AMT_SPEND AMT_RETURN is_lt20
+## 1        10         NA    TRUE
+## 2        20         NA   FALSE
+## 3        NA         NA      NA
+\end{verbatim}
+
 Thus, whenever our data has null values, the very common act of data filtering risks excluding important information.
 
 \hypertarget{joining}{%
@@ -1762,7 +1904,7 @@ In fact, this idea is core to the concept of computational unit tests which we w
 \end{verbatim}
 
 In SQL, if we try to join this table, the records in row 1 will match because \texttt{\textquotesingle{}Anne\textquotesingle{}\ ==\ \textquotesingle{}Anne\textquotesingle{}} and \texttt{\textquotesingle{}2000-01-01\textquotesingle{}\ ==\ \textquotesingle{}2000-01-01\textquotesingle{}}.
-However, poor Bob's record is eliminated because his birthdate is logged as null, and \texttt{NA\ ==\ NA} is false.
+However, poor Bob's record is eliminated because his birth date is logged as null, and \texttt{NA\ ==\ NA} is false.
 
 \begin{Shaded}
 \begin{Highlighting}[]
@@ -1869,6 +2011,603 @@ We can explicitly encode any residual values as something like ``OTHER'' or ``ER
 ## 3 OTHER        1
 \end{verbatim}
 
+While nulls contribute to this issue, it's important to realize that nulls are not the only factor causing this error nor or they the solution.
+The more substantial issue is the careless use of defaults and \emph{implicit} encoding versus \emph{explicit} encoding.
+In the second form of the SQL query above, we are more specific about exactly what is allowed in each category which ensures any unexpected inputs will not be allowed to ``sneak'' into ordinary outputs.
+
+\hypertarget{logicals-todo}{%
+\section{Logicals (TODO)}\label{logicals-todo}}
+
+Much like the different versions of nulls that we met in the last section, logical data types use reserved keywords to represent \texttt{TRUE} and \texttt{FALSE}.
+(The exact formats of logical reserved keywords vary by language. R and SQL use \texttt{TRUE} and \texttt{FALSE} and python uses \texttt{TRUE} and \texttt{FALSE}.)
+This means that these names function like a number or a letter which intrinsically hold one specific value and cannot take on a different value besides their own.
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\ConstantTok{TRUE} \OtherTok{=} \DecValTok{5}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## Error in TRUE = 5: invalid (do_set) left-hand side to assignment
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\DecValTok{2} \OtherTok{=} \DecValTok{5}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## Error in 2 = 5: invalid (do_set) left-hand side to assignment
+\end{verbatim}
+
+Across languages, \texttt{TRUE} and \texttt{FALSE} are considered equivalent to the numeric representations of 1 and 0 respectively.
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\FunctionTok{as.numeric}\NormalTok{(}\ConstantTok{TRUE}\NormalTok{)}
+\FunctionTok{as.numeric}\NormalTok{(}\ConstantTok{FALSE}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## [1] 1
+## [1] 0
+\end{verbatim}
+
+A consequence of this numerical equivalency is that \texttt{TRUE} and \texttt{FALSE} may be compared to each other or other numbers and be included in mathematical expressions.
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\ConstantTok{TRUE} \SpecialCharTok{\textgreater{}} \ConstantTok{FALSE}
+\ConstantTok{TRUE} \SpecialCharTok{\textless{}} \DecValTok{5}
+\ConstantTok{FALSE} \SpecialCharTok{\textgreater{}} \SpecialCharTok{{-}}\DecValTok{1}
+\ConstantTok{TRUE} \SpecialCharTok{+} \DecValTok{1}
+\ConstantTok{TRUE} \SpecialCharTok{*} \DecValTok{5}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## [1] TRUE
+## [1] TRUE
+## [1] TRUE
+## [1] 2
+## [1] 5
+\end{verbatim}
+
+similar in SQL
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\KeywordTok{select}
+  \KeywordTok{TRUE} \OperatorTok{\textgreater{}} \KeywordTok{FALSE} \KeywordTok{as}\NormalTok{ a,}
+  \KeywordTok{TRUE} \OperatorTok{\textless{}} \DecValTok{5} \KeywordTok{as}\NormalTok{ b,}
+  \KeywordTok{FALSE} \OperatorTok{\textgreater{}} \OperatorTok{{-}}\DecValTok{1} \KeywordTok{as}\NormalTok{ c,}
+  \KeywordTok{TRUE} \OperatorTok{+} \DecValTok{1} \KeywordTok{as}\NormalTok{ d,}
+  \KeywordTok{TRUE} \OperatorTok{*} \DecValTok{5} \KeywordTok{as}\NormalTok{ e}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{table}
+
+\caption{\label{tab:unnamed-chunk-66}1 records}
+\centering
+\begin{tabular}[t]{r|r|r|r|r}
+\hline
+a & b & c & d & e\\
+\hline
+1 & 1 & 1 & 2 & 5\\
+\hline
+\end{tabular}
+\end{table}
+
+\hypertarget{language-specific-nuances-cut}{%
+\subsection{Language-specific nuances (CUT?)}\label{language-specific-nuances-cut}}
+
+\hypertarget{keyword-abbrevations}{%
+\subsubsection{Keyword abbrevations}\label{keyword-abbrevations}}
+
+R also recognizes the abbreviations of \texttt{T} and \texttt{F} as \texttt{TRUE} and \texttt{FALSE} respectively;
+however this is not recommended.
+\texttt{T} and \texttt{F} are \emph{not} reserved keywords, so they can be overwritten with a different value.
+This makes code using such abbreviations ``brittle'' and less reliable.
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\ControlFlowTok{if}\NormalTok{ (T) \{}\StringTok{"Hello"}\NormalTok{\} }\ControlFlowTok{else}\NormalTok{ \{}\StringTok{"Goodbye"}\NormalTok{\}}
+\ControlFlowTok{if}\NormalTok{ (F) \{}\StringTok{"Hello"}\NormalTok{\} }\ControlFlowTok{else}\NormalTok{ \{}\StringTok{"Goodbye"}\NormalTok{\}}
+\NormalTok{T }\OtherTok{=} \DecValTok{0}
+\ControlFlowTok{if}\NormalTok{ (T) \{}\StringTok{"Hello"}\NormalTok{\} }\ControlFlowTok{else}\NormalTok{ \{}\StringTok{"Goodbye"}\NormalTok{\}}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## [1] "Hello"
+## [1] "Goodbye"
+## [1] "Goodbye"
+\end{verbatim}
+
+\hypertarget{alternative-representations}{%
+\subsubsection{Alternative representations}\label{alternative-representations}}
+
+We've previously seen that logicals have associated numerical values.
+Different languages may also treat their string representations differently.
+
+For example, R believes that the string \texttt{"TRUE"} is equal to the logical value \texttt{TRUE} when directly compared.
+However, this relationships breaks the transitive property of mathematics\footnote{If a = b and b = c then a = c} because \texttt{TRUE} equals both \texttt{1} and \texttt{"TRUE"}, yet \texttt{"TRUE"} does not equal \texttt{1} so the mathematical operations that can be done with logical \texttt{TRUE} cannot be done with string \texttt{"TRUE"}.
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\ConstantTok{TRUE} \SpecialCharTok{==} \DecValTok{1}
+\ConstantTok{TRUE} \SpecialCharTok{==} \StringTok{"TRUE"}
+\ConstantTok{TRUE} \SpecialCharTok{==} \StringTok{"True"}
+\ConstantTok{TRUE} \SpecialCharTok{*} \DecValTok{5}
+\StringTok{"TRUE"} \SpecialCharTok{*} \DecValTok{5}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## Error in "TRUE" * 5: non-numeric argument to binary operator
+\end{verbatim}
+
+\begin{verbatim}
+## [1] TRUE
+## [1] TRUE
+## [1] FALSE
+## [1] 5
+\end{verbatim}
+
+In contrast neither SQL not python honor the string forms of their respective logical reserved keywords at all.
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\KeywordTok{select} 
+\NormalTok{  (}\KeywordTok{TRUE} \OperatorTok{==} \DecValTok{1}\NormalTok{) }\KeywordTok{as}\NormalTok{ is\_int\_true,}
+\NormalTok{  (}\KeywordTok{TRUE} \OperatorTok{==} \StringTok{\textquotesingle{}TRUE\textquotesingle{}}\NormalTok{) }\KeywordTok{as}\NormalTok{ is\_char\_true,}
+  \KeywordTok{TRUE}\OperatorTok{*}\DecValTok{5} \KeywordTok{as}\NormalTok{ true\_times\_five,}
+  \StringTok{\textquotesingle{}TRUE\textquotesingle{}}\OperatorTok{*}\DecValTok{5} \KeywordTok{as}\NormalTok{ true\_str\_time\_five}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+##   is_int_true is_char_true true_times_five
+## 1           1            0               5
+##   true_str_time_five
+## 1                  0
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\VariableTok{True} \OperatorTok{==} \DecValTok{1}
+\VariableTok{True} \OperatorTok{==} \StringTok{"True"}
+\VariableTok{True} \OperatorTok{==} \StringTok{"TRUE"}
+\VariableTok{True} \OperatorTok{*} \DecValTok{5}
+\CommentTok{"True"} \OperatorTok{*} \DecValTok{5}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## True
+## False
+## False
+## 5
+## 'TrueTrueTrueTrueTrue'
+\end{verbatim}
+
+\hypertarget{comparison-todo}{%
+\subsection{Comparison (TODO)}\label{comparison-todo}}
+
+The nuances of logical representation and handling seem straightforward in isolation.
+However, when encountered in real-world data problems, they are not isolated and are unlikely to be our main focus.
+
+Imagine two datasets which all encode the same information but use boolean, string, and integer representations of a logical respectively.
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{df1 }\OtherTok{\textless{}{-}} \FunctionTok{data.frame}\NormalTok{(}\AttributeTok{ID =} \DecValTok{1}\SpecialCharTok{:}\DecValTok{3}\NormalTok{, }\AttributeTok{IND =} \FunctionTok{rep}\NormalTok{(}\ConstantTok{TRUE}\NormalTok{, }\DecValTok{3}\NormalTok{), }\AttributeTok{X =} \DecValTok{1}\SpecialCharTok{:}\DecValTok{3}\NormalTok{)}
+\NormalTok{df2 }\OtherTok{\textless{}{-}} \FunctionTok{data.frame}\NormalTok{(}\AttributeTok{ID =} \DecValTok{1}\SpecialCharTok{:}\DecValTok{5}\NormalTok{, }\AttributeTok{IND =} \FunctionTok{rep}\NormalTok{(}\StringTok{\textquotesingle{}TRUE\textquotesingle{}}\NormalTok{, }\DecValTok{5}\NormalTok{), }\AttributeTok{Y =} \DecValTok{11}\SpecialCharTok{:}\DecValTok{15}\NormalTok{)}
+\NormalTok{df3 }\OtherTok{\textless{}{-}} \FunctionTok{data.frame}\NormalTok{(}\AttributeTok{ID =} \DecValTok{1}\SpecialCharTok{:}\DecValTok{5}\NormalTok{, }\AttributeTok{IND =} \FunctionTok{rep}\NormalTok{(}\DecValTok{1}\NormalTok{, }\DecValTok{5}\NormalTok{), }\AttributeTok{Z =} \DecValTok{21}\SpecialCharTok{:}\DecValTok{25}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+By simple inspection, the logical and string representations in particular look superficially similar and yet they will behave differently.
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\FunctionTok{head}\NormalTok{(df1)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+##   ID  IND X
+## 1  1 TRUE 1
+## 2  2 TRUE 2
+## 3  3 TRUE 3
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\FunctionTok{head}\NormalTok{(df2)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+##   ID  IND  Y
+## 1  1 TRUE 11
+## 2  2 TRUE 12
+## 3  3 TRUE 13
+## 4  4 TRUE 14
+## 5  5 TRUE 15
+\end{verbatim}
+
+If we use R's \texttt{dplyr::filter()} or \texttt{base::subset()} function to subset the data, the value of \texttt{df1} will correctly subset based on the boolean values of \texttt{IND}. However, R will not know how to interpret the string version in \texttt{df2}.
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\FunctionTok{filter}\NormalTok{(df1, IND)}
+\FunctionTok{filter}\NormalTok{(df2, IND)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## Error: Problem with `filter()` input `..1`.
+## x Input `..1` must be a logical vector, not a character.
+## i Input `..1` is `IND`.
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\FunctionTok{subset}\NormalTok{(df2, df2}\SpecialCharTok{$}\NormalTok{IND)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## Error in subset.data.frame(df2, df2$IND): 'subset' must be logical
+\end{verbatim}
+
+\begin{verbatim}
+##   ID  IND X
+## 1  1 TRUE 1
+## 2  2 TRUE 2
+## 3  3 TRUE 3
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\FunctionTok{filter}\NormalTok{(df1, }\FunctionTok{isTRUE}\NormalTok{(IND))}
+\FunctionTok{filter}\NormalTok{(df2, }\FunctionTok{isTRUE}\NormalTok{(IND))}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## [1] ID  IND X  
+## <0 rows> (or 0-length row.names)
+## [1] ID  IND Y  
+## <0 rows> (or 0-length row.names)
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\FunctionTok{filter}\NormalTok{(df2, }\FunctionTok{isTRUE}\NormalTok{(IND))}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## [1] ID  IND Y  
+## <0 rows> (or 0-length row.names)
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\FunctionTok{left\_join}\NormalTok{(df1, df2, }\AttributeTok{by =} \FunctionTok{c}\NormalTok{(}\StringTok{"ID"}\NormalTok{, }\StringTok{"IND"}\NormalTok{))}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## Error: Can't join on `x$IND` x `y$IND` because of incompatible types.
+## i `x$IND` is of type <logical>>.
+## i `y$IND` is of type <character>>.
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\FunctionTok{merge}\NormalTok{(df1, df2, }\AttributeTok{by.x =} \FunctionTok{c}\NormalTok{(}\StringTok{"ID"}\NormalTok{, }\StringTok{"IND"}\NormalTok{), }\AttributeTok{by.y =} \FunctionTok{c}\NormalTok{(}\StringTok{"ID"}\NormalTok{, }\StringTok{"IND"}\NormalTok{), }\AttributeTok{all.x =} \ConstantTok{TRUE}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+##   ID  IND X  Y
+## 1  1 TRUE 1 11
+## 2  2 TRUE 2 12
+## 3  3 TRUE 3 13
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\KeywordTok{select}\NormalTok{ df1.}\OperatorTok{*}\NormalTok{, df2.}\OperatorTok{*}
+\KeywordTok{from} 
+\NormalTok{ df1 }
+ \KeywordTok{left} \KeywordTok{join}
+\NormalTok{ df2}
+ \KeywordTok{on}
+\NormalTok{ df1.}\KeywordTok{id} \OperatorTok{=}\NormalTok{ df2.}\KeywordTok{id} \KeywordTok{and}
+\NormalTok{ df1.ind }\OperatorTok{=}\NormalTok{ df2.ind}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{table}
+
+\caption{\label{tab:unnamed-chunk-79}3 records}
+\centering
+\begin{tabular}[t]{l|r|r|r|l|r}
+\hline
+ID & IND & X & ID & IND & Y\\
+\hline
+1 & 1 & 1 & NA & NA & NA\\
+\hline
+2 & 1 & 2 & NA & NA & NA\\
+\hline
+3 & 1 & 3 & NA & NA & NA\\
+\hline
+\end{tabular}
+\end{table}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\ImportTok{import}\NormalTok{ pandas }\ImportTok{as}\NormalTok{ pd }
+
+\NormalTok{data1 }\OperatorTok{=}\NormalTok{ \{}\StringTok{\textquotesingle{}ID\textquotesingle{}}\NormalTok{: }\BuiltInTok{list}\NormalTok{(}\BuiltInTok{range}\NormalTok{(}\DecValTok{1}\NormalTok{, }\DecValTok{4}\NormalTok{)),}
+        \StringTok{\textquotesingle{}IND\textquotesingle{}}\NormalTok{: [}\VariableTok{True}\NormalTok{] }\OperatorTok{*} \DecValTok{3}\NormalTok{,}
+        \StringTok{\textquotesingle{}X\textquotesingle{}}\NormalTok{: }\BuiltInTok{list}\NormalTok{(}\BuiltInTok{range}\NormalTok{(}\DecValTok{1}\NormalTok{,}\DecValTok{4}\NormalTok{))}
+\NormalTok{        \}}
+\NormalTok{data2 }\OperatorTok{=}\NormalTok{ \{}\StringTok{\textquotesingle{}ID\textquotesingle{}}\NormalTok{: }\BuiltInTok{list}\NormalTok{(}\BuiltInTok{range}\NormalTok{(}\DecValTok{1}\NormalTok{, }\DecValTok{6}\NormalTok{)),}
+         \StringTok{\textquotesingle{}IND\textquotesingle{}}\NormalTok{: [}\StringTok{\textquotesingle{}True\textquotesingle{}}\NormalTok{] }\OperatorTok{*} \DecValTok{5}\NormalTok{,}
+        \StringTok{\textquotesingle{}Y\textquotesingle{}}\NormalTok{: }\BuiltInTok{list}\NormalTok{(}\BuiltInTok{range}\NormalTok{(}\DecValTok{11}\NormalTok{, }\DecValTok{16}\NormalTok{))\}}
+
+\NormalTok{df1 }\OperatorTok{=}\NormalTok{ pd.DataFrame(data1)}
+\NormalTok{df2 }\OperatorTok{=}\NormalTok{ pd.DataFrame(data2)}
+
+\NormalTok{df1}
+\NormalTok{df2}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+##    ID   IND  X
+## 0   1  True  1
+## 1   2  True  2
+## 2   3  True  3
+##    ID   IND   Y
+## 0   1  True  11
+## 1   2  True  12
+## 2   3  True  13
+## 3   4  True  14
+## 4   5  True  15
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{pd.merge(left }\OperatorTok{=}\NormalTok{ df1, right }\OperatorTok{=}\NormalTok{ df2, how }\OperatorTok{=} \StringTok{"left"}\NormalTok{, on }\OperatorTok{=}\NormalTok{ [}\StringTok{\textquotesingle{}ID\textquotesingle{}}\NormalTok{, }\StringTok{\textquotesingle{}IND\textquotesingle{}}\NormalTok{])}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+##    ID   IND  X   Y
+## 0   1  True  1 NaN
+## 1   2  True  2 NaN
+## 2   3  True  3 NaN
+\end{verbatim}
+
+\hypertarget{numbers-todo}{%
+\section{Numbers (TODO)}\label{numbers-todo}}
+
+\hypertarget{integer-division}{%
+\subsection{Integer division}\label{integer-division}}
+
+In R (mostly what we'd expect)
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\DecValTok{1}\SpecialCharTok{/}\DecValTok{2}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## [1] 0.5
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\FunctionTok{ifelse}\NormalTok{(}\DecValTok{3}\SpecialCharTok{/}\DecValTok{4} \SpecialCharTok{\textgreater{}} \FloatTok{0.5}\NormalTok{, }\StringTok{\textquotesingle{}High\textquotesingle{}}\NormalTok{, }\StringTok{\textquotesingle{}Low\textquotesingle{}}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## [1] "High"
+\end{verbatim}
+
+In some SQL dialect SQL (SQLite shown. ``Modern'' interfaces like Snowflake and BigQuery don't do this)
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\KeywordTok{SELECT}\NormalTok{ (}\DecValTok{1}\OperatorTok{/}\DecValTok{2}\NormalTok{) }\KeywordTok{as}\NormalTok{ one\_div\_two}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+##   one_div_two
+## 1           0
+\end{verbatim}
+
+This rounding can get masked when we are recoding or doing subsequent calculations
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\KeywordTok{SELECT}
+  \ControlFlowTok{case}
+    \ControlFlowTok{when} \DecValTok{3}\OperatorTok{/}\DecValTok{4} \OperatorTok{\textgreater{}} \FloatTok{0.5} \ControlFlowTok{then} \StringTok{\textquotesingle{}High\textquotesingle{}} 
+    \ControlFlowTok{else} \StringTok{\textquotesingle{}Low\textquotesingle{}}
+  \ControlFlowTok{end} \KeywordTok{as}\NormalTok{ high\_low\_int,}
+  \ControlFlowTok{case}
+    \ControlFlowTok{when} \FloatTok{3.0} \OperatorTok{/} \DecValTok{4} \OperatorTok{\textgreater{}} \FloatTok{0.5} \ControlFlowTok{then} \StringTok{\textquotesingle{}High\textquotesingle{}}
+    \ControlFlowTok{else} \StringTok{\textquotesingle{}Low\textquotesingle{}}
+  \ControlFlowTok{end} \KeywordTok{as}\NormalTok{ high\_low\_float}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+##   high_low_int high_low_float
+## 1          Low           High
+\end{verbatim}
+
+The above works because of implicit casting. We can also do explicit casting, but where we do this matters
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\KeywordTok{SELECT}
+  \ControlFlowTok{case} 
+    \ControlFlowTok{when} \FunctionTok{cast}\NormalTok{(}\DecValTok{3} \KeywordTok{as} \DataTypeTok{float}\NormalTok{) }\OperatorTok{/} \DecValTok{4} \OperatorTok{\textgreater{}} \FloatTok{0.5} \ControlFlowTok{then} \StringTok{\textquotesingle{}High\textquotesingle{}}
+    \ControlFlowTok{else} \StringTok{\textquotesingle{}Low\textquotesingle{}}
+  \ControlFlowTok{end} \KeywordTok{as}\NormalTok{ cast\_first,}
+  \ControlFlowTok{case}
+    \ControlFlowTok{when} \FunctionTok{cast}\NormalTok{(}\DecValTok{3}\OperatorTok{/}\DecValTok{4} \KeywordTok{as} \DataTypeTok{float}\NormalTok{) }\OperatorTok{\textgreater{}} \FloatTok{0.5} \ControlFlowTok{then} \StringTok{\textquotesingle{}High\textquotesingle{}}
+    \ControlFlowTok{else} \StringTok{\textquotesingle{}Low\textquotesingle{}}
+  \ControlFlowTok{end} \KeywordTok{as}\NormalTok{ cast\_last}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+##   cast_first cast_last
+## 1       High       Low
+\end{verbatim}
+
+\hypertarget{inexact-storage-and-comparison}{%
+\subsection{Inexact storage and comparison}\label{inexact-storage-and-comparison}}
+
+In R
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{(}\DecValTok{3} \SpecialCharTok{{-}} \FloatTok{2.9}\NormalTok{) }\SpecialCharTok{\textless{}=} \FloatTok{0.1}
+\NormalTok{(}\DecValTok{2} \SpecialCharTok{{-}} \FloatTok{1.9}\NormalTok{) }\SpecialCharTok{\textless{}=} \FloatTok{0.1}
+\NormalTok{(}\DecValTok{1} \SpecialCharTok{{-}} \FloatTok{0.9}\NormalTok{) }\SpecialCharTok{\textless{}=} \FloatTok{0.1}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## [1] FALSE
+## [1] FALSE
+## [1] TRUE
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{(}\DecValTok{3} \SpecialCharTok{{-}} \FloatTok{2.9}\NormalTok{) }\SpecialCharTok{==} \FloatTok{0.1}
+\NormalTok{(}\DecValTok{2} \SpecialCharTok{{-}} \FloatTok{1.9}\NormalTok{) }\SpecialCharTok{==} \FloatTok{0.1}
+\NormalTok{(}\DecValTok{1} \SpecialCharTok{{-}} \FloatTok{0.9}\NormalTok{) }\SpecialCharTok{==} \FloatTok{0.1}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## [1] FALSE
+## [1] FALSE
+## [1] FALSE
+\end{verbatim}
+
+despite the fact that we see no difference
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\DecValTok{3} \SpecialCharTok{{-}} \FloatTok{2.9}
+\DecValTok{2} \SpecialCharTok{{-}} \FloatTok{1.9}
+\DecValTok{1} \SpecialCharTok{{-}} \FloatTok{0.9}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## [1] 0.1
+## [1] 0.1
+## [1] 0.1
+\end{verbatim}
+
+In python - same problem but in slightly different cases
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{(}\DecValTok{3} \OperatorTok{{-}} \FloatTok{2.9}\NormalTok{) }\OperatorTok{\textless{}=} \FloatTok{0.1}
+\NormalTok{(}\DecValTok{2} \OperatorTok{{-}} \FloatTok{1.9}\NormalTok{) }\OperatorTok{\textless{}=} \FloatTok{0.1}
+\NormalTok{(}\DecValTok{1} \OperatorTok{{-}} \FloatTok{0.9}\NormalTok{) }\OperatorTok{\textless{}=} \FloatTok{0.1}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## False
+## False
+## True
+\end{verbatim}
+
+here we can see the differences
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\DecValTok{3} \OperatorTok{{-}} \FloatTok{2.9}
+\DecValTok{2} \OperatorTok{{-}} \FloatTok{1.9}
+\DecValTok{1} \OperatorTok{{-}} \FloatTok{0.9}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## 0.10000000000000009
+## 0.10000000000000009
+## 0.09999999999999998
+\end{verbatim}
+
+Same thing with SQL where differences are masked
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\KeywordTok{select}
+  \DecValTok{3} \OperatorTok{{-}} \FloatTok{2.9} \KeywordTok{as}\NormalTok{ sub\_three,}
+  \DecValTok{2} \OperatorTok{{-}} \FloatTok{1.9} \KeywordTok{as}\NormalTok{ sub\_two,}
+  \DecValTok{1} \OperatorTok{{-}} \FloatTok{0.9} \KeywordTok{as}\NormalTok{ sub\_one,}
+\NormalTok{  (}\DecValTok{3} \OperatorTok{{-}} \FloatTok{2.9}\NormalTok{) }\OperatorTok{\textless{}=} \FloatTok{0.1} \KeywordTok{as}\NormalTok{ sub\_compare\_three,}
+\NormalTok{  (}\DecValTok{2} \OperatorTok{{-}} \FloatTok{1.9}\NormalTok{) }\OperatorTok{\textless{}=} \FloatTok{0.1} \KeywordTok{as}\NormalTok{ sub\_compare\_two,}
+\NormalTok{  (}\DecValTok{1} \OperatorTok{{-}} \FloatTok{0.9}\NormalTok{) }\OperatorTok{\textless{}=} \FloatTok{0.1} \KeywordTok{as}\NormalTok{ sub\_compare\_one}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+##   sub_three sub_two sub_one sub_compare_three
+## 1       0.1     0.1     0.1                 0
+##   sub_compare_two sub_compare_one
+## 1               0               1
+\end{verbatim}
+
+Instead, can use either built-in equality checker (python equivalent is \texttt{math.isclose}) or check that difference between two numbers is in very small window
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\FunctionTok{all.equal}\NormalTok{(}\DecValTok{1} \SpecialCharTok{{-}} \FloatTok{0.9}\NormalTok{, }\FloatTok{0.1}\NormalTok{)}
+
+\FunctionTok{abs}\NormalTok{( (}\DecValTok{1}\FloatTok{{-}0.9}\NormalTok{) }\SpecialCharTok{{-}} \FloatTok{0.1}\NormalTok{ ) }\SpecialCharTok{\textless{}=} \FloatTok{1e{-}10}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## [1] TRUE
+## [1] TRUE
+\end{verbatim}
+
+\hypertarget{division-by-zero}{%
+\subsection{Division by zero}\label{division-by-zero}}
+
+more of a design issue about the right way to handle
+
+we've seen before how we have to understand other peoples use of null values
+
+this is a case where we he to decide what makes most sense
+
 \hypertarget{strings-wip}{%
 \section{Strings (WIP)}\label{strings-wip}}
 
@@ -1878,8 +2617,8 @@ First, unlike numbers, human language strings can be ambiguously defined. \textt
 
 Secondly, string data is one of the most flexible datatypes and can contain any other types of information -- from should-be-logical values (\texttt{"yes"/"no"}, \texttt{"true"/"false"}), should-be-numeric values (\texttt{"27"}), should-be-date values (\texttt{"2020-01-01"}), and even complex data encodings like JSON blobs (\texttt{"\{"name":\{"first":"emily","last":"riederer"\},"social":\{"twitter":"emilyriederer","github":"emilyriederer","linkedin":"emilyriederer"\}\}"} with hideous formatting for emphasis.) For a data publisher, this may be a convenience, but as we will see it can turn into a frustration or a liability when functions and comparison operations are attempted with strings that semantically represent a different type of value.
 
-\hypertarget{dirty-strings}{%
-\subsection{Dirty Strings}\label{dirty-strings}}
+\hypertarget{dirty-strings-todo}{%
+\subsection{Dirty Strings (TODO)}\label{dirty-strings-todo}}
 
 whitespace
 
@@ -1954,7 +2693,7 @@ Strings are ranked based on \emph{alphabetical order} just like a dictionary. So
   fewer characters are smaller than more characters (\texttt{"a"\ \textless{}\ "aa"})
 \end{itemize}
 
-Such rules make perfect sense for true characters. However, when strings are used as a ``catch all'' to represent other structures, typical comparison operators can produce odd results. For example, its generally uncontroverisal that ninety-one is less than one hundred twenty. However, the string \texttt{"91"} is \emph{greater than} \texttt{"120"} because only the chacter \texttt{"9"} is compared to the character \texttt{"1"}.\footnote{Similarly, \texttt{"91"\ \textgreater{}\ "905"} because since they both start with 9, we move on to compare 1 which is greater than 0.}
+Such rules make perfect sense for true characters. However, when strings are used as a ``catch all'' to represent other structures, typical comparison operators can produce odd results. For example, it is generally uncontroverisal that ninety-one is less than one hundred twenty. However, the string \texttt{"91"} is \emph{greater than} \texttt{"120"} because only the character \texttt{"9"} is compared to the character \texttt{"1"}.\footnote{Similarly, \texttt{"91"\ \textgreater{}\ "905"} because since they both start with 9, we move on to compare 1 which is greater than 0.}
 
 \begin{Shaded}
 \begin{Highlighting}[]
@@ -1968,7 +2707,7 @@ Such rules make perfect sense for true characters. However, when strings are use
 ## [1] FALSE
 \end{verbatim}
 
-When strings are used to represent strings, comparison operators may or may not work depending on the precise formatting convertions. Below, we see that ``YYYYQQ''-formats sort correctly because the information is hierarchically nested; millenia are compared before centuries, centuries before decades, decades before years, and years before quarters. However, many other string representations of dates, like ``QQ-YYYY'' will not order correctly. Related topics will be discussed in the ``Dates and Times'' section.
+When strings are used to represent dates and times, comparison operators may or may not work depending on the precise formatting conversions. Below, we see that ``YYYYQQ''-formats sort correctly because the information is hierarchically nested; millenia are compared before centuries, centuries before decades, decades before years, and years before quarters. However, many other string representations of dates, like ``QQ-YYYY'' will not order correctly. Related topics will be discussed in the ``Dates and Times'' section.
 
 \begin{Shaded}
 \begin{Highlighting}[]
@@ -1987,7 +2726,7 @@ These examples demonstrate that we shouldn't rely on sorting schemes that follow
 \hypertarget{type-coercion}{%
 \subsubsection{Type coercion}\label{type-coercion}}
 
-We discussed string comparison before when looking at ``dirty'' strings. More unexpected behavior arises when strings are compared across different data types. Many computing programs will attempt to \emph{coerce} the objects to a similar and comparable type. Sometimes, this can be handy as operations ``just work'', but as always there is a cost for convenience. As we'll see, delegating important decisions to our computing engine may not always capture the semantic relationships that we are most interested in.
+We discussed string comparison before when looking at ``dirty'' strings. More unexpected behavior arises when strings are compared across different data types. Many computing programs will attempt to \emph{coerce} the objects to a similar and comparable type. Sometimes, this can be convenient as operations ``just work'', but as always there is a cost for convenience. As we'll see, delegating important decisions to our computing engine may not always capture the semantic relationships that we are most interested in.
 
 For example, consider compare a string and a number. To make them more comparable, R will convert them both to strings before checking for equality. Thus, the number \texttt{2020} is equivalent to the string \texttt{"2020"} but not the string \texttt{"02020"}.
 
@@ -2003,16 +2742,15 @@ For example, consider compare a string and a number. To make them more comparabl
 ## [1] FALSE
 \end{verbatim}
 
-In constrast, SQLite\footnote{Different versions of SQL may differ} thinks that the string \texttt{\textquotesingle{}2020\textquotesingle{}} is greater than the number 2020 and that these two quantities are not equal.
+In contrast, SQLite\footnote{Different versions of SQL may differ} thinks that the string \texttt{\textquotesingle{}2020\textquotesingle{}} is greater than the number 2020 and that these two quantities are not equal.
 
 \begin{Shaded}
 \begin{Highlighting}[]
-\FunctionTok{sqldf}\NormalTok{(}\StringTok{"select }
-\StringTok{      case when \textquotesingle{}2020\textquotesingle{} = 2020 then 1 else 0 end as is\_eq,}
-\StringTok{      case when not \textquotesingle{}2020\textquotesingle{} == 2020 then 1 else 0 end as not\_eq,}
-\StringTok{      case when \textquotesingle{}2020\textquotesingle{} \textless{} 2020 then 1 else 0 end as is\_lt,}
-\StringTok{      case when \textquotesingle{}2020\textquotesingle{} \textgreater{} 2020 then 1 else 0 end as is\_gt}
-\StringTok{      "}\NormalTok{)}
+\KeywordTok{SELECT}
+  \ControlFlowTok{case} \ControlFlowTok{when}     \StringTok{\textquotesingle{}2020\textquotesingle{}} \OperatorTok{=}  \DecValTok{2020} \ControlFlowTok{then} \DecValTok{1} \ControlFlowTok{else} \DecValTok{0} \ControlFlowTok{end} \KeywordTok{as}\NormalTok{ is\_eq,}
+  \ControlFlowTok{case} \ControlFlowTok{when} \KeywordTok{not} \StringTok{\textquotesingle{}2020\textquotesingle{}} \OperatorTok{==} \DecValTok{2020} \ControlFlowTok{then} \DecValTok{1} \ControlFlowTok{else} \DecValTok{0} \ControlFlowTok{end} \KeywordTok{as}\NormalTok{ not\_eq,}
+  \ControlFlowTok{case} \ControlFlowTok{when}     \StringTok{\textquotesingle{}2020\textquotesingle{}} \OperatorTok{\textless{}}  \DecValTok{2020} \ControlFlowTok{then} \DecValTok{1} \ControlFlowTok{else} \DecValTok{0} \ControlFlowTok{end} \KeywordTok{as}\NormalTok{ is\_lt,}
+  \ControlFlowTok{case} \ControlFlowTok{when}     \StringTok{\textquotesingle{}2020\textquotesingle{}} \OperatorTok{\textgreater{}}  \DecValTok{2020} \ControlFlowTok{then} \DecValTok{1} \ControlFlowTok{else} \DecValTok{0} \ControlFlowTok{end} \KeywordTok{as}\NormalTok{ is\_gt}
 \end{Highlighting}
 \end{Shaded}
 
@@ -2022,6 +2760,70 @@ In constrast, SQLite\footnote{Different versions of SQL may differ} thinks that 
 \end{verbatim}
 
 \^{}TODO: where this could cause problems (FIPS example?)
+
+\hypertarget{transformation-todo}{%
+\subsection{Transformation (TODO)}\label{transformation-todo}}
+
+basic things like addition differ by language
+
+in R, returns error:
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\StringTok{\textquotesingle{}a\textquotesingle{}} \SpecialCharTok{+} \StringTok{\textquotesingle{}b\textquotesingle{}}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## Error in "a" + "b": non-numeric argument to binary operator
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\StringTok{\textquotesingle{}a\textquotesingle{}} \SpecialCharTok{*} \DecValTok{5}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## Error in "a" * 5: non-numeric argument to binary operator
+\end{verbatim}
+
+in SQLite, goes to zero:
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\KeywordTok{SELECT}
+  \StringTok{\textquotesingle{}a\textquotesingle{}} \OperatorTok{+} \StringTok{\textquotesingle{}b\textquotesingle{}} \KeywordTok{as}\NormalTok{ string\_add,}
+  \StringTok{\textquotesingle{}a\textquotesingle{}}\OperatorTok{*}\DecValTok{5} \KeywordTok{as}\NormalTok{ string\_mult}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+##   string_add string_mult
+## 1          0           0
+\end{verbatim}
+
+in python, does concatenation for \texttt{+} and analogous (concatenation of repeat) for \texttt{*}:
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\CommentTok{\textquotesingle{}a\textquotesingle{}} \OperatorTok{+} \StringTok{\textquotesingle{}b\textquotesingle{}}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## 'ab'
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\CommentTok{\textquotesingle{}a\textquotesingle{}} \OperatorTok{*} \DecValTok{5}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## 'aaaaa'
+\end{verbatim}
 
 \hypertarget{dates-and-times-wip}{%
 \section{Dates and Times (WIP)}\label{dates-and-times-wip}}
@@ -2050,12 +2852,14 @@ Some common formats in the wild are:
   YYYY-MM-DD (ISO8601)
 \end{itemize}
 
+In addition to how dates are \emph{formatted}, they may be stored in a variety of different ways ``under the hood'' such as Unix time (seconds since 1970-01-01 00:00:00 UTC) and Julian time (days since noon in Greenwich on November 24, 4714 B.C) (TODO).
+
 To complicate matters further, many of these formats may be represented either by native date types in various programs or by more basic data types (such as integers for the first four and strings for the last four). In addition, analogous formats exist for \emph{timestamps} which encode both calendar date and time of day (hour, minute, and second information).
 
 TODO: why ISO8601?
 
-\hypertarget{assessing-equality}{%
-\subsection{Assessing equality}\label{assessing-equality}}
+\hypertarget{comparison-2}{%
+\subsection{Comparison}\label{comparison-2}}
 
 Automatic conversion of data types
 Dates versus timestamps
@@ -2070,6 +2874,8 @@ Dates versus timestamps
 \NormalTok{  )}
 \end{Highlighting}
 \end{Shaded}
+
+none of these are equal so nothing returns on filtering
 
 \begin{Shaded}
 \begin{Highlighting}[]
@@ -2097,9 +2903,11 @@ Dates versus timestamps
 ## [1] 0
 \end{verbatim}
 
+the same thing happens in sql
+
 \begin{Shaded}
 \begin{Highlighting}[]
-\FunctionTok{sqldf}\NormalTok{(}\StringTok{"select * from df\_dt where DT\_ENROLL = DT\_PURCH"}\NormalTok{)}
+\KeywordTok{select} \OperatorTok{*} \KeywordTok{from}\NormalTok{ df\_dt }\KeywordTok{where}\NormalTok{ DT\_ENROLL }\OperatorTok{=}\NormalTok{ DT\_PURCH}
 \end{Highlighting}
 \end{Shaded}
 
@@ -2110,7 +2918,7 @@ Dates versus timestamps
 
 \begin{Shaded}
 \begin{Highlighting}[]
-\FunctionTok{sqldf}\NormalTok{(}\StringTok{"select * from df\_dt where DT\_ENROLL = DT\_LOGIN"}\NormalTok{)}
+\KeywordTok{select} \OperatorTok{*} \KeywordTok{from}\NormalTok{ df\_dt }\KeywordTok{where}\NormalTok{ DT\_ENROLL }\OperatorTok{=}\NormalTok{ DT\_LOGIN}
 \end{Highlighting}
 \end{Shaded}
 
@@ -2118,6 +2926,10 @@ Dates versus timestamps
 ## [1] DT_ENROLL DT_PURCH  DT_LOGIN 
 ## <0 rows> (or 0-length row.names)
 \end{verbatim}
+
+in what way aren't they equal? to understand this its helpful to know how the computer encodes these dates
+
+with \texttt{as.numeric()} in R we can see the numeric representation of the date
 
 \begin{Shaded}
 \begin{Highlighting}[]
@@ -2129,9 +2941,11 @@ Dates versus timestamps
 ## [1] 18262
 \end{verbatim}
 
+this works the same way in SQL
+
 \begin{Shaded}
 \begin{Highlighting}[]
-\FunctionTok{sqldf}\NormalTok{(}\StringTok{"select cast(DT\_ENROLL as integer), cast(DT\_PURCH as integer) from df\_dt"}\NormalTok{)}
+\KeywordTok{select} \FunctionTok{cast}\NormalTok{(DT\_ENROLL }\KeywordTok{as} \DataTypeTok{integer}\NormalTok{), }\FunctionTok{cast}\NormalTok{(DT\_PURCH }\KeywordTok{as} \DataTypeTok{integer}\NormalTok{) }\KeywordTok{from}\NormalTok{ df\_dt}
 \end{Highlighting}
 \end{Shaded}
 
@@ -2140,15 +2954,26 @@ Dates versus timestamps
 ## 1                      18262                  20200101
 \end{verbatim}
 
+this has the implication that things that are on the same date have an inequality relationship in both languages
+
 \begin{Shaded}
 \begin{Highlighting}[]
-\FunctionTok{sqldf}\NormalTok{(}\StringTok{"}
-\StringTok{  select }
-\StringTok{    cast(DT\_ENROLL as integer), }
-\StringTok{    case when DT\_ENROLL \textless{} 18000 then 1 else 0 end as lt\_18000,}
-\StringTok{    case when DT\_ENROLL \textless{} 19000 then 1 else 0 end as lt\_19000,}
-\StringTok{    case when DT\_ENROLL \textless{} DT\_PURCH then 1 else 0 end as lt\_purch}
-\StringTok{  from df\_dt"}\NormalTok{)}
+\FunctionTok{filter}\NormalTok{(df\_dt, DT\_ENROLL }\SpecialCharTok{\textless{}}\NormalTok{ DT\_PURCH) }\SpecialCharTok{\%\textgreater{}\%} \FunctionTok{nrow}\NormalTok{()}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## [1] 1
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\KeywordTok{select} 
+  \FunctionTok{cast}\NormalTok{(DT\_ENROLL }\KeywordTok{as} \DataTypeTok{integer}\NormalTok{), }
+  \ControlFlowTok{case} \ControlFlowTok{when}\NormalTok{ DT\_ENROLL }\OperatorTok{\textless{}} \DecValTok{18000} \ControlFlowTok{then} \DecValTok{1} \ControlFlowTok{else} \DecValTok{0} \ControlFlowTok{end} \KeywordTok{as}\NormalTok{ lt\_18000,}
+  \ControlFlowTok{case} \ControlFlowTok{when}\NormalTok{ DT\_ENROLL }\OperatorTok{\textless{}} \DecValTok{19000} \ControlFlowTok{then} \DecValTok{1} \ControlFlowTok{else} \DecValTok{0} \ControlFlowTok{end} \KeywordTok{as}\NormalTok{ lt\_19000,}
+  \ControlFlowTok{case} \ControlFlowTok{when}\NormalTok{ DT\_ENROLL }\OperatorTok{\textless{}}\NormalTok{ DT\_PURCH }\ControlFlowTok{then} \DecValTok{1} \ControlFlowTok{else} \DecValTok{0} \ControlFlowTok{end} \KeywordTok{as}\NormalTok{ lt\_purch}
+\KeywordTok{from}\NormalTok{ df\_dt}
 \end{Highlighting}
 \end{Shaded}
 
@@ -2161,41 +2986,60 @@ Dates versus timestamps
 
 Note this this can affect both filters and joins
 
+and this similarly causes a more general problem when comparing a date to a date-as-an-integer
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\FunctionTok{as.Date}\NormalTok{(}\StringTok{"2020{-}01{-}01"}\NormalTok{) }\SpecialCharTok{\textgreater{}} \DecValTok{20160501}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## [1] FALSE
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\KeywordTok{select} \FunctionTok{cast}\NormalTok{(}\StringTok{\textquotesingle{}2020{-}01{-}01\textquotesingle{}} \KeywordTok{as} \DataTypeTok{date}\NormalTok{) }\OperatorTok{\textgreater{}} \DecValTok{20160501}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+##   cast('2020-01-01' as date) > 20160501
+## 1                                     0
+\end{verbatim}
+
+\hypertarget{programming-errors-todo}{%
+\section{Programming Errors (TODO)}\label{programming-errors-todo}}
+
+\hypertarget{default-cases-wip}{%
+\subsection{Default Cases (WIP)}\label{default-cases-wip}}
+
+see case-when example in nulls section
+
 \hypertarget{order-of-operations-wip}{%
-\section{Order of Operations (WIP)}\label{order-of-operations-wip}}
+\subsection{Order of Operations (WIP)}\label{order-of-operations-wip}}
+
+PEMDAS but sometimes still ambiguous
 
 \begin{Shaded}
 \begin{Highlighting}[]
 \DecValTok{1} \SpecialCharTok{+} \DecValTok{1}  \SpecialCharTok{*} \DecValTok{2} \SpecialCharTok{/} \DecValTok{3} \SpecialCharTok{{-}} \DecValTok{1}
-\end{Highlighting}
-\end{Shaded}
-
-\begin{verbatim}
-## [1] 0.6667
-\end{verbatim}
-
-\begin{Shaded}
-\begin{Highlighting}[]
 \NormalTok{(}\DecValTok{1} \SpecialCharTok{+} \DecValTok{1}\NormalTok{) }\SpecialCharTok{*} \DecValTok{2} \SpecialCharTok{/} \DecValTok{3} \SpecialCharTok{{-}} \DecValTok{1}
-\end{Highlighting}
-\end{Shaded}
-
-\begin{verbatim}
-## [1] 0.3333
-\end{verbatim}
-
-\begin{Shaded}
-\begin{Highlighting}[]
 \DecValTok{1} \SpecialCharTok{+} \DecValTok{1} \SpecialCharTok{*} \DecValTok{2} \SpecialCharTok{/}\NormalTok{ (}\DecValTok{3} \SpecialCharTok{{-}} \DecValTok{1}\NormalTok{)}
 \end{Highlighting}
 \end{Shaded}
 
 \begin{verbatim}
+## [1] 0.6667
+## [1] 0.3333
 ## [1] 2
 \end{verbatim}
 
+SQL clause order of evaluations
+
 \hypertarget{object-references-wip}{%
-\section{Object References (WIP)}\label{object-references-wip}}
+\subsection{Object References (WIP)}\label{object-references-wip}}
 
 Copying and modifying object overview
 
@@ -2205,7 +3049,7 @@ Copying and modifying object overview
 
 }
 
-\caption{Different relationships between named variables and their values}\label{fig:unnamed-chunk-74}
+\caption{Different relationships between named variables and their values}\label{fig:unnamed-chunk-129}
 \end{figure}
 
 When might each be preferred?
@@ -2250,50 +3094,15 @@ In R
 \begin{Shaded}
 \begin{Highlighting}[]
 \FunctionTok{library}\NormalTok{(data.table)}
-\end{Highlighting}
-\end{Shaded}
 
-\begin{verbatim}
-## 
-## Attaching package: 'data.table'
-\end{verbatim}
-
-\begin{verbatim}
-## The following objects are masked from 'package:dplyr':
-## 
-##     between, first, last
-\end{verbatim}
-
-\begin{Shaded}
-\begin{Highlighting}[]
 \NormalTok{DT }\OtherTok{\textless{}{-}} \FunctionTok{data.table}\NormalTok{(}\AttributeTok{a=}\FunctionTok{c}\NormalTok{(}\DecValTok{1}\NormalTok{,}\DecValTok{2}\NormalTok{), }\AttributeTok{b=}\FunctionTok{c}\NormalTok{(}\DecValTok{11}\NormalTok{,}\DecValTok{12}\NormalTok{))}
 \FunctionTok{print}\NormalTok{(DT)}
-\end{Highlighting}
-\end{Shaded}
 
-\begin{verbatim}
-##    a  b
-## 1: 1 11
-## 2: 2 12
-\end{verbatim}
-
-\begin{Shaded}
-\begin{Highlighting}[]
 \NormalTok{newDT }\OtherTok{\textless{}{-}}\NormalTok{ DT        }\CommentTok{\# reference, not copy}
 \NormalTok{newDT[}\DecValTok{1}\NormalTok{, a }\SpecialCharTok{:}\ErrorTok{=} \DecValTok{100}\NormalTok{] }\CommentTok{\# modify new DT}
 
 \FunctionTok{print}\NormalTok{(DT)          }\CommentTok{\# DT is modified too.}
-\end{Highlighting}
-\end{Shaded}
 
-\begin{verbatim}
-##      a  b
-## 1: 100 11
-## 2:   2 12
-\end{verbatim}
-
-\begin{Shaded}
-\begin{Highlighting}[]
 \NormalTok{DT }\OtherTok{=} \FunctionTok{data.table}\NormalTok{(}\AttributeTok{a=}\FunctionTok{c}\NormalTok{(}\DecValTok{1}\NormalTok{,}\DecValTok{2}\NormalTok{), }\AttributeTok{b=}\FunctionTok{c}\NormalTok{(}\DecValTok{11}\NormalTok{,}\DecValTok{12}\NormalTok{))}
 \NormalTok{newDT }\OtherTok{\textless{}{-}}\NormalTok{ DT        }
 \NormalTok{newDT}\SpecialCharTok{$}\NormalTok{b[}\DecValTok{2}\NormalTok{] }\OtherTok{\textless{}{-}} \DecValTok{200}  \CommentTok{\# new operation}
@@ -2307,9 +3116,169 @@ In R
 ##    a  b
 ## 1: 1 11
 ## 2: 2 12
+##      a  b
+## 1: 100 11
+## 2:   2 12
+##    a  b
+## 1: 1 11
+## 2: 2 12
 \end{verbatim}
 
 From \url{https://stackoverflow.com/questions/10225098/understanding-exactly-when-a-data-table-is-a-reference-to-vs-a-copy-of-another}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\ImportTok{import}\NormalTok{ pandas }\ImportTok{as}\NormalTok{ pd}
+
+\CommentTok{\# set{-}up sample data {-}{-}{-}{-}}
+\NormalTok{data }\OperatorTok{=}\NormalTok{ \{}\StringTok{\textquotesingle{}a\textquotesingle{}}\NormalTok{: [}\DecValTok{1}\NormalTok{, }\DecValTok{2}\NormalTok{], }
+        \StringTok{\textquotesingle{}b\textquotesingle{}}\NormalTok{: [}\DecValTok{11}\NormalTok{, }\DecValTok{12}\NormalTok{]\}}
+\NormalTok{df }\OperatorTok{=}\NormalTok{ pd.DataFrame(data }\OperatorTok{=}\NormalTok{ data)}
+
+\CommentTok{\# rename columns without replacing {-}{-}{-}{-}}
+\NormalTok{df.rename(columns }\OperatorTok{=}\NormalTok{ \{}\StringTok{\textquotesingle{}a\textquotesingle{}}\NormalTok{:}\StringTok{\textquotesingle{}x\textquotesingle{}}\NormalTok{\})}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+##    x   b
+## 0  1  11
+## 1  2  12
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{df}
+
+\CommentTok{\# rename columns with replacing {-}{-}{-}{-}}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+##    a   b
+## 0  1  11
+## 1  2  12
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{df.rename(columns }\OperatorTok{=}\NormalTok{ \{}\StringTok{\textquotesingle{}a\textquotesingle{}}\NormalTok{:}\StringTok{\textquotesingle{}x\textquotesingle{}}\NormalTok{\}, inplace }\OperatorTok{=} \VariableTok{True}\NormalTok{)}
+\NormalTok{df}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+##    x   b
+## 0  1  11
+## 1  2  12
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{add\_ones }\OtherTok{\textless{}{-}} \ControlFlowTok{function}\NormalTok{(data) \{}
+  
+\NormalTok{  data}\SpecialCharTok{$}\NormalTok{x0 }\OtherTok{\textless{}{-}} \FunctionTok{rep}\NormalTok{(}\DecValTok{0}\NormalTok{, }\FunctionTok{nrow}\NormalTok{(data))}
+  
+\NormalTok{\}}
+
+\NormalTok{df }\OtherTok{\textless{}{-}} \FunctionTok{data.frame}\NormalTok{(}\AttributeTok{x1 =} \DecValTok{1}\SpecialCharTok{:}\DecValTok{5}\NormalTok{)}
+\NormalTok{df}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+##   x1
+## 1  1
+## 2  2
+## 3  3
+## 4  4
+## 5  5
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\FunctionTok{add\_ones}\NormalTok{(df)}
+\NormalTok{df}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+##   x1
+## 1  1
+## 2  2
+## 3  3
+## 4  4
+## 5  5
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{add\_ones }\OtherTok{\textless{}{-}} \ControlFlowTok{function}\NormalTok{(data) \{}
+  
+\NormalTok{  data}\SpecialCharTok{$}\NormalTok{x0 }\OtherTok{\textless{}{-}} \FunctionTok{rep}\NormalTok{(}\DecValTok{0}\NormalTok{, }\FunctionTok{nrow}\NormalTok{(data))}
+  \FunctionTok{return}\NormalTok{(data)}
+  
+\NormalTok{\}}
+
+\NormalTok{df }\OtherTok{\textless{}{-}} \FunctionTok{data.frame}\NormalTok{(}\AttributeTok{x1 =} \DecValTok{1}\SpecialCharTok{:}\DecValTok{5}\NormalTok{)}
+\NormalTok{df}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+##   x1
+## 1  1
+## 2  2
+## 3  3
+## 4  4
+## 5  5
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\FunctionTok{add\_ones}\NormalTok{(df)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+##   x1 x0
+## 1  1  0
+## 2  2  0
+## 3  3  0
+## 4  4  0
+## 5  5  0
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{df}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+##   x1
+## 1  1
+## 2  2
+## 3  3
+## 4  4
+## 5  5
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{df2 }\OtherTok{\textless{}{-}} \FunctionTok{add\_ones}\NormalTok{(df)}
+\NormalTok{df2 }
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+##   x1 x0
+## 1  1  0
+## 2  2  0
+## 3  3  0
+## 4  4  0
+## 5  5  0
+\end{verbatim}
 
 \hypertarget{trusting-tools}{%
 \section{Trusting Tools}\label{trusting-tools}}
@@ -2363,7 +3332,7 @@ As a second example, according to a 2015 \href{https://issues.apache.org/jira/br
 
 }
 
-\caption{JIRA ticket for Spark with a discussion of which random forest variable importance algorithm to implement}\label{fig:unnamed-chunk-78}
+\caption{JIRA ticket for Spark with a discussion of which random forest variable importance algorithm to implement}\label{fig:unnamed-chunk-136}
 \end{figure}
 
 Clearly, no one wants a workflow that is too costly or timely to run. So, once again, there is no right or wrong. However, since every approach to feature importance has its own biases, pitfalls, and challenges in interpretation, it's a mistake for an end-user to not carefully understand which algorithm is used and why.
@@ -2399,6 +3368,8 @@ Some computational quandaries are inherent to our tools themselves, but often th
   read the docs
 \item
   look at examples
+\item
+  don't carry default knowledge between languages
 \end{itemize}
 
 \hypertarget{understand-the-execution-1}{%
@@ -2420,7 +3391,7 @@ Some computational quandaries are inherent to our tools themselves, but often th
 \item
   default arguments
 \item
-  examples above with casting, coalescing
+  examples above with casting, coalescingW
 \end{itemize}
 
 \hypertarget{real-world-disasters-wip}{%
@@ -2441,6 +3412,7 @@ The data error, which led to 15,841 positive tests being left off the official d
 
 Once armed with an understanding of the data and tools available for analysis, a common start to analysis is exploring data with \emph{aggregation}.
 At its heart, any sort of data analysis is the process of condensing raw data into something more manageable and useful while giving up as little of the information as possible.
+From linear regressions and hypothesis testing to random forests and beyond, much of data analysis could truly be called ``applied sums an averages''.
 
 Many elementary tools for this task are much better at the comprehension task than the preservation one.
 We learn rigorous assumptions to consider and validate when studying linear regression, but basic arithmetic aggregation presents itself as agnostic and welcome to any type of data.
@@ -2448,18 +3420,21 @@ However, the underlying distributions of our variables and the relationships bet
 
 In this chapter, we will explore different ways that univariate and multivariate aggregations can be naive or uninformative.
 
-\hypertarget{similar-in-summary}{%
-\section{Similar in Summary}\label{similar-in-summary}}
+\hypertarget{motivating-example-similar-in-summary}{%
+\section{Motivating Example: Similar in Summary}\label{motivating-example-similar-in-summary}}
 
-Anscombe's Quartet
-
-The datasaurus dozen \citep{datasaurus} and the \texttt{datasauRus} R package \citep{R-datasauRus}
+To begin, we will look at a whimsical toy example.
+This may feel trite or manufactured, but the subsequent sections will aim to convince you that these issues are not just esoteric.
+Consider the ``datasaurus dozen'' dataset \citep{datasaurus} which is available within the \texttt{datasauRus} R package \citep{R-datasauRus}.
 
 \begin{Shaded}
 \begin{Highlighting}[]
 \FunctionTok{library}\NormalTok{(datasauRus)}
 \end{Highlighting}
 \end{Shaded}
+
+This dataset contains 12 sets of data stacked on top of one another and identified by the \texttt{dataset} column.\footnote{If you are following along in R, you might run \texttt{unique(df\$dataset)} to see all the values of this column. We won't do that now as to not ruin the surprise}.
+Besides the identifier column, the data is fairly small and contains only two variables \texttt{x} and \texttt{y}.
 
 \begin{Shaded}
 \begin{Highlighting}[]
@@ -2479,6 +3454,9 @@ The datasaurus dozen \citep{datasaurus} and the \texttt{datasauRus} R package \c
 ## 5 dino     40.8  88.3
 ## 6 dino     38.7  84.9
 \end{verbatim}
+
+A quick analysis of summary statistics reveals that each of the 12 datasets is very consistent in its summary statistics.
+The means and variances of \texttt{x} and \texttt{y} and even their correlations are nearly identifcal.
 
 \begin{table}
 
@@ -2517,16 +3495,74 @@ x\_shape & 54.26 & 47.84 & 281.2 & 725.2 & -0.066\\
 \end{tabular}
 \end{table}
 
+However, as shown in Figure \ref{fig:datasaurus-plot}, when we visualize this data, we find that the 12 datasets reveal remarkably different patterns.
+
 \begin{figure}
 \centering
 \includegraphics{bookdown_files/figure-latex/datasaurus-plot-1.pdf}
 \caption{\label{fig:datasaurus-plot}Scatterplots for Datasaurus Dozen datasets}
 \end{figure}
 
-While this is clearly a contrived example (and, if you so chose to check out the paper, a very cleverly contrived example!), its also a cautionary tale. Summary statistics are not just insufficient when they focus on central tendency (e.g.~mean) instead of spread. In this example, even an examination of variation and covariation led to an overly simplistic view of the underlying data.
+This dataset is a more elaborate version of Anscombe's Quartet, a well-known set of four datasets which exhibit similar properties.
+Examining a simiilar plot for Anscombe's Quartet (with data from the \texttt{anscombe} dataset which ships in R's \texttt{datasets} package), we can get better intuition for how the phenomenon is manufactured.
+Figure \ref{fig:anscombe} shows as similar plot to \ref{fig:datasaurus-plot}.
+Comparing datasets 1 and 3, for example, we can see a trade-off between a semi-strong trend with a consistent-seeming amount of noise and an nearly perfect linear trend with a single outlier.
 
-\hypertarget{averages}{%
-\section{Averages}\label{averages}}
+\begin{verbatim}
+## Warning: Values are not uniquely identified; output will contain list-cols.
+## * Use `values_fn = list` to suppress this warning.
+## * Use `values_fn = length` to identify where the duplicates arise
+## * Use `values_fn = {summary_fun}` to summarise duplicates
+\end{verbatim}
+
+\begin{verbatim}
+## Warning: `cols` is now required when using unnest().
+## Please use `cols = c(x, y)`
+\end{verbatim}
+
+\begin{verbatim}
+## `geom_smooth()` using formula 'y ~ x'
+\end{verbatim}
+
+\begin{figure}
+\centering
+\includegraphics{bookdown_files/figure-latex/anscombe-1.pdf}
+\caption{\label{fig:anscombe}Scatterplots for Anscombe's Quartet}
+\end{figure}
+
+Figure \ref{fig:anscombe} also plots the simple linear regression line for each dataset.
+Similar to the summary statistics, these are also identical.
+We know this because the regression coefficient for a simple linear regression is given by \texttt{cov(x,y)}/\texttt{sd(x)sd(y)}. You'll notice I do not write ``we can see that\ldots{}'' because, in fact, we can only \emph{see} similarity not equality.
+The message of this section may seem to be ``don't summarize your data without plotting it'', but conducting ``visual analytics'' without looking at the numbers is also problematic.
+We'll explore the latter topic more in Chapter \ref{vexi-visu} (Vexing Visualiztions).
+
+While there are clearly a contrived example (and, if you so chose to check out the ``Datasaurus Dozen'' paper, a very cleverly contrived example!), its also a cautionary tale.
+Summary statistics are not just insufficient when they focus on central tendency (e.g.~mean) instead of spread.
+In this example, even an examination of variation and covariation led to an overly simplistic view of the underlying data.
+
+\hypertarget{averages-wip}{%
+\section{Averages (WIP)}\label{averages-wip}}
+
+\hypertarget{implicit-assumptions-todo}{%
+\subsection{Implicit assumptions (TODO)}\label{implicit-assumptions-todo}}
+
+When statistics students study linear regression, they are introduced to a number of canonical assumptions including:
+
+\begin{itemize}
+\tightlist
+\item
+  The true functional form between the dependent and independent variables is linear / additive
+\item
+  Errors are independent
+\item
+  Errors have constant variance (that is, they are homoskedastic)
+\item
+  Errors have a normal distribution
+\end{itemize}
+
+Of course, whether or not these assumptions hold, there's nothing stopping anyone from \emph{mechanically} fit at linear regression\footnote{In fact, the only mechanical constraint to computing linear regression output is that no column of the design matrix (no independent variable) is a precise linear combination of the other columns. Yet this constraint is not typically included among the standard statement of assumptions.}. Instead, these assumptions are required to make the output of a linear regression \emph{meaningful} and, more specifically, for conducting correct inference.
+
+Similarly, there are no limitations on mechanically computing an average
 
 \hypertarget{averaging-skewed-data}{%
 \subsection{Averaging skewed data}\label{averaging-skewed-data}}
@@ -2658,8 +3694,105 @@ After redoing the calculations, we find that th two values are much closer.
 These are notably still not the same number so that does not mean that these two equations are equivalent if variables are unrelated;
 however, this second result once again illustrates the extent to which interrelations can defy our naive intuitions.
 
-\hypertarget{ratios}{%
-\section{Ratios}\label{ratios}}
+\hypertarget{average-over-what-todo}{%
+\subsection{Average over what? (TODO)}\label{average-over-what-todo}}
+
+no such thing as an unweighted average (just sometimes weights are equal)
+
+formal definition of expected value forces you to pick a probability distribution
+
+eg avg mpg by time vs by mileage?
+
+not strictly an error but our language allows an ill-defined problem
+
+\hypertarget{dichotomization-and-distributions}{%
+\subsection{Dichotomization and distributions}\label{dichotomization-and-distributions}}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{n }\OtherTok{\textless{}{-}} \DecValTok{1000}
+
+\CommentTok{\# simulate x and y: uniformly distributed x {-}{-}{-}{-}}
+\NormalTok{x1 }\OtherTok{\textless{}{-}} \FunctionTok{runif}\NormalTok{(n)}
+\NormalTok{y1 }\OtherTok{\textless{}{-}} \DecValTok{5} \SpecialCharTok{+} \DecValTok{3}\SpecialCharTok{*}\NormalTok{x1 }\SpecialCharTok{+} \FunctionTok{rnorm}\NormalTok{(n)}
+
+\CommentTok{\# simulate x and y: same relationship, more concentrated distribution of x {-}{-}{-}{-}}
+\NormalTok{x2 }\OtherTok{\textless{}{-}} \FunctionTok{c}\NormalTok{( }\FunctionTok{runif}\NormalTok{(n}\SpecialCharTok{*}\FloatTok{0.1}\NormalTok{, }\FloatTok{0.00}\NormalTok{, }\FloatTok{0.44}\NormalTok{), }
+         \FunctionTok{runif}\NormalTok{(n}\SpecialCharTok{*}\FloatTok{0.8}\NormalTok{, }\FloatTok{0.45}\NormalTok{, }\FloatTok{0.55}\NormalTok{), }
+         \FunctionTok{runif}\NormalTok{(n}\SpecialCharTok{*}\FloatTok{0.1}\NormalTok{, }\FloatTok{0.55}\NormalTok{, }\FloatTok{1.00}\NormalTok{) }
+\NormalTok{        )}
+\NormalTok{y2 }\OtherTok{\textless{}{-}} \DecValTok{5} \SpecialCharTok{+} \DecValTok{3}\SpecialCharTok{*}\NormalTok{x2 }\SpecialCharTok{+} \FunctionTok{rnorm}\NormalTok{(n)}
+
+\CommentTok{\# com}
+\NormalTok{g1 }\OtherTok{\textless{}{-}} \FunctionTok{ifelse}\NormalTok{(x1 }\SpecialCharTok{\textless{}} \FloatTok{0.5}\NormalTok{, }\DecValTok{0}\NormalTok{, }\DecValTok{1}\NormalTok{)}
+\NormalTok{means1 }\OtherTok{\textless{}{-}} \FunctionTok{c}\NormalTok{(}\FunctionTok{mean}\NormalTok{(y1[g1 }\SpecialCharTok{==} \DecValTok{0}\NormalTok{]), }\FunctionTok{mean}\NormalTok{(y1[g1 }\SpecialCharTok{==} \DecValTok{1}\NormalTok{]))}
+\NormalTok{means1 }
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## [1] 5.814 7.254
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{g2 }\OtherTok{\textless{}{-}} \FunctionTok{ifelse}\NormalTok{(x2 }\SpecialCharTok{\textless{}} \FloatTok{0.5}\NormalTok{, }\DecValTok{0}\NormalTok{, }\DecValTok{1}\NormalTok{)}
+\NormalTok{means2 }\OtherTok{\textless{}{-}} \FunctionTok{c}\NormalTok{(}\FunctionTok{mean}\NormalTok{(y2[g2 }\SpecialCharTok{==} \DecValTok{0}\NormalTok{]), }\FunctionTok{mean}\NormalTok{(y2[g2 }\SpecialCharTok{==} \DecValTok{1}\NormalTok{]))}
+\NormalTok{means2}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## [1] 6.218 6.763
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{means1}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## [1] 5.814 7.254
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{means2}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## [1] 6.218 6.763
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\FunctionTok{cor}\NormalTok{(x1, y1)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## [1] 0.6424
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\FunctionTok{cor}\NormalTok{(x2, y2)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## [1] 0.3688
+\end{verbatim}
+
+\hypertarget{small-sample-sizes}{%
+\subsection{Small sample sizes}\label{small-sample-sizes}}
+
+\hypertarget{proportions-wip}{%
+\section{Proportions (WIP)}\label{proportions-wip}}
+
+note that these are of course just a type of average (average of indicators) but helpful to examine challenges separately
 
 \hypertarget{picking-the-right-denominator}{%
 \subsection{Picking the right denominator}\label{picking-the-right-denominator}}
@@ -2667,14 +3800,377 @@ however, this second result once again illustrates the extent to which interrela
 \hypertarget{sample-size-effects}{%
 \subsection{Sample size effects}\label{sample-size-effects}}
 
+\hypertarget{variation-todo}{%
+\section{Variation (TODO)}\label{variation-todo}}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{x }\OtherTok{\textless{}{-}} \FunctionTok{c}\NormalTok{(}\SpecialCharTok{{-}}\DecValTok{20}\NormalTok{, }\SpecialCharTok{{-}}\DecValTok{10}\NormalTok{, }\SpecialCharTok{{-}}\DecValTok{5}\NormalTok{, }\DecValTok{0}\NormalTok{, }\DecValTok{5}\NormalTok{, }\DecValTok{10}\NormalTok{, }\DecValTok{20}\NormalTok{)}
+\FunctionTok{mean}\NormalTok{(x)}
+\FunctionTok{var}\NormalTok{(x)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## [1] 0
+## [1] 175
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{x }\OtherTok{\textless{}{-}} \FunctionTok{c}\NormalTok{(}\SpecialCharTok{{-}}\DecValTok{15}\NormalTok{, }\SpecialCharTok{{-}}\DecValTok{15}\NormalTok{, }\SpecialCharTok{{-}}\DecValTok{5}\NormalTok{, }\DecValTok{0}\NormalTok{, }\DecValTok{5}\NormalTok{, }\DecValTok{15}\NormalTok{, }\DecValTok{15}\NormalTok{)}
+\FunctionTok{mean}\NormalTok{(x)}
+\FunctionTok{var}\NormalTok{(x)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## [1] 0
+## [1] 158.3
+\end{verbatim}
+
+\hypertarget{correlation-wip}{%
+\section{Correlation (WIP)}\label{correlation-wip}}
+
+As shown in \ref{fig:fig-fun-corr},
+
+\begin{figure}
+\centering
+\includegraphics{bookdown_files/figure-latex/fig-fun-corr-1.pdf}
+\caption{\label{fig:fig-fun-corr}Plots of x from 1 to 10 over a range of common functions}
+\end{figure}
+
+\hypertarget{linear-relationships-only}{%
+\subsection{Linear relationships only}\label{linear-relationships-only}}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{x }\OtherTok{\textless{}{-}} \DecValTok{1}\SpecialCharTok{:}\DecValTok{10}
+\NormalTok{y }\OtherTok{\textless{}{-}} \FunctionTok{list}\NormalTok{(}\AttributeTok{linear =}\NormalTok{ x, }\AttributeTok{quadratic =}\NormalTok{ x}\SpecialCharTok{**}\DecValTok{2}\NormalTok{, }\AttributeTok{cubic =}\NormalTok{ x}\SpecialCharTok{**}\DecValTok{3}\NormalTok{, }\AttributeTok{quartic =}\NormalTok{ x}\SpecialCharTok{**}\DecValTok{4}\NormalTok{)}
+
+\FunctionTok{vapply}\NormalTok{(y, }\AttributeTok{FUN =} \ControlFlowTok{function}\NormalTok{(z) }\FunctionTok{cor}\NormalTok{(x, z, }\AttributeTok{method =} \StringTok{"pearson"}\NormalTok{), }\AttributeTok{FUN.VALUE =} \FunctionTok{numeric}\NormalTok{(}\DecValTok{1}\NormalTok{))}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+##    linear quadratic     cubic   quartic 
+##    1.0000    0.9746    0.9284    0.8817
+\end{verbatim}
+
+\hypertarget{multiple-forms}{%
+\subsection{Multiple forms}\label{multiple-forms}}
+
+Traditional (Pearson) correlation depends on specific values whereas Spearman and Kendall focus on order statistics
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\CommentTok{\# polynomials {-}{-}{-}{-}}
+\NormalTok{x }\OtherTok{\textless{}{-}} \DecValTok{1}\SpecialCharTok{:}\DecValTok{10}
+\NormalTok{y }\OtherTok{\textless{}{-}} \FunctionTok{list}\NormalTok{(}\AttributeTok{linear =}\NormalTok{ x, }\AttributeTok{quadratic =}\NormalTok{ x}\SpecialCharTok{**}\DecValTok{2}\NormalTok{, }\AttributeTok{cubic =}\NormalTok{ x}\SpecialCharTok{**}\DecValTok{3}\NormalTok{, }\AttributeTok{quartic =}\NormalTok{ x}\SpecialCharTok{**}\DecValTok{4}\NormalTok{)}
+
+\FunctionTok{vapply}\NormalTok{(y, }\AttributeTok{FUN =} \ControlFlowTok{function}\NormalTok{(z) }\FunctionTok{cor}\NormalTok{(x, z, }\AttributeTok{method =} \StringTok{"pearson"}\NormalTok{), }\AttributeTok{FUN.VALUE =} \FunctionTok{numeric}\NormalTok{(}\DecValTok{1}\NormalTok{))}
+\FunctionTok{vapply}\NormalTok{(y, }\AttributeTok{FUN =} \ControlFlowTok{function}\NormalTok{(z) }\FunctionTok{cor}\NormalTok{(x, z, }\AttributeTok{method =} \StringTok{"spearman"}\NormalTok{), }\AttributeTok{FUN.VALUE =} \FunctionTok{numeric}\NormalTok{(}\DecValTok{1}\NormalTok{))}
+\FunctionTok{vapply}\NormalTok{(y, }\AttributeTok{FUN =} \ControlFlowTok{function}\NormalTok{(z) }\FunctionTok{cor}\NormalTok{(x, z, }\AttributeTok{method =} \StringTok{"kendall"}\NormalTok{), }\AttributeTok{FUN.VALUE =} \FunctionTok{numeric}\NormalTok{(}\DecValTok{1}\NormalTok{))}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+##    linear quadratic     cubic   quartic 
+##    1.0000    0.9746    0.9284    0.8817 
+##    linear quadratic     cubic   quartic 
+##         1         1         1         1 
+##    linear quadratic     cubic   quartic 
+##         1         1         1         1
+\end{verbatim}
+
+Similar results with a different set of functions
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\CommentTok{\# other functional forms {-}{-}{-}{-}}
+\NormalTok{x }\OtherTok{\textless{}{-}} \DecValTok{1}\SpecialCharTok{:}\DecValTok{10}
+\NormalTok{y }\OtherTok{\textless{}{-}} \FunctionTok{list}\NormalTok{(}\FunctionTok{sin}\NormalTok{(x), }\FunctionTok{sqrt}\NormalTok{(x), }\FunctionTok{exp}\NormalTok{(x), }\FunctionTok{log}\NormalTok{(x))}
+
+\FunctionTok{vapply}\NormalTok{(y, }\AttributeTok{FUN =} \ControlFlowTok{function}\NormalTok{(z) }\FunctionTok{cor}\NormalTok{(x, z, }\AttributeTok{method =} \StringTok{"pearson"}\NormalTok{), }\AttributeTok{FUN.VALUE =} \FunctionTok{numeric}\NormalTok{(}\DecValTok{1}\NormalTok{))}
+\FunctionTok{vapply}\NormalTok{(y, }\AttributeTok{FUN =} \ControlFlowTok{function}\NormalTok{(z) }\FunctionTok{cor}\NormalTok{(x, z, }\AttributeTok{method =} \StringTok{"spearman"}\NormalTok{), }\AttributeTok{FUN.VALUE =} \FunctionTok{numeric}\NormalTok{(}\DecValTok{1}\NormalTok{))}
+\FunctionTok{vapply}\NormalTok{(y, }\AttributeTok{FUN =} \ControlFlowTok{function}\NormalTok{(z) }\FunctionTok{cor}\NormalTok{(x, z, }\AttributeTok{method =} \StringTok{"kendall"}\NormalTok{), }\AttributeTok{FUN.VALUE =} \FunctionTok{numeric}\NormalTok{(}\DecValTok{1}\NormalTok{))}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## [1] -0.1705  0.9892  0.7169  0.9517
+## [1] -0.1394  1.0000  1.0000  1.0000
+## [1] -0.1111  1.0000  1.0000  1.0000
+\end{verbatim}
+
+\hypertarget{sensitivity-to-domain}{%
+\subsection{Sensitivity to domain}\label{sensitivity-to-domain}}
+
+The ``strength of relationship'' (completely deterministic) is the same in both cases\\
+However, the summarization of the relationships changes
+
+Here's same case as before:
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\CommentTok{\# polynomials {-}{-}{-}{-}}
+\NormalTok{x }\OtherTok{\textless{}{-}} \DecValTok{1}\SpecialCharTok{:}\DecValTok{10}
+\NormalTok{y }\OtherTok{\textless{}{-}} \FunctionTok{list}\NormalTok{(}\AttributeTok{linear =}\NormalTok{ x, }\AttributeTok{quadratic =}\NormalTok{ x}\SpecialCharTok{**}\DecValTok{2}\NormalTok{, }\AttributeTok{cubic =}\NormalTok{ x}\SpecialCharTok{**}\DecValTok{3}\NormalTok{, }\AttributeTok{quartic =}\NormalTok{ x}\SpecialCharTok{**}\DecValTok{4}\NormalTok{)}
+
+\FunctionTok{vapply}\NormalTok{(y, }\AttributeTok{FUN =} \ControlFlowTok{function}\NormalTok{(z) }\FunctionTok{cor}\NormalTok{(x, z, }\AttributeTok{method =} \StringTok{"pearson"}\NormalTok{), }\AttributeTok{FUN.VALUE =} \FunctionTok{numeric}\NormalTok{(}\DecValTok{1}\NormalTok{))}
+\FunctionTok{vapply}\NormalTok{(y, }\AttributeTok{FUN =} \ControlFlowTok{function}\NormalTok{(z) }\FunctionTok{cor}\NormalTok{(x, z, }\AttributeTok{method =} \StringTok{"spearman"}\NormalTok{), }\AttributeTok{FUN.VALUE =} \FunctionTok{numeric}\NormalTok{(}\DecValTok{1}\NormalTok{))}
+\FunctionTok{vapply}\NormalTok{(y, }\AttributeTok{FUN =} \ControlFlowTok{function}\NormalTok{(z) }\FunctionTok{cor}\NormalTok{(x, z, }\AttributeTok{method =} \StringTok{"kendall"}\NormalTok{), }\AttributeTok{FUN.VALUE =} \FunctionTok{numeric}\NormalTok{(}\DecValTok{1}\NormalTok{))}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+##    linear quadratic     cubic   quartic 
+##    1.0000    0.9746    0.9284    0.8817 
+##    linear quadratic     cubic   quartic 
+##         1         1         1         1 
+##    linear quadratic     cubic   quartic 
+##         1         1         1         1
+\end{verbatim}
+
+And here's a different range:
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\CommentTok{\# polynomials, diff range {-}{-}{-}{-}}
+\NormalTok{x }\OtherTok{\textless{}{-}} \SpecialCharTok{{-}}\DecValTok{10}\SpecialCharTok{:}\DecValTok{10}
+\NormalTok{y }\OtherTok{\textless{}{-}} \FunctionTok{list}\NormalTok{(}\AttributeTok{linear =}\NormalTok{ x, }\AttributeTok{quadratic =}\NormalTok{ x}\SpecialCharTok{**}\DecValTok{2}\NormalTok{, }\AttributeTok{cubic =}\NormalTok{ x}\SpecialCharTok{**}\DecValTok{3}\NormalTok{, }\AttributeTok{quartic =}\NormalTok{ x}\SpecialCharTok{**}\DecValTok{4}\NormalTok{)}
+
+\FunctionTok{vapply}\NormalTok{(y, }\AttributeTok{FUN =} \ControlFlowTok{function}\NormalTok{(z) }\FunctionTok{cor}\NormalTok{(x, z, }\AttributeTok{method =} \StringTok{"pearson"}\NormalTok{), }\AttributeTok{FUN.VALUE =} \FunctionTok{numeric}\NormalTok{(}\DecValTok{1}\NormalTok{))}
+\FunctionTok{vapply}\NormalTok{(y, }\AttributeTok{FUN =} \ControlFlowTok{function}\NormalTok{(z) }\FunctionTok{cor}\NormalTok{(x, z, }\AttributeTok{method =} \StringTok{"spearman"}\NormalTok{), }\AttributeTok{FUN.VALUE =} \FunctionTok{numeric}\NormalTok{(}\DecValTok{1}\NormalTok{))}
+\FunctionTok{vapply}\NormalTok{(y, }\AttributeTok{FUN =} \ControlFlowTok{function}\NormalTok{(z) }\FunctionTok{cor}\NormalTok{(x, z, }\AttributeTok{method =} \StringTok{"kendall"}\NormalTok{), }\AttributeTok{FUN.VALUE =} \FunctionTok{numeric}\NormalTok{(}\DecValTok{1}\NormalTok{))}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+##    linear quadratic     cubic   quartic 
+##    1.0000    0.0000    0.9179    0.0000 
+##    linear quadratic     cubic   quartic 
+##         1         0         1         0 
+##    linear quadratic     cubic   quartic 
+##         1         0         1         0
+\end{verbatim}
+
+\hypertarget{partial-correlation}{%
+\subsection{Partial correlation}\label{partial-correlation}}
+
+A lot of EDA starts with some sort of correlation matrix\\
+This won't always account for the fact that some variables can mask correlation between others
+
+Consider two groups with trends in different directions
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{n\_obsvs }\OtherTok{\textless{}{-}} \DecValTok{10}
+\NormalTok{n\_group }\OtherTok{\textless{}{-}}  \DecValTok{2}
+
+\NormalTok{group }\OtherTok{\textless{}{-}} \FunctionTok{rep}\NormalTok{(}\DecValTok{1}\SpecialCharTok{:}\NormalTok{n\_group, }\AttributeTok{each =}\NormalTok{ n\_obsvs)}
+\NormalTok{var1  }\OtherTok{\textless{}{-}} \FunctionTok{rep}\NormalTok{(}\DecValTok{1}\SpecialCharTok{:}\NormalTok{n\_obsvs, }\AttributeTok{times =}\NormalTok{ n\_group)}
+\NormalTok{var2  }\OtherTok{\textless{}{-}}\NormalTok{ var1 }\SpecialCharTok{*} \FunctionTok{rep}\NormalTok{(}\FunctionTok{c}\NormalTok{(}\DecValTok{5}\NormalTok{, }\SpecialCharTok{{-}}\DecValTok{5}\NormalTok{), }\AttributeTok{each =}\NormalTok{ n\_obsvs)}
+\NormalTok{var3  }\OtherTok{\textless{}{-}}\NormalTok{ var1 }\SpecialCharTok{*} \FunctionTok{rep}\NormalTok{(}\FunctionTok{c}\NormalTok{(}\DecValTok{1}\NormalTok{,  }\DecValTok{5}\NormalTok{), }\AttributeTok{each =}\NormalTok{ n\_obsvs)}
+\end{Highlighting}
+\end{Shaded}
+
+As Figure \ref{fig:fig-cor-0} shows
+
+\begin{figure}
+\centering
+\includegraphics{bookdown_files/figure-latex/fig-cor-0-1.pdf}
+\caption{\label{fig:fig-cor-0}Subgroups demonstrating opposing linear relationships}
+\end{figure}
+
+Because of the opposing trends, their correlation becomes zero
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\FunctionTok{cor}\NormalTok{(var1, var2, }\AttributeTok{method =} \StringTok{"pearson"}\NormalTok{)}
+\FunctionTok{cor}\NormalTok{(var1, var2, }\AttributeTok{method =} \StringTok{"spearman"}\NormalTok{)}
+\FunctionTok{cor}\NormalTok{(var1, var2, }\AttributeTok{method =} \StringTok{"kendall"}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## [1] 0
+## [1] 0
+## [1] 0
+\end{verbatim}
+
+However, by group the correlation is 1
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\FunctionTok{cor}\NormalTok{(var1[group }\SpecialCharTok{==} \DecValTok{1}\NormalTok{], var2[group }\SpecialCharTok{==} \DecValTok{1}\NormalTok{])}
+\FunctionTok{cor}\NormalTok{(var1[group }\SpecialCharTok{==} \DecValTok{2}\NormalTok{], var2[group }\SpecialCharTok{==} \DecValTok{2}\NormalTok{])}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## [1] 1
+## [1] -1
+\end{verbatim}
+
+A similar thing happens when the relationship has the same sign but different slopes
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\FunctionTok{cor}\NormalTok{(var1, var3, }\AttributeTok{method =} \StringTok{"pearson"}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## [1] 0.5704
+\end{verbatim}
+
+while the correlation is still one within group
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\FunctionTok{cor}\NormalTok{(var1[group }\SpecialCharTok{==} \DecValTok{1}\NormalTok{], var3[group }\SpecialCharTok{==} \DecValTok{1}\NormalTok{])}
+\FunctionTok{cor}\NormalTok{(var1[group }\SpecialCharTok{==} \DecValTok{2}\NormalTok{], var3[group }\SpecialCharTok{==} \DecValTok{2}\NormalTok{])}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## [1] 1
+## [1] 1
+\end{verbatim}
+
+Even partial correlation doesn't help in case of opposing signs
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\FunctionTok{library}\NormalTok{(ppcor)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## Warning: package 'ppcor' was built under R version
+## 4.0.5
+\end{verbatim}
+
+\begin{verbatim}
+## Loading required package: MASS
+\end{verbatim}
+
+\begin{verbatim}
+## 
+## Attaching package: 'MASS'
+\end{verbatim}
+
+\begin{verbatim}
+## The following object is masked from 'package:patchwork':
+## 
+##     area
+\end{verbatim}
+
+\begin{verbatim}
+## The following object is masked from 'package:dplyr':
+## 
+##     select
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\FunctionTok{pcor}\NormalTok{(}\FunctionTok{data.frame}\NormalTok{(var1, var2, group))}\SpecialCharTok{$}\NormalTok{estimate}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+##       var1    var2   group
+## var1     1  0.0000  0.0000
+## var2     0  1.0000 -0.8864
+## group    0 -0.8864  1.0000
+\end{verbatim}
+
+It \emph{improves} the strength of the estimated correlation in the case of \texttt{var3} but still failes to estimate it correctly.
+Partial correlation would be assuming a form like \texttt{var3\ \textasciitilde{}\ var1\ +\ group} and not \texttt{var3\ \textasciitilde{}\ var1\ *\ group}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\FunctionTok{pcor}\NormalTok{(}\FunctionTok{data.frame}\NormalTok{(var1, var3, group))}\SpecialCharTok{$}\NormalTok{estimate}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+##          var1   var3   group
+## var1   1.0000 0.8321 -0.7375
+## var3   0.8321 1.0000  0.8864
+## group -0.7375 0.8864  1.0000
+\end{verbatim}
+
 \hypertarget{trends}{%
 \section{Trends}\label{trends}}
 
 \hypertarget{if-trends-continue}{%
 \subsection{\texorpdfstring{``If trends continue\ldots{}''}{``If trends continue\ldots''}}\label{if-trends-continue}}
 
+Figure \ref{fig:fig-if-trends-continue} shows that\ldots{}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\FunctionTok{library}\NormalTok{(ggplot2)}
+
+\NormalTok{n }\OtherTok{\textless{}{-}} \DecValTok{300}
+\NormalTok{x }\OtherTok{\textless{}{-}} \FunctionTok{runif}\NormalTok{(n)}
+\NormalTok{y }\OtherTok{\textless{}{-}}\NormalTok{ x }\SpecialCharTok{+} \FunctionTok{rnorm}\NormalTok{(n)}
+
+\FunctionTok{ggplot}\NormalTok{(}
+  \FunctionTok{data.frame}\NormalTok{(x, y),}
+  \FunctionTok{aes}\NormalTok{(x, y)}
+\NormalTok{  ) }\SpecialCharTok{+}
+  \FunctionTok{geom\_point}\NormalTok{() }\SpecialCharTok{+}
+  \FunctionTok{geom\_smooth}\NormalTok{(}\AttributeTok{method =} \StringTok{"lm"}\NormalTok{, }\AttributeTok{formula =}\NormalTok{ y }\SpecialCharTok{\textasciitilde{}} \FunctionTok{I}\NormalTok{(x}\SpecialCharTok{**}\DecValTok{1}\NormalTok{), }\AttributeTok{se =} \ConstantTok{FALSE}\NormalTok{, }\AttributeTok{fullrange =} \ConstantTok{TRUE}\NormalTok{) }\SpecialCharTok{+}
+  \FunctionTok{geom\_smooth}\NormalTok{(}\AttributeTok{method =} \StringTok{"lm"}\NormalTok{, }\AttributeTok{formula =}\NormalTok{ y }\SpecialCharTok{\textasciitilde{}} \FunctionTok{I}\NormalTok{(x}\SpecialCharTok{**}\DecValTok{2}\NormalTok{), }\AttributeTok{se =} \ConstantTok{FALSE}\NormalTok{, }\AttributeTok{fullrange =} \ConstantTok{TRUE}\NormalTok{) }\SpecialCharTok{+}
+  \FunctionTok{geom\_smooth}\NormalTok{(}\AttributeTok{method =} \StringTok{"lm"}\NormalTok{, }\AttributeTok{formula =}\NormalTok{ y }\SpecialCharTok{\textasciitilde{}} \FunctionTok{I}\NormalTok{(x}\SpecialCharTok{**}\DecValTok{3}\NormalTok{), }\AttributeTok{se =} \ConstantTok{FALSE}\NormalTok{, }\AttributeTok{fullrange =} \ConstantTok{TRUE}\NormalTok{) }\SpecialCharTok{+}
+  \FunctionTok{scale\_x\_continuous}\NormalTok{(}\AttributeTok{limit =} \FunctionTok{c}\NormalTok{(}\DecValTok{0}\NormalTok{,}\DecValTok{2}\NormalTok{))}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{figure}
+\centering
+\includegraphics{bookdown_files/figure-latex/fig-if-trends-continue-1.pdf}
+\caption{\label{fig:fig-if-trends-continue}Extrapolated linear, quadratic, and cubic fits of data}
+\end{figure}
+
 \hypertarget{seasonality}{%
 \subsection{Seasonality}\label{seasonality}}
+
+\hypertarget{comparisons-todo}{%
+\section{Comparisons (TODO)}\label{comparisons-todo}}
+
+\hypertarget{percents-versus-percentage-points}{%
+\subsection{Percents versus percentage points}\label{percents-versus-percentage-points}}
+
+\hypertarget{changes-with-small-bases}{%
+\subsection{Changes with small bases}\label{changes-with-small-bases}}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{(}\FloatTok{0.015} \SpecialCharTok{{-}} \FloatTok{0.010}\NormalTok{) }\SpecialCharTok{/} \FloatTok{0.010}
+\NormalTok{(}\FloatTok{0.805} \SpecialCharTok{{-}} \FloatTok{0.800}\NormalTok{) }\SpecialCharTok{/} \FloatTok{0.800}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## [1] 0.5
+## [1] 0.00625
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\FloatTok{0.015} \SpecialCharTok{/} \FloatTok{0.010}
+\FloatTok{0.805} \SpecialCharTok{/} \FloatTok{0.800}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## [1] 1.5
+## [1] 1.006
+\end{verbatim}
 
 \hypertarget{strategies-todo-1}{%
 \section{Strategies (TODO)}\label{strategies-todo-1}}
@@ -2696,6 +4192,10 @@ Some Hoosiers may see loosened restrictions because of the changes. While Box sa
 ``The change to the methodology is how we calculate the seven-day positivity rate for counties. In the past, similar to many states, we've added each day's positivity rate for seven days and divided by seven to obtain the week's positivity rate. Now we will add all of the positive tests for the week and divide by the total tests done that week to determine the week's positivity rate. This will help to minimize the effect that a high variability in the number of tests done each day can have on the week's overall positivity, especially for our smaller counties.''
 \end{quote}
 
+three issues here
+
+first straight versus weighted averages
+
 \begin{Shaded}
 \begin{Highlighting}[]
 \NormalTok{avg\_of\_ratios }\OtherTok{\textless{}{-}}\NormalTok{ (}\DecValTok{10}\SpecialCharTok{/}\DecValTok{100} \SpecialCharTok{+} \DecValTok{90}\SpecialCharTok{/}\DecValTok{100}\NormalTok{) }\SpecialCharTok{/} \DecValTok{2}
@@ -2703,29 +4203,13 @@ Some Hoosiers may see loosened restrictions because of the changes. While Box sa
 \NormalTok{ratio\_of\_sums }\OtherTok{\textless{}{-}}\NormalTok{ (}\DecValTok{10} \SpecialCharTok{+} \DecValTok{90}\NormalTok{) }\SpecialCharTok{/}\NormalTok{ (}\DecValTok{100} \SpecialCharTok{+} \DecValTok{100}\NormalTok{)}
 
 \NormalTok{avg\_of\_ratios }\SpecialCharTok{==}\NormalTok{ ratio\_of\_sums}
-\end{Highlighting}
-\end{Shaded}
 
-\begin{verbatim}
-## [1] TRUE
-\end{verbatim}
-
-\begin{Shaded}
-\begin{Highlighting}[]
 \NormalTok{avg\_of\_ratios\_uneq }\OtherTok{\textless{}{-}}\NormalTok{ (}\DecValTok{10}\SpecialCharTok{/}\DecValTok{100} \SpecialCharTok{+} \DecValTok{180} \SpecialCharTok{/} \DecValTok{200}\NormalTok{) }\SpecialCharTok{/} \DecValTok{2}
 
 \NormalTok{ratio\_of\_sums\_uneq }\OtherTok{\textless{}{-}}\NormalTok{ (}\DecValTok{10} \SpecialCharTok{+} \DecValTok{180}\NormalTok{) }\SpecialCharTok{/}\NormalTok{ (}\DecValTok{100} \SpecialCharTok{+} \DecValTok{200}\NormalTok{)}
 
 \NormalTok{avg\_of\_ratios\_uneq }\SpecialCharTok{==}\NormalTok{ ratio\_of\_sums\_uneq}
-\end{Highlighting}
-\end{Shaded}
 
-\begin{verbatim}
-## [1] FALSE
-\end{verbatim}
-
-\begin{Shaded}
-\begin{Highlighting}[]
 \NormalTok{weightavg\_of\_ratios\_uneq }\OtherTok{\textless{}{-}}\NormalTok{ (}\DecValTok{100}\SpecialCharTok{/}\DecValTok{300}\NormalTok{)}\SpecialCharTok{*}\NormalTok{(}\DecValTok{10}\SpecialCharTok{/}\DecValTok{100}\NormalTok{) }\SpecialCharTok{+}\NormalTok{ (}\DecValTok{200}\SpecialCharTok{/}\DecValTok{300}\NormalTok{)}\SpecialCharTok{*}\NormalTok{(}\DecValTok{180}\SpecialCharTok{/}\DecValTok{200}\NormalTok{)}
 
 \NormalTok{ratio\_of\_sums\_uneq }\SpecialCharTok{==}\NormalTok{ weightavg\_of\_ratios\_uneq}
@@ -2734,7 +4218,13 @@ Some Hoosiers may see loosened restrictions because of the changes. While Box sa
 
 \begin{verbatim}
 ## [1] TRUE
+## [1] FALSE
+## [1] TRUE
 \end{verbatim}
+
+then back to the data for why it matters.
+
+if data is from same distribution, this could increase variance but shouldn't effect mean
 
 Recall that the standard deviation of sample proportion is \(\sqrt(p*(1-p)/n)\)
 
@@ -2783,7 +4273,9 @@ link to discussions of sample size and different types of averages
 \end{Highlighting}
 \end{Shaded}
 
-\includegraphics{bookdown_files/figure-latex/unnamed-chunk-123-1.pdf}
+\includegraphics{bookdown_files/figure-latex/unnamed-chunk-199-1.pdf}
+
+but low sample days based on real world are probably also a sign of a different distribution (only very urgent cases get tested?)
 
 \hypertarget{vex-viz}{%
 \chapter{Vexing Visualization (TODO)}\label{vex-viz}}
@@ -2793,8 +4285,46 @@ link to discussions of sample size and different types of averages
 
 Previously, we have seen how different inputs like data, tools, and methods can add risks to our data analysis. However, the battle is not won simply when we get our first set of \emph{outputs}. In this chapter, we will explore common errors in interpreting the results of our analysis by exploring aspects of bias, missingness, and confounding.
 
+\hypertarget{common-biases}{%
+\section{Common Biases}\label{common-biases}}
+
+\hypertarget{policy-induced-relationships}{%
+\section{Policy-induced relationships}\label{policy-induced-relationships}}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\FunctionTok{set.seed}\NormalTok{(}\DecValTok{123}\NormalTok{)}
+
+\NormalTok{n }\OtherTok{\textless{}{-}} \DecValTok{1000}
+\NormalTok{x1 }\OtherTok{\textless{}{-}} \FunctionTok{runif}\NormalTok{(n)}
+\NormalTok{x2 }\OtherTok{\textless{}{-}} \FunctionTok{runif}\NormalTok{(n)}
+\NormalTok{y }\OtherTok{\textless{}{-}}\NormalTok{ x1 }\SpecialCharTok{+}\NormalTok{ x2 }\SpecialCharTok{\textgreater{}} \DecValTok{1}
+\NormalTok{df }\OtherTok{\textless{}{-}} \FunctionTok{data.frame}\NormalTok{(x1, x2, y)}
+
+\FunctionTok{with}\NormalTok{(df, }\FunctionTok{cor}\NormalTok{(x1, x2))}
+\FunctionTok{with}\NormalTok{(df[df}\SpecialCharTok{$}\NormalTok{y,], }\FunctionTok{cor}\NormalTok{(x1, x2))}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## [1] -0.05928
+## [1] -0.5003
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\FunctionTok{library}\NormalTok{(ggplot2)}
+
+\FunctionTok{ggplot}\NormalTok{(df) }\SpecialCharTok{+}
+  \FunctionTok{aes}\NormalTok{(}\AttributeTok{x =}\NormalTok{ x1, }\AttributeTok{y =}\NormalTok{ x2, }\AttributeTok{col =}\NormalTok{ y) }\SpecialCharTok{+}
+  \FunctionTok{geom\_point}\NormalTok{()}
+\end{Highlighting}
+\end{Shaded}
+
+\includegraphics{bookdown_files/figure-latex/unnamed-chunk-205-1.pdf}
+
 \hypertarget{feature-leakage}{%
-\section{Feature Leakage}\label{feature-leakage}}
+\section{Feature leakage}\label{feature-leakage}}
 
 \begin{Shaded}
 \begin{Highlighting}[]
@@ -2814,8 +4344,478 @@ Figure \ref{fig:sep-sum} shows\ldots{}
 
 }
 
-\caption{Correlation of idependent versus cumulative quantities}\label{fig:sep-sum}
+\caption{Correlation of independent versus cumulative quantities}\label{fig:sep-sum}
 \end{figure}
+
+\hypertarget{diligent-data-dredging}{%
+\section{``Diligent'' data dredging}\label{diligent-data-dredging}}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\FunctionTok{set.seed}\NormalTok{(}\DecValTok{123}\NormalTok{)}
+
+\NormalTok{n }\OtherTok{\textless{}{-}} \DecValTok{1000}
+\NormalTok{x }\OtherTok{\textless{}{-}} \FunctionTok{rnorm}\NormalTok{(n)}
+
+\NormalTok{random\_test }\OtherTok{\textless{}{-}} \ControlFlowTok{function}\NormalTok{(x) \{}
+  
+\NormalTok{  indices }\OtherTok{\textless{}{-}} \FunctionTok{sample}\NormalTok{(}\DecValTok{1}\SpecialCharTok{:}\FunctionTok{length}\NormalTok{(x), }\FunctionTok{length}\NormalTok{(x)}\SpecialCharTok{/}\DecValTok{2}\NormalTok{, }\AttributeTok{replace =} \ConstantTok{FALSE}\NormalTok{)}
+\NormalTok{  group1 }\OtherTok{\textless{}{-}}\NormalTok{ x[indices]}
+\NormalTok{  group2 }\OtherTok{\textless{}{-}}\NormalTok{ x[}\SpecialCharTok{{-}}\NormalTok{indices]}
+\NormalTok{  tt }\OtherTok{\textless{}{-}} \FunctionTok{t.test}\NormalTok{(group1, group2)}
+  \FunctionTok{return}\NormalTok{(tt}\SpecialCharTok{$}\NormalTok{p.value)}
+  
+\NormalTok{\}}
+
+\NormalTok{p }\OtherTok{\textless{}{-}} \FunctionTok{vapply}\NormalTok{(}\DecValTok{1}\SpecialCharTok{:}\DecValTok{10000}\NormalTok{, }\AttributeTok{FUN =} \ControlFlowTok{function}\NormalTok{(...) \{}\FunctionTok{random\_test}\NormalTok{(x)\}, }\AttributeTok{FUN.VALUE =} \FunctionTok{numeric}\NormalTok{(}\DecValTok{1}\NormalTok{))}
+\FunctionTok{sum}\NormalTok{(p }\SpecialCharTok{\textless{}} \FloatTok{0.05}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## [1] 500
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{n\_obsv }\OtherTok{\textless{}{-}} \DecValTok{1000}
+\NormalTok{n\_vars }\OtherTok{\textless{}{-}} \DecValTok{100}
+\NormalTok{mat\_cat }\OtherTok{\textless{}{-}} \FunctionTok{matrix}\NormalTok{(}
+  \AttributeTok{data =} \FunctionTok{rbinom}\NormalTok{(n\_obsv }\SpecialCharTok{*}\NormalTok{ n\_vars, }\DecValTok{1}\NormalTok{, }\FloatTok{0.5}\NormalTok{),}
+  \AttributeTok{nrow =}\NormalTok{ n\_obsv,}
+  \AttributeTok{ncol =}\NormalTok{ n\_vars}
+\NormalTok{  )}
+\NormalTok{mat\_all }\OtherTok{\textless{}{-}} \FunctionTok{cbind}\NormalTok{(x, mat\_cat)}
+\NormalTok{df }\OtherTok{\textless{}{-}} \FunctionTok{as.data.frame}\NormalTok{(mat\_all)}
+\FunctionTok{names}\NormalTok{(df) }\OtherTok{\textless{}{-}} \FunctionTok{c}\NormalTok{(}\StringTok{"x"}\NormalTok{, }\FunctionTok{paste0}\NormalTok{(}\StringTok{"v"}\NormalTok{, }\DecValTok{1}\SpecialCharTok{:}\NormalTok{n\_vars))}
+\FunctionTok{head}\NormalTok{(df)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+##          x v1 v2 v3 v4 v5 v6 v7 v8 v9 v10 v11 v12 v13
+## 1 -0.56048  1  1  0  1  1  0  1  0  0   1   1   0   1
+## 2 -0.23018  1  1  0  0  0  0  0  1  1   1   1   0   0
+## 3  1.55871  1  0  0  0  1  0  1  1  0   1   0   0   0
+## 4  0.07051  1  0  1  1  0  0  1  0  1   1   1   0   0
+## 5  0.12929  1  1  1  0  0  0  0  0  0   1   1   1   1
+## 6  1.71506  1  0  0  1  1  0  1  1  1   1   1   0   1
+##   v14 v15 v16 v17 v18 v19 v20 v21 v22 v23 v24 v25 v26
+## 1   1   0   1   0   0   0   1   0   0   1   1   1   0
+## 2   1   1   1   1   1   0   0   1   0   1   0   1   0
+## 3   1   1   1   1   1   0   0   1   0   1   1   0   1
+## 4   0   0   0   1   0   0   0   1   1   0   1   1   0
+## 5   0   1   1   0   0   0   1   1   0   0   0   1   0
+## 6   1   0   0   0   0   1   1   0   0   0   1   1   0
+##   v27 v28 v29 v30 v31 v32 v33 v34 v35 v36 v37 v38 v39
+## 1   0   0   0   1   0   0   1   0   0   0   1   1   1
+## 2   1   0   0   1   1   0   1   0   0   0   1   0   0
+## 3   0   0   0   1   0   1   0   0   1   1   1   1   0
+## 4   0   0   0   1   1   1   1   0   0   1   0   0   0
+## 5   1   0   0   1   0   0   0   0   1   0   1   0   1
+## 6   0   1   1   0   1   1   0   0   0   1   1   0   1
+##   v40 v41 v42 v43 v44 v45 v46 v47 v48 v49 v50 v51 v52
+## 1   0   0   0   1   1   1   0   1   0   0   1   1   0
+## 2   0   0   0   0   0   0   0   1   0   1   0   1   1
+## 3   0   0   1   0   1   1   0   0   1   0   1   1   1
+## 4   0   1   0   1   0   0   0   1   0   0   0   0   1
+## 5   0   0   1   0   1   0   1   1   1   1   0   1   0
+## 6   1   1   1   1   0   0   0   1   0   0   1   0   0
+##   v53 v54 v55 v56 v57 v58 v59 v60 v61 v62 v63 v64 v65
+## 1   0   0   0   1   0   1   1   0   0   1   0   0   0
+## 2   0   0   1   0   1   0   1   1   0   1   0   1   1
+## 3   1   1   1   0   0   1   0   1   0   1   1   1   1
+## 4   1   1   0   0   0   0   1   0   1   1   1   1   1
+## 5   0   0   1   1   1   0   0   0   0   0   1   0   1
+## 6   1   1   0   0   1   0   1   1   0   1   1   0   1
+##   v66 v67 v68 v69 v70 v71 v72 v73 v74 v75 v76 v77 v78
+## 1   1   1   1   0   0   0   0   1   0   0   1   0   0
+## 2   1   1   0   1   1   0   1   1   1   1   1   1   1
+## 3   1   0   1   0   1   1   0   1   1   0   0   0   0
+## 4   0   1   0   0   0   1   0   1   0   0   0   0   0
+## 5   0   0   0   1   0   1   1   1   0   1   0   0   0
+## 6   0   1   0   1   0   0   0   1   1   0   1   0   0
+##   v79 v80 v81 v82 v83 v84 v85 v86 v87 v88 v89 v90 v91
+## 1   1   0   1   0   0   0   0   1   1   1   0   0   1
+## 2   1   1   0   1   1   1   0   0   1   1   0   0   0
+## 3   1   0   0   1   0   0   0   0   1   0   1   0   0
+## 4   0   0   0   0   1   0   1   1   0   0   0   0   0
+## 5   1   1   1   0   0   1   1   0   0   1   1   0   1
+## 6   1   0   1   1   0   0   0   0   1   1   0   1   0
+##   v92 v93 v94 v95 v96 v97 v98 v99 v100
+## 1   1   1   0   0   0   1   1   0    0
+## 2   0   1   0   1   1   0   1   0    1
+## 3   1   0   0   0   1   0   1   0    1
+## 4   0   0   1   1   0   0   1   1    1
+## 5   0   1   1   1   1   1   0   1    0
+## 6   0   0   0   0   1   1   0   0    1
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\FunctionTok{t.test}\NormalTok{(x }\SpecialCharTok{\textasciitilde{}}\NormalTok{ v1, }\AttributeTok{data =}\NormalTok{ df)}\SpecialCharTok{$}\NormalTok{p.value}
+\FunctionTok{t.test}\NormalTok{(x }\SpecialCharTok{\textasciitilde{}}\NormalTok{ v2, }\AttributeTok{data =}\NormalTok{ df)}\SpecialCharTok{$}\NormalTok{p.value}
+\FunctionTok{t.test}\NormalTok{(x }\SpecialCharTok{\textasciitilde{}}\NormalTok{ v3, }\AttributeTok{data =}\NormalTok{ df)}\SpecialCharTok{$}\NormalTok{p.value}
+\FunctionTok{t.test}\NormalTok{(x }\SpecialCharTok{\textasciitilde{}}\NormalTok{ v4, }\AttributeTok{data =}\NormalTok{ df)}\SpecialCharTok{$}\NormalTok{p.value}
+\CommentTok{\# etc.}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## [1] 0.09771
+## [1] 0.8734
+## [1] 0.02182
+## [1] 0.1525
+\end{verbatim}
+
+Success! ..Or success?
+
+sample splitting with ``train''
+
+(obviously a very ugly way to do this, but that's the point)
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\FunctionTok{t.test}\NormalTok{(x }\SpecialCharTok{\textasciitilde{}}\NormalTok{ v1, }\AttributeTok{data =}\NormalTok{ df[}\DecValTok{1}\SpecialCharTok{:}\NormalTok{(n\_obsv}\SpecialCharTok{/}\DecValTok{2}\NormalTok{),])}\SpecialCharTok{$}\NormalTok{p.value}
+\FunctionTok{t.test}\NormalTok{(x }\SpecialCharTok{\textasciitilde{}}\NormalTok{ v2, }\AttributeTok{data =}\NormalTok{ df[}\DecValTok{1}\SpecialCharTok{:}\NormalTok{(n\_obsv}\SpecialCharTok{/}\DecValTok{2}\NormalTok{),])}\SpecialCharTok{$}\NormalTok{p.value}
+\FunctionTok{t.test}\NormalTok{(x }\SpecialCharTok{\textasciitilde{}}\NormalTok{ v3, }\AttributeTok{data =}\NormalTok{ df[}\DecValTok{1}\SpecialCharTok{:}\NormalTok{(n\_obsv}\SpecialCharTok{/}\DecValTok{2}\NormalTok{),])}\SpecialCharTok{$}\NormalTok{p.value}
+\FunctionTok{t.test}\NormalTok{(x }\SpecialCharTok{\textasciitilde{}}\NormalTok{ v4, }\AttributeTok{data =}\NormalTok{ df[}\DecValTok{1}\SpecialCharTok{:}\NormalTok{(n\_obsv}\SpecialCharTok{/}\DecValTok{2}\NormalTok{),])}\SpecialCharTok{$}\NormalTok{p.value}
+\FunctionTok{t.test}\NormalTok{(x }\SpecialCharTok{\textasciitilde{}}\NormalTok{ v5, }\AttributeTok{data =}\NormalTok{ df[}\DecValTok{1}\SpecialCharTok{:}\NormalTok{(n\_obsv}\SpecialCharTok{/}\DecValTok{2}\NormalTok{),])}\SpecialCharTok{$}\NormalTok{p.value}
+\FunctionTok{t.test}\NormalTok{(x }\SpecialCharTok{\textasciitilde{}}\NormalTok{ v6, }\AttributeTok{data =}\NormalTok{ df[}\DecValTok{1}\SpecialCharTok{:}\NormalTok{(n\_obsv}\SpecialCharTok{/}\DecValTok{2}\NormalTok{),])}\SpecialCharTok{$}\NormalTok{p.value}
+\FunctionTok{t.test}\NormalTok{(x }\SpecialCharTok{\textasciitilde{}}\NormalTok{ v7, }\AttributeTok{data =}\NormalTok{ df[}\DecValTok{1}\SpecialCharTok{:}\NormalTok{(n\_obsv}\SpecialCharTok{/}\DecValTok{2}\NormalTok{),])}\SpecialCharTok{$}\NormalTok{p.value}
+\FunctionTok{t.test}\NormalTok{(x }\SpecialCharTok{\textasciitilde{}}\NormalTok{ v8, }\AttributeTok{data =}\NormalTok{ df[}\DecValTok{1}\SpecialCharTok{:}\NormalTok{(n\_obsv}\SpecialCharTok{/}\DecValTok{2}\NormalTok{),])}\SpecialCharTok{$}\NormalTok{p.value}
+\FunctionTok{t.test}\NormalTok{(x }\SpecialCharTok{\textasciitilde{}}\NormalTok{ v9, }\AttributeTok{data =}\NormalTok{ df[}\DecValTok{1}\SpecialCharTok{:}\NormalTok{(n\_obsv}\SpecialCharTok{/}\DecValTok{2}\NormalTok{),])}\SpecialCharTok{$}\NormalTok{p.value}
+\FunctionTok{t.test}\NormalTok{(x }\SpecialCharTok{\textasciitilde{}}\NormalTok{ v10, }\AttributeTok{data =}\NormalTok{ df[}\DecValTok{1}\SpecialCharTok{:}\NormalTok{(n\_obsv}\SpecialCharTok{/}\DecValTok{2}\NormalTok{),])}\SpecialCharTok{$}\NormalTok{p.value}
+\FunctionTok{t.test}\NormalTok{(x }\SpecialCharTok{\textasciitilde{}}\NormalTok{ v11, }\AttributeTok{data =}\NormalTok{ df[}\DecValTok{1}\SpecialCharTok{:}\NormalTok{(n\_obsv}\SpecialCharTok{/}\DecValTok{2}\NormalTok{),])}\SpecialCharTok{$}\NormalTok{p.value}
+\FunctionTok{t.test}\NormalTok{(x }\SpecialCharTok{\textasciitilde{}}\NormalTok{ v12, }\AttributeTok{data =}\NormalTok{ df[}\DecValTok{1}\SpecialCharTok{:}\NormalTok{(n\_obsv}\SpecialCharTok{/}\DecValTok{2}\NormalTok{),])}\SpecialCharTok{$}\NormalTok{p.value}
+\FunctionTok{t.test}\NormalTok{(x }\SpecialCharTok{\textasciitilde{}}\NormalTok{ v13, }\AttributeTok{data =}\NormalTok{ df[}\DecValTok{1}\SpecialCharTok{:}\NormalTok{(n\_obsv}\SpecialCharTok{/}\DecValTok{2}\NormalTok{),])}\SpecialCharTok{$}\NormalTok{p.value}
+\FunctionTok{t.test}\NormalTok{(x }\SpecialCharTok{\textasciitilde{}}\NormalTok{ v14, }\AttributeTok{data =}\NormalTok{ df[}\DecValTok{1}\SpecialCharTok{:}\NormalTok{(n\_obsv}\SpecialCharTok{/}\DecValTok{2}\NormalTok{),])}\SpecialCharTok{$}\NormalTok{p.value}
+\FunctionTok{t.test}\NormalTok{(x }\SpecialCharTok{\textasciitilde{}}\NormalTok{ v15, }\AttributeTok{data =}\NormalTok{ df[}\DecValTok{1}\SpecialCharTok{:}\NormalTok{(n\_obsv}\SpecialCharTok{/}\DecValTok{2}\NormalTok{),])}\SpecialCharTok{$}\NormalTok{p.value}
+\FunctionTok{t.test}\NormalTok{(x }\SpecialCharTok{\textasciitilde{}}\NormalTok{ v16, }\AttributeTok{data =}\NormalTok{ df[}\DecValTok{1}\SpecialCharTok{:}\NormalTok{(n\_obsv}\SpecialCharTok{/}\DecValTok{2}\NormalTok{),])}\SpecialCharTok{$}\NormalTok{p.value}
+\FunctionTok{t.test}\NormalTok{(x }\SpecialCharTok{\textasciitilde{}}\NormalTok{ v17, }\AttributeTok{data =}\NormalTok{ df[}\DecValTok{1}\SpecialCharTok{:}\NormalTok{(n\_obsv}\SpecialCharTok{/}\DecValTok{2}\NormalTok{),])}\SpecialCharTok{$}\NormalTok{p.value}
+\FunctionTok{t.test}\NormalTok{(x }\SpecialCharTok{\textasciitilde{}}\NormalTok{ v18, }\AttributeTok{data =}\NormalTok{ df[}\DecValTok{1}\SpecialCharTok{:}\NormalTok{(n\_obsv}\SpecialCharTok{/}\DecValTok{2}\NormalTok{),])}\SpecialCharTok{$}\NormalTok{p.value}
+\FunctionTok{t.test}\NormalTok{(x }\SpecialCharTok{\textasciitilde{}}\NormalTok{ v19, }\AttributeTok{data =}\NormalTok{ df[}\DecValTok{1}\SpecialCharTok{:}\NormalTok{(n\_obsv}\SpecialCharTok{/}\DecValTok{2}\NormalTok{),])}\SpecialCharTok{$}\NormalTok{p.value}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## [1] 0.6022
+## [1] 0.4947
+## [1] 0.196
+## [1] 0.3682
+## [1] 0.2115
+## [1] 0.7113
+## [1] 0.3127
+## [1] 0.8142
+## [1] 0.9033
+## [1] 0.8212
+## [1] 0.4416
+## [1] 0.2564
+## [1] 0.5292
+## [1] 0.1715
+## [1] 0.0855
+## [1] 0.2285
+## [1] 0.6277
+## [1] 0.01318
+## [1] 0.2556
+\end{verbatim}
+
+and ``test''
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\FunctionTok{t.test}\NormalTok{(x }\SpecialCharTok{\textasciitilde{}}\NormalTok{ v18, }\AttributeTok{data =}\NormalTok{ df[(n\_obsv}\SpecialCharTok{/}\DecValTok{2} \SpecialCharTok{+} \DecValTok{1}\NormalTok{)}\SpecialCharTok{:}\NormalTok{n\_obsv,])}\SpecialCharTok{$}\NormalTok{p.value}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## [1] 0.1691
+\end{verbatim}
+
+\hypertarget{superficial-stories}{%
+\section{Superficial stories}\label{superficial-stories}}
+
+\hypertarget{regression-to-the-mean}{%
+\subsection{Regression to the mean}\label{regression-to-the-mean}}
+
+simulate truly independent spend amounts across two periods
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\FunctionTok{set.seed}\NormalTok{(}\DecValTok{123}\NormalTok{)}
+
+\NormalTok{n  }\OtherTok{\textless{}{-}} \DecValTok{1000}
+\NormalTok{mu }\OtherTok{\textless{}{-}} \DecValTok{100}
+\NormalTok{sd }\OtherTok{\textless{}{-}} \DecValTok{10}
+\NormalTok{spend1 }\OtherTok{\textless{}{-}} \FunctionTok{rnorm}\NormalTok{(n, mu, sd)}
+\NormalTok{spend2 }\OtherTok{\textless{}{-}} \FunctionTok{rnorm}\NormalTok{(n, mu, sd)}
+
+\NormalTok{df }\OtherTok{\textless{}{-}} \FunctionTok{data.frame}\NormalTok{(spend1, spend2)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\FunctionTok{library}\NormalTok{(dplyr)}
+
+\NormalTok{df }\SpecialCharTok{\%\textgreater{}\%} 
+  \FunctionTok{group\_by}\NormalTok{(spend1 }\SpecialCharTok{\textgreater{}}\NormalTok{ mu) }\SpecialCharTok{\%\textgreater{}\%}
+  \FunctionTok{summarize\_at}\NormalTok{(}\FunctionTok{vars}\NormalTok{(}\FunctionTok{starts\_with}\NormalTok{(}\StringTok{"spend"}\NormalTok{)), mean) }\SpecialCharTok{\%\textgreater{}\%}
+  \FunctionTok{mutate}\NormalTok{(}\AttributeTok{pct\_change =} \FunctionTok{round}\NormalTok{((spend2 }\SpecialCharTok{{-}}\NormalTok{ spend1) }\SpecialCharTok{/}\NormalTok{ spend1, }\DecValTok{3}\NormalTok{))}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## # A tibble: 2 x 4
+##   `spend1 > mu` spend1 spend2 pct_change
+##   <lgl>          <dbl>  <dbl>      <dbl>
+## 1 FALSE           92.2   99.7      0.081
+## 2 TRUE           108.   101.      -0.063
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{df }\SpecialCharTok{\%\textgreater{}\%}
+  \FunctionTok{mutate}\NormalTok{(}\AttributeTok{spend1\_bin =} \FunctionTok{cut}\NormalTok{(spend1, }\DecValTok{5}\NormalTok{)) }\SpecialCharTok{\%\textgreater{}\%}
+  \FunctionTok{group\_by}\NormalTok{(spend1\_bin) }\SpecialCharTok{\%\textgreater{}\%}
+  \FunctionTok{summarize\_at}\NormalTok{(}\FunctionTok{vars}\NormalTok{(}\FunctionTok{starts\_with}\NormalTok{(}\StringTok{"spend"}\NormalTok{)), mean) }\SpecialCharTok{\%\textgreater{}\%}
+  \FunctionTok{mutate}\NormalTok{(}\AttributeTok{pct\_change =} \FunctionTok{round}\NormalTok{((spend2 }\SpecialCharTok{{-}}\NormalTok{ spend1) }\SpecialCharTok{/}\NormalTok{ spend1, }\DecValTok{3}\NormalTok{))}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## # A tibble: 5 x 4
+##   spend1_bin spend1 spend2 pct_change
+##   <fct>       <dbl>  <dbl>      <dbl>
+## 1 (71.8,84]    80.5   97.8      0.215
+## 2 (84,96.1]    91.1  100.       0.098
+## 3 (96.1,108]  102.   101.      -0.012
+## 4 (108,120]   113.   101.      -0.101
+## 5 (120,132]   124.   103.      -0.167
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{df }\SpecialCharTok{\%\textgreater{}\%}
+  \FunctionTok{mutate}\NormalTok{(}\AttributeTok{spend1\_bin =} \FunctionTok{cut}\NormalTok{(spend1, }\DecValTok{5}\NormalTok{)) }\SpecialCharTok{\%\textgreater{}\%}
+  \FunctionTok{group\_by}\NormalTok{(spend1\_bin) }\SpecialCharTok{\%\textgreater{}\%}
+  \FunctionTok{summarize}\NormalTok{(}\AttributeTok{corr =} \FunctionTok{cor}\NormalTok{(spend1, spend2))}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## `summarise()` ungrouping output (override with `.groups` argument)
+\end{verbatim}
+
+\begin{verbatim}
+## # A tibble: 5 x 2
+##   spend1_bin    corr
+##   <fct>        <dbl>
+## 1 (71.8,84]   0.281 
+## 2 (84,96.1]  -0.0149
+## 3 (96.1,108]  0.0438
+## 4 (108,120]   0.101 
+## 5 (120,132]  -0.165
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\FunctionTok{mean}\NormalTok{(spend1 }\SpecialCharTok{\textgreater{}}\NormalTok{ spend2)}
+\FunctionTok{mean}\NormalTok{(spend1 }\SpecialCharTok{\textless{}}\NormalTok{ spend2)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## [1] 0.49
+## [1] 0.51
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\FunctionTok{sum}\NormalTok{((spend1 }\SpecialCharTok{\textgreater{}}\NormalTok{ mu) }\SpecialCharTok{*}\NormalTok{ (spend1 }\SpecialCharTok{\textgreater{}}\NormalTok{ spend2)) }\SpecialCharTok{/} \FunctionTok{sum}\NormalTok{(spend1 }\SpecialCharTok{\textgreater{}}\NormalTok{ mu)}
+\FunctionTok{sum}\NormalTok{((spend1 }\SpecialCharTok{\textless{}}\NormalTok{ mu) }\SpecialCharTok{*}\NormalTok{ (spend1 }\SpecialCharTok{\textless{}}\NormalTok{ spend2)) }\SpecialCharTok{/} \FunctionTok{sum}\NormalTok{(spend1 }\SpecialCharTok{\textgreater{}}\NormalTok{ mu)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## [1] 0.7168
+## [1] 0.7267
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\FunctionTok{library}\NormalTok{(ggplot2)}
+
+\FunctionTok{ggplot}\NormalTok{(df) }\SpecialCharTok{+}
+  \FunctionTok{aes}\NormalTok{(}\AttributeTok{x =}\NormalTok{ spend1, }\AttributeTok{y =}\NormalTok{ spend2) }\SpecialCharTok{+} 
+  \FunctionTok{geom\_point}\NormalTok{()}
+\end{Highlighting}
+\end{Shaded}
+
+\includegraphics{bookdown_files/figure-latex/unnamed-chunk-219-1.pdf}
+
+\hypertarget{distribution-shifts}{%
+\subsection{Distribution shifts}\label{distribution-shifts}}
+
+Figure \ref{fig:fig-shift} shows that\ldots{}
+
+\begin{figure}
+\centering
+\includegraphics{bookdown_files/figure-latex/fig-shift-1.pdf}
+\caption{\label{fig:fig-shift}Trends within and between customer behavioral groups}
+\end{figure}
+
+Figure \ref{fig:fig-shift-v2} shows that\ldots{}
+
+\begin{verbatim}
+## Warning: Removed 1 row(s) containing missing values
+## (geom_path).
+\end{verbatim}
+
+\begin{figure}
+\centering
+\includegraphics{bookdown_files/figure-latex/fig-shift-v2-1.pdf}
+\caption{\label{fig:fig-shift-v2}Possible subgroup trends contributing to aggregate trend}
+\end{figure}
+
+The code used to generate this mock dataset is shown below.
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{hi\_engagement }\OtherTok{\textless{}{-}} \DecValTok{10}
+\NormalTok{lo\_engagement }\OtherTok{\textless{}{-}} \DecValTok{2}
+\NormalTok{pr\_engagement }\OtherTok{\textless{}{-}} \FloatTok{0.85}\SpecialCharTok{\^{}}\NormalTok{(}\DecValTok{0}\SpecialCharTok{:}\DecValTok{24}\NormalTok{)}
+\NormalTok{avg\_engagement }\OtherTok{\textless{}{-}} \DecValTok{10}\SpecialCharTok{*}\NormalTok{pr\_engagement }\SpecialCharTok{+} \DecValTok{2}\SpecialCharTok{*}\NormalTok{(}\DecValTok{1}\SpecialCharTok{{-}}\NormalTok{pr\_engagement)}
+
+\NormalTok{df }\OtherTok{\textless{}{-}} 
+  \FunctionTok{data.frame}\NormalTok{(}
+    \AttributeTok{t =} \DecValTok{1}\SpecialCharTok{:}\FunctionTok{length}\NormalTok{(avg\_engagement), }
+\NormalTok{    avg\_engagement, }
+\NormalTok{    hi\_engagement, }
+\NormalTok{    lo\_engagement}
+\NormalTok{    )}
+\end{Highlighting}
+\end{Shaded}
+
+\hypertarget{tricky-timing-issues-wip}{%
+\section{Tricky timing issues (WIP)}\label{tricky-timing-issues-wip}}
+
+\hypertarget{censored-data}{%
+\subsection{Censored data}\label{censored-data}}
+
+Suppose we are wondering how long our subscription customers will stay put\\
+mean lifetime of customers in 24 and uses exponential distrib (see appendix on distribs)\\
+we are analyzing a cohort of customers 18 months after they first subscribed
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\CommentTok{\# time{-}to{-}event censored {-}{-}{-}{-}}
+\FunctionTok{set.seed}\NormalTok{(}\DecValTok{123}\NormalTok{)}
+\NormalTok{n }\OtherTok{\textless{}{-}} \DecValTok{1000}
+\NormalTok{curr\_time }\OtherTok{\textless{}{-}} \DecValTok{18}
+\NormalTok{mean\_lifetime }\OtherTok{\textless{}{-}} \DecValTok{24}
+
+\NormalTok{lifetime }\OtherTok{\textless{}{-}} \FunctionTok{rexp}\NormalTok{(n, }\AttributeTok{rate =} \DecValTok{1} \SpecialCharTok{/}\NormalTok{ mean\_lifetime)}
+\FunctionTok{mean}\NormalTok{(lifetime)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## [1] 24.72
+\end{verbatim}
+
+Because we are only 18 months in, we cannot observe the lifetimes of all customers\\
+for those that left before 18 months we have complete data\\
+but for those who left after 18 months we only know their lifetime exceeds 18 months.\\
+Thus, if we look at the mean only where we can observe it, it's biased towards lower lifetimes.
+(Recall that we know what the correct value is)
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\CommentTok{\#\textgreater{} observed {-}{-}{-}{-}}
+\NormalTok{lifetime\_observed }\OtherTok{\textless{}{-}}\NormalTok{ lifetime}
+\NormalTok{lifetime\_observed[lifetime }\SpecialCharTok{\textgreater{}}\NormalTok{ curr\_time] }\OtherTok{\textless{}{-}} \ConstantTok{NA}
+\FunctionTok{mean}\NormalTok{(lifetime\_observed, }\AttributeTok{na.rm =} \ConstantTok{TRUE}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## [1] 7.919
+\end{verbatim}
+
+Of course, we do know more than nothing (null) about the ``surviving customers''.
+We know that their lifetime is \emph{at least} as large as the current time.
+So alternatively, we could use the current time in our calculations.
+This makes for a slightly less biased estimate, but it is still wrong and guaranteed to underestimate the actual average.
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\CommentTok{\#\textgreater{} max {-}{-}{-}{-}}
+\NormalTok{lifetime\_max }\OtherTok{\textless{}{-}} \FunctionTok{pmin}\NormalTok{(lifetime, curr\_time)}
+\FunctionTok{mean}\NormalTok{(lifetime\_max)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## [1] 12.88
+\end{verbatim}
+
+This scenario illustrates the concept of \textbf{censored data}. Figure \ref{fig:fig-censor} illustrates the fundamental problem more clearly.
+
+\begin{figure}
+\centering
+\includegraphics{bookdown_files/figure-latex/fig-censor-1.pdf}
+\caption{\label{fig:fig-censor}A sample of observations of customer lifetimes showing observed and censored data}
+\end{figure}
+
+So what can we do instead?
+A common approach is to examine \emph{quantiles} (such as the median) which can make more full use of the data we have.
+Since we know that rank of our observations (that is, that the censored observations are all larger than the observed datapoints),
+we can reliable calculate the p-th quantile so long as p percent of the data is not censored.
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\CommentTok{\#\textgreater{} quantile {-}{-}{-}{-}}
+\FunctionTok{sum}\NormalTok{(}\SpecialCharTok{!}\FunctionTok{is.na}\NormalTok{(lifetime\_observed)) }\SpecialCharTok{/}\NormalTok{ n}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## [1] 0.508
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{lifetime\_quantile }\OtherTok{\textless{}{-}}\NormalTok{ lifetime\_observed}
+\NormalTok{lifetime\_observed[}\FunctionTok{is.na}\NormalTok{(lifetime\_observed)] }\OtherTok{\textless{}{-}} \DecValTok{100}\SpecialCharTok{*}\NormalTok{curr\_time}
+\FunctionTok{quantile}\NormalTok{(lifetime\_observed, }\AttributeTok{p =} \FunctionTok{c}\NormalTok{(}\FloatTok{0.5}\NormalTok{))}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+##   50% 
+## 17.55
+\end{verbatim}
+
+\hypertarget{immortal-time-bias}{%
+\subsection{Immortal time bias}\label{immortal-time-bias}}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{rollout\_time }\OtherTok{\textless{}{-}} \DecValTok{12}
+\NormalTok{used\_feature }\OtherTok{\textless{}{-}}\NormalTok{ (lifetime }\SpecialCharTok{\textgreater{}}\NormalTok{ rollout\_time) }\SpecialCharTok{*} \FunctionTok{rbinom}\NormalTok{(n, }\AttributeTok{size =} \DecValTok{1}\NormalTok{, }\AttributeTok{prob =} \FloatTok{0.5}\NormalTok{)}
+\FunctionTok{aggregate}\NormalTok{(lifetime, }\AttributeTok{by =} \FunctionTok{list}\NormalTok{(used\_feature), }\AttributeTok{FUN =}\NormalTok{ mean)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+##   Group.1     x
+## 1       0 19.51
+## 2       1 36.81
+\end{verbatim}
+
+\hypertarget{section}{%
+\section{}\label{section}}
 
 \hypertarget{cava-caus}{%
 \chapter{Cavalier Causality (TODO)}\label{cava-caus}}
@@ -2921,6 +4921,38 @@ Similar to \url{https://emilyriederer.netlify.app/post/causal-design-patterns/}
 
 \hypertarget{comp-code}{%
 \chapter{Complexifying Code (TODO)}\label{comp-code}}
+
+\hypertarget{making-code-unreadable}{%
+\section{Making code unreadable}\label{making-code-unreadable}}
+
+\hypertarget{naming}{%
+\subsection{Naming}\label{naming}}
+
+structure for sorting, ordering, clear semantics
+
+\hypertarget{whitespace}{%
+\subsection{Whitespace}\label{whitespace}}
+
+linters / stylers
+
+\hypertarget{making-a-monolith}{%
+\section{Making a monolith}\label{making-a-monolith}}
+
+not using functions / files / templates / variables
+
+\hypertarget{making-code-inflexible-variables}{%
+\subsection{Making code inflexible (variables)}\label{making-code-inflexible-variables}}
+
+\hypertarget{making-useful-code-chunks-hard-to-reuse-functions}{%
+\subsection{Making useful code chunks hard to reuse (functions)}\label{making-useful-code-chunks-hard-to-reuse-functions}}
+
+\hypertarget{project-organization}{%
+\section{Project organization}\label{project-organization}}
+
+\hypertarget{decoding}{%
+\section{Decoding}\label{decoding}}
+
+rubber duck decoding
 
 \hypertarget{reje-repr}{%
 \chapter{Rejecting Reproducibility (TODO)}\label{reje-repr}}
