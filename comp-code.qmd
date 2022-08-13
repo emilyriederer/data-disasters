@@ -1,4 +1,4 @@
-# Complexifying Code (TODO) {#comp-code}
+# Complexifying Code (TODO) {#sec-comp-code}
 
 ## Making code unreadable
 

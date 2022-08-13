@@ -1,4 +1,4 @@
-# Computational Quandaries (WIP) {#comp-quan}
+# Computational Quandaries (WIP) {#sec-comp-quan}
 
 After gaining confidence in one's data (or, at least, making peace with it), the next step in a data analysis is often to start cleaning and exploring that data with summary statistics, plots, and models. 
 Generally, this requires a computational tool like SQL, R, or python. 
@@ -9,7 +9,7 @@ Additionally, the moment an analyst begins to use a tool, the conversation is no
 suddenly, the mental model of how every single tool developer thought you might want to do analysis affects the tools' behaviors and the analysts' results.
 
 In this chapter, we will explore common ways that tools may do something technically correct, reasonable, and as-intended but very much not what analysts may expect. 
-Along the way, we will see how computational methods interact with the data encoding choices we discussed in Chapter \@ref(data-dall) (Data Dalliances).
+Along the way, we will see how computational methods interact with the data encoding choices we discussed in @sec-data-dall (Data Dalliances).
 
 ```{r include = FALSE}
 library(dplyr)
@@ -41,13 +41,14 @@ Before we think about specific tools or failure modes, we can first consider the
 
 ### Single Table Operations
 
-Given a single data table, we may wish to do operations (illustrated in Figure \@ref(fig:filt-aggr-tran)) such as:
+Given a single data table, we may wish to do operations (illustrated in @fig-filt-aggr-tran) such as:
 
 - **Filtering**: Extracting a subset of a dataset for analysis based on certain inclusion criteria for each record
 - **Aggregation**: Grouping our data table by one or more variables and condensing information across records with *aggregate functions* like counts, sums, and averages 
 - **Transformation**: Create new columns or modifying existing columns to represent more complex or domain-specific context
 
 ```{r filt-aggr-tran, echo = FALSE, out.width = '90%', fig.align = 'center', fig.cap = 'Illustration of basic single-table data wrangling operations'}
+#| label: fig-filt-aggr-tran
 knitr::include_graphics("figures/comp-quan/filt-aggr-tran.png")
 ```
 
@@ -64,6 +65,7 @@ When working with multiple tables, we may be interested in:
 All of these operations rely on a few core computational tasks:
 
 - **Arithmetic**: Basic addition, subtraction, multiplication, and division to aggregate and transform data
+- **Mapping**: Similar to arithmetic, other one-to-one or many-to-one transformations of numerical or categorical data (such as binning into categories)
 - **Equality**: Comparing whether or not two values are equal is critical for data filtering, column-wise combination, and certain types of data transformation 
 - **Casting**: Converting data types of different elements into a comparable format is necessary for row-wise combination and often a prerequisite to certain equality and arithmetic tasks
 
@@ -71,19 +73,25 @@ While these operations may seem simple, their behavior within certain tools and 
 
 ## Null Values
 
-In Chapter \@ref(data-dall) (Data Dalliances), we discuss how null values may represent many different concepts and be encoded in multiple different ways. 
+In @sec-data-dall (Data Dalliances), we discuss how null values may represent many different concepts and be encoded in multiple different ways. 
 In addition to those semantic challenges, various representations of null values may cause different computational problems.^[This problem is not isolated to data analysis tools. For an entertaining example, see the 2019 WIRED article "How a 'NULL' License Plate Landed One Hacker in Ticket Hell" [@barrett] which a real-world software system producing unintended and undesirable behavior when asked to deal with a word `'NULL'`.] 
 In this section, we will explore these potential failure modes. 
 
 ### Types of Null Values
 
-Not only can null values represent many different things (as explored in Chapter \@ref(data-dall)), they also may be represented in many different ways. Understanding how nulls are encoded in one's dataset is a critical prerequisite to attempting any of the computations described in the subsequent sections.
+Not only can null values represent many different things (as explored in @sec-data-dall), they also may be represented in many different ways. Understanding how nulls are encoded in one's dataset is a critical prerequisite to attempting any of the computations described in the subsequent sections.
 
 #### Language representations 
 
 Different programming languages each offer their own versions of null values -- and sometimes more than one. For example, the R language includes `NA`, typed `NA`s (e.g. `NA_integer_`, `NA_character_`), `NaN`, and `NULL`; meanwhile, core python has `None` and the `numpy` module provides a `nan`. 
 
 These different values carry different semantic and functional meanings. For example R's `NA` generally means "the presence of an absence" whereas `NULL` is "the absence of a presence". This is articulated more clearly if we examine the lengths of these objects and observe that `NA` has a length 1 whereas `NULL` has a length 0.
+
+```{r results = "hold"}
+is.finite(NA)
+is.infinite(NA)
+```
+
 
 ```{r results = "hold"}
 length(NA)
@@ -221,11 +229,15 @@ In effect, we have removed all non-purchasers from the data being averaged.
 
 More precisely, we have switched from taking the average
 
-\[ \frac{ \sum_{1}^{n} Spend }{\sum_{1}^{n} 1} \] over all $n$ customers
+$$
+  \frac{ \sum_{1}^{n} Spend }{\sum_{1}^{n} 1}
+$$ over all $n$ customers
 
 to taking the average
 
-\[ \frac{ \sum_{Spend > 0} Spend }{\sum_{Spend > 0} 1} \] over only those customers with spend.
+$$
+  \frac{ \sum_{Spend > 0} Spend }{\sum_{Spend > 0} 1}
+$$ over only those customers with spend.
 
 At face value, we could say that the code above is giving the incorrect answer; by dropping some low (zero) purchase amounts, the average amount spend per customer is inflated. 
 A second perspective, which is someone more philosophically troubling, is that this tiny change to the code which fixed the *obvious* problem (returning a null value) has introduced a *non-obvious* problem by fundamentally changing the question that we are asking. 
@@ -779,6 +791,17 @@ all.equal(1 - 0.9, 0.1)
 abs( (1-0.9) - 0.1 ) <= 1e-10
 ```
 
+Another example
+
+```{r}
+0.6 + 0.3
+0.6 + 0.3 == 0.9
+
+print(.1 + .2)
+print(.1 + .2, digits = 18)
+```
+
+
 ### Division by zero
 
 more of a design issue about the right way to handle
@@ -1061,6 +1084,42 @@ today_str > now_str
 
 -->
 
+## Changing Data Types (TODO)
+
+data types can incidentally change between programs
+
+```{r results = "hold"}
+df <- data.frame(DT = as.Date("2020-10-01"))
+print("-- At creation --")
+sprintf("Class of DT variable: %s", class(df$DT))
+tmp <- tempfile()
+write.csv(df, file = tmp, row.names = FALSE)
+df <- read.csv(file = tmp)
+print("-- After saving and reloading with read.csv --")
+sprintf("Class of DT variable: %s", class(df$DT))
+```
+
+some tools try to make "smart" guesses based on format
+
+```{r message = FALSE, warning = FALSE, results = "hold"}
+library(readr)
+
+df <- readr::read_csv(file = tmp)
+print("-- After saving and reloading with readr --")
+sprintf("Class of DT variable: %s", class(df$DT))
+```
+
+however, this can make things slower or unideal (one example: https://github.com/tidyverse/readr/issues/1094#issuecomment-628612430). 
+you can also specify your own types manually
+
+## Factors in R (TODO)
+
+```{r results = 'hold'}
+factor(c(0,1,0,1)) == 1
+as.integer(factor(c(0,1,0,1))) == 1
+as.integer(factor(c(0,1,0,1)))
+```
+
 ## Programming Errors (TODO)
 
 ### Default Cases (WIP)
@@ -1221,6 +1280,28 @@ knitr::include_graphics("figures/comp-quan/spark-jira.PNG")
 
 Clearly, no one wants a workflow that is too costly or timely to run. So, once again, there is no right or wrong. However, since every approach to feature importance has its own biases, pitfalls, and challenges in interpretation, it's a mistake for an end-user to not carefully understand which algorithm is used and why.
 
+#### Null handling in `ggplot2` (TODO)
+
+```{r}
+library(ggplot2)
+
+df <- data.frame(x1 = 1:5, 
+                 x2 = c(1, 2, NA, NA, 5),
+                 y1 = 1:5,
+                 y2 = c(1, 2, NA, NA, 5))
+ggplot(df, aes(x1, y1)) + geom_line()
+ggplot(df, aes(x1, y2)) + geom_line()
+ggplot(df, aes(x2, y1)) + geom_line()
+ggplot(df, aes(x2, y2)) + geom_line()
+```
+
+
+#### Boxplots in `ggplot2` (TODO)
+
+depending on how you change the scale it also changes the calculations
+
+https://stackoverflow.com/questions/5677885/ignore-outliers-in-ggplot2-boxplot
+
 ### "Off-Label" Use (TODO)
 
 coined in https://www.rstudio.com/resources/rstudioglobal-2021/maintaining-the-house-the-tidyverse-built/
@@ -1237,7 +1318,7 @@ executable code
 
 Paragraph 1 TODO
 
-Some computational quandaries are inherent to our tools themselves, but often they are a function both of the tools and the ways we chose to use them. More strategies related to writing robust and resilient code will be discussed in Chapter \@ref(comp-code) (Complexify Code).
+Some computational quandaries are inherent to our tools themselves, but often they are a function both of the tools and the ways we chose to use them. More strategies related to writing robust and resilient code will be discussed in @sec-comp-code (Complexify Code).
 
 ### Understand the intent
 
@@ -1409,11 +1490,15 @@ However, is this the *right* numerical answer? What `na.rm = TRUE` does is *drop
 
 More precisely, we have switched from taking the average
 
-\[ \frac{ \sum_{1}^{n} Spend }{\sum_{1}^{n} 1} \] over all $n$ customers
+$$
+  \frac{ \sum_{1}^{n} Spend }{\sum_{1}^{n} 1}
+$$ over all $n$ customers
 
 to taking the average
 
-\[ \frac{ \sum_{Spend > 0} Spend }{\sum_{Spend > 0} 1} \] over only those customers with spend
+$$
+  \frac{ \sum_{Spend > 0} Spend }{\sum_{Spend > 0} 1}
+$$ over only those customers with spend
 
 At face value, we could say that the code above is giving the incorrect answer; by dropping some low (zero) purchase amounts, the average amount spend per customer is inflated. A second and even more troubling perspective is that this tiny change to the code which seemed like a reasonable attempt to fix an *obvious* problem has introduced a *non-obvious* problem by fundamentally changing the question that we are asking. By dropping all accounts from our table who made no purchases, we are no longer answering "What is the average amount spent by a new registrant?" but rather "What is the average amount spent by an actively engaged customer?" This technical quirk has significant analytical impact.
 

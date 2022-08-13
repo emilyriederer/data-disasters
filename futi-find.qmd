@@ -1,8 +1,6 @@
-# (PART\*) Workflow {-} 
-
 # Futile Findings (TODO) {#futi-find}
 
-
+Dirty Dozen p hacking https://psyarxiv.com/xy2dk/
 
 <!--
 

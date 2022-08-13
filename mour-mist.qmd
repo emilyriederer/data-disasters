@@ -1,0 +1,3 @@
+# Mourning Mistakes (TODO) {#mour-mist}
+
+Throughout this book, we have explored countless ways that data analysis can go wrong. You may also have noticed that potential disasters are numerous, but truly bullet-proof solutions are relatively scarce. The wrong thing to take away from all this discussion is that analysis itself is doomed. 

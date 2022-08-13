@@ -1,6 +1,106 @@
-# Mindless Modeling (TODO) {#mind-mod}
+# Mindless Modeling (TODO) {#sec-mind-mode}
+
+Excellent reproducibility paper: https://reproducible.cs.princeton.edu/
+feature leakage, model sheets
 
 ## Features
+
+Ratio Variables: https://journals.sagepub.com/doi/abs/10.1177/1094428118773455?journalCode=orma
+
+
+### Engineering the wrong features
+
+```{r results = 'hold', warning = FALSE, echo = FALSE, eval = FALSE}
+# data set-up ----
+library(dplyr)
+data(ames, package = "modeldata")
+ames1 <- select(ames, where(is.numeric))
+ames2 <- mutate(ames1, Lot_Area = sqrt(Lot_Area))
+ames3 <- mutate(ames1, Lot_Area = Lot_Area**2)
+
+# model building ----
+library(randomForest)
+set.seed(123)
+rf1 <- randomForest(Sale_Price ~ ., mtry = 5, ntree = 100, data = ames1)
+set.seed(123)
+rf2 <- randomForest(Sale_Price ~ ., mtry = 5, ntree = 100, data = ames2)
+set.seed(123)
+rf3 <- randomForest(Sale_Price ~ ., mtry = 5, ntree = 100, data = ames3)
+
+# predictions ----
+pred1 <- predict(rf1)
+pred2 <- predict(rf2)
+pred3 <- predict(rf3)
+
+# evaluate ----
+mean(abs(pred1 - pred2) > 1e-5)
+mean(abs(pred1 - pred3) > 1e-5)
+```
+
+```{r eval = FALSE, echo = FALSE, warning = FALSE, error = FALSE, message = FALSE, echo = FALSE}
+train <- sample(nrow(ames1), size = floor(nrow(ames) * 0.5), replace = FALSE )
+ames4 <- mutate(ames, Sqrt_Lot_Area = sqrt(Lot_Area), Sqrd_Lot_Area = Lot_Area**2)
+
+
+library(caret)
+
+grid <-  expand.grid(mtry = 1:20, splitrule = "variance", min.node.size = 10)
+fitControl <- trainControl(method = "CV",
+                           number = 5,
+                           verboseIter = TRUE)
+
+set.seed(123)
+fit_orig = train(
+  x = select(ames4, -Sale_Price, -Sqrt_Lot_Area, -Sqrd_Lot_Area),
+  y = pull(ames4, Sale_Price),
+  method = 'ranger',
+  num.trees = 100,
+  tuneGrid = grid,
+  trControl = fitControl
+)
+
+set.seed(123)
+fit_sqrt = train(
+  x = select(ames4, -Sale_Price, -Sqrt_Lot_Area),
+  y = pull(ames4, Sale_Price),
+  method = 'ranger',
+  num.trees = 100,
+  tuneGrid = grid,
+  trControl = fitControl
+)
+
+set.seed(123)
+fit_sqrd = train(
+  x = select(ames4, -Sale_Price, -Sqrd_Lot_Area),
+  y = pull(ames4, Sale_Price),
+  method = 'ranger',
+  num.trees = 100,
+  tuneGrid = grid,
+  trControl = fitControl
+)
+
+
+set.seed(123)
+fit_both = train(
+  x = select(ames4, -Sale_Price),
+  y = pull(ames4, Sale_Price),
+  method = 'ranger',
+  num.trees = 100,
+  tuneGrid = grid,
+  trControl = fitControl
+)
+
+bind_rows(
+  mutate(fit_orig$bestTune, type = "Orig"),
+  mutate(fit_sqrt$bestTune, type = "Orig + Sqrt"),
+  mutate(fit_sqrd$bestTune, type = "Orig + Sqrd"),
+  mutate(fit_both$bestTune, type = "Orig + Sqrt + Sqrd")
+) %>%
+  select(type, mtry) %>%
+  knitr::kable(caption = "Number of variables to sample given inputs")
+```
+
+
 
 <!--
 

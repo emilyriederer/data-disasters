@@ -1,6 +1,6 @@
 # (PART\*) Data {-} 
 
-# Data Dalliances (WIP) {#data-dall}
+# Data Dalliances (WIP) {#sec-data-dall}
 
 The first step to data analysis is, in fact, data. While this may seem obvious, statistics textbooks often dodge this detail. 
 Discussions of regression analysis often begin with a statement like:
@@ -14,7 +14,7 @@ The specific vagaries of data vary greatly by domain, but a commonality across m
 In contrast to artisanally crafted data experimental data (like the carefully controlled agricultural experiments which motivated many early methods developments in statistics), this data was generated neither by us nor for us. 
 To quote Angela Bassa, the head of data science at an e-commerce company: "Data isn't ground truth. Data are artifacts of systems" [@bassa_2017].
 
-The analytical implications of observational versus experimental data are well explored in the field of causal inference (which we will discuss some in Chapters \@ref(incr-infe) and \@ref(cava-caus)). 
+The analytical implications of observational versus experimental data are well explored in the field of causal inference (which we will discuss some in @sec-incr-infe and @sec-cava-caus. 
 However, this distinction has implications far earlier in the data analysis process, as well.
 To name a few:
 
@@ -49,7 +49,18 @@ As Wickham points out, this is also similar to what is called "3rd normal form" 
 
 Using this data structure is valuable not only because it is similar to what many modern data tools expect, but also because it provides us a framework to think critically about what defined each observation and each variable in our dataset.
 
-#### Schemas (TODO)
+#### Schemas
+
+The first part of the definition of tidy data references variables in columns. 
+These variables in turn consist of three main parts:
+
+- A **column name** used to access and manipulate that data
+- A **data type** used to store that data (e.g. and integer format or data format)
+- A **definition** used to denote what that field represents in the real-world
+
+Column names are always explicit.
+In a database or a language like R and python, the data type is also explicit.^[This need not be true in a different data encoding like JSON in which much data is represented as characters.]
+Ideally, the definition is explicitly defined in metadata or a data dictionary, but sometimes this may be implicit. 
 
 ### Data Production Processes
 
@@ -63,9 +74,10 @@ Regardless of the type of data (experimental, observational, survey, etc.), ther
 - **Load**: The process of loading the extracted data to its final destination
 - **Transform**: The process of modeling and transforming data so that its structure is useful for analysis and its variables are interpretable
 
-To better theorize about data quality issues, it's useful to think of four DGPs (as shown in Figure \@ref(fig:dgp)): the real-world DGP, the data collection/extraction DGP^[I don't mean to imply statisticians do not regularly think about the data collection DGP! The rich literature on missing data imputation, censored data in survival analysis, and non-response bias is survey data collection are just a few examples of how carefully statisticians think about how data collection impacts analysis. I chose to break it out here to discuss the more technical aspects of collection], the data loading DGP, and the data transformation DGP.  
+To better theorize about data quality issues, it's useful to think of four DGPs (as shown in @fig-dgp): the real-world DGP, the data collection/extraction DGP^[I don't mean to imply statisticians do not regularly think about the data collection DGP! The rich literature on missing data imputation, censored data in survival analysis, and non-response bias is survey data collection are just a few examples of how carefully statisticians think about how data collection impacts analysis. I chose to break it out here to discuss the more technical aspects of collection], the data loading DGP, and the data transformation DGP.  
 
 ```{r dgp, echo = FALSE, out.width = '90%', fig.align = 'center', fig.cap = 'A schematic of the data production process'}
+#| label: fig-dgp
 knitr::include_graphics("figures/data-dall/dgp.png")
 ```
 
@@ -111,44 +123,66 @@ thing against a definition
 
 Our goal of understanding data is to ensure can assess its data quality and fit for our purpose. Understanding both its structure and its production process helps to accomplish this. 
 
-## Data Collection 
+## Collection 
 
-One of the tricky nuances of data collection is understanding what precisely is getting captured and logged in the first place. 
-No matter how robust the sensors, loggers, or other mechanisms are that record our dataset, that data is still unfit for its purpose so long as the analyst does not fully understand what it represents. 
-In the next section, we will see how what data gets collected (and our understanding of it) can alter our notions of data completion and how we must handle it in our computations.
+**Data collection** is the process of capturing and digitizing something in the real-world. 
+Data can be collected in many different ways such as:
+
+- **Direct measurement**: A researcher directly engages with each observation to measure certain characteristics
+- **Self-report**: Information is requested from individual (human) observations who provide information
+- **Logging**: Information is captured with proactively-configured sensors or logs which record certain behaviors
+- **Residue**: Data is produced as an artifact of an operational system but is then re-purposed for analysis
+
+Each approach is best suited for different circumstances and has unique benefits and challenges. 
+For example:
+
+- **Direct measurement**: Can lead to measurement error. If multiple people are collecting this data, these errors could be correlated within each researcher and break the independence of observations.
+- **Self-report**: Can easily become biased by factors such as what type of people are inclined to *respond* to the request for information and if they feel obligated to provide *socially desirable* answers
+- **Logging**: Can suffer from overly specific or outdated definitions of events
+- **Residue**: Can behave in unexpected ways since the data was collected for purposes different from analysis
+
+Regardless of the specifics, an important part of data collection is understanding precisely whose data (that is, what population) is getting collected. 
+No matter how robust the sensors, loggers, or other mechanisms are, that data is still unfit for its purpose so long as the analyst does not fully understand what it represents. 
+In the next section, we will see how what data gets collected (and our understanding of it) can alter our notions of **data completeness** and how we must handle it in our computations.
 
 ### What Makes a Record (Row)
 
 The first priority when starting to work with a dataset is understanding what a single record (row) represents and what causes it to be generated.
 
-Consider something as simple as a login system where users must enter their credentials, endure a Captcha-like verification process to prove that they are not a robot, and enter a multi-factor authentication code. Figure \@ref(fig:login-log) depicts such a process.
+Consider something as simple as a login system where users must enter their credentials, endure a Captcha-like verification process to prove that they are not a robot, and enter a multi-factor authentication code. @fig-login-log depicts such a process.
 
 ```{r login-log, echo = FALSE, out.width = '90%', fig.align = 'center', fig.cap = 'A diagram illustrating a multi-step process for a user to login to a website or app'}
+#| label: fig-login-log
 knitr::include_graphics("figures/data-dall/login-log.png")
 ```
 
 Which of these events gets collected and recorded has a significant impact on subsequent data processing. 
-In a technical sense, no inclusion/exclusion decision here is *incorrect*, per say, but if the producers' choices don't match the consumers' understandings, it can lead to misleading results.
+No inclusion/exclusion decision here is *incorrect*, per say, but if the data producers' choices don't match the analyst's understandings, a resulting analysis can be misleading.
 
 For example, an analyst might seek out a `logins` table in order to calculate the rate of successful website logins. 
-Reasonably enough, they might compute this rate as the sum of successful events over the total. 
-Now, suppose two users attempt to login to their account, and ultimately, one succeeds in accessing their private information and the other doesn't. 
-The analyst would probably hope to compute and report a 50% login success rate. However, depending on how the data is represented, they could quite easily compute nearly any value from 0% to 100%. 
+We might agree that this rate should be computed as the sum of successful events over the total attempts. 
+But what actually *is* a success? What *is* an attempt?
 
-As a thought experiment, we can consider what types of events might be logged: 
+Suppose two users attempt to login to their account, and ultimately, one succeeds in accessing their private information and the other doesn't. 
+The analyst would probably hope to compute and report a 50% login success rate. 
+However, depending on how the data is represented, they could quite easily compute nearly any value from 0% to 100%. 
+
+Consider what types of events might be logged: 
 
 - **Per Attempt**: If data is logged once per overall login attempt, successful attempts only trigger one event, but a user who forgot their password may try (and fail) to login multiple times. In the case illustrated above, that deflates the successful login rate to **25%**.
 - **Per Event**: If the logins table contains a row for every login-related event, each 'success' will trigger a large number of positive events and each 'failure' will trigger a negative event preceded by zero or more positive events. In the case illustrated below, this inflates our successful login rate to **86%**. 
 - **Per Conditional**: If the collector decided to only look at downstream events, perhaps to circumvent record duplication, they might decide to create a record only to denote the success or failure of the final step in the login process (MFA). However, login attempts that failed an upstream step would not generate any record for this stage because they've already fallen out of the funnel. In this case, the computed rate could reach **100%**
 - **Per Intermediate**: Similarly, if the login was defined specifically as successful password verification, the computed rate could his **100%** even if some users subsequently fail MFA
 
-These different situations are further illustrated in Figure \@ref(fig:login-rate), and their calculations are shown in Table \@ref(tab:login-rate-tbl).
+These different situations are illustrated in @fig-login-rate, and their calculations are shown in @tbl-login-rate.
 
 ```{r login-rate, echo = FALSE, out.width = '90%', fig.align = 'center', fig.cap = 'Login events recorded under different data collection paradigms'}
+#| label: fig-login-rate
 knitr::include_graphics("figures/data-dall/login-rate.png")
 ```
 
 ```{r login-rate-tbl, echo = FALSE, error = FALSE, warning = FALSE, message = FALSE}
+#| label: tbl-login-rate
 library(knitr)
 
 df <- data.frame(
@@ -163,23 +197,34 @@ df <- data.frame(
 kable(df, caption = "Success rate naively computed under different data collection schemes")
 ```
 
-(Note that we did not explicitly "simulate" data here, but the workflow is largely the same. We imagine a real-world process, how that might translate into a digital representation, and created a numerical example to understand the implications. Not all simulations require fancy code; sometimes paper and a pencil or a thought experiment works just fine.)
+(Note that we did not explicitly "simulate" data here, but the workflow is largely the same. 
+We imagine a real-world process, how that might translate into a digital representation, and created a numerical example to understand the implications. 
+Not all simulations require fancy code; sometimes paper-and-pencil thought experiment works just fine.)
 
-While humans have a shared intuition of what concepts like a user, session, or login are, the act of collecting data forces us to map that intuition onto an atomic event. 
-Any misunderstanding in precisely what that definition is can have massive impact on the perceived data quality; "per event" data will appear heavily duplicated if it is assumed to be "per session" data.
+While humans have a shared intuition of what concepts like a "user", "session", or "login" are, the act of collecting data forces us to map that intuition onto an atomic event. 
+Any misunderstanding in precisely what that definition is can have massive impact on the perceived data quality; 
+"per event" data will appear heavily duplicated if it is assumed to be "per session" data.
 
 In some cases, this could be obvious to detect. 
-If the system outputs fields that are incredibly specific (e.g. with some hyperbole, imagine a `step_in_the_login_process` field with values taking any of the human-readable descriptions of the fifteen processes listed in the image above), but depending how this source is organized (e.g. in contrast to above, if we only have fields like `sourceid` and `processid` with unintuitive alphanumeric encoded values) and defined, it could be nearly impossible to understand the nuances without uncovering quality metadata or talking to a data producer.
+If the `logins` table had a field `step_in_the_login_process` with values like `"MFA"` or `"Captcha"`, an analyst would be immediately confronted with this inclusion-exclusion choice. 
+However, if that same information was encoded in fields like `sourceid` and `processid` with untuitive values (e.g. `"001"` means MFA, `"002"` means Captcha), it could be easy to misunderstand this data without high-quality documentation or a discussion with a subject-matter expert.
 
 ### What Doesn't Make a Record (Row)
 
-Along with thinking about what *does* count (or gets logged), it's equally important to understand what systemically does not generate a record. Consider users who have the intent or desire to login (motivated by a real-world DGP) but cannot find the login page, or users who load the login page but never click a button because they know that they've forgotten their password and see no way to request it. 
-Often, some of these corner cases may be some of the most critical and informative (e.g. here, demonstrating some major flaws in our UI). 
+It's important to think about what *does* count (or get logged) in our data. 
+It's equally important to understand what systemically does not generate a record. 
+
+Returning to our example, consider other users who have the intent or desire to login but cannot find the login page, or users who load the login page but never click a button because they know that they have forgotten their password and see no way to request it. 
+These corner cases might be small in number -- or they might be large. 
+That's precisely the problem - if we are not capturing data on these records, we cannot tell.
+Regardless of their magnitude, depending on the question we are analyzing, these corner cases could be some of he most critical and informative observations to know about.
+For example, they could uncover flaws in the design of our login page's user interface. 
+
 It's hard to *computationally* validate what data doesn't exist, so *conceptual* data validation is critical.
 
 ### Records versus Keys
 
-The preceding discussion on what types of real-world observations will or will not generate records in our resulting dataset is related to but distinct from another important concept from the world of relational databases: **primary keys**. 
+The preceding discussion of what types of real-world observations will or will not generate records is related to but distinct from another important concept from the world of relational databases: **primary keys**. 
 
 **Primary keys** are a minimal subset of variables in a dataset than define a unique record. 
 For example, in the previous discussion of customer logins this might consist of **natural keys**^[Keys with semantic meanings that are naturally part of the dataset] such as the combination of a `session_id` and a `timestamp` or **surrogate keys**^[Keys without semantic meaning that exist primarily for the purpose of being keys] such as a global `event_id` that is generated every time the system logs any event. 
@@ -190,37 +235,43 @@ They also can be suggestive of the true granularity of the table.
 
 However, simply knowing a table's primary keys does *not* resolve the issues we discussed in the prior two sections. 
 Any of the many different data collection strategies we considered are *unique* by session and timestamp;
-however, as we've seen, that is no guarantee that they *must* contain every session and timestamp in the universe of events.
+however, that is no guarantee that they *must* contain every session and timestamp in the universe of relevant events.
 
 ### What Defines a Variable (Column)
 
 Just as critical as understanding what constitutes a record (row) in a dataset is understanding the precise definition of each variable (column). 
-Superficially, this task seems easier: after all, each variable has a name which hopefully includes some semantic information. However, quite often this information can provide a false sense of security. 
-Just because you identify a variable with a promising sounding name, that does not mean that it is the most relevant data for your analysis.
+Superficially, this task seems easier: after all, each variable has a name which hopefully includes some semantic information. However, this information often provides a false sense of security. 
+Just because you identify a variable with a promising-sounding name, that does not mean that it is the most relevant data for your analysis.
 
 For example, consider wanting to analyze patterns in customer spend amounts across orders on an e-commerce website. 
-You might find a table of orders with a field called `amt_spend`. But what might this mean?
+You might find a table of orders with a field called `amt_spend`. 
+But what might this mean?
+That depends on *how* and for *what purpose* the data was collected.
 
 - If the dataset is sourced from a payment processor, it likely includes the total amount billed to a customers' credit card: including item prices less any discounts, shipping costs, taxes, etc. Alternatively, if this order was split across a gift card and a credit card, this field might only reflect the amount charged to the credit card
 - If the dataset is created for Finance, it might perhaps include only the total of item prices less discounts if this best corresponded to the data the Finance team needs for revenue reporting 
 - Someone, somewhere, at some point might have assigned `amt_spend` to the name of the variable containing gross spend (before accounting for any discounts) and there might be a different variable `amt_spend_net` which accounts for discounts applied
 
-It's critical to understand what each variable *actually* means. 
+Reading variable names alone is not enough.
+It is critical to understand what each variable *actually* means. 
 The upside of this is that it forces analysts to think more crisply about their research questions and what the *ideal* variables for their analysis would be. 
-As we've seen, concepts like "spend" may seem deceptively simple, but are not unambiguous.
+As we've seen, concepts like "spend" seem deceptively simple but can still be ambiguous.
 
-## Data Extraction & Loading
+## Extraction & Loading
 
-Checking that data contains expected and *only* expected records (that is, completeness, uniqueness, and timeliness) is one of the most common first steps in data validation. 
-However, the superficially simple act of loading data into a data warehouse or updating data between tables can introduce a variety of risks to data completeness which require different strategies to detect. 
-Data loading errors can result in data that is stale, missing, duplicate, inconsistently up-to-date across sources, or complete but for only a subset of the range you think.
+**Data extraction** refers to the process of removing data from the system in which it was collected, and **data loading** refers to moving the extracted data into another system for further processing and analysis.
 
-While the data quality principles of **completeness**, **uniqueness**, and **timeliness** would suggest that records should exist once and only once, the reality of many haphazard data loading process means data may appear sometime between zero and a handful of times. Data loads can occur in many different ways. 
-For example, they might be:
+Data extraction and loading can occur in many different ways.
+Such processes might be: 
 
 - manually executed
 - scheduled (like a [cron](https://en.wikipedia.org/wiki/Cron) job)
 - orchestrated (with a tool like [Airflow](https://airflow.apache.org/) or [Prefect](https://www.prefect.io/))
+
+Data movement may sound like one of the simplest and most rote parts of data production.
+However, the superficially simple ac of loading data and updating data over time can introduce a variety of risks to data **completeness**, **uniqueness**, and **timeliness** which require different strategies to detect. 
+These principles suggest that records should exist in our dataset once and only once, 
+but the relating of many haphazard loading processes means that data appears sometimes between zero and a handful of times. 
 
 No approach is free from challenges. 
 For example, scheduled jobs risk executing before an upstream process has completed (resulting in stale or missing data); 
@@ -231,9 +282,10 @@ Regardless of the method, all approaches must be carefully configured to handle 
 
 To develop our understanding of the true data generating process and to formulate theories on how our data could be broken (and what we should validate), it is useful to understand the different ways data extraction and loading can fail. 
 
-Figure \@ref(fig:data-load) illustrates a number of examples. Suppose that each row of boxes in the diagram represents one day of records in a table.
+@fig-data-load illustrates a number of examples. Suppose that each row of boxes in the diagram represents one day of records in a table.
 
 ```{r data-load, echo = FALSE, out.width = '90%', fig.align = 'center', fig.cap = "Different modes of data loading failure"}
+#| label: fig-data-load
 knitr::include_graphics("figures/data-dall/data-load.png")
 ```
 
@@ -290,9 +342,10 @@ Of course, this concern could be somewhat easily allayed if they then checked a 
 The interaction between choices made in the data collection and data loading phases can introduce their own sets of problems.
 
 Consider an `orders` table for an e-commerce company that analysts may use to track customer orders. 
-It might contain one record per `order_id` x `event` (placement, processing, shipment), one record per order placed, one record per order shipping, or one record per order with a `status` field that changes over time to denote the order's current stage of life. Some of these options are illustrated in Figure \@ref(fig:order-log).
+It might contain one record per `order_id` x `event` (placement, processing, shipment), one record per order placed, one record per order shipping, or one record per order with a `status` field that changes over time to denote the order's current stage of life. Some of these options are illustrated in @fig-order-log.
 
 ```{r order-log, echo = FALSE, out.width = '90%', fig.align = 'center', fig.cap= "Illustration of alternative data collection and extraction strategies for order data"}
+#| label: fig-order-log
 knitr::include_graphics("figures/data-dall/order-log.png")
 ```
 
@@ -301,9 +354,10 @@ But consider the *collection* choice to record and report *shipped* events.
 Perhaps this might be operationally easier if shipment come from one source system whereas orders could come from many. 
 However, an interesting thing about shipments is that they are often lagged in a variable way from the order date.
 
-Suppose the e-commerce company in question offers three shipping speeds at checkout. Figure \@ref(fig:order-date) shows the range of possible shipment dates based on the order dates for the three different speeds (shown in different bars/colors). 
+Suppose the e-commerce company in question offers three shipping speeds at checkout. @fig-order-date shows the range of possible shipment dates based on the order dates for the three different speeds (shown in different bars/colors). 
 
 ```{r order-date, echo = FALSE, out.width = '90%', fig.align = 'center', fig.cap = 'A conceptual chart of when different classes of real-world events might materialize as records in our dataset'}
+#| label: fig-order-date
 knitr::include_graphics("figures/data-dall/order-date.png")
 ```
 
@@ -357,7 +411,7 @@ df %>%
 (Note that these conditions could be checked much more succinctly with a base R expression such as `sum(df$dt_load < 7 & df$dt_subm == 3)`.
 However, there is sometimes virtue in option for more readable code even if it is less compact. 
 Here, we prefer the more verbose option for the claritfy of our exposition.
-Such trade-offs, and general thoughts on coding style, are explored further in Chapter \@ref(comp-code).)
+Such trade-offs, and general thoughts on coding style, are explored further in @sec-comp-code.)
 
 Now, this may seem to trivial. Clearly, if there were *zero* records for a day, we would catch this in data validation, right?
 We can make our synthetic data slightly more realistic to better illustrate the problem. 
@@ -397,7 +451,7 @@ Additionally, we might have a *mixture* of different *types* of orders.
 There might be high-priced orders where customers tended to be willing to pay for faster shipping,
 and low-priced orders where customers tend to chose slower shipping.
 In a case like this, not only might naive validation miss the lack of data completeness, but the *sample* of shipments we begin to see on day 5 could be unrepresentative of the population of orders placed on day 3. 
-This is a type of **selection bias** that we will examine further in Chapter \@ref(incr-infe) (Incredible Inferences).
+This is a type of **selection bias** that we will examine further in @sec-incr-infe (Incredible Inferences).
 
 ## Data Encoding & Transformation (WIP)
 
@@ -413,7 +467,7 @@ Unfortunately, although these steps attempt to increase the data's usability, th
 
 One critical set of decisions in data encoding is what sort of *data types* each field of interest should be. Data types such as integers, reals, character strings, logicals, dates, and times determine how data is stored and the types of manipulations that can be done to it.
 
-We'll see more examples of the computational implications for our data types in Chapter \@ref(comp-quan) (Computational Quandaries). This chapter specifically explores the unique complexities of string and date types. 
+We'll see more examples of the computational implications for our data types in @sec-comp-quan (Computational Quandaries). This chapter specifically explores the unique complexities of string and date types. 
 
 #### Indicator Variables (TODO)
 
@@ -436,9 +490,10 @@ Another major encoding decision is how to handle null values.
 Previously, in the discussion of Data Collection, we considered the presence and absence of full *records*.
 However, when preparing data for analysis, both data produces and consumers need to decide how to cope with the presence or absence of individual *fields*. 
 
-If records contain some but not all relevant information, they may be published with explicitly missing fields or the full record may not be published at all. The difference between implicit and explicit missingness on the resulting data is illustrated in Figure \@ref(fig:null-impl-expl).
+If records contain some but not all relevant information, they may be published with explicitly missing fields or the full record may not be published at all. The difference between implicit and explicit missingness on the resulting data is illustrated in @fig-null-impl-expl.
 
 ```{r null-impl-expl, echo = FALSE, out.width = '90%', fig.align = 'center', fig.cap = "A comparison of explicit versus implicit missingness"}
+#| label: fig-null-impl-expl
 knitr::include_graphics("figures/data-dall/missing-imp-exp.png")
 ```
 
@@ -462,7 +517,7 @@ Each of these encoding choices changes the definitions of appropriate completene
 We can't expect 100% completeness if nulls are a relevant value; we can't check validity of ranges as easily if sentinel values are used with values that are outside the normal range (hopefully, or we have much bigger problems!) 
 So, understanding how upstream systems *should* work is essential for assessing if they *do* work.
 
-Similarly, understanding how our null data is collected has significant implications for how we subsequently process it. We will discuss this more in Chapter \@ref(comp-quan) (Computational Quandaries).
+Similarly, understanding how our null data is collected has significant implications for how we subsequently process it. We will discuss this more in @sec-comp-quan (Computational Quandaries).
 
 ### Data Transformation
 
@@ -600,6 +655,11 @@ One 6ft 2in tall man's data was misinterpreted to suggest that he was 6.2 *centi
 As described in the BBC [@bbc_north_west_2021]:
 
 > A man in his 30s with no underlying health conditions was offered a Covid vaccine after an NHS error mistakenly listed him as just 6.2cm in height. Liam Thorp was told he qualified for the jab because his measurements gave him a body mass index of 28,000.
+
+
+
+
+TODO: Data Smells Code https://arxiv.org/pdf/2203.08007.pdf
 
 
 <!--
@@ -915,3 +975,5 @@ Ahhhh
 ## Strategies
 
 -->
+
+

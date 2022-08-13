@@ -1,5 +1,3 @@
-# (PART\*) Analysis {-} 
-
 # Egregious Aggregations (WIP) {#eg-agg}
 
 Once armed with an understanding of the data and tools available for analysis, a common start to analysis is exploring data with *aggregation*. 
@@ -50,9 +48,11 @@ df %>%
   kable(caption = "Summary statistics for Datasaurus Dozen datasets")
 ```
 
-However, as shown in Figure \@ref(fig:datasaurus-plot), when we visualize this data, we find that the 12 datasets reveal remarkably different patterns.
+However, as shown in @fig-dino, when we visualize this data, we find that the 12 datasets reveal remarkably different patterns.
 
 ```{r datasaurus-plot, echo = FALSE, fig.cap = 'Scatterplots for Datasaurus Dozen datasets'}
+#| label: fig-dino
+
 library(ggplot2)
 
 ggplot(data = df) +
@@ -64,10 +64,12 @@ ggplot(data = df) +
 
 This dataset is a more elaborate version of Anscombe's Quartet, a well-known set of four datasets which exhibit similar properties. 
 Examining a simiilar plot for Anscombe's Quartet (with data from the `anscombe` dataset which ships in R's `datasets` package), we can get better intuition for how the phenomenon is manufactured. 
-Figure \@ref(fig:anscombe) shows as similar plot to \@ref(fig:datasaurus-plot).
+@fig-anscombe shows as similar plot to @fig-dino.
 Comparing datasets 1 and 3, for example, we can see a trade-off between a semi-strong trend with a consistent-seeming amount of noise and an nearly perfect linear trend with a single outlier.
 
 ```{r anscombe, echo = FALSE, fig.cap = "Scatterplots for Anscombe's Quartet"}
+#| label: fig-anscombe
+
 library(tidyr)
 
 df <- datasets::anscombe
@@ -89,11 +91,11 @@ ggplot(data = df_long) +
   theme(legend.position = 'none')
 ```
 
-Figure \@ref(fig:anscombe) also plots the simple linear regression line for each dataset.
+@fig-anscombe also plots the simple linear regression line for each dataset.
 Similar to the summary statistics, these are also identical. 
 We know this because the regression coefficient for a simple linear regression is given by `cov(x,y)`/`sd(x)sd(y)`. You'll notice I do not write "we can see that..." because, in fact, we can only *see* similarity not equality. 
 The message of this section may seem to be "don't summarize your data without plotting it", but conducting "visual analytics" without looking at the numbers is also problematic.
-We'll explore the latter topic more in Chapter \@ref(vexi-visu) (Vexing Visualiztions).
+We'll explore the latter topic more in Chapter -@sec-vexi-visu (Vexing Visualiztions).
 
 While there are clearly a contrived example (and, if you so chose to check out the "Datasaurus Dozen" paper, a very cleverly contrived example!), its also a cautionary tale. 
 Summary statistics are not just insufficient when they focus on central tendency (e.g. mean) instead of spread. 
@@ -159,7 +161,7 @@ df <-
   )
 ```
 
-Figure \@ref(fig:multivar-avg) shows a scatterplot of the relationship between account age (x-axis) and activity level (y-axis).
+@fig-multivar-avg shows a scatterplot of the relationship between account age (x-axis) and activity level (y-axis).
 Meanwhile, the marginal rug plots shows the univariate distribution of each variable. 
 The sole red dot denotes the coordinates of the average age and average activity. 
 Notably, this dot exists in a region of "zero density";
@@ -167,6 +169,8 @@ that is, it is not representative of *any* customer.
 Strategic decisions made with this sort of observation in mind as the "typical" might not be destined for success.
 
 ```{r multivar-avg, echo = FALSE, fig.cap = 'A scatterplot of two variables and their averages'}
+#| label: fig-multivar-avg
+
 library(dplyr)
 library(ggplot2)
 
@@ -220,11 +224,15 @@ However, if instead we already knew an average spend amount and an average retur
 
 At first, this may seem unintuitive until we write out the formulas and realize that these metrics are, in fact, two very different quantities:
 
-\[ \frac{ \sum_{1}^{n} Spend }{\sum_{1}^{n} 1} \ * \frac{ \sum_{1}^{n} I(Return) }{\sum_{1}^{n} 1} \] over all $n$ orders
+$$
+  \frac{ \sum_{1}^{n} Spend }{\sum_{1}^{n} 1} \ * \frac{ \sum_{1}^{n} I(Return) }{\sum_{1}^{n} 1}
+$$ over all $n$ orders
 
 versus
 
-\[ \frac{\sum_{1}^{n} Spend * I(Return)}{\sum_{1}^{n} 1} \]
+$$
+  \frac{\sum_{1}^{n} Spend * I(Return)}{\sum_{1}^{n} 1}
+$$
 
 If this still feels counterintuitive, we can see how much of the difference is accounted for by the interrelation between our two variables. 
 In the following code, we break the relationship between the variables by randomly reordering the `ind_return` variable so it is no longer has any true relationship to the corresponding `amt_spend` variable.
@@ -312,9 +320,11 @@ var(x)
 
 ## Correlation (WIP)
 
-As shown in \@ref(fig:fig-fun-corr), 
+As shown in @fig-fun-corr, 
 
 ```{r fig-fun-corr, fig.cap = "Plots of x from 1 to 10 over a range of common functions", echo = FALSE}
+#| label: fig-fun-corr
+
 library(ggplot2)
 library(patchwork)
 
@@ -418,9 +428,11 @@ var2  <- var1 * rep(c(5, -5), each = n_obsvs)
 var3  <- var1 * rep(c(1,  5), each = n_obsvs)
 ```
 
-As Figure \@ref(fig:fig-cor-0) shows
+As @fig-cor-0 shows
 
 ```{r fig-cor-0, echo = FALSE, fig.cap = "Subgroups demonstrating opposing linear relationships"}
+#| label: fig-cor-0
+
 library(ggplot2)
 
 ggplot(data.frame(var1, var2, group)) +
@@ -475,9 +487,11 @@ pcor(data.frame(var1, var3, group))$estimate
 
 ### "If trends continue..."
 
-Figure \@ref(fig:fig-if-trends-continue) shows that...
+@fig-if-trends-continue shows that...
 
 ```{r fig-if-trends-continue, fig.cap = "Extrapolated linear, quadratic, and cubic fits of data"}
+#| label: fig-if-trends-continue
+
 library(ggplot2)
 
 n <- 300
@@ -496,6 +510,22 @@ ggplot(
 ```
 
 ### Seasonality 
+
+```{r results = "hold"}
+seas_factor <- c(0.7, 0.8, 0.8,
+                 0.9, 1.0, 1.1,
+                 1.1, 1.1, 1.2,
+                 1.2, 1.5, 1.8
+                 )
+base <- 1000
+n_visits <- base * seas_factor
+
+mean(df$n_visits[1:12])
+mean(df$n_visits[8:12])
+mean(df$n_visits[c(8:12, 1:12)])
+```
+
+
 
 ## Comparisons (TODO)
 
@@ -516,6 +546,8 @@ ggplot(
 0.015 / 0.010
 0.805 / 0.800
 ```
+
+## Outliers (TODO)
 
 ## Strategies (TODO)
 
@@ -613,9 +645,11 @@ Data analysis undoubtedly relies on assumptions, and the quality of the resultin
 
 First, in the real world, this is rarely (if ever) the case. Complex, dynamic systems have feedback loops and constraints, and few natural systems^[whether they be the predator and prey of the Lotka-Volterra differential equations, the infected population of an epidemiolgical SIR model, or pricing dynamics of supply and demand] and trend unabated in the same direction. 
 
-Second, and perhaps event more critically, there is no singular, objective definiton of what the current "trend" of a dataset event is. To illustrate this \@ref(fig:lin-quad-cub) shows the fits of linear, quadratic, and cubic regressions on a set of data and its out-of-sample extrapolation. Even if we *believed* the premise that "trends will continue", the subjective determination of that thrend has massive implications on the resulting conclusions.
+Second, and perhaps event more critically, there is no singular, objective definiton of what the current "trend" of a dataset event is. To illustrate this @fig-lin-quad-cub shows the fits of linear, quadratic, and cubic regressions on a set of data and its out-of-sample extrapolation. Even if we *believed* the premise that "trends will continue", the subjective determination of that thrend has massive implications on the resulting conclusions.
 
 ```{r lin-quad-cub, fig.cap = "Plot of data extrapolated from linear, quadratic, and cubic fits"}
+#| label: fig-lin-quad-cub
+
 library(ggplot2)
 
 n <- 300
@@ -705,9 +739,13 @@ data %>%
 summarize(data, sum(AMT_SPEND) / n_distinct(ID_ACCT))
 ```
 
-\[ \frac{ \sum_{1}^{n} Spend }{\sum_{1}^{n} 1} \ * \frac{ \sum_{1}^{n} Trips }{\sum_{1}^{n} 1} \] over all $n$ customers
+$$
+  \frac{ \sum_{1}^{n} Spend }{\sum_{1}^{n} 1} \ * \frac{ \sum_{1}^{n} Trips }{\sum_{1}^{n} 1}
+$$ over all $n$ customers
 
-\[ \sum_{1}^{n} Spend \ * \sum_{1}^{n} Trips \]
+$$
+  \sum_{1}^{n} Spend \ * \sum_{1}^{n}
+$$ trips
 
 ```{r}
 set.seed(123)

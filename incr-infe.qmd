@@ -1,4 +1,4 @@
-# Incredible Inferences (TODO) {#incr-infe}
+# Incredible Inferences (TODO) {#sec-incr-infe}
 
 Previously, we have seen how different inputs like data, tools, and methods can add risks to our data analysis. However, the battle is not won simply when we get our first set of *outputs*. In this chapter, we will explore common errors in interpreting the results of our analysis by exploring aspects of bias, missingness, and confounding. 
 
@@ -43,9 +43,10 @@ corr_sep <- cor(minutes_month1, minutes_month2)
 corr_sum <- cor(minutes_month1, minutes_tot)
 ```
 
-Figure \@ref(fig:sep-sum) shows...
+@fig-sep-sum shows...
 
 ```{r sep-sum, echo = FALSE, out.width = '90%', fig.align = 'center', fig.cap = 'Correlation of independent versus cumulative quantities'}
+#| label: fig-sep-sum
 library(ggplot2)
 library(patchwork)
 
@@ -227,9 +228,10 @@ df <-
     )
 ```
 
-Figure \@ref(fig:fig-shift) shows that...
+@fig-shift shows that...
 
 ```{r fig-shift, fig.cap = "Trends within and between customer behavioral groups", echo = FALSE}
+#| label: fig-shift
 library(ggplot2)
 
 gg <- 
@@ -250,9 +252,10 @@ ggplot(df) +
 gg
 ```
 
-Figure \@ref(fig:fig-shift-v2) shows that...
+@fig-shift-v2 shows that...
 
 ```{r fig-shift-v2, fig.cap = "Possible subgroup trends contributing to aggregate trend", echo = FALSE}
+#| label: fig-shift-v2
 library(patchwork)
 
 gg_v1 <-
@@ -328,9 +331,11 @@ lifetime_max <- pmin(lifetime, curr_time)
 mean(lifetime_max)
 ```
 
-This scenario illustrates the concept of **censored data**. Figure \@ref(fig:fig-censor) illustrates the fundamental problem more clearly. 
+This scenario illustrates the concept of **censored data**. @fig-censor illustrates the fundamental problem more clearly. 
 
 ```{r fig-censor, echo = FALSE, fig.cap = "A sample of observations of customer lifetimes showing observed and censored data"}
+#| label: fig-censor
+
 #> plot ----
 library(ggplot2)
 library(dplyr)

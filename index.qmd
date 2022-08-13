@@ -1,39 +1,9 @@
---- 
-title: "Data Disasters"
-author: "Emily Riederer"
-date: "`r Sys.Date()`"
-knit: "bookdown::render_book"
-documentclass: krantz
-bibliography: [book.bib, packages.bib]
-biblio-style: apalike
-link-citations: yes
-colorlinks: yes
-lot: yes
-lof: yes
-site: bookdown::bookdown_site
-description: "Navigating the complexities of real-world data analysis"
-github-repo: emilyriederer/data-disasters
-graphics: yes
-cover-image: figures/cover.png
-url: data-disasters.netlify.app
+---
+description-meta: |
+  A book about doing stats wrong so you'll do it right
 ---
 
-```{r setup, include=FALSE}
-options(
-  htmltools.dir.version = FALSE, formatR.indent = 2, width = 55, digits = 4
-)
-
-# install the packages needed by this book; you fill out c(), e.g. c('ggplot2', 'dplyr')
-lapply(c('xfun','dplyr','ggplot2','DBI'), function(pkg) {
-  if (system.file(package = pkg) == '') install.packages(pkg)
-})
-```
-
 # Preface {-}
-
-```{r, echo = FALSE, out.width = '90%', fig.align = 'center'}
-knitr::include_graphics("figures/cover.png")
-```
 
 Training in data analysis often begins with Statistics 101 course. 
 Students learn the "happy path" of answer data that adheres to specific assumptions (such as "independent and identically distributed with a Normal density") and answers pre-specified questions (most notably, the infamous null hypothesis significance test). 
@@ -65,7 +35,7 @@ Chapters and sections tagged as **TODO** have minimal outlines or code examples 
 
 ## Main Topics
 
-In particular, we will aim to help you avoid eleven types of data disasters:
+In particular, we will aim to help you avoid twelve types of data disasters:
 
 - **Data Dalliances**: Misinterpreting or misuing data based on how it was collected or what it represents 
 - **Computational Quandaries**: Letting computers do what you said and not what you meant
@@ -78,6 +48,7 @@ In particular, we will aim to help you avoid eleven types of data disasters:
 - **Futile Findings**: Asking and answering questions that aren't useful
 - **Complexifying Code**: Making projects unwieldy or more difficult to understand than necessary
 - **Rejecting Reproducibility**: Working inefficiently instead of an efficient, reproducible, and sharable workflow
+- **Mourning Mistakes**: Letting the perfect be the enemy of the good
 
 ## Common Themes
 
@@ -94,11 +65,10 @@ As we go, we will notice how three common themes that challenge the focus of int
 - Similarly, observations and variables are rarely independent; the story is in the **covariance**
 - Assumptions of Normality, or more broadly symmetry, are often in appropriate in wonky, **highly skewed** world
 
-## Acknowledgements
-
-This book is built by the excelent **bookdown** R package with styling tips heavily inspired by the [Tidy Maching Leaning with R](https://github.com/tidymodels/TMwR) repo. 
-
-Sidebar icons used throughout the book are credited to [Vector Markets](https://www.flaticon.com/authors/vectors-market) (lightbulb) and [Freepik](https://www.freepik.com") (notepad and caution sign) on [www.flaticon.com](https://www.flaticon.com/). All other images are my own and made with either [Excalidraw](https://excalidraw.com/) or [Inkscape](https://inkscape.org/).
+:::{.callout-note}
+Note that there are five types of callouts, including:
+`note`, `tip`, `warning`, `caution`, and `important`.
+:::
 
 <!--
 ## Assumed knowledge {-}
@@ -107,9 +77,9 @@ This book was written with the goal of requiring minimal prerequisite knowledge.
 
 Without exception, this book relates to the process of analyzing structured, tabular data (e.g. rows as observations, columns as variables). However, this book does not precisely aspire to teach statistics or data analysis but rather to fill in the gap between how these subjects are typically taught and how problems present themselves in real research and industry. As such, past and concurrent experience working with any type of structured data with any computational tool (e.g. spreadsheet, SAS, Stata, SQL, R, etc.) will help readers relate to the material.
 
-Most of this book's contents are illustrated with R code, and additional references are made to using R packages to solve basic problems. For this reason, some background in R may improve general comprehension of and interest in the material. However, programming is not a key focus of the book (apart from Chapter \@ref(comp-quan)) and the amount of syntax used should be easily readable without much hands-on scripting experience. Furthermore, occasional SQL and python examples are also included where relevant to appeal to a broader audience and to celebrate the use of a wide range of analysis tools.
+Most of this book's contents are illustrated with R code, and additional references are made to using R packages to solve basic problems. For this reason, some background in R may improve general comprehension of and interest in the material. However, programming is not a key focus of the book (apart from Chapter -@sec-comp-quan) and the amount of syntax used should be easily readable without much hands-on scripting experience. Furthermore, occasional SQL and python examples are also included where relevant to appeal to a broader audience and to celebrate the use of a wide range of analysis tools.
 
-Finally, since this book focuses mostly on basic concepts like wrangling, summary statistics, and visualization, little to no statistics background is required until chapters \@ref(cav-caus) and \@ref(mind-mod) where more advanced methods are discussed. For Chapter \@ref(mind-mod), in particular, a basic understanding of statistical modeling (e.g. regression and clustering) is assumed. The level of depth of the classic text ISLR [@james_witten_hastie_tibshirani_2017] (TODO: add citation) would be far more than sufficient.
+Finally, since this book focuses mostly on basic concepts like wrangling, summary statistics, and visualization, little to no statistics background is required until Chapter -@sec-cava-caus and Chapter -@sec-mind-mode where more advanced methods are discussed. For Chapter -@sec-mind-mode, in particular, a basic understanding of statistical modeling (e.g. regression and clustering) is assumed. The level of depth of the classic text ISLR [@james_witten_hastie_tibshirani_2017] (TODO: add citation) would be far more than sufficient.
 
 ## Software information and conventions {-}
 
