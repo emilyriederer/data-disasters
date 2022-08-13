@@ -1,0 +1,1456 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<meta charset="utf-8">
+<meta name="generator" content="quarto-0.9.175">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+<meta name="description" content="Navigating the complexities of real-world data analysis">
+<title>Data Disasters - 4&nbsp; Egregious Aggregations (WIP)</title>
+<style>
+    code{white-space: pre-wrap;}
+    span.smallcaps{font-variant: small-caps;}
+    span.underline{text-decoration: underline;}
+    div.column{display: inline-block; vertical-align: top; width: 50%;}
+    div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+    ul.task-list{list-style: none;}
+    pre > code.sourceCode { white-space: pre; position: relative; }
+    pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+    pre > code.sourceCode > span:empty { height: 1.2em; }
+    .sourceCode { overflow: visible; }
+    code.sourceCode > span { color: inherit; text-decoration: inherit; }
+    div.sourceCode { margin: 1em 0; }
+    pre.sourceCode { margin: 0; }
+    @media screen {
+    div.sourceCode { overflow: auto; }
+    }
+    @media print {
+    pre > code.sourceCode { white-space: pre-wrap; }
+    pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+    }
+    pre.numberSource code
+      { counter-reset: source-line 0; }
+    pre.numberSource code > span
+      { position: relative; left: -4em; counter-increment: source-line; }
+    pre.numberSource code > span > a:first-child::before
+      { content: counter(source-line);
+        position: relative; left: -1em; text-align: right; vertical-align: baseline;
+        border: none; display: inline-block;
+        -webkit-touch-callout: none; -webkit-user-select: none;
+        -khtml-user-select: none; -moz-user-select: none;
+        -ms-user-select: none; user-select: none;
+        padding: 0 4px; width: 4em;
+        color: #aaaaaa;
+      }
+    pre.numberSource { margin-left: 3em; border-left: 1px solid #aaaaaa;  padding-left: 4px; }
+    div.sourceCode
+      {   }
+    @media screen {
+    pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+    }
+    code span.al { color: #ff0000; font-weight: bold; } /* Alert */
+    code span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
+    code span.at { color: #7d9029; } /* Attribute */
+    code span.bn { color: #40a070; } /* BaseN */
+    code span.bu { } /* BuiltIn */
+    code span.cf { color: #007020; font-weight: bold; } /* ControlFlow */
+    code span.ch { color: #4070a0; } /* Char */
+    code span.cn { color: #880000; } /* Constant */
+    code span.co { color: #60a0b0; font-style: italic; } /* Comment */
+    code span.cv { color: #60a0b0; font-weight: bold; font-style: italic; } /* CommentVar */
+    code span.do { color: #ba2121; font-style: italic; } /* Documentation */
+    code span.dt { color: #902000; } /* DataType */
+    code span.dv { color: #40a070; } /* DecVal */
+    code span.er { color: #ff0000; font-weight: bold; } /* Error */
+    code span.ex { } /* Extension */
+    code span.fl { color: #40a070; } /* Float */
+    code span.fu { color: #06287e; } /* Function */
+    code span.im { } /* Import */
+    code span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Information */
+    code span.kw { color: #007020; font-weight: bold; } /* Keyword */
+    code span.op { color: #666666; } /* Operator */
+    code span.ot { color: #007020; } /* Other */
+    code span.pp { color: #bc7a00; } /* Preprocessor */
+    code span.sc { color: #4070a0; } /* SpecialChar */
+    code span.ss { color: #bb6688; } /* SpecialString */
+    code span.st { color: #4070a0; } /* String */
+    code span.va { color: #19177c; } /* Variable */
+    code span.vs { color: #4070a0; } /* VerbatimString */
+    code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warning */
+    div.csl-bib-body { }
+    div.csl-entry {
+      clear: both;
+    }
+    .hanging div.csl-entry {
+      margin-left:2em;
+      text-indent:-2em;
+    }
+    div.csl-left-margin {
+      min-width:2em;
+      float:left;
+    }
+    div.csl-right-inline {
+      margin-left:2em;
+      padding-left:1em;
+    }
+    div.csl-indent {
+      margin-left: 2em;
+    }
+  </style>
+<script src="site_libs/quarto-nav/quarto-nav.js"></script><script src="site_libs/quarto-nav/headroom.min.js"></script><script src="site_libs/clipboard/clipboard.min.js"></script><meta name="quarto:offset" content="./">
+<script src="site_libs/quarto-search/autocomplete.umd.js"></script><script src="site_libs/quarto-search/fuse.min.js"></script><script src="site_libs/quarto-search/quarto-search.js"></script><link href="./vexi-visu.html" rel="next">
+<link href="./comp-quan.html" rel="prev">
+<link href="./figures/cover.png" rel="icon" type="image/png">
+<script src="site_libs/quarto-html/quarto.js"></script><script src="site_libs/quarto-html/popper.min.js"></script><script src="site_libs/quarto-html/tippy.umd.min.js"></script><script src="site_libs/quarto-html/anchor.min.js"></script><link href="site_libs/quarto-html/tippy.css" rel="stylesheet">
+<link id="quarto-text-highlighting-styles" href="site_libs/quarto-html/quarto-syntax-highlighting.css" rel="stylesheet">
+<script src="site_libs/bootstrap/bootstrap.min.js"></script><link href="site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
+<link href="site_libs/bootstrap/bootstrap.min.css" rel="stylesheet">
+<script id="quarto-search-options" type="application/json">{
+    "location": "sidebar",
+    "copy-button": false,
+    "collapse-after": 3,
+    "panel-placement": "start",
+    "type": "textbox",
+    "limit": 20,
+    "language": {
+      "search-no-results-text": "No results",
+      "search-matching-documents-text": "matching documents",
+      "search-copy-link-title": "Copy link to search",
+      "search-hide-matches-text": "Hide additional matches",
+      "search-more-match-text": "more match in this document",
+      "search-more-matches-text": "more matches in this document",
+      "search-clear-button-title": "Clear",
+      "search-detached-cancel-button-title": "Cancel",
+      "search-submit-button-title": "Submit"
+    }
+  }</script><script async="" src="https://www.googletagmanager.com/gtag/js?id=G-C7VEESJ7Z8"></script><script type="text/javascript">
+
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+  gtag('config', 'G-C7VEESJ7Z8', { 'anonymize_ip': true});
+  </script><script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml-full.js" type="text/javascript"></script><!--[if lt IE 9]>
+    <script src="//cdnjs.cloudflare.com/ajax/libs/html5shiv/3.7.3/html5shiv-printshiv.min.js"></script>
+  <![endif]-->
+<meta property="og:title" content="Data Disasters - 4&nbsp; Egregious Aggregations (WIP)">
+<meta property="og:description" content="Navigating the complexities of real-world data analysis">
+<meta property="og:site-name" content="Data Disasters">
+<meta name="twitter:title" content="Data Disasters - 4&nbsp; Egregious Aggregations (WIP)">
+<meta name="twitter:description" content="Navigating the complexities of real-world data analysis">
+<meta name="twitter:card" content="summary">
+</head>
+<body class="floating">
+<div id="quarto-search-results"></div>
+  <header id="quarto-header" class="headroom fixed-top"><nav class="quarto-secondary-nav" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }"><div class="container-fluid d-flex justify-content-between">
+      <h1 class="quarto-secondary-nav-title"><span class="chapter-number">4</span>&nbsp; <span class="chapter-title">Egregious Aggregations (WIP)</span></h1>
+      <button type="button" class="quarto-btn-toggle btn" aria-label="Show secondary navigation">
+        <i class="bi bi-chevron-right"></i>
+      </button>
+    </div>
+  </nav></header><!-- content --><div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-article">
+<!-- sidebar -->
+  <nav id="quarto-sidebar" class="sidebar collapse sidebar-navigation floating overflow-auto"><div class="pt-lg-2 mt-2 text-left sidebar-header">
+    <div class="sidebar-title mb-0 py-0">
+      <a href="./">Data Disasters</a> 
+        <div class="sidebar-tools-main">
+    <a href="https://github.com/emilyriederer/data-disasters" title="Source Code" class="sidebar-tool px-1"><i class="bi bi-github"></i></a>
+    <a href="" title="Share" id="sidebar-tool-dropdown-0" class="sidebar-tool dropdown-toggle px-1" data-bs-toggle="dropdown" aria-expanded="false"><i class="bi bi-share"></i></a>
+    <ul class="dropdown-menu" aria-labelledby="sidebar-tool-dropdown-0">
+<li>
+          <a class="dropdown-item sidebar-tools-main-item" href="https://twitter.com/intent/tweet?url=%7Curl%7C">
+            <i class="bi bi-bi-twitter pe-1"></i>
+          Twitter
+          </a>
+        </li>
+        <li>
+          <a class="dropdown-item sidebar-tools-main-item" href="https://www.facebook.com/sharer/sharer.php?u=%7Curl%7C">
+            <i class="bi bi-bi-facebook pe-1"></i>
+          Facebook
+          </a>
+        </li>
+        <li>
+          <a class="dropdown-item sidebar-tools-main-item" href="https://www.linkedin.com/sharing/share-offsite/?url=%7Curl%7C">
+            <i class="bi bi-bi-linkedin pe-1"></i>
+          LinkedIn
+          </a>
+        </li>
+    </ul>
+</div>
+    </div>
+      </div>
+      <div class="mt-2 flex-shrink-0 align-items-center">
+        <div class="sidebar-search">
+        <div id="quarto-search" class="" title="Search"></div>
+        </div>
+      </div>
+    <div class="sidebar-menu-container"> 
+    <ul class="list-unstyled mt-1">
+<li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./index.html" class="sidebar-item-text sidebar-link">Preface</a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./comments.html" class="sidebar-item-text sidebar-link">Comments? Discuss here!</a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./author.html" class="sidebar-item-text sidebar-link">About the Author</a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./intro.html" class="sidebar-item-text sidebar-link"><span class="chapter-number">1</span>&nbsp; <span class="chapter-title">Introduction (TODO)</span></a>
+  </div>
+</li>
+        <li class="sidebar-item sidebar-item-section">
+    <div class="sidebar-item-container"> 
+        <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-1" aria-expanded="true">Data</a>
+      <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-1" aria-expanded="true">
+        <i class="bi bi-chevron-right ms-2"></i>
+      </a>
+    </div>
+    <ul id="quarto-sidebar-section-1" class="collapse list-unstyled sidebar-section depth1 show">
+<li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./data-dall.html" class="sidebar-item-text sidebar-link"><span class="chapter-number">2</span>&nbsp; <span class="chapter-title">Data Dalliances (WIP)</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./comp-quan.html" class="sidebar-item-text sidebar-link"><span class="chapter-number">3</span>&nbsp; <span class="chapter-title">Computational Quandaries (WIP)</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./egre-aggr.html" class="sidebar-item-text sidebar-link active"><span class="chapter-number">4</span>&nbsp; <span class="chapter-title">Egregious Aggregations (WIP)</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./vexi-visu.html" class="sidebar-item-text sidebar-link"><span class="chapter-number">5</span>&nbsp; <span class="chapter-title">Vexing Visualization (TODO)</span></a>
+  </div>
+</li>
+    </ul>
+</li>
+        <li class="sidebar-item sidebar-item-section">
+    <div class="sidebar-item-container"> 
+        <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-2" aria-expanded="true">Analysis</a>
+      <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-2" aria-expanded="true">
+        <i class="bi bi-chevron-right ms-2"></i>
+      </a>
+    </div>
+    <ul id="quarto-sidebar-section-2" class="collapse list-unstyled sidebar-section depth1 show">
+<li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./incr-infe.html" class="sidebar-item-text sidebar-link"><span class="chapter-number">6</span>&nbsp; <span class="chapter-title">Incredible Inferences (TODO)</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./cava-caus.html" class="sidebar-item-text sidebar-link"><span class="chapter-number">7</span>&nbsp; <span class="chapter-title">Cavalier Causality (TODO)</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./mind-mode.html" class="sidebar-item-text sidebar-link"><span class="chapter-number">8</span>&nbsp; <span class="chapter-title">Mindless Modeling (TODO)</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./alte-algo.html" class="sidebar-item-text sidebar-link"><span class="chapter-number">9</span>&nbsp; <span class="chapter-title">Alternative Algorithms (TODO)</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./futi-find.html" class="sidebar-item-text sidebar-link"><span class="chapter-number">10</span>&nbsp; <span class="chapter-title">Futile Findings (TODO)</span></a>
+  </div>
+</li>
+    </ul>
+</li>
+        <li class="sidebar-item sidebar-item-section">
+    <div class="sidebar-item-container"> 
+        <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-3" aria-expanded="true">Workflow</a>
+      <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-3" aria-expanded="true">
+        <i class="bi bi-chevron-right ms-2"></i>
+      </a>
+    </div>
+    <ul id="quarto-sidebar-section-3" class="collapse list-unstyled sidebar-section depth1 show">
+<li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./comp-code.html" class="sidebar-item-text sidebar-link"><span class="chapter-number">11</span>&nbsp; <span class="chapter-title">Complexifying Code (TODO)</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./reje-repr.html" class="sidebar-item-text sidebar-link"><span class="chapter-number">12</span>&nbsp; <span class="chapter-title">Rejecting Reproducibility (TODO)</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./mour-mist.html" class="sidebar-item-text sidebar-link"><span class="chapter-number">13</span>&nbsp; <span class="chapter-title">Mourning Mistakes (TODO)</span></a>
+  </div>
+</li>
+    </ul>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./references.html" class="sidebar-item-text sidebar-link"><span class="chapter-number">14</span>&nbsp; <span class="chapter-title">References</span></a>
+  </div>
+</li>
+        <li class="sidebar-item sidebar-item-section">
+    <div class="sidebar-item-container"> 
+        <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-4" aria-expanded="true">Appendices</a>
+      <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-4" aria-expanded="true">
+        <i class="bi bi-chevron-right ms-2"></i>
+      </a>
+    </div>
+    <ul id="quarto-sidebar-section-4" class="collapse list-unstyled sidebar-section depth1 show">
+<li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./more.html" class="sidebar-item-text sidebar-link">(APPENDIX) Appendix</a>
+  </div>
+</li>
+    </ul>
+</li>
+    </ul>
+</div>
+</nav><!-- margin-sidebar --><div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
+        <nav id="TOC" role="doc-toc"><h2 id="toc-title">Table of contents</h2>
+<ul>
+<li><a href="#motivating-example-similar-in-summary" class="nav-link active" data-scroll-target="#motivating-example-similar-in-summary"> <span class="header-section-number">4.1</span> Motivating Example: Similar in Summary</a></li>
+<li>
+<a href="#averages-wip" class="nav-link" data-scroll-target="#averages-wip"> <span class="header-section-number">4.2</span> Averages (WIP)</a>
+<ul class="collapse">
+<li><a href="#implicit-assumptions-todo" class="nav-link" data-scroll-target="#implicit-assumptions-todo"> <span class="header-section-number">4.2.1</span> Implicit assumptions (TODO)</a></li>
+<li><a href="#averaging-skewed-data" class="nav-link" data-scroll-target="#averaging-skewed-data"> <span class="header-section-number">4.2.2</span> Averaging skewed data</a></li>
+<li><a href="#no-average-observation" class="nav-link" data-scroll-target="#no-average-observation"> <span class="header-section-number">4.2.3</span> No “average” observation</a></li>
+<li><a href="#the-product-of-averages" class="nav-link" data-scroll-target="#the-product-of-averages"> <span class="header-section-number">4.2.4</span> The product of averages</a></li>
+<li><a href="#average-over-what-todo" class="nav-link" data-scroll-target="#average-over-what-todo"> <span class="header-section-number">4.2.5</span> Average over what? (TODO)</a></li>
+<li><a href="#dichotomization-and-distributions" class="nav-link" data-scroll-target="#dichotomization-and-distributions"> <span class="header-section-number">4.2.6</span> Dichotomization and distributions</a></li>
+<li><a href="#small-sample-sizes" class="nav-link" data-scroll-target="#small-sample-sizes"> <span class="header-section-number">4.2.7</span> Small sample sizes</a></li>
+</ul>
+</li>
+<li>
+<a href="#proportions-wip" class="nav-link" data-scroll-target="#proportions-wip"> <span class="header-section-number">4.3</span> Proportions (WIP)</a>
+<ul class="collapse">
+<li><a href="#picking-the-right-denominator" class="nav-link" data-scroll-target="#picking-the-right-denominator"> <span class="header-section-number">4.3.1</span> Picking the right denominator</a></li>
+<li><a href="#sample-size-effects" class="nav-link" data-scroll-target="#sample-size-effects"> <span class="header-section-number">4.3.2</span> Sample size effects</a></li>
+</ul>
+</li>
+<li><a href="#variation-todo" class="nav-link" data-scroll-target="#variation-todo"> <span class="header-section-number">4.4</span> Variation (TODO)</a></li>
+<li>
+<a href="#correlation-wip" class="nav-link" data-scroll-target="#correlation-wip"> <span class="header-section-number">4.5</span> Correlation (WIP)</a>
+<ul class="collapse">
+<li><a href="#linear-relationships-only" class="nav-link" data-scroll-target="#linear-relationships-only"> <span class="header-section-number">4.5.1</span> Linear relationships only</a></li>
+<li><a href="#multiple-forms" class="nav-link" data-scroll-target="#multiple-forms"> <span class="header-section-number">4.5.2</span> Multiple forms</a></li>
+<li><a href="#sensitivity-to-domain" class="nav-link" data-scroll-target="#sensitivity-to-domain"> <span class="header-section-number">4.5.3</span> Sensitivity to domain</a></li>
+<li><a href="#partial-correlation" class="nav-link" data-scroll-target="#partial-correlation"> <span class="header-section-number">4.5.4</span> Partial correlation</a></li>
+</ul>
+</li>
+<li>
+<a href="#trends" class="nav-link" data-scroll-target="#trends"> <span class="header-section-number">4.6</span> Trends</a>
+<ul class="collapse">
+<li><a href="#if-trends-continue" class="nav-link" data-scroll-target="#if-trends-continue"> <span class="header-section-number">4.6.1</span> “If trends continue…”</a></li>
+<li><a href="#seasonality" class="nav-link" data-scroll-target="#seasonality"> <span class="header-section-number">4.6.2</span> Seasonality</a></li>
+</ul>
+</li>
+<li>
+<a href="#comparisons-todo" class="nav-link" data-scroll-target="#comparisons-todo"> <span class="header-section-number">4.7</span> Comparisons (TODO)</a>
+<ul class="collapse">
+<li><a href="#percents-versus-percentage-points" class="nav-link" data-scroll-target="#percents-versus-percentage-points"> <span class="header-section-number">4.7.1</span> Percents versus percentage points</a></li>
+<li><a href="#changes-with-small-bases" class="nav-link" data-scroll-target="#changes-with-small-bases"> <span class="header-section-number">4.7.2</span> Changes with small bases</a></li>
+</ul>
+</li>
+<li><a href="#outliers-todo" class="nav-link" data-scroll-target="#outliers-todo"> <span class="header-section-number">4.8</span> Outliers (TODO)</a></li>
+<li><a href="#strategies-todo" class="nav-link" data-scroll-target="#strategies-todo"> <span class="header-section-number">4.9</span> Strategies (TODO)</a></li>
+<li><a href="#real-world-disasters-todo" class="nav-link" data-scroll-target="#real-world-disasters-todo"> <span class="header-section-number">4.10</span> Real World Disasters (TODO)</a></li>
+</ul><div class="toc-actions"><div><i class="bi bi-github"></i></div><div class="action-links"><p><a href="https://github.com/emilyriederer/data-disasters/edit/main/egre-aggr.qmd" class="toc-action">Edit this page</a></p></div></div></nav>
+    </div>
+<!-- main -->
+<main class="content" id="quarto-document-content"><header id="title-block-header" class="quarto-title-block default">
+<div class="quarto-title"><h1 class="title display-7"><span id="eg-agg" class="quarto-section-identifier d-none d-lg-block"><span class="chapter-number">4</span>&nbsp; <span class="chapter-title">Egregious Aggregations (WIP)</span></span></h1><div class="quarto-description"><p>Navigating the complexities of real-world data analysis</p></div></div></header><p>Once armed with an understanding of the data and tools available for analysis, a common start to analysis is exploring data with <em>aggregation</em>. At its heart, any sort of data analysis is the process of condensing raw data into something more manageable and useful while giving up as little of the information as possible. From linear regressions and hypothesis testing to random forests and beyond, much of data analysis could truly be called “applied sums an averages”.</p>
+<p>Many elementary tools for this task are much better at the comprehension task than the preservation one. We learn rigorous assumptions to consider and validate when studying linear regression, but basic arithmetic aggregation presents itself as agnostic and welcome to any type of data. However, the underlying distributions of our variables and the relationships between them have a significant impact on the how informative and interpretable various summarizations are.</p>
+<p>In this chapter, we will explore different ways that univariate and multivariate aggregations can be naive or uninformative.</p>
+<section id="motivating-example-similar-in-summary" class="level2" data-number="4.1"><h2 data-number="4.1" class="anchored" data-anchor-id="motivating-example-similar-in-summary">
+<span class="header-section-number">4.1</span> Motivating Example: Similar in Summary</h2>
+<p>To begin, we will look at a whimsical toy example. This may feel trite or manufactured, but the subsequent sections will aim to convince you that these issues are not just esoteric. Consider the “datasaurus dozen” dataset <span class="citation" data-cites="datasaurus">(<a href="#ref-datasaurus" role="doc-biblioref">Matejka and Fitzmaurice 2017</a>)</span> which is available within the <code>datasauRus</code> R package <a href="#r-datasaurus">R.&nbsp;<span class="quarto-unresolved-ref">r-datasaurus</span></a>.</p>
+<div class="cell" data-eror="false">
+<div class="sourceCode" id="cb1"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://github.com/lockedata/datasauRus">datasauRus</a></span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>This dataset contains 12 sets of data stacked on top of one another and identified by the <code>dataset</code> column.<a href="#fn1" class="footnote-ref" id="fnref1" role="doc-noteref"><sup>1</sup></a>. Besides the identifier column, the data is fairly small and contains only two variables <code>x</code> and <code>y</code>.</p>
+<div class="cell">
+<div class="sourceCode" id="cb2"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">df</span> <span class="op">&lt;-</span> <span class="fu">datasauRus</span><span class="fu">::</span><span class="va"><a href="https://jumpingrivers.github.io/datasauRus/reference/datasaurus_dozen.html">datasaurus_dozen</a></span></span>
+<span><span class="fu"><a href="https://rdrr.io/r/utils/head.html">head</a></span><span class="op">(</span><span class="va">df</span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-stdout">
+<pre><code>  dataset       x       y
+1    dino 55.3846 97.1795
+2    dino 51.5385 96.0256
+3    dino 46.1538 94.4872
+4    dino 42.8205 91.4103
+5    dino 40.7692 88.3333
+6    dino 38.7179 84.8718</code></pre>
+</div>
+</div>
+<p>A quick analysis of summary statistics reveals that each of the 12 datasets is very consistent in its summary statistics. The means and variances of <code>x</code> and <code>y</code> and even their correlations are nearly identifcal.</p>
+<div class="cell">
+<div class="cell-output-display">
+<table class="table table-sm table-striped">
+<caption>Summary statistics for Datasaurus Dozen datasets</caption>
+<thead><tr class="header">
+<th style="text-align: left;">dataset</th>
+<th style="text-align: right;">mean(x)</th>
+<th style="text-align: right;">mean(y)</th>
+<th style="text-align: right;">var(x)</th>
+<th style="text-align: right;">var(y)</th>
+<th style="text-align: right;">cor(x, y)</th>
+</tr></thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: left;">away</td>
+<td style="text-align: right;">54.266</td>
+<td style="text-align: right;">47.835</td>
+<td style="text-align: right;">281.227</td>
+<td style="text-align: right;">725.750</td>
+<td style="text-align: right;">-0.064</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">bullseye</td>
+<td style="text-align: right;">54.269</td>
+<td style="text-align: right;">47.831</td>
+<td style="text-align: right;">281.207</td>
+<td style="text-align: right;">725.533</td>
+<td style="text-align: right;">-0.069</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">circle</td>
+<td style="text-align: right;">54.267</td>
+<td style="text-align: right;">47.838</td>
+<td style="text-align: right;">280.898</td>
+<td style="text-align: right;">725.227</td>
+<td style="text-align: right;">-0.068</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">dino</td>
+<td style="text-align: right;">54.263</td>
+<td style="text-align: right;">47.832</td>
+<td style="text-align: right;">281.070</td>
+<td style="text-align: right;">725.516</td>
+<td style="text-align: right;">-0.064</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">dots</td>
+<td style="text-align: right;">54.260</td>
+<td style="text-align: right;">47.840</td>
+<td style="text-align: right;">281.157</td>
+<td style="text-align: right;">725.235</td>
+<td style="text-align: right;">-0.060</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">h_lines</td>
+<td style="text-align: right;">54.261</td>
+<td style="text-align: right;">47.830</td>
+<td style="text-align: right;">281.095</td>
+<td style="text-align: right;">725.757</td>
+<td style="text-align: right;">-0.062</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">high_lines</td>
+<td style="text-align: right;">54.269</td>
+<td style="text-align: right;">47.835</td>
+<td style="text-align: right;">281.122</td>
+<td style="text-align: right;">725.763</td>
+<td style="text-align: right;">-0.069</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">slant_down</td>
+<td style="text-align: right;">54.268</td>
+<td style="text-align: right;">47.836</td>
+<td style="text-align: right;">281.124</td>
+<td style="text-align: right;">725.554</td>
+<td style="text-align: right;">-0.069</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">slant_up</td>
+<td style="text-align: right;">54.266</td>
+<td style="text-align: right;">47.831</td>
+<td style="text-align: right;">281.194</td>
+<td style="text-align: right;">725.689</td>
+<td style="text-align: right;">-0.069</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">star</td>
+<td style="text-align: right;">54.267</td>
+<td style="text-align: right;">47.840</td>
+<td style="text-align: right;">281.198</td>
+<td style="text-align: right;">725.240</td>
+<td style="text-align: right;">-0.063</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">v_lines</td>
+<td style="text-align: right;">54.270</td>
+<td style="text-align: right;">47.837</td>
+<td style="text-align: right;">281.232</td>
+<td style="text-align: right;">725.639</td>
+<td style="text-align: right;">-0.069</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">wide_lines</td>
+<td style="text-align: right;">54.267</td>
+<td style="text-align: right;">47.832</td>
+<td style="text-align: right;">281.233</td>
+<td style="text-align: right;">725.651</td>
+<td style="text-align: right;">-0.067</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">x_shape</td>
+<td style="text-align: right;">54.260</td>
+<td style="text-align: right;">47.840</td>
+<td style="text-align: right;">281.231</td>
+<td style="text-align: right;">725.225</td>
+<td style="text-align: right;">-0.066</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+<p>However, as shown in <a href="#fig-dino">Figure&nbsp;<span class="quarto-unresolved-ref">fig-dino</span></a>, when we visualize this data, we find that the 12 datasets reveal remarkably different patterns.</p>
+<div class="cell">
+<div class="cell-output-stderr">
+<pre><code>Warning: package 'ggplot2' was built under R version 4.0.5</code></pre>
+</div>
+<div class="cell-output-display">
+<div id="fig-dino" class="quarto-figure quarto-figure-center anchored">
+<figure class="figure"><p><img src="egre-aggr_files/figure-html/fig-dino-1.png" class="img-fluid figure-img" width="672"></p>
+<p></p><figcaption aria-hidden="true" class="figure-caption">Figure 4.1: Scatterplots for Datasaurus Dozen datasets</figcaption><p></p>
+</figure>
+</div>
+</div>
+</div>
+<p>This dataset is a more elaborate version of Anscombe’s Quartet, a well-known set of four datasets which exhibit similar properties. Examining a simiilar plot for Anscombe’s Quartet (with data from the <code>anscombe</code> dataset which ships in R’s <code>datasets</code> package), we can get better intuition for how the phenomenon is manufactured. <a href="#fig-anscombe">Figure&nbsp;<span class="quarto-unresolved-ref">fig-anscombe</span></a> shows as similar plot to <a href="#fig-dino">Figure&nbsp;<span class="quarto-unresolved-ref">fig-dino</span></a>. Comparing datasets 1 and 3, for example, we can see a trade-off between a semi-strong trend with a consistent-seeming amount of noise and an nearly perfect linear trend with a single outlier.</p>
+<div class="cell">
+<div class="cell-output-stderr">
+<pre><code>Warning: package 'tidyr' was built under R version 4.0.5</code></pre>
+</div>
+<div class="cell-output-stderr">
+<pre><code>Warning: Values are not uniquely identified; output will contain list-cols.
+* Use `values_fn = list` to suppress this warning.
+* Use `values_fn = length` to identify where the duplicates arise
+* Use `values_fn = {summary_fun}` to summarise duplicates</code></pre>
+</div>
+<div class="cell-output-stderr">
+<pre><code>Warning: `cols` is now required when using unnest().
+Please use `cols = c(x, y)`</code></pre>
+</div>
+<div class="cell-output-stderr">
+<pre><code>`geom_smooth()` using formula 'y ~ x'</code></pre>
+</div>
+<div class="cell-output-display">
+<div id="fig-anscombe" class="quarto-figure quarto-figure-center anchored">
+<figure class="figure"><p><img src="egre-aggr_files/figure-html/fig-anscombe-1.png" class="img-fluid figure-img" width="672"></p>
+<p></p><figcaption aria-hidden="true" class="figure-caption">Figure 4.2: Scatterplots for Anscombe’s Quartet</figcaption><p></p>
+</figure>
+</div>
+</div>
+</div>
+<p><a href="#fig-anscombe">Figure&nbsp;<span class="quarto-unresolved-ref">fig-anscombe</span></a> also plots the simple linear regression line for each dataset. Similar to the summary statistics, these are also identical. We know this because the regression coefficient for a simple linear regression is given by <code>cov(x,y)</code>/<code>sd(x)sd(y)</code>. You’ll notice I do not write “we can see that…” because, in fact, we can only <em>see</em> similarity not equality. The message of this section may seem to be “don’t summarize your data without plotting it”, but conducting “visual analytics” without looking at the numbers is also problematic. We’ll explore the latter topic more in Chapter -<a href="#sec-vexi-visu">Section&nbsp;<span class="quarto-unresolved-ref">sec-vexi-visu</span></a> (Vexing Visualiztions).</p>
+<p>While there are clearly a contrived example (and, if you so chose to check out the “Datasaurus Dozen” paper, a very cleverly contrived example!), its also a cautionary tale. Summary statistics are not just insufficient when they focus on central tendency (e.g.&nbsp;mean) instead of spread. In this example, even an examination of variation and covariation led to an overly simplistic view of the underlying data.</p>
+</section><section id="averages-wip" class="level2" data-number="4.2"><h2 data-number="4.2" class="anchored" data-anchor-id="averages-wip">
+<span class="header-section-number">4.2</span> Averages (WIP)</h2>
+<section id="implicit-assumptions-todo" class="level3" data-number="4.2.1"><h3 data-number="4.2.1" class="anchored" data-anchor-id="implicit-assumptions-todo">
+<span class="header-section-number">4.2.1</span> Implicit assumptions (TODO)</h3>
+<p>When statistics students study linear regression, they are introduced to a number of canonical assumptions including:</p>
+<ul>
+<li>The true functional form between the dependent and independent variables is linear / additive</li>
+<li>Errors are independent</li>
+<li>Errors have constant variance (that is, they are homoskedastic)</li>
+<li>Errors have a normal distribution</li>
+</ul>
+<p>Of course, whether or not these assumptions hold, there’s nothing stopping anyone from <em>mechanically</em> fit at linear regression<a href="#fn2" class="footnote-ref" id="fnref2" role="doc-noteref"><sup>2</sup></a>. Instead, these assumptions are required to make the output of a linear regression <em>meaningful</em> and, more specifically, for conducting correct inference.</p>
+<p>Similarly, there are no limitations on mechanically computing an average</p>
+</section><section id="averaging-skewed-data" class="level3" data-number="4.2.2"><h3 data-number="4.2.2" class="anchored" data-anchor-id="averaging-skewed-data">
+<span class="header-section-number">4.2.2</span> Averaging skewed data</h3>
+<p>Arithmetic average versus colloquial meaning of average as “typical”</p>
+<p>Skewed data</p>
+<p>Multimodal data / mixture models</p>
+</section><section id="no-average-observation" class="level3" data-number="4.2.3"><h3 data-number="4.2.3" class="anchored" data-anchor-id="no-average-observation">
+<span class="header-section-number">4.2.3</span> No “average” observation</h3>
+<p>In the previous section, the average represented a point in the relevant data <em>range</em> even if it was not perhaps the one most representative of a “typical” observation. We discussed how in some situations this quantity may be a reasonable answer to certain types of questions and an aid for certain types of decisions.</p>
+<p>However, when we seek an average <em>profile</em> over multiple variables, the problems of averages are further compounded. We may end up with a set of “average” summary statistics that are not representative of any part of our population.</p>
+<p>To see this, let’s assume we are working with data for a company with a subscription business model. We might be interested in profiling the age of each account (how long they have been a subscriber) and their activity (measured by amount spent on an e-commerce platform, files downloaded on a streaming service, etc.)</p>
+<p>The following code simulates a set of observations: 80% of accounts are between 0 to 3 years in age and have an average activity level of 100 while 20% of accounts are older than 3 years in age and have an average activity level of 500. (Don’t over-think the specific probability distributions lived here. We are concerned with interrogating the properties of the average and not with simulating a realistic data generating process. Giving ourselves permission to be wrong or “lazy” about unimportant things gives us more energy to focus on what matters.)</p>
+<div class="cell">
+<div class="sourceCode" id="cb9"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/base/Random.html">set.seed</a></span><span class="op">(</span><span class="fl">123</span><span class="op">)</span></span>
+<span></span>
+<span><span class="co"># define simulation parameters ----</span></span>
+<span><span class="co">## n: total observations</span></span>
+<span><span class="co">## p: proportion of observations in group 1</span></span>
+<span><span class="va">n</span> <span class="op">&lt;-</span> <span class="fl">5000</span></span>
+<span><span class="va">p</span> <span class="op">&lt;-</span> <span class="fl">0.8</span></span>
+<span><span class="va">n1</span> <span class="op">&lt;-</span> <span class="va">n</span><span class="op">*</span><span class="va">p</span></span>
+<span><span class="va">n2</span> <span class="op">&lt;-</span> <span class="va">n</span><span class="op">*</span><span class="op">(</span><span class="fl">1</span><span class="op">-</span><span class="va">p</span><span class="op">)</span></span>
+<span></span>
+<span><span class="co"># generate fake dataset with two groups ----</span></span>
+<span><span class="va">df</span> <span class="op">&lt;-</span> </span>
+<span>  <span class="fu"><a href="https://rdrr.io/r/base/data.frame.html">data.frame</a></span><span class="op">(</span></span>
+<span>    age <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/stats/Uniform.html">runif</a></span><span class="op">(</span><span class="va">n1</span>,   <span class="fl">0</span>,  <span class="fl">3</span><span class="op">)</span>, <span class="fu"><a href="https://rdrr.io/r/stats/Uniform.html">runif</a></span><span class="op">(</span><span class="va">n2</span>,   <span class="fl">3</span>, <span class="fl">10</span><span class="op">)</span><span class="op">)</span>,</span>
+<span>    act <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/stats/Normal.html">rnorm</a></span><span class="op">(</span><span class="va">n1</span>, <span class="fl">100</span>, <span class="fl">10</span><span class="op">)</span>, <span class="fu"><a href="https://rdrr.io/r/stats/Normal.html">rnorm</a></span><span class="op">(</span><span class="va">n2</span>, <span class="fl">500</span>, <span class="fl">10</span><span class="op">)</span><span class="op">)</span></span>
+<span>  <span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p><a href="#fig-multivar-avg">Figure&nbsp;<span class="quarto-unresolved-ref">fig-multivar-avg</span></a> shows a scatterplot of the relationship between account age (x-axis) and activity level (y-axis). Meanwhile, the marginal rug plots shows the univariate distribution of each variable. The sole red dot denotes the coordinates of the average age and average activity. Notably, this dot exists in a region of “zero density”; that is, it is not representative of <em>any</em> customer. Strategic decisions made with this sort of observation in mind as the “typical” might not be destined for success.</p>
+<div class="cell">
+<div class="cell-output-display">
+<div id="fig-multivar-avg" class="quarto-figure quarto-figure-center anchored">
+<figure class="figure"><p><img src="egre-aggr_files/figure-html/fig-multivar-avg-1.png" class="img-fluid figure-img" width="672"></p>
+<p></p><figcaption aria-hidden="true" class="figure-caption">Figure 4.3: A scatterplot of two variables and their averages</figcaption><p></p>
+</figure>
+</div>
+</div>
+</div>
+</section><section id="the-product-of-averages" class="level3" data-number="4.2.4"><h3 data-number="4.2.4" class="anchored" data-anchor-id="the-product-of-averages">
+<span class="header-section-number">4.2.4</span> The product of averages</h3>
+<p>As the above example shows, averages of multivariate data can produce poor summaries – particularly when these variables are interrelated<a href="#fn3" class="footnote-ref" id="fnref3" role="doc-noteref"><sup>3</sup></a>.</p>
+<p>A second implication of this observation is that deriving additional computations based on pre-averaged numbers is likely to obtain inaccurate results.</p>
+<p>For example, consider that we wish to estimate the average dollar amount of returns per any e-commerce order. Orders may generally be a mixture of low-price orders (around $50 on average) and high-price orders (around $250 on average). Low-price orders may have a 10% probability of being returned while high price orders have a 20% probability. (Again, are these numbers, distributions, or relationships hyper-realistic? Not at all. However, once again we are telling ourselves a story just to reason about numerical properties, so we have to give ourselves permission to not focus on irrelevant details.)</p>
+<div class="cell">
+<div class="sourceCode" id="cb10"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/base/Random.html">set.seed</a></span><span class="op">(</span><span class="fl">123</span><span class="op">)</span></span>
+<span></span>
+<span><span class="co"># define simulation parameters ----</span></span>
+<span><span class="co">## n: observations per group</span></span>
+<span><span class="co">## pr[1|2]: mean price per group</span></span>
+<span><span class="va">n</span> <span class="op">&lt;-</span> <span class="fl">100</span></span>
+<span><span class="va">pr1</span> <span class="op">&lt;-</span> <span class="fl">50</span></span>
+<span><span class="va">pr2</span> <span class="op">&lt;-</span> <span class="fl">250</span></span>
+<span><span class="va">pr_sd</span> <span class="op">&lt;-</span> <span class="fl">5</span></span>
+<span><span class="va">re1</span> <span class="op">&lt;-</span> <span class="fl">0.1</span></span>
+<span><span class="va">re2</span> <span class="op">&lt;-</span> <span class="fl">0.2</span></span>
+<span></span>
+<span><span class="co"># simulate spend amounts and return indicators ----</span></span>
+<span><span class="va">amt_spend</span>  <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/stats/Normal.html">rnorm</a></span><span class="op">(</span><span class="va">n</span>, <span class="va">pr1</span>, <span class="va">pr_sd</span><span class="op">)</span>, <span class="fu"><a href="https://rdrr.io/r/stats/Normal.html">rnorm</a></span><span class="op">(</span><span class="va">n</span>, <span class="va">pr2</span>, <span class="va">pr_sd</span><span class="op">)</span><span class="op">)</span></span>
+<span><span class="va">ind_return</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/stats/Binomial.html">rbinom</a></span><span class="op">(</span><span class="va">n</span>, <span class="fl">1</span>, <span class="va">re1</span><span class="op">)</span>,    <span class="fu"><a href="https://rdrr.io/r/stats/Binomial.html">rbinom</a></span><span class="op">(</span><span class="va">n</span>, <span class="fl">1</span>, <span class="va">re2</span><span class="op">)</span><span class="op">)</span></span>
+<span></span>
+<span><span class="co"># compute summary statistics ----</span></span>
+<span><span class="va">average_of_product</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/mean.html">mean</a></span><span class="op">(</span><span class="va">amt_spend</span> <span class="op">*</span> <span class="va">ind_return</span><span class="op">)</span></span>
+<span><span class="va">product_of_average</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/mean.html">mean</a></span><span class="op">(</span><span class="va">amt_spend</span><span class="op">)</span> <span class="op">*</span> <span class="fu"><a href="https://rdrr.io/r/base/mean.html">mean</a></span><span class="op">(</span><span class="va">ind_return</span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>The <em>true</em> average amount returned across all of our orders is 36.0438333 (from the <code>average_of_product</code> variable). However, if instead we already knew an average spend amount and an average return proportion, we might be inclined to compute the <code>product_of_average</code> method which returns a value of 26.9922866. (This is a difference of 9.05 relative to an average purchase amount of 150.)</p>
+<p>At first, this may seem unintuitive until we write out the formulas and realize that these metrics are, in fact, two very different quantities:</p>
+<p><span class="math display">\[
+  \frac{ \sum_{1}^{n} Spend }{\sum_{1}^{n} 1} \ * \frac{ \sum_{1}^{n} I(Return) }{\sum_{1}^{n} 1}
+\]</span> over all <span class="math inline">\(n\)</span> orders</p>
+<p>versus</p>
+<p><span class="math display">\[
+  \frac{\sum_{1}^{n} Spend * I(Return)}{\sum_{1}^{n} 1}
+\]</span></p>
+<p>If this still feels counterintuitive, we can see how much of the difference is accounted for by the interrelation between our two variables. In the following code, we break the relationship between the variables by randomly reordering the <code>ind_return</code> variable so it is no longer has any true relationship to the corresponding <code>amt_spend</code> variable.</p>
+<div class="cell">
+<div class="sourceCode" id="cb11"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="co"># randomly reorder one of two variables to break relationships ----</span></span>
+<span><span class="va">ind_return</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/sample.html">sample</a></span><span class="op">(</span><span class="va">ind_return</span>, size <span class="op">=</span> <span class="fl">200</span><span class="op">)</span></span>
+<span></span>
+<span><span class="co"># recompute variables ----</span></span>
+<span><span class="va">average_of_product</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/mean.html">mean</a></span><span class="op">(</span><span class="va">amt_spend</span> <span class="op">*</span> <span class="va">ind_return</span><span class="op">)</span></span>
+<span><span class="va">product_of_average</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/mean.html">mean</a></span><span class="op">(</span><span class="va">amt_spend</span><span class="op">)</span> <span class="op">*</span> <span class="fu"><a href="https://rdrr.io/r/base/mean.html">mean</a></span><span class="op">(</span><span class="va">ind_return</span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>After redoing the calculations, we find that th two values are much closer. <code>average_of_product</code> is now 24.1041313 and <code>product_of_average</code> is now 26.9922866. These are notably still not the same number so that does not mean that these two equations are equivalent if variables are unrelated; however, this second result once again illustrates the extent to which interrelations can defy our naive intuitions.</p>
+</section><section id="average-over-what-todo" class="level3" data-number="4.2.5"><h3 data-number="4.2.5" class="anchored" data-anchor-id="average-over-what-todo">
+<span class="header-section-number">4.2.5</span> Average over what? (TODO)</h3>
+<p>no such thing as an unweighted average (just sometimes weights are equal)</p>
+<p>formal definition of expected value forces you to pick a probability distribution</p>
+<p>eg avg mpg by time vs by mileage?</p>
+<p>not strictly an error but our language allows an ill-defined problem</p>
+</section><section id="dichotomization-and-distributions" class="level3" data-number="4.2.6"><h3 data-number="4.2.6" class="anchored" data-anchor-id="dichotomization-and-distributions">
+<span class="header-section-number">4.2.6</span> Dichotomization and distributions</h3>
+<div class="cell">
+<div class="sourceCode" id="cb12"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">n</span> <span class="op">&lt;-</span> <span class="fl">1000</span></span>
+<span></span>
+<span><span class="co"># simulate x and y: uniformly distributed x ----</span></span>
+<span><span class="va">x1</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/stats/Uniform.html">runif</a></span><span class="op">(</span><span class="va">n</span><span class="op">)</span></span>
+<span><span class="va">y1</span> <span class="op">&lt;-</span> <span class="fl">5</span> <span class="op">+</span> <span class="fl">3</span><span class="op">*</span><span class="va">x1</span> <span class="op">+</span> <span class="fu"><a href="https://rdrr.io/r/stats/Normal.html">rnorm</a></span><span class="op">(</span><span class="va">n</span><span class="op">)</span></span>
+<span></span>
+<span><span class="co"># simulate x and y: same relationship, more concentrated distribution of x ----</span></span>
+<span><span class="va">x2</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span> <span class="fu"><a href="https://rdrr.io/r/stats/Uniform.html">runif</a></span><span class="op">(</span><span class="va">n</span><span class="op">*</span><span class="fl">0.1</span>, <span class="fl">0.00</span>, <span class="fl">0.44</span><span class="op">)</span>, </span>
+<span>         <span class="fu"><a href="https://rdrr.io/r/stats/Uniform.html">runif</a></span><span class="op">(</span><span class="va">n</span><span class="op">*</span><span class="fl">0.8</span>, <span class="fl">0.45</span>, <span class="fl">0.55</span><span class="op">)</span>, </span>
+<span>         <span class="fu"><a href="https://rdrr.io/r/stats/Uniform.html">runif</a></span><span class="op">(</span><span class="va">n</span><span class="op">*</span><span class="fl">0.1</span>, <span class="fl">0.55</span>, <span class="fl">1.00</span><span class="op">)</span> </span>
+<span>        <span class="op">)</span></span>
+<span><span class="va">y2</span> <span class="op">&lt;-</span> <span class="fl">5</span> <span class="op">+</span> <span class="fl">3</span><span class="op">*</span><span class="va">x2</span> <span class="op">+</span> <span class="fu"><a href="https://rdrr.io/r/stats/Normal.html">rnorm</a></span><span class="op">(</span><span class="va">n</span><span class="op">)</span></span>
+<span></span>
+<span><span class="co"># com</span></span>
+<span><span class="va">g1</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/ifelse.html">ifelse</a></span><span class="op">(</span><span class="va">x1</span> <span class="op">&lt;</span> <span class="fl">0.5</span>, <span class="fl">0</span>, <span class="fl">1</span><span class="op">)</span></span>
+<span><span class="va">means1</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/mean.html">mean</a></span><span class="op">(</span><span class="va">y1</span><span class="op">[</span><span class="va">g1</span> <span class="op">==</span> <span class="fl">0</span><span class="op">]</span><span class="op">)</span>, <span class="fu"><a href="https://rdrr.io/r/base/mean.html">mean</a></span><span class="op">(</span><span class="va">y1</span><span class="op">[</span><span class="va">g1</span> <span class="op">==</span> <span class="fl">1</span><span class="op">]</span><span class="op">)</span><span class="op">)</span></span>
+<span><span class="va">means1</span> </span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-stdout">
+<pre><code>[1] 5.813698 7.254438</code></pre>
+</div>
+<div class="sourceCode" id="cb14"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">g2</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/ifelse.html">ifelse</a></span><span class="op">(</span><span class="va">x2</span> <span class="op">&lt;</span> <span class="fl">0.5</span>, <span class="fl">0</span>, <span class="fl">1</span><span class="op">)</span></span>
+<span><span class="va">means2</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/mean.html">mean</a></span><span class="op">(</span><span class="va">y2</span><span class="op">[</span><span class="va">g2</span> <span class="op">==</span> <span class="fl">0</span><span class="op">]</span><span class="op">)</span>, <span class="fu"><a href="https://rdrr.io/r/base/mean.html">mean</a></span><span class="op">(</span><span class="va">y2</span><span class="op">[</span><span class="va">g2</span> <span class="op">==</span> <span class="fl">1</span><span class="op">]</span><span class="op">)</span><span class="op">)</span></span>
+<span><span class="va">means2</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-stdout">
+<pre><code>[1] 6.218347 6.762943</code></pre>
+</div>
+<div class="sourceCode" id="cb16"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">means1</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-stdout">
+<pre><code>[1] 5.813698 7.254438</code></pre>
+</div>
+<div class="sourceCode" id="cb18"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">means2</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-stdout">
+<pre><code>[1] 6.218347 6.762943</code></pre>
+</div>
+<div class="sourceCode" id="cb20"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/stats/cor.html">cor</a></span><span class="op">(</span><span class="va">x1</span>, <span class="va">y1</span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-stdout">
+<pre><code>[1] 0.6424276</code></pre>
+</div>
+<div class="sourceCode" id="cb22"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/stats/cor.html">cor</a></span><span class="op">(</span><span class="va">x2</span>, <span class="va">y2</span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-stdout">
+<pre><code>[1] 0.3687667</code></pre>
+</div>
+</div>
+</section><section id="small-sample-sizes" class="level3" data-number="4.2.7"><h3 data-number="4.2.7" class="anchored" data-anchor-id="small-sample-sizes">
+<span class="header-section-number">4.2.7</span> Small sample sizes</h3>
+</section></section><section id="proportions-wip" class="level2" data-number="4.3"><h2 data-number="4.3" class="anchored" data-anchor-id="proportions-wip">
+<span class="header-section-number">4.3</span> Proportions (WIP)</h2>
+<p>note that these are of course just a type of average (average of indicators) but helpful to examine challenges separately</p>
+<section id="picking-the-right-denominator" class="level3" data-number="4.3.1"><h3 data-number="4.3.1" class="anchored" data-anchor-id="picking-the-right-denominator">
+<span class="header-section-number">4.3.1</span> Picking the right denominator</h3>
+</section><section id="sample-size-effects" class="level3" data-number="4.3.2"><h3 data-number="4.3.2" class="anchored" data-anchor-id="sample-size-effects">
+<span class="header-section-number">4.3.2</span> Sample size effects</h3>
+</section></section><section id="variation-todo" class="level2" data-number="4.4"><h2 data-number="4.4" class="anchored" data-anchor-id="variation-todo">
+<span class="header-section-number">4.4</span> Variation (TODO)</h2>
+<div class="cell">
+<div class="sourceCode" id="cb24"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">x</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="op">-</span><span class="fl">20</span>, <span class="op">-</span><span class="fl">10</span>, <span class="op">-</span><span class="fl">5</span>, <span class="fl">0</span>, <span class="fl">5</span>, <span class="fl">10</span>, <span class="fl">20</span><span class="op">)</span></span>
+<span><span class="fu"><a href="https://rdrr.io/r/base/mean.html">mean</a></span><span class="op">(</span><span class="va">x</span><span class="op">)</span></span>
+<span><span class="fu"><a href="https://rdrr.io/r/stats/cor.html">var</a></span><span class="op">(</span><span class="va">x</span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-stdout">
+<pre><code>[1] 0
+[1] 175</code></pre>
+</div>
+</div>
+<div class="cell">
+<div class="sourceCode" id="cb26"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">x</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="op">-</span><span class="fl">15</span>, <span class="op">-</span><span class="fl">15</span>, <span class="op">-</span><span class="fl">5</span>, <span class="fl">0</span>, <span class="fl">5</span>, <span class="fl">15</span>, <span class="fl">15</span><span class="op">)</span></span>
+<span><span class="fu"><a href="https://rdrr.io/r/base/mean.html">mean</a></span><span class="op">(</span><span class="va">x</span><span class="op">)</span></span>
+<span><span class="fu"><a href="https://rdrr.io/r/stats/cor.html">var</a></span><span class="op">(</span><span class="va">x</span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-stdout">
+<pre><code>[1] 0
+[1] 158.3333</code></pre>
+</div>
+</div>
+</section><section id="correlation-wip" class="level2" data-number="4.5"><h2 data-number="4.5" class="anchored" data-anchor-id="correlation-wip">
+<span class="header-section-number">4.5</span> Correlation (WIP)</h2>
+<p>As shown in <a href="#fig-fun-corr">Figure&nbsp;<span class="quarto-unresolved-ref">fig-fun-corr</span></a>,</p>
+<div class="cell">
+<div class="cell-output-display">
+<div id="fig-fun-corr" class="quarto-figure quarto-figure-center anchored">
+<figure class="figure"><p><img src="egre-aggr_files/figure-html/fig-fun-corr-1.png" class="img-fluid figure-img" width="672"></p>
+<p></p><figcaption aria-hidden="true" class="figure-caption">Figure 4.4: Plots of x from 1 to 10 over a range of common functions</figcaption><p></p>
+</figure>
+</div>
+</div>
+</div>
+<section id="linear-relationships-only" class="level3" data-number="4.5.1"><h3 data-number="4.5.1" class="anchored" data-anchor-id="linear-relationships-only">
+<span class="header-section-number">4.5.1</span> Linear relationships only</h3>
+<div class="cell">
+<div class="sourceCode" id="cb28"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">x</span> <span class="op">&lt;-</span> <span class="fl">1</span><span class="op">:</span><span class="fl">10</span></span>
+<span><span class="va">y</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html">list</a></span><span class="op">(</span>linear <span class="op">=</span> <span class="va">x</span>, quadratic <span class="op">=</span> <span class="va">x</span><span class="op">**</span><span class="fl">2</span>, cubic <span class="op">=</span> <span class="va">x</span><span class="op">**</span><span class="fl">3</span>, quartic <span class="op">=</span> <span class="va">x</span><span class="op">**</span><span class="fl">4</span><span class="op">)</span></span>
+<span></span>
+<span><span class="fu"><a href="https://rdrr.io/r/base/lapply.html">vapply</a></span><span class="op">(</span><span class="va">y</span>, FUN <span class="op">=</span> <span class="kw">function</span><span class="op">(</span><span class="va">z</span><span class="op">)</span> <span class="fu"><a href="https://rdrr.io/r/stats/cor.html">cor</a></span><span class="op">(</span><span class="va">x</span>, <span class="va">z</span>, method <span class="op">=</span> <span class="st">"pearson"</span><span class="op">)</span>, FUN.VALUE <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/numeric.html">numeric</a></span><span class="op">(</span><span class="fl">1</span><span class="op">)</span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-stdout">
+<pre><code>   linear quadratic     cubic   quartic 
+1.0000000 0.9745586 0.9283912 0.8816779 </code></pre>
+</div>
+</div>
+</section><section id="multiple-forms" class="level3" data-number="4.5.2"><h3 data-number="4.5.2" class="anchored" data-anchor-id="multiple-forms">
+<span class="header-section-number">4.5.2</span> Multiple forms</h3>
+<p>Traditional (Pearson) correlation depends on specific values whereas Spearman and Kendall focus on order statistics</p>
+<div class="cell">
+<div class="sourceCode" id="cb30"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="co"># polynomials ----</span></span>
+<span><span class="va">x</span> <span class="op">&lt;-</span> <span class="fl">1</span><span class="op">:</span><span class="fl">10</span></span>
+<span><span class="va">y</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html">list</a></span><span class="op">(</span>linear <span class="op">=</span> <span class="va">x</span>, quadratic <span class="op">=</span> <span class="va">x</span><span class="op">**</span><span class="fl">2</span>, cubic <span class="op">=</span> <span class="va">x</span><span class="op">**</span><span class="fl">3</span>, quartic <span class="op">=</span> <span class="va">x</span><span class="op">**</span><span class="fl">4</span><span class="op">)</span></span>
+<span></span>
+<span><span class="fu"><a href="https://rdrr.io/r/base/lapply.html">vapply</a></span><span class="op">(</span><span class="va">y</span>, FUN <span class="op">=</span> <span class="kw">function</span><span class="op">(</span><span class="va">z</span><span class="op">)</span> <span class="fu"><a href="https://rdrr.io/r/stats/cor.html">cor</a></span><span class="op">(</span><span class="va">x</span>, <span class="va">z</span>, method <span class="op">=</span> <span class="st">"pearson"</span><span class="op">)</span>, FUN.VALUE <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/numeric.html">numeric</a></span><span class="op">(</span><span class="fl">1</span><span class="op">)</span><span class="op">)</span></span>
+<span><span class="fu"><a href="https://rdrr.io/r/base/lapply.html">vapply</a></span><span class="op">(</span><span class="va">y</span>, FUN <span class="op">=</span> <span class="kw">function</span><span class="op">(</span><span class="va">z</span><span class="op">)</span> <span class="fu"><a href="https://rdrr.io/r/stats/cor.html">cor</a></span><span class="op">(</span><span class="va">x</span>, <span class="va">z</span>, method <span class="op">=</span> <span class="st">"spearman"</span><span class="op">)</span>, FUN.VALUE <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/numeric.html">numeric</a></span><span class="op">(</span><span class="fl">1</span><span class="op">)</span><span class="op">)</span></span>
+<span><span class="fu"><a href="https://rdrr.io/r/base/lapply.html">vapply</a></span><span class="op">(</span><span class="va">y</span>, FUN <span class="op">=</span> <span class="kw">function</span><span class="op">(</span><span class="va">z</span><span class="op">)</span> <span class="fu"><a href="https://rdrr.io/r/stats/cor.html">cor</a></span><span class="op">(</span><span class="va">x</span>, <span class="va">z</span>, method <span class="op">=</span> <span class="st">"kendall"</span><span class="op">)</span>, FUN.VALUE <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/numeric.html">numeric</a></span><span class="op">(</span><span class="fl">1</span><span class="op">)</span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-stdout">
+<pre><code>   linear quadratic     cubic   quartic 
+1.0000000 0.9745586 0.9283912 0.8816779 
+   linear quadratic     cubic   quartic 
+        1         1         1         1 
+   linear quadratic     cubic   quartic 
+        1         1         1         1 </code></pre>
+</div>
+</div>
+<p>Similar results with a different set of functions</p>
+<div class="cell">
+<div class="sourceCode" id="cb32"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="co"># other functional forms ----</span></span>
+<span><span class="va">x</span> <span class="op">&lt;-</span> <span class="fl">1</span><span class="op">:</span><span class="fl">10</span></span>
+<span><span class="va">y</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html">list</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/Trig.html">sin</a></span><span class="op">(</span><span class="va">x</span><span class="op">)</span>, <span class="fu"><a href="https://rdrr.io/r/base/MathFun.html">sqrt</a></span><span class="op">(</span><span class="va">x</span><span class="op">)</span>, <span class="fu"><a href="https://rdrr.io/r/base/Log.html">exp</a></span><span class="op">(</span><span class="va">x</span><span class="op">)</span>, <span class="fu"><a href="https://rdrr.io/r/base/Log.html">log</a></span><span class="op">(</span><span class="va">x</span><span class="op">)</span><span class="op">)</span></span>
+<span></span>
+<span><span class="fu"><a href="https://rdrr.io/r/base/lapply.html">vapply</a></span><span class="op">(</span><span class="va">y</span>, FUN <span class="op">=</span> <span class="kw">function</span><span class="op">(</span><span class="va">z</span><span class="op">)</span> <span class="fu"><a href="https://rdrr.io/r/stats/cor.html">cor</a></span><span class="op">(</span><span class="va">x</span>, <span class="va">z</span>, method <span class="op">=</span> <span class="st">"pearson"</span><span class="op">)</span>, FUN.VALUE <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/numeric.html">numeric</a></span><span class="op">(</span><span class="fl">1</span><span class="op">)</span><span class="op">)</span></span>
+<span><span class="fu"><a href="https://rdrr.io/r/base/lapply.html">vapply</a></span><span class="op">(</span><span class="va">y</span>, FUN <span class="op">=</span> <span class="kw">function</span><span class="op">(</span><span class="va">z</span><span class="op">)</span> <span class="fu"><a href="https://rdrr.io/r/stats/cor.html">cor</a></span><span class="op">(</span><span class="va">x</span>, <span class="va">z</span>, method <span class="op">=</span> <span class="st">"spearman"</span><span class="op">)</span>, FUN.VALUE <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/numeric.html">numeric</a></span><span class="op">(</span><span class="fl">1</span><span class="op">)</span><span class="op">)</span></span>
+<span><span class="fu"><a href="https://rdrr.io/r/base/lapply.html">vapply</a></span><span class="op">(</span><span class="va">y</span>, FUN <span class="op">=</span> <span class="kw">function</span><span class="op">(</span><span class="va">z</span><span class="op">)</span> <span class="fu"><a href="https://rdrr.io/r/stats/cor.html">cor</a></span><span class="op">(</span><span class="va">x</span>, <span class="va">z</span>, method <span class="op">=</span> <span class="st">"kendall"</span><span class="op">)</span>, FUN.VALUE <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/numeric.html">numeric</a></span><span class="op">(</span><span class="fl">1</span><span class="op">)</span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-stdout">
+<pre><code>[1] -0.1705046  0.9891838  0.7168704  0.9516624
+[1] -0.1393939  1.0000000  1.0000000  1.0000000
+[1] -0.1111111  1.0000000  1.0000000  1.0000000</code></pre>
+</div>
+</div>
+</section><section id="sensitivity-to-domain" class="level3" data-number="4.5.3"><h3 data-number="4.5.3" class="anchored" data-anchor-id="sensitivity-to-domain">
+<span class="header-section-number">4.5.3</span> Sensitivity to domain</h3>
+<p>The “strength of relationship” (completely deterministic) is the same in both cases<br>
+However, the summarization of the relationships changes</p>
+<p>Here’s same case as before:</p>
+<div class="cell">
+<div class="sourceCode" id="cb34"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="co"># polynomials ----</span></span>
+<span><span class="va">x</span> <span class="op">&lt;-</span> <span class="fl">1</span><span class="op">:</span><span class="fl">10</span></span>
+<span><span class="va">y</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html">list</a></span><span class="op">(</span>linear <span class="op">=</span> <span class="va">x</span>, quadratic <span class="op">=</span> <span class="va">x</span><span class="op">**</span><span class="fl">2</span>, cubic <span class="op">=</span> <span class="va">x</span><span class="op">**</span><span class="fl">3</span>, quartic <span class="op">=</span> <span class="va">x</span><span class="op">**</span><span class="fl">4</span><span class="op">)</span></span>
+<span></span>
+<span><span class="fu"><a href="https://rdrr.io/r/base/lapply.html">vapply</a></span><span class="op">(</span><span class="va">y</span>, FUN <span class="op">=</span> <span class="kw">function</span><span class="op">(</span><span class="va">z</span><span class="op">)</span> <span class="fu"><a href="https://rdrr.io/r/stats/cor.html">cor</a></span><span class="op">(</span><span class="va">x</span>, <span class="va">z</span>, method <span class="op">=</span> <span class="st">"pearson"</span><span class="op">)</span>, FUN.VALUE <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/numeric.html">numeric</a></span><span class="op">(</span><span class="fl">1</span><span class="op">)</span><span class="op">)</span></span>
+<span><span class="fu"><a href="https://rdrr.io/r/base/lapply.html">vapply</a></span><span class="op">(</span><span class="va">y</span>, FUN <span class="op">=</span> <span class="kw">function</span><span class="op">(</span><span class="va">z</span><span class="op">)</span> <span class="fu"><a href="https://rdrr.io/r/stats/cor.html">cor</a></span><span class="op">(</span><span class="va">x</span>, <span class="va">z</span>, method <span class="op">=</span> <span class="st">"spearman"</span><span class="op">)</span>, FUN.VALUE <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/numeric.html">numeric</a></span><span class="op">(</span><span class="fl">1</span><span class="op">)</span><span class="op">)</span></span>
+<span><span class="fu"><a href="https://rdrr.io/r/base/lapply.html">vapply</a></span><span class="op">(</span><span class="va">y</span>, FUN <span class="op">=</span> <span class="kw">function</span><span class="op">(</span><span class="va">z</span><span class="op">)</span> <span class="fu"><a href="https://rdrr.io/r/stats/cor.html">cor</a></span><span class="op">(</span><span class="va">x</span>, <span class="va">z</span>, method <span class="op">=</span> <span class="st">"kendall"</span><span class="op">)</span>, FUN.VALUE <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/numeric.html">numeric</a></span><span class="op">(</span><span class="fl">1</span><span class="op">)</span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-stdout">
+<pre><code>   linear quadratic     cubic   quartic 
+1.0000000 0.9745586 0.9283912 0.8816779 
+   linear quadratic     cubic   quartic 
+        1         1         1         1 
+   linear quadratic     cubic   quartic 
+        1         1         1         1 </code></pre>
+</div>
+</div>
+<p>And here’s a different range:</p>
+<div class="cell">
+<div class="sourceCode" id="cb36"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="co"># polynomials, diff range ----</span></span>
+<span><span class="va">x</span> <span class="op">&lt;-</span> <span class="op">-</span><span class="fl">10</span><span class="op">:</span><span class="fl">10</span></span>
+<span><span class="va">y</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html">list</a></span><span class="op">(</span>linear <span class="op">=</span> <span class="va">x</span>, quadratic <span class="op">=</span> <span class="va">x</span><span class="op">**</span><span class="fl">2</span>, cubic <span class="op">=</span> <span class="va">x</span><span class="op">**</span><span class="fl">3</span>, quartic <span class="op">=</span> <span class="va">x</span><span class="op">**</span><span class="fl">4</span><span class="op">)</span></span>
+<span></span>
+<span><span class="fu"><a href="https://rdrr.io/r/base/lapply.html">vapply</a></span><span class="op">(</span><span class="va">y</span>, FUN <span class="op">=</span> <span class="kw">function</span><span class="op">(</span><span class="va">z</span><span class="op">)</span> <span class="fu"><a href="https://rdrr.io/r/stats/cor.html">cor</a></span><span class="op">(</span><span class="va">x</span>, <span class="va">z</span>, method <span class="op">=</span> <span class="st">"pearson"</span><span class="op">)</span>, FUN.VALUE <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/numeric.html">numeric</a></span><span class="op">(</span><span class="fl">1</span><span class="op">)</span><span class="op">)</span></span>
+<span><span class="fu"><a href="https://rdrr.io/r/base/lapply.html">vapply</a></span><span class="op">(</span><span class="va">y</span>, FUN <span class="op">=</span> <span class="kw">function</span><span class="op">(</span><span class="va">z</span><span class="op">)</span> <span class="fu"><a href="https://rdrr.io/r/stats/cor.html">cor</a></span><span class="op">(</span><span class="va">x</span>, <span class="va">z</span>, method <span class="op">=</span> <span class="st">"spearman"</span><span class="op">)</span>, FUN.VALUE <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/numeric.html">numeric</a></span><span class="op">(</span><span class="fl">1</span><span class="op">)</span><span class="op">)</span></span>
+<span><span class="fu"><a href="https://rdrr.io/r/base/lapply.html">vapply</a></span><span class="op">(</span><span class="va">y</span>, FUN <span class="op">=</span> <span class="kw">function</span><span class="op">(</span><span class="va">z</span><span class="op">)</span> <span class="fu"><a href="https://rdrr.io/r/stats/cor.html">cor</a></span><span class="op">(</span><span class="va">x</span>, <span class="va">z</span>, method <span class="op">=</span> <span class="st">"kendall"</span><span class="op">)</span>, FUN.VALUE <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/numeric.html">numeric</a></span><span class="op">(</span><span class="fl">1</span><span class="op">)</span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-stdout">
+<pre><code>   linear quadratic     cubic   quartic 
+1.0000000 0.0000000 0.9179069 0.0000000 
+   linear quadratic     cubic   quartic 
+        1         0         1         0 
+   linear quadratic     cubic   quartic 
+        1         0         1         0 </code></pre>
+</div>
+</div>
+</section><section id="partial-correlation" class="level3" data-number="4.5.4"><h3 data-number="4.5.4" class="anchored" data-anchor-id="partial-correlation">
+<span class="header-section-number">4.5.4</span> Partial correlation</h3>
+<p>A lot of EDA starts with some sort of correlation matrix<br>
+This won’t always account for the fact that some variables can mask correlation between others</p>
+<p>Consider two groups with trends in different directions</p>
+<div class="cell">
+<div class="sourceCode" id="cb38"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">n_obsvs</span> <span class="op">&lt;-</span> <span class="fl">10</span></span>
+<span><span class="va">n_group</span> <span class="op">&lt;-</span>  <span class="fl">2</span></span>
+<span></span>
+<span><span class="va">group</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/rep.html">rep</a></span><span class="op">(</span><span class="fl">1</span><span class="op">:</span><span class="va">n_group</span>, each <span class="op">=</span> <span class="va">n_obsvs</span><span class="op">)</span></span>
+<span><span class="va">var1</span>  <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/rep.html">rep</a></span><span class="op">(</span><span class="fl">1</span><span class="op">:</span><span class="va">n_obsvs</span>, times <span class="op">=</span> <span class="va">n_group</span><span class="op">)</span></span>
+<span><span class="va">var2</span>  <span class="op">&lt;-</span> <span class="va">var1</span> <span class="op">*</span> <span class="fu"><a href="https://rdrr.io/r/base/rep.html">rep</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="fl">5</span>, <span class="op">-</span><span class="fl">5</span><span class="op">)</span>, each <span class="op">=</span> <span class="va">n_obsvs</span><span class="op">)</span></span>
+<span><span class="va">var3</span>  <span class="op">&lt;-</span> <span class="va">var1</span> <span class="op">*</span> <span class="fu"><a href="https://rdrr.io/r/base/rep.html">rep</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="fl">1</span>,  <span class="fl">5</span><span class="op">)</span>, each <span class="op">=</span> <span class="va">n_obsvs</span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>As <a href="#fig-cor-0">Figure&nbsp;<span class="quarto-unresolved-ref">fig-cor-0</span></a> shows</p>
+<div class="cell">
+<div class="cell-output-display">
+<div id="fig-cor-0" class="quarto-figure quarto-figure-center anchored">
+<figure class="figure"><p><img src="egre-aggr_files/figure-html/fig-cor-0-1.png" class="img-fluid figure-img" width="672"></p>
+<p></p><figcaption aria-hidden="true" class="figure-caption">Figure 4.5: Subgroups demonstrating opposing linear relationships</figcaption><p></p>
+</figure>
+</div>
+</div>
+</div>
+<p>Because of the opposing trends, their correlation becomes zero</p>
+<div class="cell">
+<div class="sourceCode" id="cb39"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/stats/cor.html">cor</a></span><span class="op">(</span><span class="va">var1</span>, <span class="va">var2</span>, method <span class="op">=</span> <span class="st">"pearson"</span><span class="op">)</span></span>
+<span><span class="fu"><a href="https://rdrr.io/r/stats/cor.html">cor</a></span><span class="op">(</span><span class="va">var1</span>, <span class="va">var2</span>, method <span class="op">=</span> <span class="st">"spearman"</span><span class="op">)</span></span>
+<span><span class="fu"><a href="https://rdrr.io/r/stats/cor.html">cor</a></span><span class="op">(</span><span class="va">var1</span>, <span class="va">var2</span>, method <span class="op">=</span> <span class="st">"kendall"</span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-stdout">
+<pre><code>[1] 0
+[1] 0
+[1] 0</code></pre>
+</div>
+</div>
+<p>However, by group the correlation is 1</p>
+<div class="cell">
+<div class="sourceCode" id="cb41"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/stats/cor.html">cor</a></span><span class="op">(</span><span class="va">var1</span><span class="op">[</span><span class="va">group</span> <span class="op">==</span> <span class="fl">1</span><span class="op">]</span>, <span class="va">var2</span><span class="op">[</span><span class="va">group</span> <span class="op">==</span> <span class="fl">1</span><span class="op">]</span><span class="op">)</span></span>
+<span><span class="fu"><a href="https://rdrr.io/r/stats/cor.html">cor</a></span><span class="op">(</span><span class="va">var1</span><span class="op">[</span><span class="va">group</span> <span class="op">==</span> <span class="fl">2</span><span class="op">]</span>, <span class="va">var2</span><span class="op">[</span><span class="va">group</span> <span class="op">==</span> <span class="fl">2</span><span class="op">]</span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-stdout">
+<pre><code>[1] 1
+[1] -1</code></pre>
+</div>
+</div>
+<p>A similar thing happens when the relationship has the same sign but different slopes</p>
+<div class="cell">
+<div class="sourceCode" id="cb43"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/stats/cor.html">cor</a></span><span class="op">(</span><span class="va">var1</span>, <span class="va">var3</span>, method <span class="op">=</span> <span class="st">"pearson"</span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-stdout">
+<pre><code>[1] 0.5703518</code></pre>
+</div>
+</div>
+<p>while the correlation is still one within group</p>
+<div class="cell">
+<div class="sourceCode" id="cb45"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/stats/cor.html">cor</a></span><span class="op">(</span><span class="va">var1</span><span class="op">[</span><span class="va">group</span> <span class="op">==</span> <span class="fl">1</span><span class="op">]</span>, <span class="va">var3</span><span class="op">[</span><span class="va">group</span> <span class="op">==</span> <span class="fl">1</span><span class="op">]</span><span class="op">)</span></span>
+<span><span class="fu"><a href="https://rdrr.io/r/stats/cor.html">cor</a></span><span class="op">(</span><span class="va">var1</span><span class="op">[</span><span class="va">group</span> <span class="op">==</span> <span class="fl">2</span><span class="op">]</span>, <span class="va">var3</span><span class="op">[</span><span class="va">group</span> <span class="op">==</span> <span class="fl">2</span><span class="op">]</span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-stdout">
+<pre><code>[1] 1
+[1] 1</code></pre>
+</div>
+</div>
+<p>Even partial correlation doesn’t help in case of opposing signs</p>
+<div class="cell">
+<div class="sourceCode" id="cb47"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va">ppcor</span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-stderr">
+<pre><code>Warning: package 'ppcor' was built under R version 4.0.5</code></pre>
+</div>
+<div class="cell-output-stderr">
+<pre><code>Loading required package: MASS</code></pre>
+</div>
+<div class="cell-output-stderr">
+<pre><code>
+Attaching package: 'MASS'</code></pre>
+</div>
+<div class="cell-output-stderr">
+<pre><code>The following object is masked from 'package:patchwork':
+
+    area</code></pre>
+</div>
+<div class="cell-output-stderr">
+<pre><code>The following object is masked from 'package:dplyr':
+
+    select</code></pre>
+</div>
+<div class="sourceCode" id="cb53"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/pkg/ppcor/man/pcor.html">pcor</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/data.frame.html">data.frame</a></span><span class="op">(</span><span class="va">var1</span>, <span class="va">var2</span>, <span class="va">group</span><span class="op">)</span><span class="op">)</span><span class="op">$</span><span class="va">estimate</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-stdout">
+<pre><code>      var1       var2      group
+var1     1  0.0000000  0.0000000
+var2     0  1.0000000 -0.8864053
+group    0 -0.8864053  1.0000000</code></pre>
+</div>
+</div>
+<p>It <em>improves</em> the strength of the estimated correlation in the case of <code>var3</code> but still failes to estimate it correctly. Partial correlation would be assuming a form like <code>var3 ~ var1 + group</code> and not <code>var3 ~ var1 * group</code></p>
+<div class="cell">
+<div class="sourceCode" id="cb55"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/pkg/ppcor/man/pcor.html">pcor</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/data.frame.html">data.frame</a></span><span class="op">(</span><span class="va">var1</span>, <span class="va">var3</span>, <span class="va">group</span><span class="op">)</span><span class="op">)</span><span class="op">$</span><span class="va">estimate</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-stdout">
+<pre><code>            var1      var3      group
+var1   1.0000000 0.8320503 -0.7375338
+var3   0.8320503 1.0000000  0.8864053
+group -0.7375338 0.8864053  1.0000000</code></pre>
+</div>
+</div>
+</section></section><section id="trends" class="level2" data-number="4.6"><h2 data-number="4.6" class="anchored" data-anchor-id="trends">
+<span class="header-section-number">4.6</span> Trends</h2>
+<section id="if-trends-continue" class="level3" data-number="4.6.1"><h3 data-number="4.6.1" class="anchored" data-anchor-id="if-trends-continue">
+<span class="header-section-number">4.6.1</span> “If trends continue…”</h3>
+<p><a href="#fig-if-trends-continue">Figure&nbsp;<span class="quarto-unresolved-ref">fig-if-trends-continue</span></a> shows that…</p>
+<div class="cell">
+<div class="sourceCode" id="cb57"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://ggplot2.tidyverse.org">ggplot2</a></span><span class="op">)</span></span>
+<span></span>
+<span><span class="va">n</span> <span class="op">&lt;-</span> <span class="fl">300</span></span>
+<span><span class="va">x</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/stats/Uniform.html">runif</a></span><span class="op">(</span><span class="va">n</span><span class="op">)</span></span>
+<span><span class="va">y</span> <span class="op">&lt;-</span> <span class="va">x</span> <span class="op">+</span> <span class="fu"><a href="https://rdrr.io/r/stats/Normal.html">rnorm</a></span><span class="op">(</span><span class="va">n</span><span class="op">)</span></span>
+<span></span>
+<span><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/ggplot.html">ggplot</a></span><span class="op">(</span></span>
+<span>  <span class="fu"><a href="https://rdrr.io/r/base/data.frame.html">data.frame</a></span><span class="op">(</span><span class="va">x</span>, <span class="va">y</span><span class="op">)</span>,</span>
+<span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/aes.html">aes</a></span><span class="op">(</span><span class="va">x</span>, <span class="va">y</span><span class="op">)</span></span>
+<span>  <span class="op">)</span> <span class="op">+</span></span>
+<span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/geom_point.html">geom_point</a></span><span class="op">(</span><span class="op">)</span> <span class="op">+</span></span>
+<span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/geom_smooth.html">geom_smooth</a></span><span class="op">(</span>method <span class="op">=</span> <span class="st">"lm"</span>, formula <span class="op">=</span> <span class="va">y</span> <span class="op">~</span> <span class="fu"><a href="https://rdrr.io/r/base/AsIs.html">I</a></span><span class="op">(</span><span class="va">x</span><span class="op">**</span><span class="fl">1</span><span class="op">)</span>, se <span class="op">=</span> <span class="cn">FALSE</span>, fullrange <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span> <span class="op">+</span></span>
+<span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/geom_smooth.html">geom_smooth</a></span><span class="op">(</span>method <span class="op">=</span> <span class="st">"lm"</span>, formula <span class="op">=</span> <span class="va">y</span> <span class="op">~</span> <span class="fu"><a href="https://rdrr.io/r/base/AsIs.html">I</a></span><span class="op">(</span><span class="va">x</span><span class="op">**</span><span class="fl">2</span><span class="op">)</span>, se <span class="op">=</span> <span class="cn">FALSE</span>, fullrange <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span> <span class="op">+</span></span>
+<span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/geom_smooth.html">geom_smooth</a></span><span class="op">(</span>method <span class="op">=</span> <span class="st">"lm"</span>, formula <span class="op">=</span> <span class="va">y</span> <span class="op">~</span> <span class="fu"><a href="https://rdrr.io/r/base/AsIs.html">I</a></span><span class="op">(</span><span class="va">x</span><span class="op">**</span><span class="fl">3</span><span class="op">)</span>, se <span class="op">=</span> <span class="cn">FALSE</span>, fullrange <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span> <span class="op">+</span></span>
+<span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/scale_continuous.html">scale_x_continuous</a></span><span class="op">(</span>limit <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="fl">0</span>,<span class="fl">2</span><span class="op">)</span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<div id="fig-if-trends-continue" class="quarto-figure quarto-figure-center anchored">
+<figure class="figure"><p><img src="egre-aggr_files/figure-html/fig-if-trends-continue-1.png" class="img-fluid figure-img" width="672"></p>
+<p></p><figcaption aria-hidden="true" class="figure-caption">Figure 4.6: Extrapolated linear, quadratic, and cubic fits of data</figcaption><p></p>
+</figure>
+</div>
+</div>
+</div>
+</section><section id="seasonality" class="level3" data-number="4.6.2"><h3 data-number="4.6.2" class="anchored" data-anchor-id="seasonality">
+<span class="header-section-number">4.6.2</span> Seasonality</h3>
+<div class="cell">
+<div class="sourceCode" id="cb58"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">seas_factor</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="fl">0.7</span>, <span class="fl">0.8</span>, <span class="fl">0.8</span>,</span>
+<span>                 <span class="fl">0.9</span>, <span class="fl">1.0</span>, <span class="fl">1.1</span>,</span>
+<span>                 <span class="fl">1.1</span>, <span class="fl">1.1</span>, <span class="fl">1.2</span>,</span>
+<span>                 <span class="fl">1.2</span>, <span class="fl">1.5</span>, <span class="fl">1.8</span></span>
+<span>                 <span class="op">)</span></span>
+<span><span class="va">base</span> <span class="op">&lt;-</span> <span class="fl">1000</span></span>
+<span><span class="va">n_visits</span> <span class="op">&lt;-</span> <span class="va">base</span> <span class="op">*</span> <span class="va">seas_factor</span></span>
+<span></span>
+<span><span class="fu"><a href="https://rdrr.io/r/base/mean.html">mean</a></span><span class="op">(</span><span class="va">df</span><span class="op">$</span><span class="va">n_visits</span><span class="op">[</span><span class="fl">1</span><span class="op">:</span><span class="fl">12</span><span class="op">]</span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-stderr">
+<pre><code>Warning in mean.default(df$n_visits[1:12]): argument is not numeric or logical:
+returning NA</code></pre>
+</div>
+<div class="sourceCode" id="cb60"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/base/mean.html">mean</a></span><span class="op">(</span><span class="va">df</span><span class="op">$</span><span class="va">n_visits</span><span class="op">[</span><span class="fl">8</span><span class="op">:</span><span class="fl">12</span><span class="op">]</span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-stderr">
+<pre><code>Warning in mean.default(df$n_visits[8:12]): argument is not numeric or logical:
+returning NA</code></pre>
+</div>
+<div class="sourceCode" id="cb62"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/base/mean.html">mean</a></span><span class="op">(</span><span class="va">df</span><span class="op">$</span><span class="va">n_visits</span><span class="op">[</span><span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="fl">8</span><span class="op">:</span><span class="fl">12</span>, <span class="fl">1</span><span class="op">:</span><span class="fl">12</span><span class="op">)</span><span class="op">]</span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-stderr">
+<pre><code>Warning in mean.default(df$n_visits[c(8:12, 1:12)]): argument is not numeric or
+logical: returning NA</code></pre>
+</div>
+<div class="cell-output-stdout">
+<pre><code>[1] NA
+[1] NA
+[1] NA</code></pre>
+</div>
+</div>
+</section></section><section id="comparisons-todo" class="level2" data-number="4.7"><h2 data-number="4.7" class="anchored" data-anchor-id="comparisons-todo">
+<span class="header-section-number">4.7</span> Comparisons (TODO)</h2>
+<section id="percents-versus-percentage-points" class="level3" data-number="4.7.1"><h3 data-number="4.7.1" class="anchored" data-anchor-id="percents-versus-percentage-points">
+<span class="header-section-number">4.7.1</span> Percents versus percentage points</h3>
+<div class="cell">
+
+</div>
+</section><section id="changes-with-small-bases" class="level3" data-number="4.7.2"><h3 data-number="4.7.2" class="anchored" data-anchor-id="changes-with-small-bases">
+<span class="header-section-number">4.7.2</span> Changes with small bases</h3>
+<div class="cell">
+<div class="sourceCode" id="cb65"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="op">(</span><span class="fl">0.015</span> <span class="op">-</span> <span class="fl">0.010</span><span class="op">)</span> <span class="op">/</span> <span class="fl">0.010</span></span>
+<span><span class="op">(</span><span class="fl">0.805</span> <span class="op">-</span> <span class="fl">0.800</span><span class="op">)</span> <span class="op">/</span> <span class="fl">0.800</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-stdout">
+<pre><code>[1] 0.5
+[1] 0.00625</code></pre>
+</div>
+</div>
+<div class="cell">
+<div class="sourceCode" id="cb67"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fl">0.015</span> <span class="op">/</span> <span class="fl">0.010</span></span>
+<span><span class="fl">0.805</span> <span class="op">/</span> <span class="fl">0.800</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-stdout">
+<pre><code>[1] 1.5
+[1] 1.00625</code></pre>
+</div>
+</div>
+</section></section><section id="outliers-todo" class="level2" data-number="4.8"><h2 data-number="4.8" class="anchored" data-anchor-id="outliers-todo">
+<span class="header-section-number">4.8</span> Outliers (TODO)</h2>
+</section><section id="strategies-todo" class="level2" data-number="4.9"><h2 data-number="4.9" class="anchored" data-anchor-id="strategies-todo">
+<span class="header-section-number">4.9</span> Strategies (TODO)</h2>
+</section><section id="real-world-disasters-todo" class="level2" data-number="4.10"><h2 data-number="4.10" class="anchored" data-anchor-id="real-world-disasters-todo">
+<span class="header-section-number">4.10</span> Real World Disasters (TODO)</h2>
+<p>Straight vs weighted averages in COVID positivity rates <span class="citation" data-cites="indy_rates">(<a href="#ref-indy_rates" role="doc-biblioref">May 2020</a>)</span></p>
+<blockquote class="blockquote">
+<p>The changes could result in real-world differences for Hoosiers, because the state uses a county’s positivity rate as one of the numbers to determine which restrictions that county will face. Those restrictions determine how many people may gather, among other items.</p>
+</blockquote>
+<blockquote class="blockquote">
+<p>Some Hoosiers may see loosened restrictions because of the changes. While Box said the county-level impact will be mixed, she predicted some smaller counties will see a decline in positivity rate after the changes.</p>
+</blockquote>
+<blockquote class="blockquote">
+<p>“The change to the methodology is how we calculate the seven-day positivity rate for counties. In the past, similar to many states, we’ve added each day’s positivity rate for seven days and divided by seven to obtain the week’s positivity rate. Now we will add all of the positive tests for the week and divide by the total tests done that week to determine the week’s positivity rate. This will help to minimize the effect that a high variability in the number of tests done each day can have on the week’s overall positivity, especially for our smaller counties.”</p>
+</blockquote>
+<p>three issues here</p>
+<p>first straight versus weighted averages</p>
+<div class="cell">
+<div class="sourceCode" id="cb69"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">avg_of_ratios</span> <span class="op">&lt;-</span> <span class="op">(</span><span class="fl">10</span><span class="op">/</span><span class="fl">100</span> <span class="op">+</span> <span class="fl">90</span><span class="op">/</span><span class="fl">100</span><span class="op">)</span> <span class="op">/</span> <span class="fl">2</span></span>
+<span></span>
+<span><span class="va">ratio_of_sums</span> <span class="op">&lt;-</span> <span class="op">(</span><span class="fl">10</span> <span class="op">+</span> <span class="fl">90</span><span class="op">)</span> <span class="op">/</span> <span class="op">(</span><span class="fl">100</span> <span class="op">+</span> <span class="fl">100</span><span class="op">)</span></span>
+<span></span>
+<span><span class="va">avg_of_ratios</span> <span class="op">==</span> <span class="va">ratio_of_sums</span></span>
+<span></span>
+<span><span class="va">avg_of_ratios_uneq</span> <span class="op">&lt;-</span> <span class="op">(</span><span class="fl">10</span><span class="op">/</span><span class="fl">100</span> <span class="op">+</span> <span class="fl">180</span> <span class="op">/</span> <span class="fl">200</span><span class="op">)</span> <span class="op">/</span> <span class="fl">2</span></span>
+<span></span>
+<span><span class="va">ratio_of_sums_uneq</span> <span class="op">&lt;-</span> <span class="op">(</span><span class="fl">10</span> <span class="op">+</span> <span class="fl">180</span><span class="op">)</span> <span class="op">/</span> <span class="op">(</span><span class="fl">100</span> <span class="op">+</span> <span class="fl">200</span><span class="op">)</span></span>
+<span></span>
+<span><span class="va">avg_of_ratios_uneq</span> <span class="op">==</span> <span class="va">ratio_of_sums_uneq</span></span>
+<span></span>
+<span><span class="va">weightavg_of_ratios_uneq</span> <span class="op">&lt;-</span> <span class="op">(</span><span class="fl">100</span><span class="op">/</span><span class="fl">300</span><span class="op">)</span><span class="op">*</span><span class="op">(</span><span class="fl">10</span><span class="op">/</span><span class="fl">100</span><span class="op">)</span> <span class="op">+</span> <span class="op">(</span><span class="fl">200</span><span class="op">/</span><span class="fl">300</span><span class="op">)</span><span class="op">*</span><span class="op">(</span><span class="fl">180</span><span class="op">/</span><span class="fl">200</span><span class="op">)</span></span>
+<span></span>
+<span><span class="va">ratio_of_sums_uneq</span> <span class="op">==</span> <span class="va">weightavg_of_ratios_uneq</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-stdout">
+<pre><code>[1] TRUE
+[1] FALSE
+[1] TRUE</code></pre>
+</div>
+</div>
+<p>then back to the data for why it matters.</p>
+<p>if data is from same distribution, this could increase variance but shouldn’t effect mean</p>
+<p>Recall that the standard deviation of sample proportion is <span class="math inline">\(\sqrt(p*(1-p)/n)\)</span></p>
+<p>link to discussions of sample size and different types of averages</p>
+<div class="cell">
+<div class="sourceCode" id="cb71"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/base/Random.html">set.seed</a></span><span class="op">(</span><span class="fl">123</span><span class="op">)</span></span>
+<span></span>
+<span><span class="co"># define simulation parameters ----</span></span>
+<span><span class="co">## n: total draws from binomial distribution</span></span>
+<span><span class="co">## p: proportion of successes</span></span>
+<span><span class="va">p</span> <span class="op">&lt;-</span> <span class="fl">0.5</span></span>
+<span><span class="va">n</span> <span class="op">&lt;-</span> <span class="fl">1000</span></span>
+<span></span>
+<span><span class="co"># sample from binomials of different size ----</span></span>
+<span><span class="va">s010</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/stats/Binomial.html">rbinom</a></span><span class="op">(</span><span class="va">n</span>,  <span class="fl">10</span>, <span class="va">p</span><span class="op">)</span> <span class="op">/</span>  <span class="fl">10</span></span>
+<span><span class="va">s100</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/stats/Binomial.html">rbinom</a></span><span class="op">(</span><span class="va">n</span>, <span class="fl">100</span>, <span class="va">p</span><span class="op">)</span> <span class="op">/</span> <span class="fl">100</span></span>
+<span><span class="va">s500</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/stats/Binomial.html">rbinom</a></span><span class="op">(</span><span class="va">n</span>, <span class="fl">500</span>, <span class="va">p</span><span class="op">)</span> <span class="op">/</span> <span class="fl">500</span></span>
+<span></span>
+<span><span class="co"># set results as dataframe for inspection ----</span></span>
+<span><span class="va">df</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/data.frame.html">data.frame</a></span><span class="op">(</span></span>
+<span>  s <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/rep.html">rep</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="fl">10</span>, <span class="fl">100</span>, <span class="fl">500</span><span class="op">)</span>, each <span class="op">=</span> <span class="va">n</span><span class="op">)</span>,</span>
+<span>  x <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="va">s010</span>, <span class="va">s100</span>, <span class="va">s500</span><span class="op">)</span></span>
+<span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<div class="cell">
+<div class="sourceCode" id="cb72"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://ggplot2.tidyverse.org">ggplot2</a></span><span class="op">)</span></span>
+<span></span>
+<span><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/ggplot.html">ggplot</a></span><span class="op">(</span>data <span class="op">=</span> <span class="va">df</span><span class="op">)</span> <span class="op">+</span></span>
+<span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/aes.html">aes</a></span><span class="op">(</span>x <span class="op">=</span> <span class="va">x</span>, col <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/character.html">as.character</a></span><span class="op">(</span><span class="va">s</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span></span>
+<span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/geom_density.html">geom_density</a></span><span class="op">(</span><span class="op">)</span> <span class="op">+</span></span>
+<span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/geom_abline.html">geom_vline</a></span><span class="op">(</span>xintercept <span class="op">=</span> <span class="va">p</span>, col <span class="op">=</span> <span class="st">'darkgrey'</span>, linetype <span class="op">=</span> <span class="fl">2</span><span class="op">)</span> <span class="op">+</span></span>
+<span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/labs.html">labs</a></span><span class="op">(</span></span>
+<span>    title <span class="op">=</span> <span class="st">"Sampling Distribution for p = 0.5"</span>,</span>
+<span>    col <span class="op">=</span> <span class="st">"Sample Size"</span></span>
+<span>  <span class="op">)</span> <span class="op">+</span></span>
+<span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/scale_continuous.html">scale_x_continuous</a></span><span class="op">(</span>breaks <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/seq.html">seq</a></span><span class="op">(</span><span class="fl">0</span>, <span class="fl">1</span>, <span class="fl">0.1</span><span class="op">)</span>, labels <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/seq.html">seq</a></span><span class="op">(</span><span class="fl">0</span>, <span class="fl">1</span>, <span class="fl">0.1</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span></span>
+<span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/theme.html">theme</a></span><span class="op">(</span></span>
+<span>    plot.title <span class="op">=</span> <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/element.html">element_text</a></span><span class="op">(</span>hjust <span class="op">=</span> <span class="fl">0.5</span><span class="op">)</span>,</span>
+<span>    legend.position <span class="op">=</span> <span class="st">"bottom"</span></span>
+<span>  <span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<p><img src="egre-aggr_files/figure-html/unnamed-chunk-54-1.png" class="img-fluid" width="672"></p>
+</div>
+</div>
+<p>but low sample days based on real world are probably also a sign of a different distribution (only very urgent cases get tested?)</p>
+<!--
+
+## Trends
+
+### If trends continue
+
+Data analysis undoubtedly relies on assumptions, and the quality of the resulting analysis depends in a large part on how reasonable these assumptions are. However, our heuristics for assessing assumptions are sometimes lacking. Assumptions that are lengthy, complex, or jargon-filled may be perceived as less conservative than those simple and straightforward. Yet this is a bad measure for fidelity. One such example of a simple but poor assumption is operating under the premise of "if the current trends continue". 
+
+First, in the real world, this is rarely (if ever) the case. Complex, dynamic systems have feedback loops and constraints, and few natural systems^[whether they be the predator and prey of the Lotka-Volterra differential equations, the infected population of an epidemiolgical SIR model, or pricing dynamics of supply and demand] and trend unabated in the same direction. 
+
+Second, and perhaps event more critically, there is no singular, objective definiton of what the current "trend" of a dataset event is. To illustrate this @fig-lin-quad-cub shows the fits of linear, quadratic, and cubic regressions on a set of data and its out-of-sample extrapolation. Even if we *believed* the premise that "trends will continue", the subjective determination of that thrend has massive implications on the resulting conclusions.
+
+::: {.cell}
+
+```{.r .cell-code}
+library(ggplot2)
+
+n <- 300
+x <- runif(n)
+y <- c(x[1:100], x[101:200]**2, x[201:300]**3) + rnorm(n)
+
+ggplot(
+  data.frame(x = x, y = y),
+  aes(x, y)
+) +
+  geom_point() +
+  geom_smooth(method = "lm", formula = y ~ I(x**1), se = FALSE, fullrange = TRUE) +
+  geom_smooth(method = "lm", formula = y ~ I(x**2), se = FALSE, fullrange = TRUE) +
+  geom_smooth(method = "lm", formula = y ~ I(x**3), se = FALSE, fullrange = TRUE) +
+  geom_smooth(method = "lm", formula = y ~ I(x**4), se = FALSE, fullrange = TRUE) +
+  scale_x_continuous(limits = c(0,2)) 
+```
+
+::: {.cell-output-display}
+![Plot of data extrapolated from linear, quadratic, and cubic fits](egre-aggr_files/figure-html/fig-lin-quad-cub-1.png){#fig-lin-quad-cub width=672}
+:::
+:::
+
+
+<!--
+
+## Aggregating without visualizing
+
+The **datasauRus** R package [@R-datasauRus] \index{R package!datasauRus}
+
+## Believing in the "average" observation
+
+::: {.cell}
+
+```{.r .cell-code}
+x <- rnorm(1000, 0, 5)
+y1 <- rnorm(1000, 10, 6)
+y2 <- 10 + x + rnorm(1000, 0, 1)
+y3 <- 10 + x + rlnorm(1000, 0, 1)
+cor(x,y1)
+```
+
+::: {.cell-output-stdout}
+```
+[1] 0.0318291
+```
+:::
+
+```{.r .cell-code}
+cor(x,y2)
+```
+
+::: {.cell-output-stdout}
+```
+[1] 0.9801136
+```
+:::
+
+```{.r .cell-code}
+(mx <- mean(x))
+```
+
+::: {.cell-output-stdout}
+```
+[1] -0.04878271
+```
+:::
+
+```{.r .cell-code}
+(my1 <- mean(y1))
+```
+
+::: {.cell-output-stdout}
+```
+[1] 9.94201
+```
+:::
+
+```{.r .cell-code}
+(my2 <- mean(y2))
+```
+
+::: {.cell-output-stdout}
+```
+[1] 9.960487
+```
+:::
+
+```{.r .cell-code}
+(my3 <- mean(y3))
+```
+
+::: {.cell-output-stdout}
+```
+[1] 11.5651
+```
+:::
+
+```{.r .cell-code}
+library(ggplot2)
+df <- data.frame(x=x,y=y1,y2=y2)
+gg1 <- ggplot(df, aes(x,y1)) + geom_bin2d() + geom_point(aes(mx,my1), col = 'red')
+gg2 <- ggplot(df, aes(x,y2)) + geom_bin2d() + geom_point(aes(mx,my2), col = 'red')
+gg3 <- ggplot(df, aes(x,y3)) + geom_bin2d() + geom_point(aes(mx,my3), col = 'red')
+
+x <- c(runif(700, 20, 50), runif(300, 50, 70))
+y <- x**3 + rnorm(1000)
+df <- data.frame(x=x,y=y)
+gg <- ggplot(df, aes(x,y)) + geom_bin2d() + geom_point(aes(mean(x), mean(y)), col = 'red')
+```
+:::
+
+
+
+## Product of averages
+
+::: {.cell}
+
+:::
+
+::: {.cell}
+
+```{.r .cell-code}
+data %>%
+  summarize(
+    N_TRANS = n() / n_distinct(ID_ACCT),
+    AMT_SPEND = sum(AMT_SPEND) / n()
+  ) %>%
+  mutate(N_TRANS * AMT_SPEND)
+```
+
+::: {.cell-output-stdout}
+```
+  N_TRANS AMT_SPEND N_TRANS * AMT_SPEND
+1    10.8  347.7623            3755.833
+```
+:::
+
+```{.r .cell-code}
+data %>%
+  group_by(ID_ACCT) %>%
+  summarize(N_TRANS = n(), AMT_SPEND = sum(AMT_SPEND) / n()) %>%
+  summarize_at(vars(N_TRANS, AMT_SPEND), mean) %>%
+  mutate(N_TRANS * AMT_SPEND)
+```
+
+::: {.cell-output-stdout}
+```
+# A tibble: 1 x 3
+  N_TRANS AMT_SPEND `N_TRANS * AMT_SPEND`
+    <dbl>     <dbl>                 <dbl>
+1    10.8      341.                 3686.
+```
+:::
+
+```{.r .cell-code}
+summarize(data, sum(AMT_SPEND) / n_distinct(ID_ACCT))
+```
+
+::: {.cell-output-stdout}
+```
+  sum(AMT_SPEND)/n_distinct(ID_ACCT)
+1                           3755.833
+```
+:::
+:::
+
+$$
+  \frac{ \sum_{1}^{n} Spend }{\sum_{1}^{n} 1} \ * \frac{ \sum_{1}^{n} Trips }{\sum_{1}^{n} 1}
+$$ over all $n$ customers
+
+$$
+  \sum_{1}^{n} Spend \ * \sum_{1}^{n}
+$$ trips
+
+::: {.cell}
+
+```{.r .cell-code}
+set.seed(123)
+amt_spend <- c(rnorm(10, 50, 5), rnorm(10, 250, 5))
+ind_return <- c(rbinom(10,1,0.1), rbinom(10,1,0.2))
+mean(amt_spend) * mean(ind_return)
+```
+
+::: {.cell-output-stdout}
+```
+[1] 7.535406
+```
+:::
+
+```{.r .cell-code}
+mean(amt_spend * ind_return)
+```
+
+::: {.cell-output-stdout}
+```
+[1] 12.67534
+```
+:::
+:::
+
+
+
+## Understanding the denominator
+
+## Small sample sizes
+
+## Relying on the wrong summary metrics
+
+The paper "A Dirty Dozen: Twelve Common Metric Interpretation Pitfalls in Online Controlled Experiments" [@dmitriev_gupta_kim_vaz_2017]
+
+Article "Designing and evaluating metrics" [@taylor_2020]
+
+Problem with Metrics - https://arxiv.org/abs/2002.08512
+
+## Dichotomization
+
+## Ignoring trend
+
+## Ignoring seasonality
+
+## Ignoring panel structure
+
+## Correlation
+
+## Strategies
+
+-->
+
+
+
+<div id="refs" class="references csl-bib-body hanging-indent" role="doc-bibliography">
+<div id="ref-datasaurus" class="csl-entry" role="doc-biblioentry">
+Matejka, Justin, and George Fitzmaurice. 2017. <span>“Same Stats, Different Graphs: Generating Datasets with Varied Appearance and Identical Statistics Through Simulated Annealing.”</span> In. New York, NY, USA: Association for Computing Machinery. <a href="https://doi.org/10.1145/3025453.3025912">https://doi.org/10.1145/3025453.3025912</a>.
+</div>
+<div id="ref-indy_rates" class="csl-entry" role="doc-biblioentry">
+May, Ethan. 2020. <span>“How an Error in the Calculation of Indiana’s Positivity Rate May Affect You.”</span> <em>Indianapolis Star</em>, December. <a href="https://www.indystar.com/story/news/health/2020/12/23/covid-indiana-positivity-rate-error-corrected-dec-30/4013741001/">https://www.indystar.com/story/news/health/2020/12/23/covid-indiana-positivity-rate-error-corrected-dec-30/4013741001/</a>.
+</div>
+</div>
+</section><section class="footnotes footnotes-end-of-document" role="doc-endnotes"><hr>
+<ol>
+<li id="fn1" role="doc-endnote"><p>If you are following along in R, you might run <code>unique(df$dataset)</code> to see all the values of this column. We won’t do that now as to not ruin the surprise<a href="#fnref1" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
+<li id="fn2" role="doc-endnote"><p>In fact, the only mechanical constraint to computing linear regression output is that no column of the design matrix (no independent variable) is a precise linear combination of the other columns. Yet this constraint is not typically included among the standard statement of assumptions.<a href="#fnref2" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
+<li id="fn3" role="doc-endnote"><p>We intentionally avoid the word <em>correlated</em> here to emphasize the fact that <em>correlation</em> refers more strictly to linear relationships<a href="#fnref3" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
+</ol></section></main><!-- /main --><script type="application/javascript">
+window.document.addEventListener("DOMContentLoaded", function (event) {
+  const icon = "";
+  const anchorJS = new window.AnchorJS();
+  anchorJS.options = {
+    placement: 'right',
+    icon: icon
+  };
+  anchorJS.add('.anchored');
+  const clipboard = new window.ClipboardJS('.code-copy-button', {
+    target: function(trigger) {
+      return trigger.previousElementSibling;
+    }
+  });
+  clipboard.on('success', function(e) {
+    // button target
+    const button = e.trigger;
+    // don't keep focus
+    button.blur();
+    // flash "checked"
+    button.classList.add('code-copy-button-checked');
+    setTimeout(function() {
+      button.classList.remove('code-copy-button-checked');
+    }, 1000);
+    // clear code selection
+    e.clearSelection();
+  });
+  function tippyHover(el, contentFn) {
+    const config = {
+      allowHTML: true,
+      content: contentFn,
+      maxWidth: 500,
+      delay: 100,
+      arrow: false,
+      appendTo: function(el) {
+          return el.parentElement;
+      },
+      interactive: true,
+      interactiveBorder: 10,
+      theme: 'quarto',
+      placement: 'bottom-start'
+    };
+    window.tippy(el, config); 
+  }
+  const noterefs = window.document.querySelectorAll('a[role="doc-noteref"]');
+  for (var i=0; i<noterefs.length; i++) {
+    const ref = noterefs[i];
+    tippyHover(ref, function() {
+      let href = ref.getAttribute('href');
+      try { href = new URL(href).hash; } catch {}
+      const id = href.replace(/^#\/?/, "");
+      const note = window.document.getElementById(id);
+      return note.innerHTML;
+    });
+  }
+  var bibliorefs = window.document.querySelectorAll('a[role="doc-biblioref"]');
+  for (var i=0; i<bibliorefs.length; i++) {
+    const ref = bibliorefs[i];
+    const cites = ref.parentNode.getAttribute('data-cites').split(' ');
+    tippyHover(ref, function() {
+      var popup = window.document.createElement('div');
+      cites.forEach(function(cite) {
+        var citeDiv = window.document.createElement('div');
+        citeDiv.classList.add('hanging-indent');
+        citeDiv.classList.add('csl-entry');
+        var biblioDiv = window.document.getElementById('ref-' + cite);
+        if (biblioDiv) {
+          citeDiv.innerHTML = biblioDiv.innerHTML;
+        }
+        popup.appendChild(citeDiv);
+      });
+      return popup.innerHTML;
+    });
+  }
+});
+</script><nav class="page-navigation"><div class="nav-page nav-page-previous">
+      <a href="./comp-quan.html" class="pagination-link">
+        <i class="bi bi-arrow-left-short"></i> <span class="nav-page-text"><span class="chapter-number">3</span>&nbsp; <span class="chapter-title">Computational Quandaries (WIP)</span></span>
+      </a>          
+  </div>
+  <div class="nav-page nav-page-next">
+      <a href="./vexi-visu.html" class="pagination-link">
+        <span class="nav-page-text"><span class="chapter-number">5</span>&nbsp; <span class="chapter-title">Vexing Visualization (TODO)</span></span> <i class="bi bi-arrow-right-short"></i>
+      </a>
+  </div>
+</nav>
+</div> <!-- /content -->
+
+
+</body></html>

@@ -5,7 +5,7 @@
 <meta name="generator" content="quarto-0.9.175">
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 <meta name="description" content="Navigating the complexities of real-world data analysis">
-<title>Data Disasters - 10&nbsp; Futile Findings (TODO)</title>
+<title>Data Disasters - 8&nbsp; Mindless Modeling (TODO)</title>
 <style>
     code{white-space: pre-wrap;}
     span.smallcaps{font-variant: small-caps;}
@@ -15,8 +15,8 @@
     ul.task-list{list-style: none;}
   </style>
 <script src="site_libs/quarto-nav/quarto-nav.js"></script><script src="site_libs/quarto-nav/headroom.min.js"></script><script src="site_libs/clipboard/clipboard.min.js"></script><meta name="quarto:offset" content="./">
-<script src="site_libs/quarto-search/autocomplete.umd.js"></script><script src="site_libs/quarto-search/fuse.min.js"></script><script src="site_libs/quarto-search/quarto-search.js"></script><link href="./comp-code.html" rel="next">
-<link href="./alte-algo.html" rel="prev">
+<script src="site_libs/quarto-search/autocomplete.umd.js"></script><script src="site_libs/quarto-search/fuse.min.js"></script><script src="site_libs/quarto-search/quarto-search.js"></script><link href="./alte-algo.html" rel="next">
+<link href="./cava-caus.html" rel="prev">
 <link href="./figures/cover.png" rel="icon" type="image/png">
 <script src="site_libs/quarto-html/quarto.js"></script><script src="site_libs/quarto-html/popper.min.js"></script><script src="site_libs/quarto-html/tippy.umd.min.js"></script><script src="site_libs/quarto-html/anchor.min.js"></script><link href="site_libs/quarto-html/tippy.css" rel="stylesheet">
 <link id="quarto-text-highlighting-styles" href="site_libs/quarto-html/quarto-syntax-highlighting.css" rel="stylesheet">
@@ -49,17 +49,17 @@
   </script><!--[if lt IE 9]>
     <script src="//cdnjs.cloudflare.com/ajax/libs/html5shiv/3.7.3/html5shiv-printshiv.min.js"></script>
   <![endif]-->
-<meta property="og:title" content="Data Disasters - 10&nbsp; Futile Findings (TODO)">
+<meta property="og:title" content="Data Disasters - 8&nbsp; Mindless Modeling (TODO)">
 <meta property="og:description" content="Navigating the complexities of real-world data analysis">
 <meta property="og:site-name" content="Data Disasters">
-<meta name="twitter:title" content="Data Disasters - 10&nbsp; Futile Findings (TODO)">
+<meta name="twitter:title" content="Data Disasters - 8&nbsp; Mindless Modeling (TODO)">
 <meta name="twitter:description" content="Navigating the complexities of real-world data analysis">
 <meta name="twitter:card" content="summary">
 </head>
-<body class="floating fullcontent">
+<body class="floating">
 <div id="quarto-search-results"></div>
   <header id="quarto-header" class="headroom fixed-top"><nav class="quarto-secondary-nav" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }"><div class="container-fluid d-flex justify-content-between">
-      <h1 class="quarto-secondary-nav-title"><span class="chapter-number">10</span>&nbsp; <span class="chapter-title">Futile Findings (TODO)</span></h1>
+      <h1 class="quarto-secondary-nav-title"><span class="chapter-number">8</span>&nbsp; <span class="chapter-title">Mindless Modeling (TODO)</span></h1>
       <button type="button" class="quarto-btn-toggle btn" aria-label="Show secondary navigation">
         <i class="bi bi-chevron-right"></i>
       </button>
@@ -172,7 +172,7 @@
 </li>
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./mind-mode.html" class="sidebar-item-text sidebar-link"><span class="chapter-number">8</span>&nbsp; <span class="chapter-title">Mindless Modeling (TODO)</span></a>
+  <a href="./mind-mode.html" class="sidebar-item-text sidebar-link active"><span class="chapter-number">8</span>&nbsp; <span class="chapter-title">Mindless Modeling (TODO)</span></a>
   </div>
 </li>
         <li class="sidebar-item">
@@ -182,7 +182,7 @@
 </li>
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./futi-find.html" class="sidebar-item-text sidebar-link active"><span class="chapter-number">10</span>&nbsp; <span class="chapter-title">Futile Findings (TODO)</span></a>
+  <a href="./futi-find.html" class="sidebar-item-text sidebar-link"><span class="chapter-number">10</span>&nbsp; <span class="chapter-title">Futile Findings (TODO)</span></a>
   </div>
 </li>
     </ul>
@@ -234,121 +234,209 @@
 </li>
     </ul>
 </div>
-</nav><!-- margin-sidebar -->
+</nav><!-- margin-sidebar --><div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
+        <nav id="TOC" role="doc-toc"><h2 id="toc-title">Table of contents</h2>
+<ul>
+<li>
+<a href="#features" class="nav-link active" data-scroll-target="#features"> <span class="header-section-number">8.1</span> Features</a>
+<ul class="collapse">
+<li><a href="#engineering-the-wrong-features" class="nav-link" data-scroll-target="#engineering-the-wrong-features"> <span class="header-section-number">8.1.1</span> Engineering the wrong features</a></li>
+</ul>
+</li>
+<li><a href="#targets" class="nav-link" data-scroll-target="#targets"> <span class="header-section-number">8.2</span> Targets</a></li>
+<li><a href="#evaluation-metrics" class="nav-link" data-scroll-target="#evaluation-metrics"> <span class="header-section-number">8.3</span> Evaluation Metrics</a></li>
+<li><a href="#unsupervised-learning" class="nav-link" data-scroll-target="#unsupervised-learning"> <span class="header-section-number">8.4</span> Unsupervised Learning</a></li>
+<li><a href="#lifecycle-management" class="nav-link" data-scroll-target="#lifecycle-management"> <span class="header-section-number">8.5</span> Lifecycle Management</a></li>
+<li><a href="#fair-and-ethical-modeling" class="nav-link" data-scroll-target="#fair-and-ethical-modeling"> <span class="header-section-number">8.6</span> Fair and Ethical Modeling</a></li>
+</ul><div class="toc-actions"><div><i class="bi bi-github"></i></div><div class="action-links"><p><a href="https://github.com/emilyriederer/data-disasters/edit/main/mind-mode.qmd" class="toc-action">Edit this page</a></p></div></div></nav>
+    </div>
 <!-- main -->
 <main class="content" id="quarto-document-content"><header id="title-block-header" class="quarto-title-block default">
-<div class="quarto-title"><h1 class="title display-7"><span id="futi-find" class="quarto-section-identifier d-none d-lg-block"><span class="chapter-number">10</span>&nbsp; <span class="chapter-title">Futile Findings (TODO)</span></span></h1><div class="quarto-description"><p>Navigating the complexities of real-world data analysis</p></div></div></header><p>Dirty Dozen p hacking https://psyarxiv.com/xy2dk/</p>
+<div class="quarto-title"><h1 class="title display-7"><span id="sec-mind-mode" class="quarto-section-identifier d-none d-lg-block"><span class="chapter-number">8</span>&nbsp; <span class="chapter-title">Mindless Modeling (TODO)</span></span></h1><div class="quarto-description"><p>Navigating the complexities of real-world data analysis</p></div></div></header><p>Excellent reproducibility paper: https://reproducible.cs.princeton.edu/ feature leakage, model sheets</p>
+<section id="features" class="level2" data-number="8.1"><h2 data-number="8.1" class="anchored" data-anchor-id="features">
+<span class="header-section-number">8.1</span> Features</h2>
+<p>Ratio Variables: https://journals.sagepub.com/doi/abs/10.1177/1094428118773455?journalCode=orma</p>
+<section id="engineering-the-wrong-features" class="level3" data-number="8.1.1"><h3 data-number="8.1.1" class="anchored" data-anchor-id="engineering-the-wrong-features">
+<span class="header-section-number">8.1.1</span> Engineering the wrong features</h3>
+<div class="cell">
+
+</div>
+<div class="cell">
+
+</div>
 <!--
 
-## No law to use ALL the data
-
-## Ascribing characteristics at wrong granularity
-
-ecological fallacy
-
-(does this belong in causation chapter?)
-
-## Finding policy-induced relationships
-
-selection bias
-
-## Ignoring heterogeneity
-
-## "If trends continue"
-
-## Analyzing time-to-event data
-
-immortal time bias
-
-## Answering the right question
-
-Don't let available tools dictate the questions of interest
-
-*The Cult of Statistical Significance* [@ziliak_mccloskey]
-
-"Mindless Statistics" [@GIGERENZER2004587]
-
-## Misguided Rigor
-
 ::: {.cell}
 
 ```{.r .cell-code}
+library(tidymodels)
+library(tidyr)
+library(ggplot2)
 set.seed(123)
-t <- t.test(rnorm(100), rnorm(100))
-print(t)
-```
 
-::: {.cell-output-stdout}
-```
+# set up data ----
+n <- 2000
+df <-
+data.frame(
+  x1 = runif(n),
+  x2 = runif(n),
+  x3 = runif(n)
+)
+df$y1 <- 10*df$x1 + rnorm(n)
+df$y2 <- 10*(df$x1)**2 + rnorm(n)
+df$y3 <- 10*(df$x1 / df$x2) + rnorm(n)
+df$y4 <- df$y3 + 0.5*df$x3
 
-    Welch Two Sample t-test
+df_test <- df[1001:2000,]
+df <- df[1:1000,]
 
-data:  rnorm(100) and rnorm(100)
-t = 1.4886, df = 197.35, p-value = 0.1382
-alternative hypothesis: true difference in means is not equal to 0
-95 percent confidence interval:
- -0.06428618  0.46019159
-sample estimates:
-  mean of x   mean of y 
- 0.09040591 -0.10754680 
-```
-:::
+# model fits ----
+lr <- 
+  linear_reg() %>%
+  set_engine("lm") %>%
+  set_mode("regression")
+dt <- 
+  decision_tree() %>%
+  set_engine("rpart") %>%
+  set_mode("regression")
+rf <- 
+  rand_forest() %>%
+  set_engine("randomForest") %>%
+  set_mode("regression")
+models <- list(lr, dt, rf)
+formulas <- list(
+  y1 ~ x1,
+  y1 ~ I(x1**2),
+  y2 ~ x1,
+  y2 ~ I(x1**2),
+  y3 ~ x1 + x2,
+  y3 ~ I(x1/x2),
+  y4 ~ x1 + x2 + x3,
+  y4 ~ I(x1/x2) + x3
+)
+fml_target <- vapply(formulas, function(x) as.character(eval(x)[[2]]), character(1))
+fml_rhs <- vapply(formulas, function(x) paste(labels(terms(x)), collapse = " + "), character(1))
 
-```{.r .cell-code}
-t$p.value
-```
+formulas_df <- tibble(
+  formulas = formulas, 
+  target = fml_target,
+  formula_desc = fml_rhs
+)
+models_df <- tibble(
+  model_desc = factor(c("linear", "decision tree", "random forest"),
+                      levels = c("linear", "decision tree", "random forest")),
+  models = models
+)
+targets_df <- tibble(
+  target = paste0("y", 1:4),
+  target_true_spec = c("linear", "quadratic", "ratio", "ratio plus linear")
+)
 
-::: {.cell-output-stdout}
+# model predictions ----
+models_formulas_fits <-
+tidyr::crossing(models_df, formulas_df) %>%
+  left_join(targets_df, by = "target") %>%
+  rowwise() %>%
+  mutate(
+    target = as.character(eval(formulas)[[2]]),
+    fits = list(fit(models, formulas, data = df)),
+    preds = list(predict(fits, new_data = df_test)[[".pred"]]),
+    mse = sqrt(sum(preds - df_test[[target]])**2)
+    )
+
+models_formulas_fits <- 
+    models_formulas_fits %>%
+    group_by(model_desc) %>%
+    mutate(mse_factor = mse / min(mse))
+
+# plot results ----
+ggplot(data = models_formulas_fits) +
+  aes(x = model_desc, y = mse, col = formula_desc) +
+  geom_point() + 
+  facet_wrap(target_true_spec ~ ., ncol = 1, scales = "free") +
+  theme(
+    axis.title = element_blank()
+  )
 ```
-[1] 0.1381836
-```
-:::
 :::
 
 ::: {.cell}
 
 ```{.r .cell-code}
-pvals <- vapply(1:1000, FUN = function(x) t.test(rnorm(100), rnorm(100))$p.value, FUN.VALUE = numeric(1)) 
-alpha <- 0.05
-sum(pvals > (1-alpha/2) | pvals < alpha/2) / length(pvals)
-```
+tree_rec <- recipe(x = df, formula = y1 ~ x1)
 
-::: {.cell-output-stdout}
-```
-[1] 0.051
+tune_spec <- rand_forest(
+  mtry = tune(),
+  trees = 1000,
+  min_n = tune()
+) %>%
+  set_mode("regression") %>%
+  set_engine("ranger")
+
+tune_wf <- 
+  workflow() %>%
+  add_recipe(tree_rec) %>%
+  add_model(tune_spec)
+
+set.seed(123) 
+trees_fold <- vfold_cv(df)
+
+set.seed(456)
+tune_res <- tune_grid(
+  tune_wf,
+  resamples = trees_fold,
+  grid = 20
+)
+
+final_rf <-
+  finalize_model(
+    tune_spec,
+    select_best(tune_res, metric = "rmse")
+  )
+
+final_res <-
+  final_rf %>%
+  set_engine("ranger", importance = "permutation") %>%
+  fit(formula = y1 ~ x1, data = df)
+
+predict(final_res, new_data = df_test)
 ```
 :::
-:::
 
-::: {.cell}
+-->
+</section></section><section id="targets" class="level2" data-number="8.2"><h2 data-number="8.2" class="anchored" data-anchor-id="targets">
+<span class="header-section-number">8.2</span> Targets</h2>
+</section><section id="evaluation-metrics" class="level2" data-number="8.3"><h2 data-number="8.3" class="anchored" data-anchor-id="evaluation-metrics">
+<span class="header-section-number">8.3</span> Evaluation Metrics</h2>
+</section><section id="unsupervised-learning" class="level2" data-number="8.4"><h2 data-number="8.4" class="anchored" data-anchor-id="unsupervised-learning">
+<span class="header-section-number">8.4</span> Unsupervised Learning</h2>
+</section><section id="lifecycle-management" class="level2" data-number="8.5"><h2 data-number="8.5" class="anchored" data-anchor-id="lifecycle-management">
+<span class="header-section-number">8.5</span> Lifecycle Management</h2>
+<!--
 
-```{.r .cell-code}
-get_prop_sign <- function(n = 1000, alpha = 0.05) {
+We talk about the _FOO_ method\index{FOO} in this chapter.
 
-  pvals <- vapply(1:n, FUN = function(x) t.test(rnorm(100), rnorm(100))$p.value, FUN.VALUE = numeric(1))
-  prop <- sum(pvals > (1-alpha/2) | pvals < alpha/2) / length(pvals)
-  return(prop)
+## Chosing the right target
 
-}
-```
-:::
+How you chose to model depends not just on your target variable and the relationships in your data but also the question to be answered. For example, [@murray2020] describes how the "best" approach to forecasting case growth in a pandemic varies depending on whether the goal is to plan population-level interventions and policies or organize short-term hospital capacity.
+
+## Developing meaningful features
 
 
-Data dredging, p-hacking
 
-## Sample splitting
+## Selecting an algorithm
 
-The **nullabor** [@R-nullabor] R package
-
-## Age Period Cohort
+## Evaluating the right performance metrics
 
 ## Strategies
 
 -->
+</section><section id="fair-and-ethical-modeling" class="level2" data-number="8.6"><h2 data-number="8.6" class="anchored" data-anchor-id="fair-and-ethical-modeling">
+<span class="header-section-number">8.6</span> Fair and Ethical Modeling</h2>
 
 
 
-</main><!-- /main --><script type="application/javascript">
+</section></main><!-- /main --><script type="application/javascript">
 window.document.addEventListener("DOMContentLoaded", function (event) {
   const icon = "";
   const anchorJS = new window.AnchorJS();
@@ -424,13 +512,13 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
   }
 });
 </script><nav class="page-navigation"><div class="nav-page nav-page-previous">
-      <a href="./alte-algo.html" class="pagination-link">
-        <i class="bi bi-arrow-left-short"></i> <span class="nav-page-text"><span class="chapter-number">9</span>&nbsp; <span class="chapter-title">Alternative Algorithms (TODO)</span></span>
+      <a href="./cava-caus.html" class="pagination-link">
+        <i class="bi bi-arrow-left-short"></i> <span class="nav-page-text"><span class="chapter-number">7</span>&nbsp; <span class="chapter-title">Cavalier Causality (TODO)</span></span>
       </a>          
   </div>
   <div class="nav-page nav-page-next">
-      <a href="./comp-code.html" class="pagination-link">
-        <span class="nav-page-text"><span class="chapter-number">11</span>&nbsp; <span class="chapter-title">Complexifying Code (TODO)</span></span> <i class="bi bi-arrow-right-short"></i>
+      <a href="./alte-algo.html" class="pagination-link">
+        <span class="nav-page-text"><span class="chapter-number">9</span>&nbsp; <span class="chapter-title">Alternative Algorithms (TODO)</span></span> <i class="bi bi-arrow-right-short"></i>
       </a>
   </div>
 </nav>

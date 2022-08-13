@@ -1,110 +1,276 @@
 <!DOCTYPE html>
-<html lang="en">
-<head>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <meta charset="utf-8">
-<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-<title>Preface | Data Disasters</title>
+<meta name="generator" content="quarto-0.9.175">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 <meta name="author" content="Emily Riederer">
-<meta name="description" content="Navigating the complexities of real-world data analysis">
-<meta name="generator" content="bookdown 0.22.17 with bs4_book()">
-<meta property="og:title" content="Preface | Data Disasters">
-<meta property="og:type" content="book">
-<meta property="og:url" content="data-disasters.netlify.app">
-<meta property="og:image" content="data-disasters.netlify.app/figures/cover.png">
+<meta name="description" content="<p>A book about doing stats wrong so you’ll do it right</p>">
+<title>Data Disasters</title>
+<style>
+    code{white-space: pre-wrap;}
+    span.smallcaps{font-variant: small-caps;}
+    span.underline{text-decoration: underline;}
+    div.column{display: inline-block; vertical-align: top; width: 50%;}
+    div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+    ul.task-list{list-style: none;}
+  </style>
+<script src="site_libs/quarto-nav/quarto-nav.js"></script><script src="site_libs/quarto-nav/headroom.min.js"></script><script src="site_libs/clipboard/clipboard.min.js"></script><meta name="quarto:offset" content="./">
+<script src="site_libs/quarto-search/autocomplete.umd.js"></script><script src="site_libs/quarto-search/fuse.min.js"></script><script src="site_libs/quarto-search/quarto-search.js"></script><link href="./comments.html" rel="next">
+<link href="./figures/cover.png" rel="icon" type="image/png">
+<script src="site_libs/quarto-html/quarto.js"></script><script src="site_libs/quarto-html/popper.min.js"></script><script src="site_libs/quarto-html/tippy.umd.min.js"></script><script src="site_libs/quarto-html/anchor.min.js"></script><link href="site_libs/quarto-html/tippy.css" rel="stylesheet">
+<link id="quarto-text-highlighting-styles" href="site_libs/quarto-html/quarto-syntax-highlighting.css" rel="stylesheet">
+<script src="site_libs/bootstrap/bootstrap.min.js"></script><link href="site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
+<link href="site_libs/bootstrap/bootstrap.min.css" rel="stylesheet">
+<script id="quarto-search-options" type="application/json">{
+    "location": "sidebar",
+    "copy-button": false,
+    "collapse-after": 3,
+    "panel-placement": "start",
+    "type": "textbox",
+    "limit": 20,
+    "language": {
+      "search-no-results-text": "No results",
+      "search-matching-documents-text": "matching documents",
+      "search-copy-link-title": "Copy link to search",
+      "search-hide-matches-text": "Hide additional matches",
+      "search-more-match-text": "more match in this document",
+      "search-more-matches-text": "more matches in this document",
+      "search-clear-button-title": "Clear",
+      "search-detached-cancel-button-title": "Cancel",
+      "search-submit-button-title": "Submit"
+    }
+  }</script><script async="" src="https://www.googletagmanager.com/gtag/js?id=G-C7VEESJ7Z8"></script><script type="text/javascript">
+
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+  gtag('config', 'G-C7VEESJ7Z8', { 'anonymize_ip': true});
+  </script><!--[if lt IE 9]>
+    <script src="//cdnjs.cloudflare.com/ajax/libs/html5shiv/3.7.3/html5shiv-printshiv.min.js"></script>
+  <![endif]-->
+<meta property="og:title" content="Data Disasters">
 <meta property="og:description" content="Navigating the complexities of real-world data analysis">
-<meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="Preface | Data Disasters">
+<meta property="og:image" content="data-disasters.com/figures\cover.png">
+<meta property="og:site-name" content="Data Disasters">
+<meta property="og:image:height" content="2006">
+<meta property="og:image:width" content="1912">
+<meta name="twitter:title" content="Data Disasters">
 <meta name="twitter:description" content="Navigating the complexities of real-world data analysis">
-<meta name="twitter:image" content="data-disasters.netlify.app/figures/cover.png">
-<!-- JS --><script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/2.0.6/clipboard.min.js" integrity="sha256-inc5kl9MA1hkeYUt+EC3BhlIgyp/2jDIyBLS6k3UxPI=" crossorigin="anonymous"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/fuse.js/6.4.6/fuse.js" integrity="sha512-zv6Ywkjyktsohkbp9bb45V6tEMoWhzFzXis+LrMehmJZZSys19Yxf1dopHx7WzIKxr5tK2dVcYmaCk2uqdjF4A==" crossorigin="anonymous"></script><script src="https://kit.fontawesome.com/6ecbd6c532.js" crossorigin="anonymous"></script><script src="libs/jquery/jquery-3.6.0.min.js"></script><meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-<link href="libs/bootstrap/bootstrap.min.css" rel="stylesheet">
-<script src="libs/bootstrap/bootstrap.bundle.min.js"></script><script src="libs/bs3compat/tabs.js"></script><script src="libs/bs3compat/bs3compat.js"></script><link href="libs/bs4_book/bs4_book.css" rel="stylesheet">
-<script src="libs/bs4_book/bs4_book.js"></script><script src="libs/accessible-code-block/empty-anchor.js"></script><!-- Global site tag (gtag.js) - Google Analytics --><script async src="https://www.googletagmanager.com/gtag/js?id=G-C7VEESJ7Z8"></script><script>
-    window.dataLayer = window.dataLayer || [];
-    function gtag(){dataLayer.push(arguments);}
-    gtag('js', new Date());
-  
-    gtag('config', 'G-C7VEESJ7Z8');
-  </script><script src="https://cdnjs.cloudflare.com/ajax/libs/autocomplete.js/0.38.0/autocomplete.jquery.min.js" integrity="sha512-GU9ayf+66Xx2TmpxqJpliWbT5PiGYxpaG8rfnBEk1LL8l1KGkRShhngwdXK1UgqhAzWpZHSiYPc09/NwDQIGyg==" crossorigin="anonymous"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/mark.js/8.11.1/mark.min.js" integrity="sha512-5CYOlHXGh6QpOFA/TeTylKLWfB3ftPsde7AnmhuitiTX4K5SqCLBeKro6sPS8ilsz1Q4NRx3v8Ko2IBiszzdww==" crossorigin="anonymous"></script><!-- CSS --><link rel="stylesheet" href="styles.css">
+<meta name="twitter:image" content="data-disasters.com/figures\cover.png">
+<meta name="twitter:image-height" content="2006">
+<meta name="twitter:image-width" content="1912">
+<meta name="twitter:card" content="summary_large_image">
 </head>
-<body data-spy="scroll" data-target="#toc">
-
-<div class="container-fluid">
-<div class="row">
-  <header class="col-sm-12 col-lg-3 sidebar sidebar-book"><a class="sr-only sr-only-focusable" href="#content">Skip to main content</a>
-
-    <div class="d-flex align-items-start justify-content-between">
-      <h1>
-        <a href="index.html" title="">Data Disasters</a>
-      </h1>
-      <button class="btn btn-outline-primary d-lg-none ml-2 mt-1" type="button" data-toggle="collapse" data-target="#main-nav" aria-expanded="true" aria-controls="main-nav"><i class="fas fa-bars"></i><span class="sr-only">Show table of contents</span></button>
+<body class="floating">
+<div id="quarto-search-results"></div>
+  <header id="quarto-header" class="headroom fixed-top"><nav class="quarto-secondary-nav" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }"><div class="container-fluid d-flex justify-content-between">
+      <h1 class="quarto-secondary-nav-title">Data Disasters</h1>
+      <button type="button" class="quarto-btn-toggle btn" aria-label="Show secondary navigation">
+        <i class="bi bi-chevron-right"></i>
+      </button>
     </div>
-
-    <div id="main-nav" class="collapse-lg">
-      <form role="search">
-        <input id="search" class="form-control" type="search" placeholder="Search" aria-label="Search">
-</form>
-
-      <nav aria-label="Table of contents"><h2>Table of contents</h2>
-        <ul class="book-toc list-unstyled">
-<li><a class="active" href="index.html">Preface</a></li>
-<li><a class="" href="about-the-author.html">About the Author</a></li>
-<li><a class="" href="introduction-todo.html"><span class="header-section-number">1</span> Introduction (TODO)</a></li>
-<li class="book-part">Data</li>
-<li><a class="" href="data-dall.html"><span class="header-section-number">2</span> Data Dalliances (WIP)</a></li>
-<li><a class="" href="comp-quan.html"><span class="header-section-number">3</span> Computational Quandaries (WIP)</a></li>
-<li class="book-part">Analysis</li>
-<li><a class="" href="eg-agg.html"><span class="header-section-number">4</span> Egregious Aggregations (WIP)</a></li>
-<li><a class="" href="vexi-visu.html"><span class="header-section-number">5</span> Vexing Visualization (TODO)</a></li>
-<li><a class="" href="incr-infe.html"><span class="header-section-number">6</span> Incredible Inferences (TODO)</a></li>
-<li><a class="" href="cava-caus.html"><span class="header-section-number">7</span> Cavalier Causality (TODO)</a></li>
-<li><a class="" href="mind-mod.html"><span class="header-section-number">8</span> Mindless Modeling (TODO)</a></li>
-<li><a class="" href="alt-alg.html"><span class="header-section-number">9</span> Alternative Algorithms (TODO)</a></li>
-<li class="book-part">Workflow</li>
-<li><a class="" href="futi-find.html"><span class="header-section-number">10</span> Futile Findings (TODO)</a></li>
-<li><a class="" href="comp-code.html"><span class="header-section-number">11</span> Complexifying Code (TODO)</a></li>
-<li><a class="" href="reje-repr.html"><span class="header-section-number">12</span> Rejecting Reproducibility (TODO)</a></li>
-<li class="book-part">Appendix</li>
-<li><a class="" href="useful-data-generation-functions-todo.html"><span class="header-section-number">A</span> Useful Data Generation Functions (TODO)</a></li>
-<li><a class="" href="common-probability-distributions-todo.html"><span class="header-section-number">B</span> Common Probability Distributions (TODO)</a></li>
-<li><a class="" href="references.html">References</a></li>
-</ul>
-
-        <div class="book-extra">
-          <p><a id="book-repo" href="https://github.com/emilyriederer/data-disasters">View book source <i class="fab fa-github"></i></a></p>
-        </div>
-      </nav>
+  </nav></header><!-- content --><div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-article">
+<!-- sidebar -->
+  <nav id="quarto-sidebar" class="sidebar collapse sidebar-navigation floating overflow-auto"><div class="pt-lg-2 mt-2 text-left sidebar-header">
+    <div class="sidebar-title mb-0 py-0">
+      <a href="./">Data Disasters</a> 
+        <div class="sidebar-tools-main">
+    <a href="https://github.com/emilyriederer/data-disasters" title="Source Code" class="sidebar-tool px-1"><i class="bi bi-github"></i></a>
+    <a href="" title="Share" id="sidebar-tool-dropdown-0" class="sidebar-tool dropdown-toggle px-1" data-bs-toggle="dropdown" aria-expanded="false"><i class="bi bi-share"></i></a>
+    <ul class="dropdown-menu" aria-labelledby="sidebar-tool-dropdown-0">
+<li>
+          <a class="dropdown-item sidebar-tools-main-item" href="https://twitter.com/intent/tweet?url=%7Curl%7C">
+            <i class="bi bi-bi-twitter pe-1"></i>
+          Twitter
+          </a>
+        </li>
+        <li>
+          <a class="dropdown-item sidebar-tools-main-item" href="https://www.facebook.com/sharer/sharer.php?u=%7Curl%7C">
+            <i class="bi bi-bi-facebook pe-1"></i>
+          Facebook
+          </a>
+        </li>
+        <li>
+          <a class="dropdown-item sidebar-tools-main-item" href="https://www.linkedin.com/sharing/share-offsite/?url=%7Curl%7C">
+            <i class="bi bi-bi-linkedin pe-1"></i>
+          LinkedIn
+          </a>
+        </li>
+    </ul>
 </div>
-  </header><main class="col-sm-12 col-md-9 col-lg-7" id="content"><!--bookdown:title:end--><!--bookdown:title:start--><div id="preface" class="section level1 unnumbered">
-<h1>Preface<a class="anchor" aria-label="anchor" href="#preface"><i class="fas fa-link"></i></a>
-</h1>
-<div class="inline-figure"><img src="figures/cover.png" width="90%" style="display: block; margin: auto;"></div>
-<p>Training in data analysis often begins with Statistics 101 course.
-Students learn the “happy path” of answer data that adheres to specific assumptions (such as “independent and identically distributed with a Normal density”) and answers pre-specified questions (most notably, the infamous null hypothesis significance test).
-Then, they venture out into the world of real-world data analysis where non-experimental data is rarely so well behaved and the questions asked of it are far more nuanced.</p>
-<p>No one course should aim to teach students everything they should know about statistics.
-In fact, one of the best parts about a career in statistics is the responsibility and privilege of life-long learning.
-However, <strong>the flaw of introductory statistics is not that it’s incomplete, but that it’s not obvious how it is <em>not</em> complete</strong>.
-Statistics is a bad salesman.
-There’s no season finale, no cliff hanger, no teasing and hinting and promising more and better to come.
-Student may leave their studies believing that answering more complex data analysis questions is trivially easy (by relying on the one-size-fits-all “panacea” that they learned) or intractably difficult (when the assumptions of that method are not met.)</p>
+    </div>
+      </div>
+      <div class="mt-2 flex-shrink-0 align-items-center">
+        <div class="sidebar-search">
+        <div id="quarto-search" class="" title="Search"></div>
+        </div>
+      </div>
+    <div class="sidebar-menu-container"> 
+    <ul class="list-unstyled mt-1">
+<li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./index.html" class="sidebar-item-text sidebar-link active">Preface</a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./comments.html" class="sidebar-item-text sidebar-link">Comments? Discuss here!</a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./author.html" class="sidebar-item-text sidebar-link">About the Author</a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./intro.html" class="sidebar-item-text sidebar-link"><span class="chapter-number">1</span>&nbsp; <span class="chapter-title">Introduction (TODO)</span></a>
+  </div>
+</li>
+        <li class="sidebar-item sidebar-item-section">
+    <div class="sidebar-item-container"> 
+        <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-1" aria-expanded="true">Data</a>
+      <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-1" aria-expanded="true">
+        <i class="bi bi-chevron-right ms-2"></i>
+      </a>
+    </div>
+    <ul id="quarto-sidebar-section-1" class="collapse list-unstyled sidebar-section depth1 show">
+<li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./data-dall.html" class="sidebar-item-text sidebar-link"><span class="chapter-number">2</span>&nbsp; <span class="chapter-title">Data Dalliances (WIP)</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./comp-quan.html" class="sidebar-item-text sidebar-link"><span class="chapter-number">3</span>&nbsp; <span class="chapter-title">Computational Quandaries (WIP)</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./egre-aggr.html" class="sidebar-item-text sidebar-link"><span class="chapter-number">4</span>&nbsp; <span class="chapter-title">Egregious Aggregations (WIP)</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./vexi-visu.html" class="sidebar-item-text sidebar-link"><span class="chapter-number">5</span>&nbsp; <span class="chapter-title">Vexing Visualization (TODO)</span></a>
+  </div>
+</li>
+    </ul>
+</li>
+        <li class="sidebar-item sidebar-item-section">
+    <div class="sidebar-item-container"> 
+        <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-2" aria-expanded="true">Analysis</a>
+      <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-2" aria-expanded="true">
+        <i class="bi bi-chevron-right ms-2"></i>
+      </a>
+    </div>
+    <ul id="quarto-sidebar-section-2" class="collapse list-unstyled sidebar-section depth1 show">
+<li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./incr-infe.html" class="sidebar-item-text sidebar-link"><span class="chapter-number">6</span>&nbsp; <span class="chapter-title">Incredible Inferences (TODO)</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./cava-caus.html" class="sidebar-item-text sidebar-link"><span class="chapter-number">7</span>&nbsp; <span class="chapter-title">Cavalier Causality (TODO)</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./mind-mode.html" class="sidebar-item-text sidebar-link"><span class="chapter-number">8</span>&nbsp; <span class="chapter-title">Mindless Modeling (TODO)</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./alte-algo.html" class="sidebar-item-text sidebar-link"><span class="chapter-number">9</span>&nbsp; <span class="chapter-title">Alternative Algorithms (TODO)</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./futi-find.html" class="sidebar-item-text sidebar-link"><span class="chapter-number">10</span>&nbsp; <span class="chapter-title">Futile Findings (TODO)</span></a>
+  </div>
+</li>
+    </ul>
+</li>
+        <li class="sidebar-item sidebar-item-section">
+    <div class="sidebar-item-container"> 
+        <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-3" aria-expanded="true">Workflow</a>
+      <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-3" aria-expanded="true">
+        <i class="bi bi-chevron-right ms-2"></i>
+      </a>
+    </div>
+    <ul id="quarto-sidebar-section-3" class="collapse list-unstyled sidebar-section depth1 show">
+<li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./comp-code.html" class="sidebar-item-text sidebar-link"><span class="chapter-number">11</span>&nbsp; <span class="chapter-title">Complexifying Code (TODO)</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./reje-repr.html" class="sidebar-item-text sidebar-link"><span class="chapter-number">12</span>&nbsp; <span class="chapter-title">Rejecting Reproducibility (TODO)</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./mour-mist.html" class="sidebar-item-text sidebar-link"><span class="chapter-number">13</span>&nbsp; <span class="chapter-title">Mourning Mistakes (TODO)</span></a>
+  </div>
+</li>
+    </ul>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./references.html" class="sidebar-item-text sidebar-link"><span class="chapter-number">14</span>&nbsp; <span class="chapter-title">References</span></a>
+  </div>
+</li>
+        <li class="sidebar-item sidebar-item-section">
+    <div class="sidebar-item-container"> 
+        <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-4" aria-expanded="true">Appendices</a>
+      <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-4" aria-expanded="true">
+        <i class="bi bi-chevron-right ms-2"></i>
+      </a>
+    </div>
+    <ul id="quarto-sidebar-section-4" class="collapse list-unstyled sidebar-section depth1 show">
+<li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./more.html" class="sidebar-item-text sidebar-link">(APPENDIX) Appendix</a>
+  </div>
+</li>
+    </ul>
+</li>
+    </ul>
+</div>
+</nav><!-- margin-sidebar --><div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
+        <nav id="TOC" role="doc-toc"><h2 id="toc-title">Table of contents</h2>
+<ul>
+<li>
+<a href="#preface" class="nav-link active" data-scroll-target="#preface">Preface</a>
+<ul class="collapse">
+<li><a href="#main-topics" class="nav-link" data-scroll-target="#main-topics">Main Topics</a></li>
+<li><a href="#common-themes" class="nav-link" data-scroll-target="#common-themes">Common Themes</a></li>
+</ul>
+</li>
+</ul><div class="toc-actions"><div><i class="bi bi-github"></i></div><div class="action-links"><p><a href="https://github.com/emilyriederer/data-disasters/edit/main/index.qmd" class="toc-action">Edit this page</a></p></div></div></nav>
+    </div>
+<!-- main -->
+<main class="content" id="quarto-document-content"><header id="title-block-header" class="quarto-title-block default">
+
+<div class="quarto-title"><h1 class="title d-none d-lg-block display-7">Data Disasters</h1><div class="quarto-description"><p>Navigating the complexities of real-world data analysis</p></div></div><div class="quarto-title-meta"><div><div class="quarto-title-meta-heading">Author</div><div class="quarto-title-meta-contents"><div class="quarto-title-authors"><div><div>
+<p>Emily Riederer</p>
+</div></div></div></div></div></div></header>
+<section id="preface" class="level1 unnumbered"><h1 class="unnumbered">Preface</h1><p><img src="figures/cover.png" title="Data Disasters" class="quarto-cover-image img-fluid"></p>
+<p>Training in data analysis often begins with Statistics 101 course. Students learn the “happy path” of answer data that adheres to specific assumptions (such as “independent and identically distributed with a Normal density”) and answers pre-specified questions (most notably, the infamous null hypothesis significance test). Then, they venture out into the world of real-world data analysis where non-experimental data is rarely so well behaved and the questions asked of it are far more nuanced.</p>
+<p>No one course should aim to teach students everything they should know about statistics. In fact, one of the best parts about a career in statistics is the responsibility and privilege of life-long learning. However, <strong>the flaw of introductory statistics is not that it’s incomplete, but that it’s not obvious how it is <em>not</em> complete</strong>. Statistics is a bad salesman. There’s no season finale, no cliff hanger, no teasing and hinting and promising more and better to come. Student may leave their studies believing that answering more complex data analysis questions is trivially easy (by relying on the one-size-fits-all “panacea” that they learned) or intractably difficult (when the assumptions of that method are not met.)</p>
 <p>This book attempts to add more color to all the dimensions of data analysis while showcasing the nuances throughout the true <em>life cycle</em> of data analysis using two strategies.</p>
-<p>First, it attempts to highlight common pitfalls in all the parts of data analysis: from data management and computation to visualization, interpretation, and modeling and even to communication and collaboration.
-Data analysis is fundamentally a <em>creative</em> task, so there are rarely canonical one-size-fits-all solutions.
-Curiously, however, there are plenty of canonical <em>issues</em> even if they require different solutions in different settings.
-Thus, the goal of this book is to highlight common <em>data disasters</em> and, in doing so, help students cultivate an intuition for how to detect common problems before they occur in an important analysis.</p>
-<p>Second, while exploring these <em>data disasters</em>, we humbly put forth a (woefully incomplete!) literature review of more advanced methods from statistics and other quantitative disciplines (e.g. economics, epidemiology), to help learners build a “mental index” of terms to search and techniques to study should they encounter a relevant problem.</p>
+<p>First, it attempts to highlight common pitfalls in all the parts of data analysis: from data management and computation to visualization, interpretation, and modeling and even to communication and collaboration. Data analysis is fundamentally a <em>creative</em> task, so there are rarely canonical one-size-fits-all solutions. Curiously, however, there are plenty of canonical <em>issues</em> even if they require different solutions in different settings. Thus, the goal of this book is to highlight common <em>data disasters</em> and, in doing so, help students cultivate an intuition for how to detect common problems before they occur in an important analysis.</p>
+<p>Second, while exploring these <em>data disasters</em>, we humbly put forth a (woefully incomplete!) literature review of more advanced methods from statistics and other quantitative disciplines (e.g.&nbsp;economics, epidemiology), to help learners build a “mental index” of terms to search and techniques to study should they encounter a relevant problem.</p>
 <div class="rmdwarning">
 <p>The content in this book is currently being developed and is all subject to change.</p>
 <p>Chapters and sections tagged as <strong>WIP</strong> (work-in-progress) have substantial content and are suitable for reading.</p>
 <p>Chapters and sections tagged as <strong>TODO</strong> have minimal outlines or code examples (if that).</p>
 </div>
-<div id="main-topics" class="section level2">
-<h2>
-<span class="header-section-number">0.1</span> Main Topics<a class="anchor" aria-label="anchor" href="#main-topics"><i class="fas fa-link"></i></a>
-</h2>
-<p>In particular, we will aim to help you avoid eleven types of data disasters:</p>
+<section id="main-topics" class="level2"><h2 class="anchored" data-anchor-id="main-topics">Main Topics</h2>
+<p>In particular, we will aim to help you avoid twelve types of data disasters:</p>
 <ul>
 <li>
 <strong>Data Dalliances</strong>: Misinterpreting or misuing data based on how it was collected or what it represents</li>
@@ -128,14 +294,10 @@ Thus, the goal of this book is to highlight common <em>data disasters</em> and, 
 <strong>Complexifying Code</strong>: Making projects unwieldy or more difficult to understand than necessary</li>
 <li>
 <strong>Rejecting Reproducibility</strong>: Working inefficiently instead of an efficient, reproducible, and sharable workflow</li>
-</ul>
-</div>
-<div id="common-themes" class="section level2">
-<h2>
-<span class="header-section-number">0.2</span> Common Themes<a class="anchor" aria-label="anchor" href="#common-themes"><i class="fas fa-link"></i></a>
-</h2>
-<p>In each chapter, we will see numerous examples of each disaster and consider strategies to help us mitigate.
-Along the way, we’ll emphasize:</p>
+<li>
+<strong>Mourning Mistakes</strong>: Letting the perfect be the enemy of the good</li>
+</ul></section><section id="common-themes" class="level2"><h2 class="anchored" data-anchor-id="common-themes">Common Themes</h2>
+<p>In each chapter, we will see numerous examples of each disaster and consider strategies to help us mitigate. Along the way, we’ll emphasize:</p>
 <ul>
 <li>The importance of <strong>domain knowledge</strong> and the <strong>data-generating process</strong> to decide what it is you want to do</li>
 <li>The utility of <strong>simulation</strong> as a tool to explore if, in fact, you are doing it</li>
@@ -149,13 +311,19 @@ Along the way, we’ll emphasize:</p>
 </li>
 <li>Assumptions of Normality, or more broadly symmetry, are often in appropriate in wonky, <strong>highly skewed</strong> world</li>
 </ul>
+<div class="callout-note callout callout-style-default callout-captioned">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
 </div>
-<div id="acknowledgements" class="section level2">
-<h2>
-<span class="header-section-number">0.3</span> Acknowledgements<a class="anchor" aria-label="anchor" href="#acknowledgements"><i class="fas fa-link"></i></a>
-</h2>
-<p>This book is built by the excelent <strong>bookdown</strong> R package with styling tips heavily inspired by the <a href="https://github.com/tidymodels/TMwR">Tidy Maching Leaning with R</a> repo.</p>
-<p>Sidebar icons used throughout the book are credited to <a href="https://www.flaticon.com/authors/vectors-market">Vector Markets</a> (lightbulb) and <a href="https://www.freepik.com%22">Freepik</a> (notepad and caution sign) on <a href="https://www.flaticon.com/">www.flaticon.com</a>. All other images are my own and made with either <a href="https://excalidraw.com/">Excalidraw</a> or <a href="https://inkscape.org/">Inkscape</a>.</p>
+<div class="callout-caption-container flex-fill">
+Note
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>Note that there are five types of callouts, including: <code>note</code>, <code>tip</code>, <code>warning</code>, <code>caution</code>, and <code>important</code>.</p>
+</div>
+</div>
 <!--
 ## Assumed knowledge {-}
 
@@ -163,125 +331,134 @@ This book was written with the goal of requiring minimal prerequisite knowledge.
 
 Without exception, this book relates to the process of analyzing structured, tabular data (e.g. rows as observations, columns as variables). However, this book does not precisely aspire to teach statistics or data analysis but rather to fill in the gap between how these subjects are typically taught and how problems present themselves in real research and industry. As such, past and concurrent experience working with any type of structured data with any computational tool (e.g. spreadsheet, SAS, Stata, SQL, R, etc.) will help readers relate to the material.
 
-Most of this book's contents are illustrated with R code, and additional references are made to using R packages to solve basic problems. For this reason, some background in R may improve general comprehension of and interest in the material. However, programming is not a key focus of the book (apart from Chapter \@ref(comp-quan)) and the amount of syntax used should be easily readable without much hands-on scripting experience. Furthermore, occasional SQL and python examples are also included where relevant to appeal to a broader audience and to celebrate the use of a wide range of analysis tools.
+Most of this book's contents are illustrated with R code, and additional references are made to using R packages to solve basic problems. For this reason, some background in R may improve general comprehension of and interest in the material. However, programming is not a key focus of the book (apart from Chapter -@sec-comp-quan) and the amount of syntax used should be easily readable without much hands-on scripting experience. Furthermore, occasional SQL and python examples are also included where relevant to appeal to a broader audience and to celebrate the use of a wide range of analysis tools.
 
-Finally, since this book focuses mostly on basic concepts like wrangling, summary statistics, and visualization, little to no statistics background is required until chapters \@ref(cav-caus) and \@ref(mind-mod) where more advanced methods are discussed. For Chapter \@ref(mind-mod), in particular, a basic understanding of statistical modeling (e.g. regression and clustering) is assumed. The level of depth of the classic text ISLR [@james_witten_hastie_tibshirani_2017] (TODO: add citation) would be far more than sufficient.
+Finally, since this book focuses mostly on basic concepts like wrangling, summary statistics, and visualization, little to no statistics background is required until Chapter -@sec-cava-caus and Chapter -@sec-mind-mode where more advanced methods are discussed. For Chapter -@sec-mind-mode, in particular, a basic understanding of statistical modeling (e.g. regression and clustering) is assumed. The level of depth of the classic text ISLR [@james_witten_hastie_tibshirani_2017] (TODO: add citation) would be far more than sufficient.
 
 ## Software information and conventions {-}
 
 I used the **knitr** package [@xie2015] and the **bookdown** package [@R-bookdown] to compile my book. My R session information is shown below:
 
+::: {.cell}
 
-```r
+```{.r .cell-code}
 xfun::session_info()
 ```
 
+::: {.cell-output-stdout}
 ```
-## R version 4.0.2 (2020-06-22)
-## Platform: x86_64-w64-mingw32/x64 (64-bit)
-## Running under: Windows 10 x64 (build 19042)
-## 
-## Locale:
-##   LC_COLLATE=English_United States.1252 
-##   LC_CTYPE=English_United States.1252   
-##   LC_MONETARY=English_United States.1252
-##   LC_NUMERIC=C                          
-##   LC_TIME=English_United States.1252    
-## 
-## Package version:
-##   base64enc_0.1.3   bookdown_0.22.17 
-##   brio_1.0.0        bslib_0.2.5.1    
-##   cli_2.5.0         compiler_4.0.2   
-##   crayon_1.3.4      digest_0.6.27    
-##   downlit_0.2.1     ellipsis_0.3.1   
-##   evaluate_0.14     fansi_0.4.1      
-##   fs_1.5.0          glue_1.4.2       
-##   graphics_4.0.2    grDevices_4.0.2  
-##   highr_0.8         htmltools_0.5.1.1
-##   jquerylib_0.1.4   jsonlite_1.7.0   
-##   knitr_1.33.8      lifecycle_0.2.0  
-##   magrittr_2.0.1    markdown_1.1     
-##   methods_4.0.2     mime_0.10        
-##   pillar_1.4.6      pkgconfig_2.0.3  
-##   R6_2.5.0          rappdirs_0.3.1   
-##   rlang_0.4.10      rmarkdown_2.8    
-##   rstudioapi_0.13   sass_0.4.0       
-##   stats_4.0.2       stringi_1.4.6    
-##   stringr_1.4.0     tibble_3.0.4     
-##   tinytex_0.32      tools_4.0.2      
-##   utf8_1.1.4        utils_4.0.2      
-##   vctrs_0.3.2       xfun_0.23        
-##   xml2_1.3.2        yaml_2.2.1
+R version 4.0.2 (2020-06-22)
+Platform: x86_64-w64-mingw32/x64 (64-bit)
+Running under: Windows 10 x64 (build 19044)
+
+Locale:
+  LC_COLLATE=English_United States.1252 
+  LC_CTYPE=English_United States.1252   
+  LC_MONETARY=English_United States.1252
+  LC_NUMERIC=C                          
+  LC_TIME=English_United States.1252    
+
+Package version:
+  base64enc_0.1.3   compiler_4.0.2    digest_0.6.29     evaluate_0.14    
+  glue_1.6.0        graphics_4.0.2    grDevices_4.0.2   highr_0.8        
+  htmltools_0.5.1.1 htmlwidgets_1.5.1 jquerylib_0.1.4   jsonlite_1.7.0   
+  knitr_1.33.8      magrittr_2.0.1    markdown_1.1      methods_4.0.2    
+  mime_0.10         rlang_0.4.12      rmarkdown_2.11    stats_4.0.2      
+  stringi_1.7.6     stringr_1.4.0     tinytex_0.32      tools_4.0.2      
+  utils_4.0.2       xfun_0.23         yaml_2.2.1       
 ```
+:::
+:::
 
 Package names are in bold text (e.g., **rmarkdown**), and inline code and filenames are formatted in a typewriter font (e.g., `knitr::knit('foo.Rmd')`). Function names are followed by parentheses (e.g., `bookdown::render_book()`).
 -->
 
-</div>
-</div>
-  <div class="chapter-nav">
-<div class="empty"></div>
-<div class="next"><a href="about-the-author.html">About the Author</a></div>
-</div></main><div class="col-md-3 col-lg-2 d-none d-md-block sidebar sidebar-chapter">
-    <nav id="toc" data-toggle="toc" aria-label="On this page"><h2>On this page</h2>
-      <ul class="nav navbar-nav">
-<li><a class="nav-link" href="#preface">Preface</a></li>
-<li><a class="nav-link" href="#main-topics"><span class="header-section-number">0.1</span> Main Topics</a></li>
-<li><a class="nav-link" href="#common-themes"><span class="header-section-number">0.2</span> Common Themes</a></li>
-<li><a class="nav-link" href="#acknowledgements"><span class="header-section-number">0.3</span> Acknowledgements</a></li>
-</ul>
 
-      <div class="book-extra">
-        <ul class="list-unstyled">
-<li><a id="book-source" href="https://github.com/emilyriederer/data-disasters/blob/master/index.Rmd">View source <i class="fab fa-github"></i></a></li>
-          <li><a id="book-edit" href="https://github.com/emilyriederer/data-disasters/edit/master/index.Rmd">Edit this page <i class="fab fa-github"></i></a></li>
-        </ul>
-</div>
-    </nav>
-</div>
 
-</div>
-</div> <!-- .container -->
-
-<footer class="bg-primary text-light mt-5"><div class="container"><div class="row">
-
-  <div class="col-12 col-md-6 mt-3">
-    <p>"<strong>Data Disasters</strong>" was written by Emily Riederer. It was last built on 2021-08-31.</p>
-  </div>
-
-  <div class="col-12 col-md-6 mt-3">
-    <p>This book was built by the <a class="text-light" href="https://bookdown.org">bookdown</a> R package.</p>
-  </div>
-
-</div></div>
-</footer><!-- dynamically load mathjax for compatibility with self-contained --><script>
-  (function () {
-    var script = document.createElement("script");
-    script.type = "text/javascript";
-    var src = "true";
-    if (src === "" || src === "true") src = "https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-MML-AM_CHTML";
-    if (location.protocol !== "file:")
-      if (/^https?:/.test(src))
-        src = src.replace(/^https?:/, '');
-    script.src = src;
-    document.getElementsByTagName("head")[0].appendChild(script);
-  })();
-</script><script type="text/x-mathjax-config">const popovers = document.querySelectorAll('a.footnote-ref[data-toggle="popover"]');
-for (let popover of popovers) {
-  const div = document.createElement('div');
-  div.setAttribute('style', 'position: absolute; top: 0, left:0; width:0, height:0, overflow: hidden; visibility: hidden;');
-  div.innerHTML = popover.getAttribute('data-content');
-
-  var has_math = div.querySelector("span.math");
-  if (has_math) {
-    document.body.appendChild(div);
-    MathJax.Hub.Queue(["Typeset", MathJax.Hub, div]);
-    MathJax.Hub.Queue(function() {
-      popover.setAttribute('data-content', div.innerHTML);
-      document.body.removeChild(div);
-    })
+</section></section></main><!-- /main --><script type="application/javascript">
+window.document.addEventListener("DOMContentLoaded", function (event) {
+  const icon = "";
+  const anchorJS = new window.AnchorJS();
+  anchorJS.options = {
+    placement: 'right',
+    icon: icon
+  };
+  anchorJS.add('.anchored');
+  const clipboard = new window.ClipboardJS('.code-copy-button', {
+    target: function(trigger) {
+      return trigger.previousElementSibling;
+    }
+  });
+  clipboard.on('success', function(e) {
+    // button target
+    const button = e.trigger;
+    // don't keep focus
+    button.blur();
+    // flash "checked"
+    button.classList.add('code-copy-button-checked');
+    setTimeout(function() {
+      button.classList.remove('code-copy-button-checked');
+    }, 1000);
+    // clear code selection
+    e.clearSelection();
+  });
+  function tippyHover(el, contentFn) {
+    const config = {
+      allowHTML: true,
+      content: contentFn,
+      maxWidth: 500,
+      delay: 100,
+      arrow: false,
+      appendTo: function(el) {
+          return el.parentElement;
+      },
+      interactive: true,
+      interactiveBorder: 10,
+      theme: 'quarto',
+      placement: 'bottom-start'
+    };
+    window.tippy(el, config); 
   }
-}
-</script>
-</body>
-</html>
+  const noterefs = window.document.querySelectorAll('a[role="doc-noteref"]');
+  for (var i=0; i<noterefs.length; i++) {
+    const ref = noterefs[i];
+    tippyHover(ref, function() {
+      let href = ref.getAttribute('href');
+      try { href = new URL(href).hash; } catch {}
+      const id = href.replace(/^#\/?/, "");
+      const note = window.document.getElementById(id);
+      return note.innerHTML;
+    });
+  }
+  var bibliorefs = window.document.querySelectorAll('a[role="doc-biblioref"]');
+  for (var i=0; i<bibliorefs.length; i++) {
+    const ref = bibliorefs[i];
+    const cites = ref.parentNode.getAttribute('data-cites').split(' ');
+    tippyHover(ref, function() {
+      var popup = window.document.createElement('div');
+      cites.forEach(function(cite) {
+        var citeDiv = window.document.createElement('div');
+        citeDiv.classList.add('hanging-indent');
+        citeDiv.classList.add('csl-entry');
+        var biblioDiv = window.document.getElementById('ref-' + cite);
+        if (biblioDiv) {
+          citeDiv.innerHTML = biblioDiv.innerHTML;
+        }
+        popup.appendChild(citeDiv);
+      });
+      return popup.innerHTML;
+    });
+  }
+});
+</script><nav class="page-navigation"><div class="nav-page nav-page-previous">
+  </div>
+  <div class="nav-page nav-page-next">
+      <a href="./comments.html" class="pagination-link">
+        <span class="nav-page-text">Comments? Discuss here!</span> <i class="bi bi-arrow-right-short"></i>
+      </a>
+  </div>
+</nav>
+</div> <!-- /content -->
+
+
+</body></html>
