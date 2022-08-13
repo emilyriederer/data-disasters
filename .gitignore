@@ -3,5 +3,6 @@
 .RData
 .Ruserdata
 ideas.txt
-
+*.tex
+*.pdf
 /.quarto/

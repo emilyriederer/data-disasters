@@ -399,13 +399,13 @@
 <main class="content" id="quarto-document-content"><header id="title-block-header" class="quarto-title-block default">
 <div class="quarto-title"><h1 class="title display-7"><span id="sec-comp-quan" class="quarto-section-identifier d-none d-lg-block"><span class="chapter-number">3</span>&nbsp; <span class="chapter-title">Computational Quandaries (WIP)</span></span></h1><div class="quarto-description"><p>Navigating the complexities of real-world data analysis</p></div></div></header><p>After gaining confidence in one’s data (or, at least, making peace with it), the next step in a data analysis is often to start cleaning and exploring that data with summary statistics, plots, and models. Generally, this requires a computational tool like SQL, R, or python.</p>
 <p>The process of computation itself can be fraught with challenges. Computational tools are extremely literal; they are excellent at doing <em>precisely what they were told to do</em> but not often what analysts might have <em>meant</em> or <em>wished</em> that they would do. Additionally, the moment an analyst begins to use a tool, the conversation is no longer between them and the data; suddenly, the mental model of how every single tool developer thought you might want to do analysis affects the tools’ behaviors and the analysts’ results.</p>
-<p>In this chapter, we will explore common ways that tools may do something technically correct, reasonable, and as-intended but very much not what analysts may expect. Along the way, we will see how computational methods interact with the data encoding choices we discussed in <a href="#sec-data-dall">Section&nbsp;<span class="quarto-unresolved-ref">sec-data-dall</span></a> (Data Dalliances).</p>
+<p>In this chapter, we will explore common ways that tools may do something technically correct, reasonable, and as-intended but very much not what analysts may expect. Along the way, we will see how computational methods interact with the data encoding choices we discussed in <a href="data-dall.html">Section&nbsp;<span>2</span></a> (Data Dalliances).</p>
 <section id="preliminaries---data-computation" class="level2" data-number="3.1"><h2 data-number="3.1" class="anchored" data-anchor-id="preliminaries---data-computation">
 <span class="header-section-number">3.1</span> Preliminaries - Data Computation</h2>
 <p>Before we think about specific tools or failure modes, we can first consider the common types of operations that the analytical tools allow us to do with our data.</p>
 <section id="single-table-operations" class="level3" data-number="3.1.1"><h3 data-number="3.1.1" class="anchored" data-anchor-id="single-table-operations">
 <span class="header-section-number">3.1.1</span> Single Table Operations</h3>
-<p>Given a single data table, we may wish to do operations (illustrated in <a href="#fig-filt-aggr-tran">Figure&nbsp;<span class="quarto-unresolved-ref">fig-filt-aggr-tran</span></a>) such as:</p>
+<p>Given a single data table, we may wish to do operations (illustrated in <a href="#fig-filt-aggr-tran">Figure&nbsp;<span>3.1</span></a>) such as:</p>
 <ul>
 <li>
 <strong>Filtering</strong>: Extracting a subset of a dataset for analysis based on certain inclusion criteria for each record</li>
@@ -447,10 +447,10 @@
 <p>While these operations may seem simple, their behavior within certain tools and when employed for certain data types may sometimes lead to unintuitive or misleading results.</p>
 </section></section><section id="null-values" class="level2" data-number="3.2"><h2 data-number="3.2" class="anchored" data-anchor-id="null-values">
 <span class="header-section-number">3.2</span> Null Values</h2>
-<p>In <a href="#sec-data-dall">Section&nbsp;<span class="quarto-unresolved-ref">sec-data-dall</span></a> (Data Dalliances), we discuss how null values may represent many different concepts and be encoded in multiple different ways. In addition to those semantic challenges, various representations of null values may cause different computational problems.<a href="#fn1" class="footnote-ref" id="fnref1" role="doc-noteref"><sup>1</sup></a> In this section, we will explore these potential failure modes.</p>
+<p>In <a href="data-dall.html">Section&nbsp;<span>2</span></a> (Data Dalliances), we discuss how null values may represent many different concepts and be encoded in multiple different ways. In addition to those semantic challenges, various representations of null values may cause different computational problems.<a href="#fn1" class="footnote-ref" id="fnref1" role="doc-noteref"><sup>1</sup></a> In this section, we will explore these potential failure modes.</p>
 <section id="types-of-null-values" class="level3" data-number="3.2.1"><h3 data-number="3.2.1" class="anchored" data-anchor-id="types-of-null-values">
 <span class="header-section-number">3.2.1</span> Types of Null Values</h3>
-<p>Not only can null values represent many different things (as explored in <a href="#sec-data-dall">Section&nbsp;<span class="quarto-unresolved-ref">sec-data-dall</span></a>), they also may be represented in many different ways. Understanding how nulls are encoded in one’s dataset is a critical prerequisite to attempting any of the computations described in the subsequent sections.</p>
+<p>Not only can null values represent many different things (as explored in <a href="data-dall.html">Section&nbsp;<span>2</span></a>), they also may be represented in many different ways. Understanding how nulls are encoded in one’s dataset is a critical prerequisite to attempting any of the computations described in the subsequent sections.</p>
 <section id="language-representations" class="level4" data-number="3.2.1.1"><h4 data-number="3.2.1.1" class="anchored" data-anchor-id="language-representations">
 <span class="header-section-number">3.2.1.1</span> Language representations</h4>
 <p>Different programming languages each offer their own versions of null values – and sometimes more than one. For example, the R language includes <code>NA</code>, typed <code>NA</code>s (e.g.&nbsp;<code>NA_integer_</code>, <code>NA_character_</code>), <code>NaN</code>, and <code>NULL</code>; meanwhile, core python has <code>None</code> and the <code>numpy</code> module provides a <code>nan</code>.</p>
@@ -2015,7 +2015,7 @@ False
 </section><section id="strategies-wip" class="level2" data-number="3.12"><h2 data-number="3.12" class="anchored" data-anchor-id="strategies-wip">
 <span class="header-section-number">3.12</span> Strategies (WIP)</h2>
 <p>Paragraph 1 TODO</p>
-<p>Some computational quandaries are inherent to our tools themselves, but often they are a function both of the tools and the ways we chose to use them. More strategies related to writing robust and resilient code will be discussed in <a href="#sec-comp-code">Section&nbsp;<span class="quarto-unresolved-ref">sec-comp-code</span></a> (Complexify Code).</p>
+<p>Some computational quandaries are inherent to our tools themselves, but often they are a function both of the tools and the ways we chose to use them. More strategies related to writing robust and resilient code will be discussed in <a href="comp-code.html">Section&nbsp;<span>11</span></a> (Complexify Code).</p>
 <section id="understand-the-intent" class="level3" data-number="3.12.1"><h3 data-number="3.12.1" class="anchored" data-anchor-id="understand-the-intent">
 <span class="header-section-number">3.12.1</span> Understand the intent</h3>
 <ul>
@@ -2962,7 +2962,7 @@ t_for
 
 ::: {.cell-output-stdout}
 ```
-Time difference of 0.1620021 secs
+Time difference of 0.1450021 secs
 ```
 :::
 
@@ -2972,7 +2972,7 @@ t_vec
 
 ::: {.cell-output-stdout}
 ```
-Time difference of 0.107996 secs
+Time difference of 0.06200004 secs
 ```
 :::
 
@@ -2982,7 +2982,7 @@ as.numeric(t_for)/as.numeric(t_vec)
 
 ::: {.cell-output-stdout}
 ```
-[1] 1.500075
+[1] 2.338743
 ```
 :::
 :::
@@ -3013,7 +3013,7 @@ t_for
 
 ::: {.cell-output-stdout}
 ```
-0.3210012912750244
+0.3599989414215088
 ```
 :::
 
@@ -3023,7 +3023,7 @@ t_vec
 
 ::: {.cell-output-stdout}
 ```
-0.027399063110351562
+0.026314496994018555
 ```
 :::
 
@@ -3033,7 +3033,7 @@ t_for / t_vec
 
 ::: {.cell-output-stdout}
 ```
-11.715776192133658
+13.68063168767158
 ```
 :::
 :::
@@ -3042,14 +3042,14 @@ t_for / t_vec
 
 
 
-<div id="refs" class="references csl-bib-body hanging-indent" role="doc-bibliography">
+<div id="refs" class="references csl-bib-body hanging-indent" role="doc-bibliography" style="display: none">
 <div id="ref-barrett" class="csl-entry" role="doc-biblioentry">
 Barrett, Brian. 2019. <span>“How a ’NULL’ License Plate Landed One Hacker in Ticket Hell.”</span> <em>WIRED</em>, August. <a href="https://www.wired.com/story/null-license-plate-landed-one-hacker-ticket-hell/">https://www.wired.com/story/null-license-plate-landed-one-hacker-ticket-hell/</a>.
 </div>
 </div>
 </section><section class="footnotes footnotes-end-of-document" role="doc-endnotes"><hr>
 <ol>
-<li id="fn1" role="doc-endnote"><p>This problem is not isolated to data analysis tools. For an entertaining example, see the 2019 WIRED article “How a ‘NULL’ License Plate Landed One Hacker in Ticket Hell” <span class="citation" data-cites="barrett">(<a href="#ref-barrett" role="doc-biblioref">Barrett 2019</a>)</span> which a real-world software system producing unintended and undesirable behavior when asked to deal with a word <code>'NULL'</code>.<a href="#fnref1" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
+<li id="fn1" role="doc-endnote"><p>This problem is not isolated to data analysis tools. For an entertaining example, see the 2019 WIRED article “How a ‘NULL’ License Plate Landed One Hacker in Ticket Hell” <span class="citation" data-cites="barrett">(<a href="references.html#ref-barrett" role="doc-biblioref">Barrett 2019</a>)</span> which a real-world software system producing unintended and undesirable behavior when asked to deal with a word <code>'NULL'</code>.<a href="#fnref1" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
 <li id="fn2" role="doc-endnote"><p>You’ll notice that the code chunk below contains four commands but only three boolean outputs. Why is that? <code>is.na(NULL)</code> returns <code>logical(0)</code>, a zero-length value. It’s yet another form of missingness!<a href="#fnref2" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
 <li id="fn3" role="doc-endnote"><p>From calculus, we know 1/Inf approaches 0, but Inf/Inf is undefined.<a href="#fnref3" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
 <li id="fn4" role="doc-endnote"><p>This documentation can be obtained in R by typing <code><a href="https://rdrr.io/r/base/mean.html">?mean</a></code> in the console.<a href="#fnref4" class="footnote-back" role="doc-backlink">↩︎</a></p></li>

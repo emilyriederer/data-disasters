@@ -375,7 +375,7 @@
 <p>In this chapter, we will explore different ways that univariate and multivariate aggregations can be naive or uninformative.</p>
 <section id="motivating-example-similar-in-summary" class="level2" data-number="4.1"><h2 data-number="4.1" class="anchored" data-anchor-id="motivating-example-similar-in-summary">
 <span class="header-section-number">4.1</span> Motivating Example: Similar in Summary</h2>
-<p>To begin, we will look at a whimsical toy example. This may feel trite or manufactured, but the subsequent sections will aim to convince you that these issues are not just esoteric. Consider the “datasaurus dozen” dataset <span class="citation" data-cites="datasaurus">(<a href="#ref-datasaurus" role="doc-biblioref">Matejka and Fitzmaurice 2017</a>)</span> which is available within the <code>datasauRus</code> R package <a href="#r-datasaurus">R.&nbsp;<span class="quarto-unresolved-ref">r-datasaurus</span></a>.</p>
+<p>To begin, we will look at a whimsical toy example. This may feel trite or manufactured, but the subsequent sections will aim to convince you that these issues are not just esoteric. Consider the “datasaurus dozen” dataset <span class="citation" data-cites="datasaurus">(<a href="references.html#ref-datasaurus" role="doc-biblioref">Matejka and Fitzmaurice 2017</a>)</span> which is available within the <code>datasauRus</code> R package <span class="quarto-unresolved-ref">?r-datasaurus</span>.</p>
 <div class="cell" data-eror="false">
 <div class="sourceCode" id="cb1"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://github.com/lockedata/datasauRus">datasauRus</a></span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
@@ -515,7 +515,7 @@
 </table>
 </div>
 </div>
-<p>However, as shown in <a href="#fig-dino">Figure&nbsp;<span class="quarto-unresolved-ref">fig-dino</span></a>, when we visualize this data, we find that the 12 datasets reveal remarkably different patterns.</p>
+<p>However, as shown in <a href="#fig-dino">Figure&nbsp;<span>4.1</span></a>, when we visualize this data, we find that the 12 datasets reveal remarkably different patterns.</p>
 <div class="cell">
 <div class="cell-output-stderr">
 <pre><code>Warning: package 'ggplot2' was built under R version 4.0.5</code></pre>
@@ -528,7 +528,7 @@
 </div>
 </div>
 </div>
-<p>This dataset is a more elaborate version of Anscombe’s Quartet, a well-known set of four datasets which exhibit similar properties. Examining a simiilar plot for Anscombe’s Quartet (with data from the <code>anscombe</code> dataset which ships in R’s <code>datasets</code> package), we can get better intuition for how the phenomenon is manufactured. <a href="#fig-anscombe">Figure&nbsp;<span class="quarto-unresolved-ref">fig-anscombe</span></a> shows as similar plot to <a href="#fig-dino">Figure&nbsp;<span class="quarto-unresolved-ref">fig-dino</span></a>. Comparing datasets 1 and 3, for example, we can see a trade-off between a semi-strong trend with a consistent-seeming amount of noise and an nearly perfect linear trend with a single outlier.</p>
+<p>This dataset is a more elaborate version of Anscombe’s Quartet, a well-known set of four datasets which exhibit similar properties. Examining a simiilar plot for Anscombe’s Quartet (with data from the <code>anscombe</code> dataset which ships in R’s <code>datasets</code> package), we can get better intuition for how the phenomenon is manufactured. <a href="#fig-anscombe">Figure&nbsp;<span>4.2</span></a> shows as similar plot to <a href="#fig-dino">Figure&nbsp;<span>4.1</span></a>. Comparing datasets 1 and 3, for example, we can see a trade-off between a semi-strong trend with a consistent-seeming amount of noise and an nearly perfect linear trend with a single outlier.</p>
 <div class="cell">
 <div class="cell-output-stderr">
 <pre><code>Warning: package 'tidyr' was built under R version 4.0.5</code></pre>
@@ -554,7 +554,7 @@ Please use `cols = c(x, y)`</code></pre>
 </div>
 </div>
 </div>
-<p><a href="#fig-anscombe">Figure&nbsp;<span class="quarto-unresolved-ref">fig-anscombe</span></a> also plots the simple linear regression line for each dataset. Similar to the summary statistics, these are also identical. We know this because the regression coefficient for a simple linear regression is given by <code>cov(x,y)</code>/<code>sd(x)sd(y)</code>. You’ll notice I do not write “we can see that…” because, in fact, we can only <em>see</em> similarity not equality. The message of this section may seem to be “don’t summarize your data without plotting it”, but conducting “visual analytics” without looking at the numbers is also problematic. We’ll explore the latter topic more in Chapter -<a href="#sec-vexi-visu">Section&nbsp;<span class="quarto-unresolved-ref">sec-vexi-visu</span></a> (Vexing Visualiztions).</p>
+<p><a href="#fig-anscombe">Figure&nbsp;<span>4.2</span></a> also plots the simple linear regression line for each dataset. Similar to the summary statistics, these are also identical. We know this because the regression coefficient for a simple linear regression is given by <code>cov(x,y)</code>/<code>sd(x)sd(y)</code>. You’ll notice I do not write “we can see that…” because, in fact, we can only <em>see</em> similarity not equality. The message of this section may seem to be “don’t summarize your data without plotting it”, but conducting “visual analytics” without looking at the numbers is also problematic. We’ll explore the latter topic more in Chapter -<a href="vexi-visu.html">Section&nbsp;<span>5</span></a> (Vexing Visualiztions).</p>
 <p>While there are clearly a contrived example (and, if you so chose to check out the “Datasaurus Dozen” paper, a very cleverly contrived example!), its also a cautionary tale. Summary statistics are not just insufficient when they focus on central tendency (e.g.&nbsp;mean) instead of spread. In this example, even an examination of variation and covariation led to an overly simplistic view of the underlying data.</p>
 </section><section id="averages-wip" class="level2" data-number="4.2"><h2 data-number="4.2" class="anchored" data-anchor-id="averages-wip">
 <span class="header-section-number">4.2</span> Averages (WIP)</h2>
@@ -598,7 +598,7 @@ Please use `cols = c(x, y)`</code></pre>
 <span>    act <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/stats/Normal.html">rnorm</a></span><span class="op">(</span><span class="va">n1</span>, <span class="fl">100</span>, <span class="fl">10</span><span class="op">)</span>, <span class="fu"><a href="https://rdrr.io/r/stats/Normal.html">rnorm</a></span><span class="op">(</span><span class="va">n2</span>, <span class="fl">500</span>, <span class="fl">10</span><span class="op">)</span><span class="op">)</span></span>
 <span>  <span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
-<p><a href="#fig-multivar-avg">Figure&nbsp;<span class="quarto-unresolved-ref">fig-multivar-avg</span></a> shows a scatterplot of the relationship between account age (x-axis) and activity level (y-axis). Meanwhile, the marginal rug plots shows the univariate distribution of each variable. The sole red dot denotes the coordinates of the average age and average activity. Notably, this dot exists in a region of “zero density”; that is, it is not representative of <em>any</em> customer. Strategic decisions made with this sort of observation in mind as the “typical” might not be destined for success.</p>
+<p><a href="#fig-multivar-avg">Figure&nbsp;<span>4.3</span></a> shows a scatterplot of the relationship between account age (x-axis) and activity level (y-axis). Meanwhile, the marginal rug plots shows the univariate distribution of each variable. The sole red dot denotes the coordinates of the average age and average activity. Notably, this dot exists in a region of “zero density”; that is, it is not representative of <em>any</em> customer. Strategic decisions made with this sort of observation in mind as the “typical” might not be destined for success.</p>
 <div class="cell">
 <div class="cell-output-display">
 <div id="fig-multivar-avg" class="quarto-figure quarto-figure-center anchored">
@@ -736,7 +736,7 @@ Please use `cols = c(x, y)`</code></pre>
 </div>
 </section><section id="correlation-wip" class="level2" data-number="4.5"><h2 data-number="4.5" class="anchored" data-anchor-id="correlation-wip">
 <span class="header-section-number">4.5</span> Correlation (WIP)</h2>
-<p>As shown in <a href="#fig-fun-corr">Figure&nbsp;<span class="quarto-unresolved-ref">fig-fun-corr</span></a>,</p>
+<p>As shown in <a href="#fig-fun-corr">Figure&nbsp;<span>4.4</span></a>,</p>
 <div class="cell">
 <div class="cell-output-display">
 <div id="fig-fun-corr" class="quarto-figure quarto-figure-center anchored">
@@ -847,7 +847,7 @@ This won’t always account for the fact that some variables can mask correlatio
 <span><span class="va">var2</span>  <span class="op">&lt;-</span> <span class="va">var1</span> <span class="op">*</span> <span class="fu"><a href="https://rdrr.io/r/base/rep.html">rep</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="fl">5</span>, <span class="op">-</span><span class="fl">5</span><span class="op">)</span>, each <span class="op">=</span> <span class="va">n_obsvs</span><span class="op">)</span></span>
 <span><span class="va">var3</span>  <span class="op">&lt;-</span> <span class="va">var1</span> <span class="op">*</span> <span class="fu"><a href="https://rdrr.io/r/base/rep.html">rep</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="fl">1</span>,  <span class="fl">5</span><span class="op">)</span>, each <span class="op">=</span> <span class="va">n_obsvs</span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
-<p>As <a href="#fig-cor-0">Figure&nbsp;<span class="quarto-unresolved-ref">fig-cor-0</span></a> shows</p>
+<p>As <a href="#fig-cor-0">Figure&nbsp;<span>4.5</span></a> shows</p>
 <div class="cell">
 <div class="cell-output-display">
 <div id="fig-cor-0" class="quarto-figure quarto-figure-center anchored">
@@ -938,7 +938,7 @@ group -0.7375338 0.8864053  1.0000000</code></pre>
 <span class="header-section-number">4.6</span> Trends</h2>
 <section id="if-trends-continue" class="level3" data-number="4.6.1"><h3 data-number="4.6.1" class="anchored" data-anchor-id="if-trends-continue">
 <span class="header-section-number">4.6.1</span> “If trends continue…”</h3>
-<p><a href="#fig-if-trends-continue">Figure&nbsp;<span class="quarto-unresolved-ref">fig-if-trends-continue</span></a> shows that…</p>
+<p><a href="#fig-if-trends-continue">Figure&nbsp;<span>4.6</span></a> shows that…</p>
 <div class="cell">
 <div class="sourceCode" id="cb57"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://ggplot2.tidyverse.org">ggplot2</a></span><span class="op">)</span></span>
 <span></span>
@@ -1026,7 +1026,7 @@ logical: returning NA</code></pre>
 <span class="header-section-number">4.9</span> Strategies (TODO)</h2>
 </section><section id="real-world-disasters-todo" class="level2" data-number="4.10"><h2 data-number="4.10" class="anchored" data-anchor-id="real-world-disasters-todo">
 <span class="header-section-number">4.10</span> Real World Disasters (TODO)</h2>
-<p>Straight vs weighted averages in COVID positivity rates <span class="citation" data-cites="indy_rates">(<a href="#ref-indy_rates" role="doc-biblioref">May 2020</a>)</span></p>
+<p>Straight vs weighted averages in COVID positivity rates <span class="citation" data-cites="indy_rates">(<a href="references.html#ref-indy_rates" role="doc-biblioref">May 2020</a>)</span></p>
 <blockquote class="blockquote">
 <p>The changes could result in real-world differences for Hoosiers, because the state uses a county’s positivity rate as one of the numbers to determine which restrictions that county will face. Those restrictions determine how many people may gather, among other items.</p>
 </blockquote>
@@ -1351,7 +1351,7 @@ Problem with Metrics - https://arxiv.org/abs/2002.08512
 
 
 
-<div id="refs" class="references csl-bib-body hanging-indent" role="doc-bibliography">
+<div id="refs" class="references csl-bib-body hanging-indent" role="doc-bibliography" style="display: none">
 <div id="ref-datasaurus" class="csl-entry" role="doc-biblioentry">
 Matejka, Justin, and George Fitzmaurice. 2017. <span>“Same Stats, Different Graphs: Generating Datasets with Varied Appearance and Identical Statistics Through Simulated Annealing.”</span> In. New York, NY, USA: Association for Computing Machinery. <a href="https://doi.org/10.1145/3025453.3025912">https://doi.org/10.1145/3025453.3025912</a>.
 </div>

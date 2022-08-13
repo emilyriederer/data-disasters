@@ -378,8 +378,8 @@
 <p>“Let <span class="math inline">\(X\)</span> be the <span class="math inline">\(n x p\)</span> design matrix of independent variables…”</p>
 </blockquote>
 <p>but in practice this statement is as absurd as writing a book about how to win a basketball game, assuming your team already has a 20 point lead with 1 minute left to play.</p>
-<p>It’s very convenient but typically incorrect to assume that the data we happen to have is the ideal (or, more humbly, sufficient) data for the questions we wish to analyze. The specific vagaries of data vary greatly by domain, but a commonality across many fields (such as political science, economics, epidemiology, and market research) is that we are often called to work with <em>found data</em> (or, more formally, “observational data”) from administrative sources or production systems. In contrast to artisanally crafted data experimental data (like the carefully controlled agricultural experiments which motivated many early methods developments in statistics), this data was generated neither by us nor for us. To quote Angela Bassa, the head of data science at an e-commerce company: “Data isn’t ground truth. Data are artifacts of systems” <span class="citation" data-cites="bassa_2017">(<a href="#ref-bassa_2017" role="doc-biblioref">Bassa 2017</a>)</span>.</p>
-<p>The analytical implications of observational versus experimental data are well explored in the field of causal inference (which we will discuss some in <a href="#sec-incr-infe">Section&nbsp;<span class="quarto-unresolved-ref">sec-incr-infe</span></a> and <a href="#sec-cava-caus">Section&nbsp;<span class="quarto-unresolved-ref">sec-cava-caus</span></a>). However, this distinction has implications far earlier in the data analysis process, as well. To name a few:</p>
+<p>It’s very convenient but typically incorrect to assume that the data we happen to have is the ideal (or, more humbly, sufficient) data for the questions we wish to analyze. The specific vagaries of data vary greatly by domain, but a commonality across many fields (such as political science, economics, epidemiology, and market research) is that we are often called to work with <em>found data</em> (or, more formally, “observational data”) from administrative sources or production systems. In contrast to artisanally crafted data experimental data (like the carefully controlled agricultural experiments which motivated many early methods developments in statistics), this data was generated neither by us nor for us. To quote Angela Bassa, the head of data science at an e-commerce company: “Data isn’t ground truth. Data are artifacts of systems” <span class="citation" data-cites="bassa_2017">(<a href="references.html#ref-bassa_2017" role="doc-biblioref">Bassa 2017</a>)</span>.</p>
+<p>The analytical implications of observational versus experimental data are well explored in the field of causal inference (which we will discuss some in <a href="incr-infe.html">Section&nbsp;<span>6</span></a> and <a href="cava-caus.html">Section&nbsp;<span>7</span></a>). However, this distinction has implications far earlier in the data analysis process, as well. To name a few:</p>
 <ul>
 <li>Records and fields many not represent the entities or measures most conducive to analysis</li>
 <li>Data collection methods may capture a different subset of events or do so at a different frequency than we expected, leading to systemic biases</li>
@@ -395,7 +395,7 @@
 <section id="relational-data-structure" class="level4" data-number="2.1.1.1"><h4 data-number="2.1.1.1" class="anchored" data-anchor-id="relational-data-structure">
 <span class="header-section-number">2.1.1.1</span> Relational Data Structure</h4>
 <p>Understanding the content and structure of the data you are using is a critical prerequisite to analysis. In this book, we focus on tabular, structured data like one might find in an Excel spreadsheet or relational database.<a href="#fn1" class="footnote-ref" id="fnref1" role="doc-noteref"><sup>1</sup></a></p>
-<p>In particular, many tools work best with what R developer Hadley Wickham describes as “tidy data” <span class="citation" data-cites="wickham_tidy">(<a href="#ref-wickham_tidy" role="doc-biblioref">Wickham 2014</a>)</span>. Namely:</p>
+<p>In particular, many tools work best with what R developer Hadley Wickham describes as “tidy data” <span class="citation" data-cites="wickham_tidy">(<a href="references.html#ref-wickham_tidy" role="doc-biblioref">Wickham 2014</a>)</span>. Namely:</p>
 <ol type="1">
 <li>Each variable forms a column</li>
 <li>Each observation forms a row</li>
@@ -426,7 +426,7 @@
 <li>
 <strong>Transform</strong>: The process of modeling and transforming data so that its structure is useful for analysis and its variables are interpretable</li>
 </ul>
-<p>To better theorize about data quality issues, it’s useful to think of four DGPs (as shown in <a href="#fig-dgp">Figure&nbsp;<span class="quarto-unresolved-ref">fig-dgp</span></a>): the real-world DGP, the data collection/extraction DGP<a href="#fn5" class="footnote-ref" id="fnref5" role="doc-noteref"><sup>5</sup></a>, the data loading DGP, and the data transformation DGP.</p>
+<p>To better theorize about data quality issues, it’s useful to think of four DGPs (as shown in <a href="#fig-dgp">Figure&nbsp;<span>2.1</span></a>): the real-world DGP, the data collection/extraction DGP<a href="#fn5" class="footnote-ref" id="fnref5" role="doc-noteref"><sup>5</sup></a>, the data loading DGP, and the data transformation DGP.</p>
 <div class="cell" data-layout-align="center">
 <div class="cell-output-display">
 <div id="fig-dgp" class="quarto-figure quarto-figure-center anchored">
@@ -465,7 +465,7 @@
 </section></section><section id="data-quality-dimension" class="level3" data-number="2.1.3"><h3 data-number="2.1.3" class="anchored" data-anchor-id="data-quality-dimension">
 <span class="header-section-number">2.1.3</span> Data Quality Dimension</h3>
 <p>To guide our discussion of how data production can affect aspects of data quality, we need a guiding definition of data quality. This is challenging because data quality is <em>subjective</em> and <em>task-specific</em>. It matters much more if data is “fit for purpose” and operates in a way that is <em>transparent</em> to its users moreso than meeting some preordained quality standard.</p>
-<p>Regardless, it’s useful for our discussion to think about general dimensions of data quality. Here, we will rely on six dimensions of data quality outlined by Data Management Association <span class="citation" data-cites="dama">(<a href="#ref-dama" role="doc-biblioref"><span>“Six Dimensions of Data Quality Assessment”</span> 2020</a>)</span>. Their official definitions are:</p>
+<p>Regardless, it’s useful for our discussion to think about general dimensions of data quality. Here, we will rely on six dimensions of data quality outlined by Data Management Association <span class="citation" data-cites="dama">(<a href="references.html#ref-dama" role="doc-biblioref"><span>“Six Dimensions of Data Quality Assessment”</span> 2020</a>)</span>. Their official definitions are:</p>
 <ol type="1">
 <li>
 <strong>Completeness</strong>: The proportion of stored data against the potential of “100% complete”</li>
@@ -488,7 +488,7 @@
 <section id="what-makes-a-record-row" class="level3" data-number="2.2.1"><h3 data-number="2.2.1" class="anchored" data-anchor-id="what-makes-a-record-row">
 <span class="header-section-number">2.2.1</span> What Makes a Record (Row)</h3>
 <p>The first priority when starting to work with a dataset is understanding what a single record (row) represents and what causes it to be generated.</p>
-<p>Consider something as simple as a login system where users must enter their credentials, endure a Captcha-like verification process to prove that they are not a robot, and enter a multi-factor authentication code. <a href="#fig-login-log">Figure&nbsp;<span class="quarto-unresolved-ref">fig-login-log</span></a> depicts such a process.</p>
+<p>Consider something as simple as a login system where users must enter their credentials, endure a Captcha-like verification process to prove that they are not a robot, and enter a multi-factor authentication code. <a href="#fig-login-log">Figure&nbsp;<span>2.2</span></a> depicts such a process.</p>
 <div class="cell" data-layout-align="center">
 <div class="cell-output-display">
 <div id="fig-login-log" class="quarto-figure quarto-figure-center anchored">
@@ -512,7 +512,7 @@
 <li>
 <strong>Per Intermediate</strong>: Similarly, if the login was defined specifically as successful password verification, the computed rate could his <strong>100%</strong> even if some users subsequently fail MFA</li>
 </ul>
-<p>These different situations are further illustrated in <a href="#fig-login-rate">Figure&nbsp;<span class="quarto-unresolved-ref">fig-login-rate</span></a>, and their calculations are shown in <a href="#tbl-login-rate">Table&nbsp;<span class="quarto-unresolved-ref">tbl-login-rate</span></a>.</p>
+<p>These different situations are further illustrated in <a href="#fig-login-rate">Figure&nbsp;<span>2.3</span></a>, and their calculations are shown in <a href="#tbl-login-rate">Table&nbsp;<span>2.1</span></a>.</p>
 <div class="cell" data-layout-align="center">
 <div class="cell-output-display">
 <div id="fig-login-rate" class="quarto-figure quarto-figure-center anchored">
@@ -603,7 +603,7 @@
 <section id="data-load-failure-modes" class="level4" data-number="2.3.0.1"><h4 data-number="2.3.0.1" class="anchored" data-anchor-id="data-load-failure-modes">
 <span class="header-section-number">2.3.0.1</span> Data Load Failure Modes</h4>
 <p>To develop our understanding of the true data generating process and to formulate theories on how our data could be broken (and what we should validate), it is useful to understand the different ways data extraction and loading can fail.</p>
-<p><a href="#fig-data-load">Figure&nbsp;<span class="quarto-unresolved-ref">fig-data-load</span></a> illustrates a number of examples. Suppose that each row of boxes in the diagram represents one day of records in a table.</p>
+<p><a href="#fig-data-load">Figure&nbsp;<span>2.4</span></a> illustrates a number of examples. Suppose that each row of boxes in the diagram represents one day of records in a table.</p>
 <div class="cell" data-layout-align="center">
 <div class="cell-output-display">
 <div id="fig-data-load" class="quarto-figure quarto-figure-center anchored">
@@ -695,7 +695,7 @@
 </section><section id="delayed-or-transient-records" class="level4" data-number="2.3.0.4"><h4 data-number="2.3.0.4" class="anchored" data-anchor-id="delayed-or-transient-records">
 <span class="header-section-number">2.3.0.4</span> Delayed or Transient Records</h4>
 <p>The interaction between choices made in the data collection and data loading phases can introduce their own sets of problems.</p>
-<p>Consider an <code>orders</code> table for an e-commerce company that analysts may use to track customer orders. It might contain one record per <code>order_id</code> x <code>event</code> (placement, processing, shipment), one record per order placed, one record per order shipping, or one record per order with a <code>status</code> field that changes over time to denote the order’s current stage of life. Some of these options are illustrated in <a href="#fig-order-log">Figure&nbsp;<span class="quarto-unresolved-ref">fig-order-log</span></a>.</p>
+<p>Consider an <code>orders</code> table for an e-commerce company that analysts may use to track customer orders. It might contain one record per <code>order_id</code> x <code>event</code> (placement, processing, shipment), one record per order placed, one record per order shipping, or one record per order with a <code>status</code> field that changes over time to denote the order’s current stage of life. Some of these options are illustrated in <a href="#fig-order-log">Figure&nbsp;<span>2.5</span></a>.</p>
 <div class="cell" data-layout-align="center">
 <div class="cell-output-display">
 <div id="fig-order-log" class="quarto-figure quarto-figure-center anchored">
@@ -706,7 +706,7 @@
 </div>
 </div>
 <p>Any of these modeling choices seem reasonable and the difference between them might appear immaterial. But consider the <em>collection</em> choice to record and report <em>shipped</em> events. Perhaps this might be operationally easier if shipment come from one source system whereas orders could come from many. However, an interesting thing about shipments is that they are often lagged in a variable way from the order date.</p>
-<p>Suppose the e-commerce company in question offers three shipping speeds at checkout. <a href="#fig-order-date">Figure&nbsp;<span class="quarto-unresolved-ref">fig-order-date</span></a> shows the range of possible shipment dates based on the order dates for the three different speeds (shown in different bars/colors).</p>
+<p>Suppose the e-commerce company in question offers three shipping speeds at checkout. <a href="#fig-order-date">Figure&nbsp;<span>2.6</span></a> shows the range of possible shipment dates based on the order dates for the three different speeds (shown in different bars/colors).</p>
 <div class="cell" data-layout-align="center">
 <div class="cell-output-display">
 <div id="fig-order-date" class="quarto-figure quarto-figure-center anchored">
@@ -766,7 +766,7 @@
 <pre><code>[1] 1</code></pre>
 </div>
 </div>
-<p>(Note that these conditions could be checked much more succinctly with a base R expression such as <code>sum(df$dt_load &lt; 7 &amp; df$dt_subm == 3)</code>. However, there is sometimes virtue in option for more readable code even if it is less compact. Here, we prefer the more verbose option for the claritfy of our exposition. Such trade-offs, and general thoughts on coding style, are explored further in <a href="#sec-comp-code">Section&nbsp;<span class="quarto-unresolved-ref">sec-comp-code</span></a>.)</p>
+<p>(Note that these conditions could be checked much more succinctly with a base R expression such as <code>sum(df$dt_load &lt; 7 &amp; df$dt_subm == 3)</code>. However, there is sometimes virtue in option for more readable code even if it is less compact. Here, we prefer the more verbose option for the claritfy of our exposition. Such trade-offs, and general thoughts on coding style, are explored further in <a href="comp-code.html">Section&nbsp;<span>11</span></a>.)</p>
 <p>Now, this may seem to trivial. Clearly, if there were <em>zero</em> records for a day, we would catch this in data validation, right? We can make our synthetic data slightly more realistic to better illustrate the problem. Let’s not imagine that there are 10 orders each day, and each order is shipped sometime between 2 and 4 days after the order with equal probability.</p>
 <div class="cell">
 <div class="sourceCode" id="cb7"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="co"># data simulation: multiple orders + random ship dates ----</span></span>
@@ -779,15 +779,15 @@
 <div class="cell-output-stdout">
 <pre><code>  dt_subm dt_ship dt_load
 1       1       3       3
-2       1       3       3
+2       1       5       5
 3       1       3       3
 4       1       3       3
-5       1       5       5
-6       1       5       5</code></pre>
+5       1       4       4
+6       1       4       4</code></pre>
 </div>
 </div>
 <p>When we repeat the prior analysis, we now see that we have <em>some</em> records for orders submitted on day 3 by the time we begin analysis on day 5. In this case, we might be more easily tricked to believe this is <em>all</em> orders. However, when we repeat the analysis on day 7, we see the the number of orders on day 3 has increased.</p>
-<p>Of course, you can imagine the real world is yet much more complicated than this example. In reality, we would have a random number of orders each day. Additionally, we might have a <em>mixture</em> of different <em>types</em> of orders. There might be high-priced orders where customers tended to be willing to pay for faster shipping, and low-priced orders where customers tend to chose slower shipping. In a case like this, not only might naive validation miss the lack of data completeness, but the <em>sample</em> of shipments we begin to see on day 5 could be unrepresentative of the population of orders placed on day 3. This is a type of <strong>selection bias</strong> that we will examine further in <a href="#sec-incr-infe">Section&nbsp;<span class="quarto-unresolved-ref">sec-incr-infe</span></a> (Incredible Inferences).</p>
+<p>Of course, you can imagine the real world is yet much more complicated than this example. In reality, we would have a random number of orders each day. Additionally, we might have a <em>mixture</em> of different <em>types</em> of orders. There might be high-priced orders where customers tended to be willing to pay for faster shipping, and low-priced orders where customers tend to chose slower shipping. In a case like this, not only might naive validation miss the lack of data completeness, but the <em>sample</em> of shipments we begin to see on day 5 could be unrepresentative of the population of orders placed on day 3. This is a type of <strong>selection bias</strong> that we will examine further in <a href="incr-infe.html">Section&nbsp;<span>6</span></a> (Incredible Inferences).</p>
 </section></section><section id="data-encoding-transformation-wip" class="level2" data-number="2.4"><h2 data-number="2.4" class="anchored" data-anchor-id="data-encoding-transformation-wip">
 <span class="header-section-number">2.4</span> Data Encoding &amp; Transformation (WIP)</h2>
 <p>Once data is loaded into a more suitable location for processing and analysis (such as a data warehouse), it often undergoes numerous transformations to change its shape, structure, and content to be more suited for analytical use.</p>
@@ -798,7 +798,7 @@
 <section id="data-types" class="level4" data-number="2.4.1.1"><h4 data-number="2.4.1.1" class="anchored" data-anchor-id="data-types">
 <span class="header-section-number">2.4.1.1</span> Data Types</h4>
 <p>One critical set of decisions in data encoding is what sort of <em>data types</em> each field of interest should be. Data types such as integers, reals, character strings, logicals, dates, and times determine how data is stored and the types of manipulations that can be done to it.</p>
-<p>We’ll see more examples of the computational implications for our data types in <a href="#sec-comp-quan">Section&nbsp;<span class="quarto-unresolved-ref">sec-comp-quan</span></a> (Computational Quandaries). This chapter specifically explores the unique complexities of string and date types.</p>
+<p>We’ll see more examples of the computational implications for our data types in <a href="comp-quan.html">Section&nbsp;<span>3</span></a> (Computational Quandaries). This chapter specifically explores the unique complexities of string and date types.</p>
 </section><section id="indicator-variables-todo" class="level4" data-number="2.4.1.2"><h4 data-number="2.4.1.2" class="anchored" data-anchor-id="indicator-variables-todo">
 <span class="header-section-number">2.4.1.2</span> Indicator Variables (TODO)</h4>
 <p>what is positive case?</p>
@@ -815,7 +815,7 @@
 </section><section id="the-many-meanings-of-null" class="level4" data-number="2.4.1.4"><h4 data-number="2.4.1.4" class="anchored" data-anchor-id="the-many-meanings-of-null">
 <span class="header-section-number">2.4.1.4</span> The Many Meanings of Null</h4>
 <p>Another major encoding decision is how to handle null values. Previously, in the discussion of Data Collection, we considered the presence and absence of full <em>records</em>. However, when preparing data for analysis, both data produces and consumers need to decide how to cope with the presence or absence of individual <em>fields</em>.</p>
-<p>If records contain some but not all relevant information, they may be published with explicitly missing fields or the full record may not be published at all. The difference between implicit and explicit missingness on the resulting data is illustrated in <a href="#fig-null-impl-expl">Figure&nbsp;<span class="quarto-unresolved-ref">fig-null-impl-expl</span></a>.</p>
+<p>If records contain some but not all relevant information, they may be published with explicitly missing fields or the full record may not be published at all. The difference between implicit and explicit missingness on the resulting data is illustrated in <a href="#fig-null-impl-expl">Figure&nbsp;<span>2.7</span></a>.</p>
 <div class="cell" data-layout-align="center">
 <div class="cell-output-display">
 <div id="fig-null-impl-expl" class="quarto-figure quarto-figure-center anchored">
@@ -848,7 +848,7 @@
 <strong>Sentinel/shadow values</strong>: Abnormal values which attempt to indicate the reasons for null-ness such as an <code>account_id</code> of <code>-1</code> when no browser cookies were found or <code>-2</code> when cookies were found but did not help link to any specific customer record</li>
 </ul>
 <p>Each of these encoding choices changes the definitions of appropriate completeness and validity for each field and, even more critically, impacts the expectations and assertions we should form for data accuracy. We can’t expect 100% completeness if nulls are a relevant value; we can’t check validity of ranges as easily if sentinel values are used with values that are outside the normal range (hopefully, or we have much bigger problems!) So, understanding how upstream systems <em>should</em> work is essential for assessing if they <em>do</em> work.</p>
-<p>Similarly, understanding how our null data is collected has significant implications for how we subsequently process it. We will discuss this more in Chapter -<a href="#sec-comp-quan">Section&nbsp;<span class="quarto-unresolved-ref">sec-comp-quan</span></a> (Computational Quandaries).</p>
+<p>Similarly, understanding how our null data is collected has significant implications for how we subsequently process it. We will discuss this more in Chapter -<a href="comp-quan.html">Section&nbsp;<span>3</span></a> (Computational Quandaries).</p>
 </section></section><section id="data-transformation" class="level3" data-number="2.4.2"><h3 data-number="2.4.2" class="anchored" data-anchor-id="data-transformation">
 <span class="header-section-number">2.4.2</span> Data Transformation</h3>
 <p>Finally, once the data is roughly where we want it, it likely undergoes many transformations to translate all of the system-generated fields we discussed in data collection into semantically-relevant dimensions for analytical consumers. Of course, the types of transformations that could be done are innumerable with far more variation than data loading. So, we’ll just look at a few examples of common failure patterns.</p>
@@ -961,7 +961,7 @@
 <span class="header-section-number">2.8</span> Real World Disasters</h2>
 <section id="data-loading-artificially-spikes-covid-cases" class="level3" data-number="2.8.1"><h3 data-number="2.8.1" class="anchored" data-anchor-id="data-loading-artificially-spikes-covid-cases">
 <span class="header-section-number">2.8.1</span> Data loading artificially spikes COVID cases</h3>
-<p>Data loading, particularly when a new process is introduced can go astray and lead to spurious results. The city of El Paso discovered this after reporting an exceedingly high number of daily COVID cases <span class="citation" data-cites="borunda_2020">(<a href="#ref-borunda_2020" role="doc-biblioref">Borunda 2020</a>)</span>:</p>
+<p>Data loading, particularly when a new process is introduced can go astray and lead to spurious results. The city of El Paso discovered this after reporting an exceedingly high number of daily COVID cases <span class="citation" data-cites="borunda_2020">(<a href="references.html#ref-borunda_2020" role="doc-biblioref">Borunda 2020</a>)</span>:</p>
 <blockquote class="blockquote">
 <p>El Paso city and public health officials on Thursday admitted to a major blunder, saying that the more than 3,100 new cases reported a day earlier was incorrect.</p>
 </blockquote>
@@ -985,7 +985,7 @@
 <p>Data that is encoded inconsistently may be mishandled in automated decision processes. For example, data manually entered into electronic health records (EHR) by countless care provides might be compiled into a single source although the meanings could be inconsistent.</p>
 <p>In the early days of the COVID19 vaccination push, some regions chose to prioritize their vaccine supply by certain individual characteristics including a high body mass index (BMI), which is a function of one’s weight relative to their height.</p>
 <p>One 6ft 2in tall man’s data was misinterpreted to suggest that he was 6.2 <em>centimeters</em> tall; this caused his to get high priority for a vaccine.</p>
-<p>As described in the BBC <span class="citation" data-cites="bbc_north_west_2021">(<a href="#ref-bbc_north_west_2021" role="doc-biblioref"><span>“Covid: Man Offered Vaccine After Error Lists Him as 6.2cm Tall”</span> 2021</a>)</span>:</p>
+<p>As described in the BBC <span class="citation" data-cites="bbc_north_west_2021">(<a href="references.html#ref-bbc_north_west_2021" role="doc-biblioref"><span>“Covid: Man Offered Vaccine After Error Lists Him as 6.2cm Tall”</span> 2021</a>)</span>:</p>
 <blockquote class="blockquote">
 <p>A man in his 30s with no underlying health conditions was offered a Covid vaccine after an NHS error mistakenly listed him as just 6.2cm in height. Liam Thorp was told he qualified for the jab because his measurements gave him a body mass index of 28,000.</p>
 </blockquote>
@@ -1249,11 +1249,12 @@ df %>% filter(dt_ship <= 3) %>% group_by(dt_order) %>% count()
 
 ::: {.cell-output-stdout}
 ```
-# A tibble: 1 x 2
-# Groups:   dt_order [1]
+# A tibble: 2 x 2
+# Groups:   dt_order [2]
   dt_order     n
      <int> <int>
-1        1     3
+1        1     4
+2        2     1
 ```
 :::
 
@@ -1263,14 +1264,13 @@ df %>% filter(dt_ship <= 5) %>% group_by(dt_order) %>% count()
 
 ::: {.cell-output-stdout}
 ```
-# A tibble: 4 x 2
-# Groups:   dt_order [4]
+# A tibble: 3 x 2
+# Groups:   dt_order [3]
   dt_order     n
      <int> <int>
 1        1     5
 2        2     5
-3        3     5
-4        4     2
+3        3     3
 ```
 :::
 
@@ -1288,7 +1288,7 @@ df %>% filter(dt_ship <= 7) %>% group_by(dt_order) %>% count()
 2        2     5
 3        3     5
 4        4     5
-5        5     1
+5        5     4
 ```
 :::
 
@@ -1413,7 +1413,7 @@ Ahhhh
 
 
 
-<div id="refs" class="references csl-bib-body hanging-indent" role="doc-bibliography">
+<div id="refs" class="references csl-bib-body hanging-indent" role="doc-bibliography" style="display: none">
 <div id="ref-bassa_2017" class="csl-entry" role="doc-biblioentry">
 Bassa, Angela. 2017. <span>“Data Alone Isn’t Ground Truth.”</span> <em>Blog</em>. Medium. <a href="https://medium.com/@angebassa/data-alone-isnt-ground-truth-9e733079dfd4">https://medium.com/@angebassa/data-alone-isnt-ground-truth-9e733079dfd4</a>.
 </div>
