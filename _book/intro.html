@@ -1,0 +1,427 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
+  <meta charset="utf-8">
+  <meta name="generator" content="quarto-0.9.175">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+  <meta name="description" content="Navigating the complexities of real-world data analysis">
+  <title>Data Disasters - 1&nbsp; Introduction (TODO)</title>
+  <style>
+    code{white-space: pre-wrap;}
+    span.smallcaps{font-variant: small-caps;}
+    span.underline{text-decoration: underline;}
+    div.column{display: inline-block; vertical-align: top; width: 50%;}
+    div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+    ul.task-list{list-style: none;}
+    div.csl-bib-body { }
+    div.csl-entry {
+      clear: both;
+    }
+    .hanging div.csl-entry {
+      margin-left:2em;
+      text-indent:-2em;
+    }
+    div.csl-left-margin {
+      min-width:2em;
+      float:left;
+    }
+    div.csl-right-inline {
+      margin-left:2em;
+      padding-left:1em;
+    }
+    div.csl-indent {
+      margin-left: 2em;
+    }
+  </style>
+
+  <script src="site_libs/quarto-nav/quarto-nav.js"></script>
+  <script src="site_libs/quarto-nav/headroom.min.js"></script>
+  <script src="site_libs/clipboard/clipboard.min.js"></script>
+  <meta name="quarto:offset" content="./">
+  <script src="site_libs/quarto-search/autocomplete.umd.js"></script>
+  <script src="site_libs/quarto-search/fuse.min.js"></script>
+  <script src="site_libs/quarto-search/quarto-search.js"></script>
+  <link href="./data-dall.html" rel="next">
+  <link href="./author.html" rel="prev">
+  <link href="./figures/cover.png" rel="icon" type="image/png">
+  <script src="site_libs/quarto-html/quarto.js"></script>
+  <script src="site_libs/quarto-html/popper.min.js"></script>
+  <script src="site_libs/quarto-html/tippy.umd.min.js"></script>
+  <script src="site_libs/quarto-html/anchor.min.js"></script>
+  <link href="site_libs/quarto-html/tippy.css" rel="stylesheet">
+  <link id="quarto-text-highlighting-styles" href="site_libs/quarto-html/quarto-syntax-highlighting.css" rel="stylesheet">
+  <script src="site_libs/bootstrap/bootstrap.min.js"></script>
+  <link href="site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
+  <link href="site_libs/bootstrap/bootstrap.min.css" rel="stylesheet">
+  <script id="quarto-search-options" type="application/json">{
+    "location": "sidebar",
+    "copy-button": false,
+    "collapse-after": 3,
+    "panel-placement": "start",
+    "type": "textbox",
+    "limit": 20,
+    "language": {
+      "search-no-results-text": "No results",
+      "search-matching-documents-text": "matching documents",
+      "search-copy-link-title": "Copy link to search",
+      "search-hide-matches-text": "Hide additional matches",
+      "search-more-match-text": "more match in this document",
+      "search-more-matches-text": "more matches in this document",
+      "search-clear-button-title": "Clear",
+      "search-detached-cancel-button-title": "Cancel",
+      "search-submit-button-title": "Submit"
+    }
+  }</script>
+  <script async="" src="https://www.googletagmanager.com/gtag/js?id=G-C7VEESJ7Z8"></script>
+
+  <script type="text/javascript">
+
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+  gtag('config', 'G-C7VEESJ7Z8', { 'anonymize_ip': true});
+  </script>
+  <!--[if lt IE 9]>
+    <script src="//cdnjs.cloudflare.com/ajax/libs/html5shiv/3.7.3/html5shiv-printshiv.min.js"></script>
+  <![endif]-->
+<meta property="og:title" content="Data Disasters - 1&nbsp; Introduction (TODO)">
+<meta property="og:description" content="Navigating the complexities of real-world data analysis">
+<meta property="og:site-name" content="Data Disasters">
+<meta name="twitter:title" content="Data Disasters - 1&nbsp; Introduction (TODO)">
+<meta name="twitter:description" content="Navigating the complexities of real-world data analysis">
+<meta name="twitter:card" content="summary">
+</head>
+<body class="floating">
+<div id="quarto-search-results"></div>
+  <header id="quarto-header" class="headroom fixed-top">
+  <nav class="quarto-secondary-nav" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
+    <div class="container-fluid d-flex justify-content-between">
+      <h1 class="quarto-secondary-nav-title"><span class="chapter-number">1</span>&nbsp; <span class="chapter-title">Introduction (TODO)</span></h1>
+      <button type="button" class="quarto-btn-toggle btn" aria-label="Show secondary navigation">
+        <i class="bi bi-chevron-right"></i>
+      </button>
+    </div>
+  </nav>
+</header>
+<!-- content -->
+<div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-article">
+<!-- sidebar -->
+  <nav id="quarto-sidebar" class="sidebar collapse sidebar-navigation floating overflow-auto">
+    <div class="pt-lg-2 mt-2 text-left sidebar-header">
+    <div class="sidebar-title mb-0 py-0">
+      <a href="./">Data Disasters</a> 
+        <div class="sidebar-tools-main">
+    <a href="https://github.com/emilyriederer/data-disasters" title="Source Code" class="sidebar-tool px-1"><i class="bi bi-github"></i></a>
+    <a href="" title="Share" id="sidebar-tool-dropdown-0" class="sidebar-tool dropdown-toggle px-1" data-bs-toggle="dropdown" aria-expanded="false"><i class="bi bi-share"></i></a>
+    <ul class="dropdown-menu" aria-labelledby="sidebar-tool-dropdown-0">
+        <li>
+          <a class="dropdown-item sidebar-tools-main-item" href="https://twitter.com/intent/tweet?url=|url|">
+            <i class="bi bi-bi-twitter pe-1"></i>
+          Twitter
+          </a>
+        </li>
+        <li>
+          <a class="dropdown-item sidebar-tools-main-item" href="https://www.facebook.com/sharer/sharer.php?u=|url|">
+            <i class="bi bi-bi-facebook pe-1"></i>
+          Facebook
+          </a>
+        </li>
+        <li>
+          <a class="dropdown-item sidebar-tools-main-item" href="https://www.linkedin.com/sharing/share-offsite/?url=|url|">
+            <i class="bi bi-bi-linkedin pe-1"></i>
+          LinkedIn
+          </a>
+        </li>
+    </ul>
+</div>
+    </div>
+      </div>
+      <div class="mt-2 flex-shrink-0 align-items-center">
+        <div class="sidebar-search">
+        <div id="quarto-search" class="" title="Search"></div>
+        </div>
+      </div>
+    <div class="sidebar-menu-container"> 
+    <ul class="list-unstyled mt-1">
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./index.html" class="sidebar-item-text sidebar-link">Preface</a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./comments.html" class="sidebar-item-text sidebar-link">Comments? Discuss here!</a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./author.html" class="sidebar-item-text sidebar-link">About the Author</a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./intro.html" class="sidebar-item-text sidebar-link active"><span class="chapter-number">1</span>&nbsp; <span class="chapter-title">Introduction (TODO)</span></a>
+  </div>
+</li>
+        <li class="sidebar-item sidebar-item-section">
+    <div class="sidebar-item-container"> 
+        <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-1" aria-expanded="true">Data</a>
+      <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-1" aria-expanded="true">
+        <i class="bi bi-chevron-right ms-2"></i>
+      </a>
+    </div>
+    <ul id="quarto-sidebar-section-1" class="collapse list-unstyled sidebar-section depth1 show">  
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./data-dall.html" class="sidebar-item-text sidebar-link"><span class="chapter-number">2</span>&nbsp; <span class="chapter-title">Data Dalliances (WIP)</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./comp-quan.html" class="sidebar-item-text sidebar-link"><span class="chapter-number">3</span>&nbsp; <span class="chapter-title">Computational Quandaries (WIP)</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./egre-aggr.html" class="sidebar-item-text sidebar-link"><span class="chapter-number">4</span>&nbsp; <span class="chapter-title">Egregious Aggregations (WIP)</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./vexi-visu.html" class="sidebar-item-text sidebar-link"><span class="chapter-number">5</span>&nbsp; <span class="chapter-title">Vexing Visualization (TODO)</span></a>
+  </div>
+</li>
+    </ul>
+  </li>
+        <li class="sidebar-item sidebar-item-section">
+    <div class="sidebar-item-container"> 
+        <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-2" aria-expanded="true">Analysis</a>
+      <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-2" aria-expanded="true">
+        <i class="bi bi-chevron-right ms-2"></i>
+      </a>
+    </div>
+    <ul id="quarto-sidebar-section-2" class="collapse list-unstyled sidebar-section depth1 show">  
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./incr-infe.html" class="sidebar-item-text sidebar-link"><span class="chapter-number">6</span>&nbsp; <span class="chapter-title">Incredible Inferences (TODO)</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./cava-caus.html" class="sidebar-item-text sidebar-link"><span class="chapter-number">7</span>&nbsp; <span class="chapter-title">Cavalier Causality (TODO)</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./mind-mode.html" class="sidebar-item-text sidebar-link"><span class="chapter-number">8</span>&nbsp; <span class="chapter-title">Mindless Modeling (TODO)</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./alte-algo.html" class="sidebar-item-text sidebar-link"><span class="chapter-number">9</span>&nbsp; <span class="chapter-title">Alternative Algorithms (TODO)</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./futi-find.html" class="sidebar-item-text sidebar-link"><span class="chapter-number">10</span>&nbsp; <span class="chapter-title">Futile Findings (TODO)</span></a>
+  </div>
+</li>
+    </ul>
+  </li>
+        <li class="sidebar-item sidebar-item-section">
+    <div class="sidebar-item-container"> 
+        <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-3" aria-expanded="true">Workflow</a>
+      <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-3" aria-expanded="true">
+        <i class="bi bi-chevron-right ms-2"></i>
+      </a>
+    </div>
+    <ul id="quarto-sidebar-section-3" class="collapse list-unstyled sidebar-section depth1 show">  
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./comp-code.html" class="sidebar-item-text sidebar-link"><span class="chapter-number">11</span>&nbsp; <span class="chapter-title">Complexifying Code (TODO)</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./reje-repr.html" class="sidebar-item-text sidebar-link"><span class="chapter-number">12</span>&nbsp; <span class="chapter-title">Rejecting Reproducibility (TODO)</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./mour-mist.html" class="sidebar-item-text sidebar-link"><span class="chapter-number">13</span>&nbsp; <span class="chapter-title">Mourning Mistakes (TODO)</span></a>
+  </div>
+</li>
+    </ul>
+  </li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./references.html" class="sidebar-item-text sidebar-link"><span class="chapter-number">14</span>&nbsp; <span class="chapter-title">References</span></a>
+  </div>
+</li>
+        <li class="sidebar-item sidebar-item-section">
+    <div class="sidebar-item-container"> 
+        <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-4" aria-expanded="true">Appendices</a>
+      <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-4" aria-expanded="true">
+        <i class="bi bi-chevron-right ms-2"></i>
+      </a>
+    </div>
+    <ul id="quarto-sidebar-section-4" class="collapse list-unstyled sidebar-section depth1 show">  
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./more.html" class="sidebar-item-text sidebar-link">(APPENDIX) Appendix</a>
+  </div>
+</li>
+    </ul>
+  </li>
+    </ul>
+    </div>
+</nav>
+<!-- margin-sidebar -->
+    <div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
+        <nav id="TOC" role="doc-toc">
+<h2 id="toc-title">Table of contents</h2>
+<ul>
+<li><a href="#case-study" class="nav-link active" data-scroll-target="#case-study"> <span class="header-section-number">1.1</span> Case Study</a></li>
+<li><a href="#what-is-data" class="nav-link" data-scroll-target="#what-is-data"> <span class="header-section-number">1.2</span> What is data?</a></li>
+<li><a href="#what-is-analysis" class="nav-link" data-scroll-target="#what-is-analysis"> <span class="header-section-number">1.3</span> What is analysis?</a></li>
+<li><a href="#what-is-workflow" class="nav-link" data-scroll-target="#what-is-workflow"> <span class="header-section-number">1.4</span> What is workflow?</a></li>
+<li><a href="#what-is-data-analysis" class="nav-link" data-scroll-target="#what-is-data-analysis"> <span class="header-section-number">1.5</span> What is data analysis?</a></li>
+<li><a href="#what-are-data-disasters" class="nav-link" data-scroll-target="#what-are-data-disasters"> <span class="header-section-number">1.6</span> What are data disasters?</a></li>
+</ul>
+<div class="toc-actions"><div><i class="bi bi-github"></i></div><div class="action-links"><p><a href="https://github.com/emilyriederer/data-disasters/edit/main/intro.qmd" class="toc-action">Edit this page</a></p></div></div></nav>
+    </div>
+<!-- main -->
+<main class="content" id="quarto-document-content">
+<header id="title-block-header" class="quarto-title-block default">
+
+<div class="quarto-title"><h1 class="title d-none d-lg-block display-7"><span class="chapter-number">1</span>&nbsp; <span class="chapter-title">Introduction (TODO)</span></h1><div class="quarto-description"><p>Navigating the complexities of real-world data analysis</p></div></div></header>
+
+<p>Statistics is not synonymous with data analysis; rigor vs practicality</p>
+<p>“Evaluating the Success of a Data Analysis” <span class="citation" data-cites="hicks2019evaluating">(<a href="references.html#ref-hicks2019evaluating" role="doc-biblioref">Hicks and Peng 2019</a>)</span></p>
+<p>“Data Alone is not Ground Truth” <span class="citation" data-cites="bassa_2017">(<a href="references.html#ref-bassa_2017" role="doc-biblioref">Bassa 2017</a>)</span></p>
+<section id="case-study" class="level2" data-number="1.1">
+<h2 data-number="1.1" class="anchored" data-anchor-id="case-study"><span class="header-section-number">1.1</span> Case Study</h2>
+</section>
+<section id="what-is-data" class="level2" data-number="1.2">
+<h2 data-number="1.2" class="anchored" data-anchor-id="what-is-data"><span class="header-section-number">1.2</span> What is data?</h2>
+<p>Data is…</p>
+</section>
+<section id="what-is-analysis" class="level2" data-number="1.3">
+<h2 data-number="1.3" class="anchored" data-anchor-id="what-is-analysis"><span class="header-section-number">1.3</span> What is analysis?</h2>
+<p>Analysis is the process of turning information into insight…S</p>
+</section>
+<section id="what-is-workflow" class="level2" data-number="1.4">
+<h2 data-number="1.4" class="anchored" data-anchor-id="what-is-workflow"><span class="header-section-number">1.4</span> What is workflow?</h2>
+<p>Workflows are an intentional process for accomplishing a complex goal…</p>
+</section>
+<section id="what-is-data-analysis" class="level2" data-number="1.5">
+<h2 data-number="1.5" class="anchored" data-anchor-id="what-is-data-analysis"><span class="header-section-number">1.5</span> What is data analysis?</h2>
+<p>Data analysis altogether is…</p>
+</section>
+<section id="what-are-data-disasters" class="level2" data-number="1.6">
+<h2 data-number="1.6" class="anchored" data-anchor-id="what-are-data-disasters"><span class="header-section-number">1.6</span> What are data disasters?</h2>
+<p>Data disasters occur when…</p>
+
+
+
+<div id="refs" class="references csl-bib-body hanging-indent" role="doc-bibliography" style="display: none">
+<div id="ref-bassa_2017" class="csl-entry" role="doc-biblioentry">
+Bassa, Angela. 2017. <span>“Data Alone Isn’t Ground Truth.”</span> <em>Blog</em>. Medium. <a href="https://medium.com/@angebassa/data-alone-isnt-ground-truth-9e733079dfd4">https://medium.com/@angebassa/data-alone-isnt-ground-truth-9e733079dfd4</a>.
+</div>
+<div id="ref-hicks2019evaluating" class="csl-entry" role="doc-biblioentry">
+Hicks, Stephanie C., and Roger D. Peng. 2019. <span>“Evaluating the Success of a Data Analysis.”</span> <a href="https://arxiv.org/abs/1904.11907">https://arxiv.org/abs/1904.11907</a>.
+</div>
+</div>
+</section>
+</main> <!-- /main -->
+<script type="application/javascript">
+window.document.addEventListener("DOMContentLoaded", function (event) {
+  const icon = "";
+  const anchorJS = new window.AnchorJS();
+  anchorJS.options = {
+    placement: 'right',
+    icon: icon
+  };
+  anchorJS.add('.anchored');
+  const clipboard = new window.ClipboardJS('.code-copy-button', {
+    target: function(trigger) {
+      return trigger.previousElementSibling;
+    }
+  });
+  clipboard.on('success', function(e) {
+    // button target
+    const button = e.trigger;
+    // don't keep focus
+    button.blur();
+    // flash "checked"
+    button.classList.add('code-copy-button-checked');
+    setTimeout(function() {
+      button.classList.remove('code-copy-button-checked');
+    }, 1000);
+    // clear code selection
+    e.clearSelection();
+  });
+  function tippyHover(el, contentFn) {
+    const config = {
+      allowHTML: true,
+      content: contentFn,
+      maxWidth: 500,
+      delay: 100,
+      arrow: false,
+      appendTo: function(el) {
+          return el.parentElement;
+      },
+      interactive: true,
+      interactiveBorder: 10,
+      theme: 'quarto',
+      placement: 'bottom-start'
+    };
+    window.tippy(el, config); 
+  }
+  const noterefs = window.document.querySelectorAll('a[role="doc-noteref"]');
+  for (var i=0; i<noterefs.length; i++) {
+    const ref = noterefs[i];
+    tippyHover(ref, function() {
+      let href = ref.getAttribute('href');
+      try { href = new URL(href).hash; } catch {}
+      const id = href.replace(/^#\/?/, "");
+      const note = window.document.getElementById(id);
+      return note.innerHTML;
+    });
+  }
+  var bibliorefs = window.document.querySelectorAll('a[role="doc-biblioref"]');
+  for (var i=0; i<bibliorefs.length; i++) {
+    const ref = bibliorefs[i];
+    const cites = ref.parentNode.getAttribute('data-cites').split(' ');
+    tippyHover(ref, function() {
+      var popup = window.document.createElement('div');
+      cites.forEach(function(cite) {
+        var citeDiv = window.document.createElement('div');
+        citeDiv.classList.add('hanging-indent');
+        citeDiv.classList.add('csl-entry');
+        var biblioDiv = window.document.getElementById('ref-' + cite);
+        if (biblioDiv) {
+          citeDiv.innerHTML = biblioDiv.innerHTML;
+        }
+        popup.appendChild(citeDiv);
+      });
+      return popup.innerHTML;
+    });
+  }
+});
+</script>
+<nav class="page-navigation">
+  <div class="nav-page nav-page-previous">
+      <a href="./author.html" class="pagination-link">
+        <i class="bi bi-arrow-left-short"></i> <span class="nav-page-text">About the Author</span>
+      </a>          
+  </div>
+  <div class="nav-page nav-page-next">
+      <a href="./data-dall.html" class="pagination-link">
+        <span class="nav-page-text"><span class="chapter-number">2</span>&nbsp; <span class="chapter-title">Data Dalliances (WIP)</span></span> <i class="bi bi-arrow-right-short"></i>
+      </a>
+  </div>
+</nav>
+</div> <!-- /content -->
+
+
+</body></html>

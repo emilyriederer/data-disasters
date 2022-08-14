@@ -1,0 +1,1821 @@
+# Computational Quandaries (WIP) {#sec-comp-quan}
+
+After gaining confidence in one's data (or, at least, making peace with it), the next step in a data analysis is often to start cleaning and exploring that data with summary statistics, plots, and models. 
+Generally, this requires a computational tool like SQL, R, or python. 
+
+The process of computation itself can be fraught with challenges. 
+Computational tools are extremely literal; they are excellent at doing *precisely what they were told to do* but not often what analysts might have *meant* or *wished* that they would do. 
+Additionally, the moment an analyst begins to use a tool, the conversation is no longer between them and the data; 
+suddenly, the mental model of how every single tool developer thought you might want to do analysis affects the tools' behaviors and the analysts' results.
+
+In this chapter, we will explore common ways that tools may do something technically correct, reasonable, and as-intended but very much not what analysts may expect. 
+Along the way, we will see how computational methods interact with the data encoding choices we discussed in @sec-data-dall (Data Dalliances).
+
+```{r include = FALSE}
+library(dplyr)
+library(DBI)
+library(RSQLite)
+library(reticulate)
+
+# make R dataset ----
+registration <-
+data.frame(
+  ID_CUSTOMER = 1:10,
+  CD_DEVICE = c(rep(1, 3), rep(2, 3), rep(3, 4)),
+  AMT_SPEND = c(seq(10, 50, by=10), rep(NA, 3), 90, 100),
+  AMT_RETURN = rep(NA, 10)
+)
+
+# load to SQL ----
+con <- DBI::dbConnect(RSQLite::SQLite(), ":memory:")
+knitr::opts_chunk$set(connection = "con")
+DBI::dbWriteTable(con, "registration", registration)
+
+# load to python ----
+registration_py <- r_to_py(registration)
+```
+
+## Preliminaries - Data Computation
+
+Before we think about specific tools or failure modes, we can first consider the common types of operations that the analytical tools allow us to do with our data. 
+
+### Single Table Operations
+
+Given a single data table, we may wish to do operations (illustrated in @fig-filt-aggr-tran) such as:
+
+- **Filtering**: Extracting a subset of a dataset for analysis based on certain inclusion criteria for each record
+- **Aggregation**: Grouping our data table by one or more variables and condensing information across records with *aggregate functions* like counts, sums, and averages 
+- **Transformation**: Create new columns or modifying existing columns to represent more complex or domain-specific context
+
+```{r filt-aggr-tran, echo = FALSE, out.width = '90%', fig.align = 'center', fig.cap = 'Illustration of basic single-table data wrangling operations'}
+#| label: fig-filt-aggr-tran
+knitr::include_graphics("figures/comp-quan/filt-aggr-tran.png")
+```
+
+### Multiple Table Operations
+
+Often, we can get additional value in an analysis by combining multiple types of information from difference tables. 
+When working with multiple tables, we may be interested in:
+
+- **Combining Row-wise**: Taking multiple tables with the same schemas (column names and data types) and creating a single table which contains the union (all records), intersection (only matching), or difference (only in one) of the records in the two tables
+- **Combining Column-wise**: Appending additional fields to existing records through joining (also known as merging) multiple tables 
+
+### Mechanics
+
+All of these operations rely on a few core computational tasks:
+
+- **Arithmetic**: Basic addition, subtraction, multiplication, and division to aggregate and transform data
+- **Mapping**: Similar to arithmetic, other one-to-one or many-to-one transformations of numerical or categorical data (such as binning into categories)
+- **Equality**: Comparing whether or not two values are equal is critical for data filtering, column-wise combination, and certain types of data transformation 
+- **Casting**: Converting data types of different elements into a comparable format is necessary for row-wise combination and often a prerequisite to certain equality and arithmetic tasks
+
+While these operations may seem simple, their behavior within certain tools and when employed for certain data types may sometimes lead to unintuitive or misleading results. 
+
+## Null Values
+
+In @sec-data-dall (Data Dalliances), we discuss how null values may represent many different concepts and be encoded in multiple different ways. 
+In addition to those semantic challenges, various representations of null values may cause different computational problems.^[This problem is not isolated to data analysis tools. For an entertaining example, see the 2019 WIRED article "How a 'NULL' License Plate Landed One Hacker in Ticket Hell" [@barrett] which a real-world software system producing unintended and undesirable behavior when asked to deal with a word `'NULL'`.] 
+In this section, we will explore these potential failure modes. 
+
+### Types of Null Values
+
+Not only can null values represent many different things (as explored in @sec-data-dall), they also may be represented in many different ways. Understanding how nulls are encoded in one's dataset is a critical prerequisite to attempting any of the computations described in the subsequent sections.
+
+#### Language representations 
+
+Different programming languages each offer their own versions of null values -- and sometimes more than one. For example, the R language includes `NA`, typed `NA`s (e.g. `NA_integer_`, `NA_character_`), `NaN`, and `NULL`; meanwhile, core python has `None` and the `numpy` module provides a `nan`. 
+
+These different values carry different semantic and functional meanings. For example R's `NA` generally means "the presence of an absence" whereas `NULL` is "the absence of a presence". This is articulated more clearly if we examine the lengths of these objects and observe that `NA` has a length 1 whereas `NULL` has a length 0.
+
+```{r results = "hold"}
+is.finite(NA)
+is.infinite(NA)
+```
+
+
+```{r results = "hold"}
+length(NA)
+length(NULL)
+```
+
+As further proof that these are not interchangeable, we may use the helper functions `is.na()` and `is.null()`. It's false that `NA` is `NULL` and essentially unable to be evaluated if `NULL` is `NA` because `NULL`s are truly nothing.^[You'll notice that the code chunk below contains four commands but only three boolean outputs. Why is that? `is.na(NULL)` returns `logical(0)`, a zero-length value. It's yet another form of missingness!]
+
+```{r results = "hold"}
+is.na(NA)
+is.null(NULL)
+is.na(NULL)
+is.null(NA)
+```
+
+To further complicate matters, we have `NaN` ("not a number"), along with `-Inf` and `Inf`, which generally arise when we attempt to abuse R's calculator. Somewhat charmingly, `Inf` and `-Inf` may be used in some rudimentary calculations where the limit is returned.^[From calculus, we know 1/Inf approaches 0, but Inf/Inf is undefined.]
+
+```{r results = "hold"}
+1/0
+0/0
+1/Inf
+```
+
+#### Sentinel value encoding
+
+Beyond these null types offered natively by different programming languages, there are also many different data management *conventions* for null values. Because null values can have many meanings, sometimes missing fields are encoded with "out of range" values which intend to suggest a type of missingness. 
+
+For example, the US Census Bureau's Medical Expenditure Panel Survey uses the following reserved codes to denote different types of missingness: (TODO: cite p10 https://www.meps.ahrq.gov/data_stats/download_data/pufs/h206a/h206adoc.pdf)
+
+```
+- -1 INAPPLICABLE Question was not asked due to skip pattern
+- -7 REFUSED Question was asked and respondent refused to answer question
+- -8 DK Question was asked and respondent did not know answer
+- -14 NOT YET TAKEN/USED Respondent answered that the medicine has not yet been used
+- -15 CANNOT BE COMPUTED Value cannot be derived from data
+```
+
+This approach preserves a lot of relevant information while, at the same time, being readily apparent that these values are not valid when the data is manually inspect. Unfortunately, manually inspecting every data field is rarely possible, and such sentinel values may go undetected when looking at higher-level summaries.
+
+Consider a survey of a population of retired adults where age is coded as `999` if not provided. Below, we simulate 100,000 such observations that are uniformly distributed between the age of 65 and 95 (hence, have an expected value of 80). Next, we replace merely *half of a percent* with our "null" values of `999`. Taking the mean with these false values results in a mean of about 85. This number alone might not raise the alarm; after all, we know the dataset's population is older adults. However, accidentally treating these as valid values biases our results by a somewhat remarkable five years.
+ 
+```{r results = "hold"}
+set.seed(123)
+
+n <- 100000
+p <- 0.01 / 2
+ages <- runif(n, 65, 95)
+
+ages_nulls <- ages
+ages_nulls[1:(n*p)] <- 999
+
+mean(ages)
+mean(ages_nulls)
+```
+
+So, the first order of business with null values is understanding how they are encoded and translating them to the most computationally appropriate form. However, that is only the beginning of the story.
+
+#### Other types of nulls (TODO)
+
+might be blank string which won't get detected in standard null checks
+
+```{r}
+x <- ""
+is.na(x)
+```
+
+same thing is true in dataframes
+
+```{r}
+library(dplyr)
+df <- data.frame(x = c("a", "b", "", "d"))
+summarize_all(df, ~sum(is.na(.)))
+```
+
+in such cases, need to explicitly check for such alternative encodings like blank strings
+
+```{r}
+x <- ""
+is.na(x) | x == ""
+```
+
+of course, a blank string isn't the only choice    
+could also have an empty string of any length
+
+```{r results = "hold"}
+x <- "  "
+is.na(x) | x == ""
+is.na(x) | trimws(x) == ""
+is.na(x) | nchar(trimws(x)) == 0
+```
+
+we'll see more about how fluid strings can be in the string section below
+
+### Aggregation
+
+Once null values are coded as "true" nulls, how these nulls are handled in the simple aggregation of data varies both across different languages and across different functions within a language. 
+To better understand the problems this might cause, we will look at examples in R and SQL.
+
+To explore aggregation, let's build a simple dataset. We will suppose that we are working with a subscription-based e-commerce service and that we are looking at a `spend` dataset with one record per customer and information about the amount they spent and returned in a given month:
+
+```{r}
+spend <-
+  data.frame(
+    AMT_SPEND = c(10, 20, NA),
+    AMT_RETURN = rep(NA, 3)
+  )
+
+head(spend)
+```
+
+```{r include = FALSE}
+# load to SQL ----
+con <- DBI::dbConnect(RSQLite::SQLite(), ":memory:")
+DBI::dbWriteTable(con, "spend", spend)
+```
+
+To compute the average amount spent (`AMT_SPEND`) with the `dplyr` package, an analyst might first reasonably write the following `summarize()` statement. 
+However, as we can see, due to the presence of null values within the `AMT_SPEND` column, the result of this aggregation is for the whole quantity of `AVG_SPEND` to be set to the value `NA`. 
+
+A glance at the documentation for the `mean()` function^[This documentation can be obtained in R by typing `?mean` in the console.] reveals that the function has a parameter called `na.rm`.
+This parameter's default value is `FALSE`, but, when it is set to `TRUE`, it removes null values from our dataset. 
+Adding this argument to the previous statement allows us to reach a numerical answer.
+
+```{r}
+summarize(spend, 
+          AVG_SPEND = mean(AMT_SPEND),
+          AVG_SPEND_NARM = mean(AMT_SPEND, na.rm = TRUE))
+```
+
+However, is this the *right* numerical answer? 
+Recall that what `na.rm = TRUE` does is *drop* the null values from the set of numbers being averaged. 
+However, suppose the null values represent that no purchases were made for a given customer in a given month. 
+That is, zero dollars were spent. 
+In effect, we have removed all non-purchasers from the data being averaged. 
+
+More precisely, we have switched from taking the average
+
+$$
+  \frac{ \sum_{1}^{n} Spend }{\sum_{1}^{n} 1}
+$$ over all $n$ customers
+
+to taking the average
+
+$$
+  \frac{ \sum_{Spend > 0} Spend }{\sum_{Spend > 0} 1}
+$$ over only those customers with spend.
+
+At face value, we could say that the code above is giving the incorrect answer; by dropping some low (zero) purchase amounts, the average amount spend per customer is inflated. 
+A second perspective, which is someone more philosophically troubling, is that this tiny change to the code which fixed the *obvious* problem (returning a null value) has introduced a *non-obvious* problem by fundamentally changing the question that we are asking. 
+By dropping all accounts from our table who made no purchases, we are no longer answering "What is the average amount spent by all of our customer?" but rather "What is the average amount spent by an actively engaged customer?" 
+In the language of probability theory, we might say that we have then changed our estimand from the expected value of spend to expected value of spend conditional on spend being positive. 
+This technical quirk has significant analytical impact.
+
+To answer the real question at hand, we have a couple of options. 
+We could manually `sum()` the amount spent with the option to drop nulls but then divide by the correct denominator (all observations -- not just those with spend) or we could explicitly recode null values in `AMT_SPEND` to zero before taking the average.^[Recoding can be done with a number of different general purpose functions like `ifelse` or `dplyr::case_when` in R. Different SQL varaints often offer different options for this purpose with functions such as `nvl()` or `zeroifnull()`. A common version across many language is `coalesce()` which takes the first non-null argument listed.]
+Either of these options lead to the correct conclusion of a lower average spend amount.
+
+```{r}
+summarize(
+    spend,
+    AVG_SPEND_MANUAL = sum(AMT_SPEND, na.rm = TRUE) / n(),
+    AVG_SPEND_RECODE = mean(coalesce(AMT_SPEND, 0))
+  )
+```
+
+This is all well and good if we could just accept that the behaviors above are simply how nulls work, but further complexity comes as we see that there is no industry standard across tools. 
+For example, as the SQL code below shows, SQL's `avg()` function behaves more like R's `mean()` *with* the `na.rm = TRUE` option set (whereas, you may recall that R's `mean()` behaves with `na.rm = FALSE` by default). 
+That is, the default behavior of SQL is to only operate on the valid and available values. 
+The result of this default may mean that it is less obvious when our dataset has null values.
+SQL, unlike R, does not ask for "permission" to drop out nulls;
+instead, it unilaterally makes a decision how to handle these variables.
+
+```{sql output.var = "null_col"}
+SELECT 
+  avg(amt_spend) as AVG_SPEND
+FROM spend
+```
+
+```{r echo = FALSE}
+null_col
+```
+
+However, this is not to suggest that null values cannot also be "destructive" in SQL (that is, returning null). 
+While aggregation functions (which compute over the *rows/records*) like `sum()` and `avg()` drop nulls, operators like `+` and `-` (which compute *across columns/variables* in the *same row/record*) do not exhibit the same behavior. 
+Consider, for example, if we wish to calculate the average net purchase amount (purchases minus returns) instead of the gross (total) purchase amount. 
+
+```{sql output.var = "null_cols_0"}
+SELECT 
+  avg(amt_spend - amt_return) as AVG_SPEND_NET
+FROM spend
+```
+
+```{r echo = FALSE}
+null_cols_0
+```
+
+Despite what we learned above about SQL's `avg()` function, the query above returns only a null value. 
+What has happened? 
+In our `spend` dataset, the `amt_return` column is completely null (representing no return purchases). 
+Because the subtraction occurs before the average is taken, subtracting null values in the `amt_return` variable from valid numbers in `amt_spend` variable creates a new variable of all null values.
+This new variable, which is already all null, is passed to the `avg()` function. 
+This process is shown step-by-step below.
+
+```{sql output.var = "null_cols"}
+SELECT
+  amt_spend, 
+  amt_return, 
+  amt_spend-amt_return 
+FROM spend
+```
+
+```{r echo = FALSE}
+null_cols
+```
+
+### Comparison
+
+Null values don't just introduce complexity when doing arithmetic. 
+Difficulties also arise any time multiple variables are assessed for equality or inequality. 
+Since a null value is unknown, most programming languages generally will *not* consider nulls to be comparable with other nulls.
+
+We can observe simple examples of this in both R and SQL. In neither language can a null value be assessed for equality or inequality versus either another number or another null. 
+
+```{r results = "hold"}
+NA == 3 
+NA > 10 
+NA == NA
+```
+
+```{sql output.var = "null_compare"}
+SELECT
+  (NULL = 3) as NULL_EQ_NUM,
+  (NULL > 10) as NULL_GT_NUM,
+  (NULL = NULL) as NULL_EQ_NULL
+```
+
+```{r echo = FALSE}
+null_compare
+```
+
+In these toy examples, such outcomes may seem perfectly logical. 
+However, this same reasoning can arise in sneakier ways and lead to uninteded results when equality evaluations are *implicit* in the task at hand instead of the singular focus. 
+We'll now see examples from data filtering, joining, and transformation.
+
+:::rmdnote
+
+If you're familiar with SQL, you may have been surprised to notice that there is no `FROM` clause in the query above. In fact, SQL queries can treat values just like variables containing only a single record. 
+
+We will use this trick throughout the chapter for exploring how SQL works when we don't have an ideal sample dataset to test certain scenarios. Beyond exposition in this book, this trick is also useful in practice.
+
+:::
+
+#### Filtering
+
+Suppose we want to split our dataset into two datasets based on high or low values of spend. 
+We might assume the following two lines of code will create a clear partition (implying that each record would fall into exactly one group.) 
+
+```{r}
+spend_lt20 <- filter(spend, AMT_SPEND < 20)
+spend_gte20 <- filter(spend, AMT_SPEND >= 20)
+```
+
+However, if we examine the resulting datasets, we see that *neither* contains the third record which had a null value for the `AMT_SPEND` variable.  
+
+```{r}
+spend_lt20
+spend_gte20
+```
+
+The same situation results in SQL.
+
+```{sql output.var = "sql_spend_lt20"}
+SELECT *
+FROM spend
+WHERE AMT_SPEND < 20
+```
+
+```{r echo = FALSE}
+sql_spend_lt20
+```
+
+```{sql output.var = "sql_spend_gte20"}
+SELECT *
+FROM spend
+WHERE AMT_SPEND >= 20
+```
+
+```{r echo = FALSE}
+sql_spend_gte20
+```
+
+This is a direct result of the fact that nulls cannot be compared for equality any inequality. 
+We can think of data filtering as a two-step process: 
+first evaluate whether the condition is TRUE or FALSE, 
+then return only the records for which the condition holds true. 
+When we conduct the more manual process of filtering step-by-step, we see that the null value of `AMT_SPEND` does not get a "truth value" when compared with a number.
+Thus, it is not contained in either "truth value" subset.
+
+```{r}
+mutate(spend, is_lt20 = (AMT_SPEND < 20))
+```
+
+Thus, whenever our data has null values, the very common act of data filtering risks excluding important information.
+
+#### Joining
+
+The same phenomenon as described above also happens when joining multiple datasets. 
+
+Suppose we have multiple datasets we wish to merge based on columns denoting a record's name and date of birthday. 
+For ease of exploration, we will make the simplest possible such dataset and simply try to merge it to itself. 
+(This may seem silly, but often when trying to understand *computationally* complex things, it is a good idea to make the scenario as simple as possible.
+In fact, this idea is core to the concept of computational unit tests which we will discuss at the end of this chapter.)
+
+```{r}
+bday <- data.frame(NAME = c('Anne', 'Bob'), BIRTHDAY = c('2000-01-01', NA))
+bday
+```
+
+```{r include = FALSE}
+# load to SQL ----
+DBI::dbWriteTable(con, "bday", bday)
+```
+
+In SQL, if we try to join this table, the records in row 1 will match because `'Anne' == 'Anne'` and `'2000-01-01' == '2000-01-01'`. 
+However, poor Bob's record is eliminated because his birth date is logged as null, and `NA == NA` is false.
+
+```{sql output.var = "bday_join"}
+SELECT a.*
+FROM
+  bday as a
+  INNER JOIN
+  bday as b
+  ON
+  a.NAME = b.NAME and
+  a.BIRTHDAY = b.BIRTHDAY
+```
+
+```{r echo = FALSE}
+bday_join
+```
+
+In contrast, R's `dplyr::inner_join()` function will not do this by default. 
+This function lets us specifically control how nulls are matches with the `na_matches` argument, with a default option to match on `NA` values. 
+(You may read more about the argument by typing `?dplyr::inner_join` in the R console to pull up the documentation.)
+
+```{r}
+inner_join(bday, bday, by = c('NAME', 'BIRTHDAY'))
+```
+
+This example then is not only a cautionary tale for how null values may unintentionally corrupt our data transformations but also how "brittle" our knowledge and intuition may be when moving between tools.
+Neither of these default behaviors is strictly better or worse, but they are definitely different and have real implications on our analysis.
+
+#### Transformation
+
+A common task in data analysis is to aggregate results by subgroup. 
+For example, we might want to summarize how many customers (rows/records) spent more or less than \$10. To discern this, we might create a categorical variable for high versus low purchase amounts, group by this variable and count.
+
+The psuedocode would read something like this:
+
+```{r eval = FALSE}
+data %>%
+  mutate(HIGH_LOW = << transform AMT_SPEND >>) %>%
+  group_by(HIGH_LOW) %>%
+  count()
+```
+
+To define the `HIGH_LOW` variable, we might use a function like `ifelse()`, `dplyr::if_else()`, or `dplyr::case_when()`. 
+However, once again, we have the issue of how values are *partitioned* when nulls are included. 
+If we recode any records with `AMT_SPEND` of less than or equal to 10 to "Low" and default the rest to "High", we will accidentally count all null values in the "High" group.
+
+```{r}
+spend %>%
+  mutate(HIGH_LOW = case_when(
+    AMT_SPEND <= 10 ~ "Low", 
+    TRUE ~ "High")
+    ) %>%
+  group_by(HIGH_LOW) %>% 
+  count()
+```
+
+Instead, it is more accurate and transparent (unless we know specifically what null values mean and what group they should be part of) to not let one of our "core" categories by the "default" case in our logic. 
+We can explicitly encode any residual values as something like "OTHER" or "ERROR" to help us see that there is a problem requiring extra attention.
+
+```{r}
+spend %>%
+  mutate(HIGH_LOW = case_when(
+    AMT_SPEND <= 10 ~ "Low", 
+    AMT_SPEND > 10 ~ "High",
+    TRUE ~ "OTHER")
+    ) %>%
+  group_by(HIGH_LOW) %>% 
+  count()
+```
+
+While nulls contribute to this issue, it's important to realize that nulls are not the only factor causing this error nor or they the solution.
+The more substantial issue is the careless use of defaults and *implicit* encoding versus *explicit* encoding. 
+In the second form of the SQL query above, we are more specific about exactly what is allowed in each category which ensures any unexpected inputs will not be allowed to "sneak" into ordinary outputs.
+
+## Logicals (TODO)
+
+Much like the different versions of nulls that we met in the last section, logical data types use reserved keywords to represent `TRUE` and `FALSE`. 
+(The exact formats of logical reserved keywords vary by language. R and SQL use `TRUE` and `FALSE` and python uses `TRUE` and `FALSE`.)
+This means that these names function like a number or a letter which intrinsically hold one specific value and cannot take on a different value besides their own. 
+
+```{r error = TRUE}
+TRUE = 5
+2 = 5
+```
+
+Across languages, `TRUE` and `FALSE` are considered equivalent to the numeric representations of 1 and 0 respectively. 
+
+```{r results = "hold"}
+as.numeric(TRUE)
+as.numeric(FALSE)
+```
+
+A consequence of this numerical equivalency is that `TRUE` and `FALSE` may be compared to each other or other numbers and be included in mathematical expressions.
+
+```{r results = "hold"}
+TRUE > FALSE
+TRUE < 5
+FALSE > -1
+TRUE + 1
+TRUE * 5
+```
+similar in SQL
+
+```{sql connection = con}
+select
+  TRUE > FALSE as a,
+  TRUE < 5 as b,
+  FALSE > -1 as c,
+  TRUE + 1 as d,
+  TRUE * 5 as e
+```
+
+### Language-specific nuances (CUT?)
+
+#### Keyword abbrevations
+
+R also recognizes the abbreviations of `T` and `F` as `TRUE` and `FALSE` respectively; 
+however this is not recommended. 
+`T` and `F` are *not* reserved keywords, so they can be overwritten with a different value.
+This makes code using such abbreviations "brittle" and less reliable.  
+
+```{r results = "hold"}
+if (T) {"Hello"} else {"Goodbye"}
+if (F) {"Hello"} else {"Goodbye"}
+T = 0
+if (T) {"Hello"} else {"Goodbye"}
+```
+
+#### Alternative representations
+
+We've previously seen that logicals have associated numerical values. 
+Different languages may also treat their string representations differently. 
+
+For example, R believes that the string `"TRUE"` is equal to the logical value `TRUE` when directly compared.
+However, this relationships breaks the transitive property of mathematics^[If a = b and b = c then a = c] because `TRUE` equals both `1` and `"TRUE"`, yet `"TRUE"` does not equal `1` so the mathematical operations that can be done with logical `TRUE` cannot be done with string `"TRUE"`.
+
+```{r results = "hold", error = TRUE}
+TRUE == 1
+TRUE == "TRUE"
+TRUE == "True"
+TRUE * 5
+"TRUE" * 5
+```
+
+In contrast neither SQL not python honor the string forms of their respective logical reserved keywords at all.
+
+```{sql output.var = "bool_math"}
+select 
+  (TRUE == 1) as is_int_true,
+  (TRUE == 'TRUE') as is_char_true,
+  TRUE*5 as true_times_five,
+  'TRUE'*5 as true_str_time_five
+```
+
+```{r echo = FALSE}
+bool_math
+```
+
+```{python results = "hold", error = TRUE}
+True == 1
+True == "True"
+True == "TRUE"
+True * 5
+"True" * 5
+```
+
+### Comparison (TODO)
+
+The nuances of logical representation and handling seem straightforward in isolation.
+However, when encountered in real-world data problems, they are not isolated and are unlikely to be our main focus.
+
+Imagine two datasets which all encode the same information but use boolean, string, and integer representations of a logical respectively.
+
+```{r}
+df1 <- data.frame(ID = 1:3, IND = rep(TRUE, 3), X = 1:3)
+df2 <- data.frame(ID = 1:5, IND = rep('TRUE', 5), Y = 11:15)
+df3 <- data.frame(ID = 1:5, IND = rep(1, 5), Z = 21:25)
+```
+
+By simple inspection, the logical and string representations in particular look superficially similar and yet they will behave differently.
+
+```{r}
+head(df1)
+head(df2)
+```
+
+If we use R's `dplyr::filter()` or `base::subset()` function to subset the data, the value of `df1` will correctly subset based on the boolean values of `IND`. However, R will not know how to interpret the string version in `df2`.
+
+```{r results = 'hold', error = TRUE}
+filter(df1, IND)
+filter(df2, IND)
+subset(df2, df2$IND)
+```
+
+```{r results = "hold"}
+filter(df1, isTRUE(IND))
+filter(df2, isTRUE(IND))
+```
+
+
+
+
+```{r error = TRUE}
+filter(df2, isTRUE(IND))
+left_join(df1, df2, by = c("ID", "IND"))
+```
+
+```{r}
+merge(df1, df2, by.x = c("ID", "IND"), by.y = c("ID", "IND"), all.x = TRUE)
+```
+
+
+```{r echo = FALSE}
+DBI::dbWriteTable(con, "df1", df1)
+DBI::dbWriteTable(con, "df2", df2)
+```
+
+
+```{sql, connection = "con"}
+select df1.*, df2.*
+from 
+ df1 
+ left join
+ df2
+ on
+ df1.id = df2.id and
+ df1.ind = df2.ind
+```
+
+```{python results = 'hold'}
+import pandas as pd 
+
+data1 = {'ID': list(range(1, 4)),
+        'IND': [True] * 3,
+        'X': list(range(1,4))
+        }
+data2 = {'ID': list(range(1, 6)),
+         'IND': ['True'] * 5,
+        'Y': list(range(11, 16))}
+
+df1 = pd.DataFrame(data1)
+df2 = pd.DataFrame(data2)
+
+df1
+df2
+```
+
+```{python}
+pd.merge(left = df1, right = df2, how = "left", on = ['ID', 'IND'])
+```
+
+## Numbers (TODO)
+
+### Integer division
+
+In R (mostly what we'd expect)
+
+```{r}
+1/2
+```
+
+```{r}
+ifelse(3/4 > 0.5, 'High', 'Low')
+```
+
+In some SQL dialect SQL (SQLite shown. "Modern" interfaces like Snowflake and BigQuery don't do this)
+
+```{sql output.var = "one_div_two"}
+SELECT (1/2) as one_div_two
+```
+
+```{r echo = FALSE}
+one_div_two
+```
+
+This rounding can get masked when we are recoding or doing subsequent calculations
+
+```{sql output.var = "high_low"}
+SELECT
+  case
+    when 3/4 > 0.5 then 'High' 
+    else 'Low'
+  end as high_low_int,
+  case
+    when 3.0 / 4 > 0.5 then 'High'
+    else 'Low'
+  end as high_low_float
+```
+
+```{r echo = FALSE}
+high_low
+```
+
+The above works because of implicit casting. We can also do explicit casting, but where we do this matters
+
+```{sql output.var = "cast_when"}
+SELECT
+  case 
+    when cast(3 as float) / 4 > 0.5 then 'High'
+    else 'Low'
+  end as cast_first,
+  case
+    when cast(3/4 as float) > 0.5 then 'High'
+    else 'Low'
+  end as cast_last
+```
+
+```{r echo = FALSE}
+cast_when
+```
+
+### Inexact storage and comparison
+
+In R
+
+```{r results = "hold"}
+(3 - 2.9) <= 0.1
+(2 - 1.9) <= 0.1
+(1 - 0.9) <= 0.1
+```
+
+```{r results = "hold"}
+(3 - 2.9) == 0.1
+(2 - 1.9) == 0.1
+(1 - 0.9) == 0.1
+```
+
+despite the fact that we see no difference
+
+```{r results = "hold"}
+3 - 2.9
+2 - 1.9
+1 - 0.9
+```
+
+In python - same problem but in slightly different cases
+
+```{python results = "hold"}
+(3 - 2.9) <= 0.1
+(2 - 1.9) <= 0.1
+(1 - 0.9) <= 0.1
+```
+
+here we can see the differences
+
+```{python results = "hold"}
+3 - 2.9
+2 - 1.9
+1 - 0.9
+```
+
+Same thing with SQL where differences are masked 
+
+```{sql output.var = "float_math"}
+select
+  3 - 2.9 as sub_three,
+  2 - 1.9 as sub_two,
+  1 - 0.9 as sub_one,
+  (3 - 2.9) <= 0.1 as sub_compare_three,
+  (2 - 1.9) <= 0.1 as sub_compare_two,
+  (1 - 0.9) <= 0.1 as sub_compare_one
+```
+
+```{r echo = FALSE}
+float_math
+```
+
+Instead, can use either built-in equality checker (python equivalent is `math.isclose`) or check that difference between two numbers is in very small window
+
+```{r results = "hold"}
+all.equal(1 - 0.9, 0.1)
+
+abs( (1-0.9) - 0.1 ) <= 1e-10
+```
+
+Another example
+
+```{r}
+0.6 + 0.3
+0.6 + 0.3 == 0.9
+
+print(.1 + .2)
+print(.1 + .2, digits = 18)
+```
+
+
+### Division by zero
+
+more of a design issue about the right way to handle
+
+we've seen before how we have to understand other peoples use of null values
+
+this is a case where we he to decide what makes most sense
+
+## Strings (WIP)
+
+String data can be inherently appealing. At their best, strings are used to bring more readable and human interpretable values into a dataset. However, string data and the processing thereof comes with its own challenges. 
+
+First, unlike numbers, human language strings can be ambiguously defined. `2` is the only number to represent the value of two. However, the incorporation of human language means that many different words, phrases, and formatting choices can represent the same concept. This is confounded by instances where string data was manually entered, as is the case with user-input data.^[I can accurately say my name is "Emily", "Emily Riederer", "Emily E. Riederer", "Ms. Emily Riederer". Additionally, if I spell my name over the phone, I can likely end up "Emily Rieder" or if I type it and mindlessly accept autocorrect, I'm "Emily Reindeer". This inconsistently may be problematic if you are trying to combine my data across different sources where I provided my name in different ways.]
+
+Secondly, string data is one of the most flexible datatypes and can contain any other types of information -- from should-be-logical values (`"yes"/"no"`, `"true"/"false"`), should-be-numeric values (`"27"`), should-be-date values (`"2020-01-01"`), and even complex data encodings like JSON blobs (`"{"name":{"first":"emily","last":"riederer"},"social":{"twitter":"emilyriederer","github":"emilyriederer","linkedin":"emilyriederer"}}"` with hideous formatting for emphasis.) For a data publisher, this may be a convenience, but as we will see it can turn into a frustration or a liability when functions and comparison operations are attempted with strings that semantically represent a different type of value.
+
+### Dirty Strings (TODO)
+
+whitespace
+
+```{r results="hold"}
+"a" == "a"
+"a b" == "a b"
+"a b" == "a  b"
+"a b" == "a b "
+```
+
+"fancy" characters (alternate encodings like ms word)
+
+```{r results="hold"}
+' " ' == ' " '
+' “ ' == ' " '
+```
+
+special characters and display versus values
+
+```{r results="hold"}
+x <- "a\tb"
+cat(x) # what you see...
+x == "a    b" # ...is not what you get
+```
+
+### Regular Expressions (TODO)
+
+we promised not to be solution oriented, but
+
+*not* knowing regex is a disaster when trying to work with string data...
+
+### Comparison
+
+TODO
+
+#### String ordering
+
+Strings are ranked based on *alphabetical order* just like a dictionary. Some properties of this ordering include that:
+
+- numbers are smaller than letters (`1 < "a"`)
+- lower-case is smaller than upper case (`"a" < "A"`)
+- fewer characters are smaller than more characters (`"a" < "aa"`)
+
+Such rules make perfect sense for true characters. However, when strings are used as a "catch all" to represent other structures, typical comparison operators can produce odd results. For example, it is generally uncontroverisal that ninety-one is less than one hundred twenty. However, the string `"91"` is *greater than* `"120"` because only the character `"9"` is compared to the character `"1"`.^[Similarly, `"91" > "905"` because since they both start with 9, we move on to compare 1 which is greater than 0.]
+
+```{r results="hold"}
+91 < 120
+"91" < "120"
+```
+
+When strings are used to represent dates and times, comparison operators may or may not work depending on the precise formatting conversions. Below, we see that "YYYYQQ"-formats sort correctly because the information is hierarchically nested; millenia are compared before centuries, centuries before decades, decades before years, and years before quarters. However, many other string representations of dates, like "QQ-YYYY" will not order correctly. Related topics will be discussed in the "Dates and Times" section.
+
+```{r results="hold"}
+"20190Q4" < "2020Q3" # string (alphabetic) ordering same as semantic ordering
+"Q4-2019" < "Q3-2020" # string and semantic orderings are different
+```
+
+These examples demonstrate that we shouldn't rely on sorting schemes that follow different rules. Before doing comparisons on such types, its a safer bet to cast them to the format most truly representative of their types. If, for some reason, you do wish to keep them as strings, the second example shows that its is wise to format them in the most conducive format possible so things just work. 
+
+#### Type coercion 
+
+We discussed string comparison before when looking at "dirty" strings. More unexpected behavior arises when strings are compared across different data types. Many computing programs will attempt to *coerce* the objects to a similar and comparable type. Sometimes, this can be convenient as operations "just work", but as always there is a cost for convenience. As we'll see, delegating important decisions to our computing engine may not always capture the semantic relationships that we are most interested in. 
+
+For example, consider compare a string and a number. To make them more comparable, R will convert them both to strings before checking for equality. Thus, the number `2020` is equivalent to the string `"2020"` but not the string `"02020"`.
+
+```{r results="hold"}
+"2020" == 2020
+"02020" == 2020
+```
+
+In contrast, SQLite^[Different versions of SQL may differ] thinks that the string `'2020'` is greater than the number 2020 and that these two quantities are not equal.
+
+```{sql output.var = "data_date"}
+SELECT
+  case when     '2020' =  2020 then 1 else 0 end as is_eq,
+  case when not '2020' == 2020 then 1 else 0 end as not_eq,
+  case when     '2020' <  2020 then 1 else 0 end as is_lt,
+  case when     '2020' >  2020 then 1 else 0 end as is_gt
+```
+
+```{r echo = FALSE}
+data_date
+```
+
+^TODO: where this could cause problems (FIPS example?)
+
+### Transformation (TODO)
+
+basic things like addition differ by language
+
+in R, returns error:
+
+```{r results = "hold", error = TRUE}
+'a' + 'b'
+'a' * 5
+```
+
+in SQLite, goes to zero:
+
+```{sql connection = con, output.var = 'string_math'}
+SELECT
+  'a' + 'b' as string_add,
+  'a'*5 as string_mult
+```
+
+```{r echo = FALSE}
+string_math
+```
+
+in python, does concatenation for `+` and analogous (concatenation of repeat) for `*`:
+
+```{python}
+'a' + 'b'
+'a' * 5
+```
+
+## Dates and Times (WIP)
+
+Unlike character strings, dates and times seem like they should be well defined with distinct, quantifiable components like years, months, and days. However, many different conventions for date formatting and underlying storage formats exist. This leads to similar challenges with dates and times as we saw with strings before.
+
+Some common formats in the wild are:
+
+- YYYYMMDD
+- YYYYMM
+- MMDDYYYY
+- DDMMYYYY
+- MM/DD/YYYY
+- MM/DD/YY
+- DD/MM/YYYY
+- YYYY-MM-DD (ISO8601)
+
+In addition to how dates are *formatted*, they may be stored in a variety of different ways "under the hood" such as Unix time (seconds since 1970-01-01 00:00:00 UTC) and Julian time (days since noon in Greenwich on November 24, 4714 B.C) (TODO). 
+
+To complicate matters further, many of these formats may be represented either by native date types in various programs or by more basic data types (such as integers for the first four and strings for the last four). In addition, analogous formats exist for *timestamps* which encode both calendar date and time of day (hour, minute, and second information).
+
+TODO: why ISO8601?
+
+### Comparison
+
+Automatic conversion of data types
+Dates versus timestamps 
+
+```{r}
+df_dt <-
+data.frame(
+  DT_ENROLL = as.Date("2020-01-01"),
+  DT_PURCH  = 20200101,
+  DT_LOGIN  = as.POSIXlt("2020-01-01T12:00:00") 
+  )
+```
+
+```{r echo = FALSE}
+DBI::dbWriteTable(con, "df_dt", df_dt)
+```
+
+
+none of these are equal so nothing returns on filtering
+
+```{r}
+filter(df_dt, DT_ENROLL == DT_PURCH) %>% nrow()
+filter(df_dt, DT_ENROLL == DT_LOGIN) %>% nrow()
+```
+
+the same thing happens in sql 
+
+```{sql output.var = "date1"}
+select * from df_dt where DT_ENROLL = DT_PURCH
+```
+
+```{r echo = FALSE}
+date1
+```
+
+```{sql output.var = "date2"}
+select * from df_dt where DT_ENROLL = DT_LOGIN
+```
+
+```{r echo = FALSE}
+date2
+```
+
+in what way aren't they equal? to understand this its helpful to know how the computer encodes these dates
+
+with `as.numeric()` in R we can see the numeric representation of the date
+
+```{r}
+as.numeric(df_dt$DT_ENROLL)
+```
+
+this works the same way in SQL
+
+```{sql output.var = "date_num"}
+select cast(DT_ENROLL as integer), cast(DT_PURCH as integer) from df_dt
+```
+
+```{r echo = FALSE}
+date_num
+```
+
+this has the implication that things that are on the same date have an inequality relationship in both languages
+
+```{r}
+filter(df_dt, DT_ENROLL < DT_PURCH) %>% nrow()
+```
+
+```{sql output.var = "date_ineq"}
+select 
+  cast(DT_ENROLL as integer), 
+  case when DT_ENROLL < 18000 then 1 else 0 end as lt_18000,
+  case when DT_ENROLL < 19000 then 1 else 0 end as lt_19000,
+  case when DT_ENROLL < DT_PURCH then 1 else 0 end as lt_purch
+from df_dt
+```
+
+```{r echo = FALSE}
+date_ineq
+```
+
+Note this this can affect both filters and joins
+
+and this similarly causes a more general problem when comparing a date to a date-as-an-integer
+
+```{r}
+as.Date("2020-01-01") > 20160501
+```
+
+```{sql output.var = "date_comp"}
+select cast('2020-01-01' as date) > 20160501
+```
+
+```{r echo = FALSE}
+date_comp
+```
+
+<!--
+
+### Timestamps versus dates
+
+```{r}
+today <- as.Date(Sys.Date()) 
+now <- as.POSIXct(Sys.time(), "America/New_York")
+today == now
+today > now
+today < now
+```
+
+```{python error = TRUE}
+from datetime import date
+from datetime import datetime
+
+today = date.today()
+now = datetime.now()
+today == now
+today < now
+today > now
+
+today_str = today.strftime('%Y-%m-%d')
+now_str = now.strftime('%Y-%m-%d %H:%M:%S')
+today_str == now_str
+today_str < now_str
+today_str > now_str
+```
+
+-->
+
+## Changing Data Types (TODO)
+
+data types can incidentally change between programs
+
+```{r results = "hold"}
+df <- data.frame(DT = as.Date("2020-10-01"))
+print("-- At creation --")
+sprintf("Class of DT variable: %s", class(df$DT))
+tmp <- tempfile()
+write.csv(df, file = tmp, row.names = FALSE)
+df <- read.csv(file = tmp)
+print("-- After saving and reloading with read.csv --")
+sprintf("Class of DT variable: %s", class(df$DT))
+```
+
+some tools try to make "smart" guesses based on format
+
+```{r message = FALSE, warning = FALSE, results = "hold"}
+library(readr)
+
+df <- readr::read_csv(file = tmp)
+print("-- After saving and reloading with readr --")
+sprintf("Class of DT variable: %s", class(df$DT))
+```
+
+however, this can make things slower or unideal (one example: https://github.com/tidyverse/readr/issues/1094#issuecomment-628612430). 
+you can also specify your own types manually
+
+## Factors in R (TODO)
+
+```{r results = 'hold'}
+factor(c(0,1,0,1)) == 1
+as.integer(factor(c(0,1,0,1))) == 1
+as.integer(factor(c(0,1,0,1)))
+```
+
+## Programming Errors (TODO)
+
+### Default Cases (WIP)
+
+see case-when example in nulls section
+
+### Order of Operations (WIP)
+
+PEMDAS but sometimes still ambiguous
+
+```{r results = 'hold'}
+1 + 1  * 2 / 3 - 1
+(1 + 1) * 2 / 3 - 1
+1 + 1 * 2 / (3 - 1)
+```
+
+SQL clause order of evaluations
+
+### Object References (WIP)
+
+Copying and modifying object overview
+
+```{r echo = FALSE, out.width = '90%', fig.align = 'center', fig.cap = "Different relationships between named variables and their values"}
+knitr::include_graphics("figures/comp-quan/ref-val.PNG")
+```
+
+When might each be preferred?
+
+What risks are there if we don't understand which we are doing?
+
+In Python
+
+```{python results = 'hold'}
+x = [1,2,3]
+y = x
+y.append(4)
+print(y)
+print(x)
+```
+
+```{python results = 'hold'}
+z = x.copy()
+z.append(5)
+print(z)
+print(x)
+```
+
+pandas DataFrame methods with `inplace` arg (`False` is default)
+
+In R
+
+```{r warning = FALSE, message = FALSE, results = 'hold'}
+library(data.table)
+
+DT <- data.table(a=c(1,2), b=c(11,12))
+print(DT)
+
+newDT <- DT        # reference, not copy
+newDT[1, a := 100] # modify new DT
+
+print(DT)          # DT is modified too.
+
+DT = data.table(a=c(1,2), b=c(11,12))
+newDT <- DT        
+newDT$b[2] <- 200  # new operation
+newDT[1, a := 100]
+
+print(DT)
+```
+
+From https://stackoverflow.com/questions/10225098/understanding-exactly-when-a-data-table-is-a-reference-to-vs-a-copy-of-another
+
+
+```{python}
+import pandas as pd
+
+# set-up sample data ----
+data = {'a': [1, 2], 
+        'b': [11, 12]}
+df = pd.DataFrame(data = data)
+
+# rename columns without replacing ----
+df.rename(columns = {'a':'x'})
+df
+
+# rename columns with replacing ----
+df.rename(columns = {'a':'x'}, inplace = True)
+df
+```
+
+
+
+```{r}
+add_ones <- function(data) {
+  
+  data$x0 <- rep(0, nrow(data))
+  
+}
+
+df <- data.frame(x1 = 1:5)
+df
+add_ones(df)
+df
+```
+
+```{r}
+add_ones <- function(data) {
+  
+  data$x0 <- rep(0, nrow(data))
+  return(data)
+  
+}
+
+df <- data.frame(x1 = 1:5)
+df
+add_ones(df)
+df
+df2 <- add_ones(df)
+df2 
+```
+
+
+## Trusting Tools
+
+### Delegating decisions
+
+A theme throughout this book is the fundamentally *social* nature of data analysis. Data analysis is fraught without understanding the countless decisions made along the way by those who generated it (whose data is reflected), those who collected it, those who migrated it, and those who have posed questions of it. On one hand, this is a beautiful aspect of analysis; on the other hand, it means that analysts and their analyses are subject to all of the cognitive and social psychological biases of everyday humans.
+
+One such bias is "social proof": assuming that if a tool behaves a certain way, it must be because it is correct. 
+
+Assuming that our tools know best is admittedly an attractive proposition. It appeals to a desire to think that someone, somewhere is "in charge" and, perhaps more critically, helps us avoid a domino effect of distrust (If we *don't* trust our tools how can we trust our results? And if we can't trust our results, how can we trust anything at all?) Unfortunately, there are many reasons are tools might not know best. For example, the tool's developer might have:
+
+- Made a mistake
+- Had a different analysis problem in mind with a different optimal approach
+- Been optimizing for a different constraint (e.g. explainability vs. accuracy, speed vs. theoretical properties)
+- Come from a community with different norms
+- Been affording users the flexibility to do things many ways even if they don't agree
+- Built a certain feature for a different purpose than how you are using it
+- Not thought about it at all
+
+As a few concrete examples from popular open source tools. We'll look briefly at the prominent python library `scikitlearn` for machine learning and Apache Spark, an engine for large-scale distributed data processing.
+
+#### Defaults in `scikitlearn`
+
+`scikitlearn`'s default behavior for logistic regression modeling^[A classic modeling technique for predicting binary (yes/no) outcomes] automatically applies L2 regularization. You might or might not know what this means, and you might or might not want to apply it to your problem. That's fine. The important thing is that it *will* change your estimates and predictions, and it is *not* a part of the classical definition of that algorithm (for modelers coming from a statistical background.) 
+
+Of course, there's nothing inherently wrong about this choice; the library authors just had different goals than a typical statistical. `scikitlearn` developer Olivier Grisel explains [on Twitter](https://twitter.com/ogrisel/status/1167438229655773186?s=20) that this choice (and others in the library) is explained because "Scikit-learn was always designed to make it easy to get good predictive accuracy (eg as measured by CV) rather than as statistical inference library." Additionally, this choice is documented in bold [in the function documentation](https://scikit-learn.org/stable/modules/generated/sklearn.linear_model.LogisticRegression.html). 
+
+However, an analyst could easily miss this nuance if they do not *read* the documentation. Or, if they *misinterpret* this choice as social proof that regularization is always the right approach, they might not make the best choice for their own analysis.
+
+#### Algorithms in `Spark`
+
+As a second example, according to a 2015 [Jira ticket](https://issues.apache.org/jira/browse/SPARK-5133), developers of Spark considered multiple methodologies they could use when adding the functionality to compute feature importance for a random forest. Ultimately, a core contributor advised against permutation importance due to its computational cost. 
+
+```{r echo = FALSE, out.width = '90%', fig.align = 'center', fig.cap = "JIRA ticket for Spark with a discussion of which random forest variable importance algorithm to implement"}
+knitr::include_graphics("figures/comp-quan/spark-jira.PNG")
+```
+
+Clearly, no one wants a workflow that is too costly or timely to run. So, once again, there is no right or wrong. However, since every approach to feature importance has its own biases, pitfalls, and challenges in interpretation, it's a mistake for an end-user to not carefully understand which algorithm is used and why.
+
+#### Null handling in `ggplot2` (TODO)
+
+```{r}
+library(ggplot2)
+
+df <- data.frame(x1 = 1:5, 
+                 x2 = c(1, 2, NA, NA, 5),
+                 y1 = 1:5,
+                 y2 = c(1, 2, NA, NA, 5))
+ggplot(df, aes(x1, y1)) + geom_line()
+ggplot(df, aes(x1, y2)) + geom_line()
+ggplot(df, aes(x2, y1)) + geom_line()
+ggplot(df, aes(x2, y2)) + geom_line()
+```
+
+
+#### Boxplots in `ggplot2` (TODO)
+
+depending on how you change the scale it also changes the calculations
+
+https://stackoverflow.com/questions/5677885/ignore-outliers-in-ggplot2-boxplot
+
+### "Off-Label" Use (TODO)
+
+coined in https://www.rstudio.com/resources/rstudioglobal-2021/maintaining-the-house-the-tidyverse-built/
+
+### Security (TODO)
+
+namespace squatting
+
+executable code
+
+## Inefficient Processing (TODO)
+
+## Strategies (WIP)
+
+Paragraph 1 TODO
+
+Some computational quandaries are inherent to our tools themselves, but often they are a function both of the tools and the ways we chose to use them. More strategies related to writing robust and resilient code will be discussed in @sec-comp-code (Complexify Code).
+
+### Understand the intent
+
+- read the docs
+- look at examples
+- don't carry default knowledge between languages
+
+### Understand the execution
+
+- test out simple examples (like we've been doing)
+- specificlly try out corner cases
+
+### Be explicit not implicit
+
+- default arguments
+- examples above with casting, coalescingW
+
+## Real World Disasters (WIP)
+
+https://www.theguardian.com/politics/2020/oct/05/how-excel-may-have-caused-loss-of-16000-covid-tests-in-england
+
+> The data error, which led to 15,841 positive tests being left off the official daily figures, means than 50,000 potentially infectious people may have been missed by contact tracers and not told to self-isolate.
+
+```{r echo = FALSE}
+DBI::dbDisconnect(con)
+```
+
+<!--
+
+In practice, data analysis requires using a number of advanced computational tools such as SQL, R, or python. Analysts must work in a partnerships with each tool to access and wrangle their data into an accessible form of information. However, the moment you as an analyst begins to use a tool, the conversation is no longer simply between you and the data; suddenly, thousands of developers who helper build your tools are now crowding into the room. Each may have contributed to the code behind your tool with a different mental model of how one would use it.
+
+In this chapter, we will explore common ways that tools may do something correct, reasonable, and as-intended but very much not what we would have liked as analysts.
+
+```{r include = FALSE}
+library(dplyr)
+library(sqldf)
+library(DBI)
+library(RSQLite)
+library(reticulate)
+
+# make R dataset ----
+registration <-
+data.frame(
+  ID_CUSTOMER = 1:10,
+  CD_DEVICE = c(rep(1, 3), rep(2, 3), rep(3, 4)),
+  AMT_SPEND = c(seq(10, 50, by=10), rep(NA, 3), 90, 100),
+  AMT_RETURN = rep(NA, 10)
+)
+
+# load to SQL ----
+con <- DBI::dbConnect(RSQLite::SQLite(), ":memory:")
+DBI::dbWriteTable(con, "registration", registration)
+
+# load to python ----
+registration_py <- r_to_py(registration)
+```
+
+TODO: Introduce datasets
+
+```{r}
+head(registration)
+```
+
+```{python}
+1+1
+```
+
+
+
+
+
+
+## The meaning of a row
+
+Often, data comes with an accompanying data dictionary to describe the meaning of each variable (column). However, for some reason, describing what constitutes an observation (row) is less common practice. This may seem obvious. In two of R's most popular built-in datasets, `iris` and `mtcars`, it's somewhat evident from context that each row represents one flower or one car. 
+
+However, sometimes trying to glean this information from context alone can be misleading. Imagine, for example, that we want to calculate the rate of successful log-ins to our e-commerce website.
+
+```{r echo = FALSE}
+library(tidyr)
+library(dplyr)
+
+set.seed(123)
+data <- data.frame(ID_ACCT = 1:10, N_ATTEMPT = sample(1:3, 10, replace = TRUE, prob = c(0.7, 0.2, 0.1)), IND_LOGIN = rep(1,10))
+logins <-
+tidyr::uncount(data, N_ATTEMPT, .remove = FALSE) %>%
+  group_by(ID_ACCT) %>%
+  mutate(IND_LOGIN = case_when(
+    N_ATTEMPT > 1 & row_number() < N_ATTEMPT ~ 0,
+    N_ATTEMPT > 1 & row_number() == N_ATTEMPT ~ sample(c(0,1), 1, replace = TRUE, prob = c(0.6,0.4)),
+    TRUE ~ IND_LOGIN
+  )) %>%
+  select(-N_ATTEMPT) %>%
+  ungroup()
+```
+
+```{r}
+summarize(logins, PROP_LOGIN = mean(IND_LOGIN))
+
+logins %>%
+  group_by(ID_ACCT) %>% 
+  summarize(IND_LOGIN = max(IND_LOGIN)) %>%
+  ungroup() %>% 
+  summarize(PROP_LOGIN = mean(IND_LOGIN))
+```
+
+## The many forms of null
+
+Frequently, real-world data sets suffer from at least some missing values. This missing data can cause complex computational and analytical challenges. Considering why one's data is missing and how such missing is encoded is critical before attempting an analysis.
+
+It's tempting to think of missingness as a binary status: either a datum exists or it does not. However, missingness can arise from a number of different situations -- each with its own unique computational and analytical challenges. For example, in a tabular data representation, a variable (column) for an observation (row) might appear to be missing because:
+
+- There exists a true value for that variable and entity but it is unknown
+- There is no relevant value for that variable
+- The relevant value for that variable *is* null
+
+For example, consider the `registrations` dataset with data on users that have created an account at an online e-commerce platform:
+
+- Users might be asked but not required to provide their date of birth; so, while every user *has* a birthday, only those that provide it would have a value for this field. Those that do not would be encoded as a `NULL`; (could also be only started collecting after certain dates, at a certain set of stores, data load error)
+- We might also wish to record for mobile users if they were on an Android or and iPhone device when they registered. However, for users registering from a computer, there is no relevant value for this field. 
+- Often, retailers want to attribute user traffic to different forms of advertising, so we might also have a field for the URL that directed users to our site. However, for users that truly typed in the URL directly and did not come through an affiliate link, the "true value" of the referring site is `NULL`. (Admittedly, there is significant overlap in the second two cases.)
+
+Just as there are many potential causes for missingness in our data, there can often be many potential *encodings* of missingness.
+
+The **naniar** package [@R-naniar] \index{R package!naniar}
+
+Talk about encoding as like 9999
+
+R has `NA`, `NaN`, `Inf`, `NULL`, and typed `NA`s
+
+While this section focuses on the computational challenges of null values, no discussion of missingness would be complete without also mentioning the analytical consequences as well. Many statistical techniques such as linear regression are unable to accept null values in their inputs, so an analyst must somehow confront missingness before passing their data to the algorithm. Broadly speaking, analysts must either remove missing values or replace them with a proxy imputed value. There is a rich literature on missingness beyond the scope of this book, but briefly speaking this choice can be guided by the following framework. 
+
+These different types of missingness must be handled differently because they insert different biases into our data. Someone (TODO: who and add citiation) classifies the level of missingness as:
+
+- Missing Completely at Random (MCAR): TODO: finish defining these
+- Missing at Random (MAR):
+- Missing not a Random (MNAR):
+
+Comparing these categories to the examples above, 
+
+Literature about imputation; mention **mice** package (???)
+
+One example of this is evident in the US Census Bureau's Medical Expenditure Panel Survey which uses the following reserved codes to denote different types of missingness. (TODO p10 https://www.meps.ahrq.gov/data_stats/download_data/pufs/h206a/h206adoc.pdf)
+
+- -1 INAPPLICABLE Question was not asked due to skip pattern
+- -7 REFUSED Question was asked and respondent refused to answer question
+- -8 DK Question was asked and respondent did not know answer
+- -14 NOT YET TAKEN/USED Respondent answered that the medicine has not yet been used
+- -15 CANNOT BE COMPUTED Value cannot be derived from data
+
+## Null value aggregation
+
+As we've seen, null values in our data can mean many different things and be represented in many different ways. However, even once we have locked down the *semantic* meaning of nulls in our data and considered alternatives for their *encoding*, these values may still cause *computational* challenges.^[This problem is not isolated to data analysis tools. For an entertaining example, see the 2019 WIRED article "How a 'NULL' License Plate Landed One Hacker in Ticket Hell" [@barrett] which a real-world software system producing unintended and undesirable behavior when asked to deal with a word `'NULL'`.] How null values are handled in the simple aggregation of data varies both across different languages and across different functions within a language. To better understand the problems this might cause, we will look at examples in R and SQL.
+
+First, consider the `registration` data set. To compute the average amount spent (`AMT_SPEND`) with the `dplyr` package, an analyst might first reasonably write the following `summarize()` statement. However, as we can see, due to the presence of null values within the `AMT_SPEND` column, the result of this aggregation is for the whole quantiaty of `AVG_SPEND` to be set to the value `NA`. 
+
+```{r}
+summarize(registration, AVG_SPEND = mean(AMT_SPEND))
+```
+
+A glance at the documentation for the `mean()` function reveals that it has an `na.rm` parameter which, when set to true, removes null values from our dataset. Adding this argument to the previous statement allows us to reach a numerical answer.
+
+```{r}
+summarize(registration, 
+          AVG_SPEND = mean(AMT_SPEND, na.rm = TRUE))
+```
+
+However, is this the *right* numerical answer? What `na.rm = TRUE` does is *drop* the null values from the set of numbers being averaged. However, suppose the null values represent that no purchases were made. That is, zero dollars were spent. In effect, we have removed all non-purchasers from the data being averaged. 
+
+More precisely, we have switched from taking the average
+
+$$
+  \frac{ \sum_{1}^{n} Spend }{\sum_{1}^{n} 1}
+$$ over all $n$ customers
+
+to taking the average
+
+$$
+  \frac{ \sum_{Spend > 0} Spend }{\sum_{Spend > 0} 1}
+$$ over only those customers with spend
+
+At face value, we could say that the code above is giving the incorrect answer; by dropping some low (zero) purchase amounts, the average amount spend per customer is inflated. A second and even more troubling perspective is that this tiny change to the code which seemed like a reasonable attempt to fix an *obvious* problem has introduced a *non-obvious* problem by fundamentally changing the question that we are asking. By dropping all accounts from our table who made no purchases, we are no longer answering "What is the average amount spent by a new registrant?" but rather "What is the average amount spent by an actively engaged customer?" This technical quirk has significant analytical impact.
+
+To answer the real question at hand, we would instead have a couple of options. We could `sum()` the amount spent with the option to drop nulls but then divide by the correct denominator (all observations -- not just those with spend) or we could explicitly recode null values in `AMT_SPEND` to zero before taking the average. This leads to a lower but correct conclusion.
+
+```{r}
+summarize(registration,
+    AVG_SPEND_v1 = sum(AMT_SPEND, na.rm = TRUE) / n(),
+    AVG_SPEND_v2 = mean(ifelse(is.na(AMT_SPEND), 0, AMT_SPEND))
+  )
+```
+
+This is all well and good if we could just accept that the behaviors above are simply how nulls work, but further complexity comes as we see that there is no industry standard across tools. For example, as the SQL code below shows, SQL's `avg()` function behaves more like R's `mean()` *with* the `na.rm = TRUE` option set. That is, the default behavior of SQL is to only operate on the valid and available values. 
+
+```{sql connection = con, output.var = "sql1"}
+SELECT avg(amt_spend) 
+FROM registration
+```
+
+```{r echo = FALSE}
+sql1
+```
+
+However, this is not to suggest that null values cannot also be destructive in SQL. While aggregation functions (which compute across a *row*) like `sum()` and `avg()` drop nulls, operators like `+` and `-` working *across columns* in the *same row* do not exhibit the same behavior. Consider, for example, if we wish to calculate the average net purchase amount (purchases minus returns) instead of the gross (total) purchase amount. 
+
+```{sql connection = con, output.var = "sql2"}
+SELECT avg(amt_spend-amt_return) 
+FROM registration
+```
+
+```{r echo = FALSE}
+sql2
+```
+
+Despite what we learned above about the `avg()` function, the query above returns only a null value. What has happened? In our `registration` data set, the `amt_return` column is completely null (representing no returns). Because the subtraction occurs before the average is taken, subtracting real numbers in `amt_spend` with null values in `amt_return` creates a column of all null values which are then fed into the `avg()` function. This process is shown step-by-step below.
+
+```{sql connection = con, output.var = "sql3"}
+SELECT
+  amt_spend, 
+  amt_return, 
+  amt_spend-amt_return 
+FROM registration
+```
+
+```{r echo = FALSE}
+sql3
+```
+
+## Null value filtering
+
+`dplyr` excludes `NA`s in `filter`
+
+```{r}
+data.frame(x = c(1, 0, NA)) %>%
+  filter(x != 1)
+```
+
+`SQL` excludes `NA`s in `WHERE`
+
+```{sql connection = con, output.var = "sql4"}
+select *
+from registration
+where amt_spend != 10
+```
+
+```{r echo = FALSE}
+sql4
+```
+
+```
+import pandas as pd
+d = {'col1': [1, None], 'col2': [3, 4]}
+df = pd.DataFrame(data=d)
+df
+df.query('col1 > 0')
+df[df['col1'] > 0]
+```
+
+## Encoding with defaults
+
+Often, to faciliate an analysis, we wish to **recode** variables from one form to another. There are many reasons we might wish to recode variables. Sometimes, our data may be represented with system-generated codes that obscure the context-specific meaning of fields. For example, if you are analyzing US Census data, it might identify different regions by their FIPS code while a human might prefer to see the actual name of a state or a county. In other cases, we wish to recode fields in order to change their level of granularity. For example, we might wish to group categories such as "apple", "banana", and "orange" into the "fruit" category.
+
+Common functions for recoding include `base::ifelse`\index{base!ifelse}\index{R!ifelse}, `dplyr::if_else`\index{dplyr!if\_else}\index{R!if\_else}, and `dplyr::case_when`\index{dplyr!case\_when}\index{R!case\_when} in R and `CASE` statements in SQL\index{SQL!case}. Generally, all of these work by:
+
+- specifying one or more logical conditions based on other column(s) in the dataset
+- for each logical condition, specifying the new value that the variable should take
+- if none of the conditions are met, providing a default value
+
+However, analysts may often take on slight short-cut
+
+```{r}
+registration <-
+mutate(registration,
+       CAT_DEVICE = case_when(
+         CD_DEVICE == 1 ~ "IOS",
+         TRUE ~ "Android"
+       )
+       )
+
+registration %>%
+  group_by(CAT_DEVICE) %>%
+  count()
+```
+
+```{r}
+unique(registration$CD_DEVICE)
+```
+
+```{r}
+registration <- 
+  mutate(registration, 
+         IND_SMALL_PURCH = case_when(
+           AMT_SPEND < 50 ~ 1,  
+           TRUE ~ 0)
+         )
+                       
+registration %>%
+  group_by(IND_SMALL_PURCH) %>%
+  count()
+
+registration <-
+  mutate(registration, 
+         IND_SMALL_PURCH = if_else(AMT_SPEND < 50, 1, 0))
+                       
+registration %>%
+  group_by(IND_SMALL_PURCH) %>%
+  count()
+```
+
+## Working with strings
+
+## Data Types - Max
+
+```{r}
+any(
+  "a" == "A",
+  " a" == "a",
+  "a " == "a",
+  "a  b" == "a b",
+  "‘z’" == "'z'"
+)
+```
+
+```{r}
+max(c("20200101", "20190301"))
+max(c("03012019", "01012020"))
+max(c("120","99"))
+max(c("120","099"))
+max(c(120,99))
+max(c(120,099))
+```
+
+```{sql connection = con}
+select 
+  max('20200101', '20190301'),
+  max('01012020', '03012019'),
+  max('120','99'),
+  max('120','099'),
+  max(120,99),
+  max(120,099)
+```
+
+```{python}
+max(["20200101", "20190301"])
+max(["03012019", "01012020"])
+max(["120","99"])
+max(["120","099"])
+max([120,99])
+#max([120,099]) Python won't allow leading zeros on integers
+```
+
+## Data Types - Equality
+
+```{r}
+"2020" == 2020
+"02020" == 2020
+```
+
+```{sql connection = con}
+select 
+  '2020' == 2020,
+  '02020' == 2020,
+  cast('2020' as numeric) == 2020,
+  cast('2020' as integer) == 2020
+```
+
+```{python}
+"2020" == 2020
+"02020" == 2020
+```
+
+`python 1+1`
+
+## Working with dates and times
+
+### Many different formats
+
+- YYYYMMDD
+- MMDDYYYY
+- MM/DD/YYYY
+- MM/DD/YY
+- DDMMYYYY
+- DD/MM/YYYY
+
+### Timestamps versus dates
+
+```{r}
+today <- as.Date(Sys.Date()) 
+now <- as.POSIXct(Sys.time(), "America/New_York")
+today == now
+today > now
+today < now
+```
+
+```{python error = TRUE}
+from datetime import date
+from datetime import datetime
+
+today = date.today()
+now = datetime.now()
+today == now
+today < now
+today > now
+
+today_str = today.strftime('%Y-%m-%d')
+now_str = now.strftime('%Y-%m-%d %H:%M:%S')
+today_str == now_str
+today_str < now_str
+today_str > now_str
+```
+
+## Assessing equality
+
+Automatic conversion of data types
+Dates versus timestamps 
+
+```{r}
+df_dt <-
+data.frame(
+  DT_ENROLL = as.Date("2020-01-01"),
+  DT_PURCH  = 20200101,
+  DT_LOGIN  = as.POSIXlt("2020-01-01T12:00:00") 
+  )
+```
+
+```{r}
+filter(df_dt, DT_ENROLL == DT_PURCH) %>% nrow()
+```
+
+```{r}
+sqldf("select * from df_dt where DT_ENROLL = DT_PURCH")
+```
+
+```{r}
+as.numeric(df_dt$DT_ENROLL)
+```
+
+```{r}
+sqldf("select cast(DT_ENROLL as integer) from df_dt")
+```
+
+Note this this can affect both filters and joins
+
+## Merging mayhem
+
+
+## Modifying versus copying
+
+
+
+
+## Inefficient processing
+
+```{r}
+n <- 1000000
+x1 = 1:n
+x2 = 1:n
+
+start_time <- Sys.time()
+for (i in 1:n) {
+  x1[i] = x1[i] + 1
+}
+end_time <- Sys.time()
+t_for <- end_time - start_time
+
+start_time <- Sys.time()
+x2 = x2 + 1
+end_time <- Sys.time()
+t_vec <- end_time - start_time
+
+t_for
+t_vec
+as.numeric(t_for)/as.numeric(t_vec)
+```
+
+```{python}
+import numpy as np
+import time
+
+n = 1000000
+x1 = list(range(n))
+x2 = np.array(x1)
+
+t0 = time.time()
+for i in range(n):
+  x1[i] += 1
+t1 = time.time()
+t_for = t1-t0
+
+t0 = time.time()
+x2 += 1
+t1 = time.time()
+t_vec = t1-t0
+
+t_for
+t_vec
+t_for / t_vec
+```
+
+-->

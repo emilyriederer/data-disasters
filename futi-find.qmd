@@ -1,0 +1,71 @@
+# Futile Findings (TODO) {#futi-find}
+
+Dirty Dozen p hacking https://psyarxiv.com/xy2dk/
+
+<!--
+
+## No law to use ALL the data
+
+## Ascribing characteristics at wrong granularity
+
+ecological fallacy
+
+(does this belong in causation chapter?)
+
+## Finding policy-induced relationships
+
+selection bias
+
+## Ignoring heterogeneity
+
+## "If trends continue"
+
+## Analyzing time-to-event data
+
+immortal time bias
+
+## Answering the right question
+
+Don't let available tools dictate the questions of interest
+
+*The Cult of Statistical Significance* [@ziliak_mccloskey]
+
+"Mindless Statistics" [@GIGERENZER2004587]
+
+## Misguided Rigor
+
+```{r}
+set.seed(123)
+t <- t.test(rnorm(100), rnorm(100))
+print(t)
+t$p.value
+```
+
+```{r}
+pvals <- vapply(1:1000, FUN = function(x) t.test(rnorm(100), rnorm(100))$p.value, FUN.VALUE = numeric(1)) 
+alpha <- 0.05
+sum(pvals > (1-alpha/2) | pvals < alpha/2) / length(pvals)
+```
+
+```{r}
+get_prop_sign <- function(n = 1000, alpha = 0.05) {
+
+  pvals <- vapply(1:n, FUN = function(x) t.test(rnorm(100), rnorm(100))$p.value, FUN.VALUE = numeric(1))
+  prop <- sum(pvals > (1-alpha/2) | pvals < alpha/2) / length(pvals)
+  return(prop)
+
+}
+```
+
+
+Data dredging, p-hacking
+
+## Sample splitting
+
+The **nullabor** [@R-nullabor] R package
+
+## Age Period Cohort
+
+## Strategies
+
+-->

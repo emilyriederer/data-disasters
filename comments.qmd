@@ -1,0 +1,18 @@
+::: {.content-hidden unless-format="html"}
+
+# Comments? Discuss here! {-}
+
+This book is an active work-in-progress. I welcome any questions or suggestions. 
+
+Feel free to open an issue or PR about specific parts of the book or to leave general comments below. 
+
+<script src="https://utteranc.es/client.js"
+        repo="emilyriederer/data-disasters"
+        issue-term="pathname"
+        label="utterances"
+        theme="github-light"
+        crossorigin="anonymous"
+        async>
+</script>
+
+:::

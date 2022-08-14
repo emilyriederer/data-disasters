@@ -1,0 +1,70 @@
+project:
+  type: book
+
+bibliography: book.bib
+crossref:
+  chapters: true
+
+book:
+  title: "Data Disasters"
+  author: "Emily Riederer"
+  description: "Navigating the complexities of real-world data analysis"
+  cover-image: figures/cover.png
+
+  favicon: figures/cover.png
+  open-graph: true
+  twitter-card: true
+  google-analytics: G-C7VEESJ7Z8
+
+  graphics: yes
+  search: true
+  site-url: data-disasters.com
+  repo-url: https://github.com/emilyriederer/data-disasters
+  repo-branch: main
+  repo-actions: [edit]
+  sharing: [twitter, facebook, linkedin]
+  chapters:
+
+    - "index.qmd"
+    - "comments.qmd"
+    - "author.qmd"
+    - "intro.qmd"
+
+    - part: "Data"
+      chapters:
+        - "data-dall.qmd"
+        - "comp-quan.qmd"
+        - "egre-aggr.qmd"
+        - "vexi-visu.qmd"
+
+    - part: "Analysis"
+      chapters:
+      - "incr-infe.qmd"
+      - "cava-caus.qmd"
+      - "mind-mode.qmd"
+      - "alte-algo.qmd"
+      - "futi-find.qmd"
+
+    - part: "Workflow"
+      chapters:
+      - "comp-code.qmd"
+      - "reje-repr.qmd"
+      - "mour-mist.qmd"
+
+    - "references.qmd"
+
+  appendices:
+    - "more.qmd"
+
+format:
+  html:
+    theme: [cosmo, custom.scss]
+    cover-image: figures/cover.png
+    code-link: true
+    anchor-sections: true
+  pdf:
+    documentclass: krantz
+    include-in-header: latex/preamble.tex
+    include-before-body: latex/before_body.tex
+    include-after-body: latex/after_body.tex
+    keep-tex: true

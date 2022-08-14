@@ -1,0 +1,23 @@
+/*-- scss:defaults --*/
+
+$primary: #7BAFD4 !default;
+$link-color: #7BAFD4 !default;
+$code-block-border-left: #7BAFD4 !default;
+
+/*-- scss:rules --*/
+
+img.quarto-cover-image {
+  box-shadow: 0 .5rem 1rem rgba(0,0,0,.15);
+}
+
+pre {
+  background-color: rgba(233, 236, 239, 0.65);
+}
+
+code {
+  color: inherit;
+}
+
+h1, .sidebar-navigation a.active {
+        color: $primary;
+}
