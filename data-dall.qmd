@@ -123,9 +123,30 @@ Our goal of understanding data is to ensure can assess its data quality and fit 
 
 ## Data Collection 
 
+**Data collection** is the process of capturing and digitizing something in the real-world. 
+
 One of the tricky nuances of data collection is understanding what precisely is getting captured and logged in the first place. 
 No matter how robust the sensors, loggers, or other mechanisms are that record our dataset, that data is still unfit for its purpose so long as the analyst does not fully understand what it represents. 
 In the next section, we will see how what data gets collected (and our understanding of it) can alter our notions of data completion and how we must handle it in our computations.
+
+Data can be collected in many different ways such as:
+
+- **Direct measurement**: A researcher directly engages with each observation to measure certain characteristics
+- **Self-report**: Information is requested from individual (human) observations who provide information
+- **Logging**: Information is captured with proactively-configured sensors or logs which record certain behaviors
+- **Residue**: Data is produced as an artifact of an operational system but is then re-purposed for analysis
+
+Each approach is best suited for different circumstances and has unique benefits and challenges. 
+For example:
+
+- **Direct measurement**: Can lead to measurement error. If multiple people are collecting this data, these errors could be correlated within each researcher and break the independence of observations.
+- **Self-report**: Can easily become biased by factors such as what type of people are inclined to *respond* to the request for information and if they feel obligated to provide *socially desirable* answers
+- **Logging**: Can suffer from overly specific or outdated definitions of events
+- **Residue**: Can behave in unexpected ways since the data was collected for purposes different from analysis
+
+Regardless of the specifics, an important part of data collection is understanding precisely whose data (that is, what population) is getting collected. 
+No matter how robust the sensors, loggers, or other mechanisms are, that data is still unfit for its purpose so long as the analyst does not fully understand what it represents. 
+In the next section, we will see how what data gets collected (and our understanding of it) can alter our notions of **data completeness** and how we must handle it in our computations.
 
 ### What Makes a Record (Row)
 
@@ -618,6 +639,8 @@ As described in the BBC [@bbc_north_west_2021]:
 
 > A man in his 30s with no underlying health conditions was offered a Covid vaccine after an NHS error mistakenly listed him as just 6.2cm in height. Liam Thorp was told he qualified for the jab because his measurements gave him a body mass index of 28,000.
 
+
+TODO: Data Smells Code https://arxiv.org/pdf/2203.08007.pdf
 
 <!--
 ## Strategies 
