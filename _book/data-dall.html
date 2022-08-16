@@ -484,7 +484,31 @@
 <p>Our goal of understanding data is to ensure can assess its data quality and fit for our purpose. Understanding both its structure and its production process helps to accomplish this.</p>
 </section></section><section id="data-collection" class="level2" data-number="2.2"><h2 data-number="2.2" class="anchored" data-anchor-id="data-collection">
 <span class="header-section-number">2.2</span> Data Collection</h2>
+<p><strong>Data collection</strong> is the process of capturing and digitizing something in the real-world.</p>
 <p>One of the tricky nuances of data collection is understanding what precisely is getting captured and logged in the first place. No matter how robust the sensors, loggers, or other mechanisms are that record our dataset, that data is still unfit for its purpose so long as the analyst does not fully understand what it represents. In the next section, we will see how what data gets collected (and our understanding of it) can alter our notions of data completion and how we must handle it in our computations.</p>
+<p>Data can be collected in many different ways such as:</p>
+<ul>
+<li>
+<strong>Direct measurement</strong>: A researcher directly engages with each observation to measure certain characteristics</li>
+<li>
+<strong>Self-report</strong>: Information is requested from individual (human) observations who provide information</li>
+<li>
+<strong>Logging</strong>: Information is captured with proactively-configured sensors or logs which record certain behaviors</li>
+<li>
+<strong>Residue</strong>: Data is produced as an artifact of an operational system but is then re-purposed for analysis</li>
+</ul>
+<p>Each approach is best suited for different circumstances and has unique benefits and challenges. For example:</p>
+<ul>
+<li>
+<strong>Direct measurement</strong>: Can lead to measurement error. If multiple people are collecting this data, these errors could be correlated within each researcher and break the independence of observations.</li>
+<li>
+<strong>Self-report</strong>: Can easily become biased by factors such as what type of people are inclined to <em>respond</em> to the request for information and if they feel obligated to provide <em>socially desirable</em> answers</li>
+<li>
+<strong>Logging</strong>: Can suffer from overly specific or outdated definitions of events</li>
+<li>
+<strong>Residue</strong>: Can behave in unexpected ways since the data was collected for purposes different from analysis</li>
+</ul>
+<p>Regardless of the specifics, an important part of data collection is understanding precisely whose data (that is, what population) is getting collected. No matter how robust the sensors, loggers, or other mechanisms are, that data is still unfit for its purpose so long as the analyst does not fully understand what it represents. In the next section, we will see how what data gets collected (and our understanding of it) can alter our notions of <strong>data completeness</strong> and how we must handle it in our computations.</p>
 <section id="what-makes-a-record-row" class="level3" data-number="2.2.1"><h3 data-number="2.2.1" class="anchored" data-anchor-id="what-makes-a-record-row">
 <span class="header-section-number">2.2.1</span> What Makes a Record (Row)</h3>
 <p>The first priority when starting to work with a dataset is understanding what a single record (row) represents and what causes it to be generated.</p>
@@ -778,11 +802,11 @@
 <span><span class="fu"><a href="https://rdrr.io/r/utils/head.html">head</a></span><span class="op">(</span><span class="va">df</span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-stdout">
 <pre><code>  dt_subm dt_ship dt_load
-1       1       3       3
+1       1       4       4
 2       1       5       5
-3       1       3       3
+3       1       5       5
 4       1       3       3
-5       1       4       4
+5       1       5       5
 6       1       4       4</code></pre>
 </div>
 </div>
@@ -989,6 +1013,7 @@
 <blockquote class="blockquote">
 <p>A man in his 30s with no underlying health conditions was offered a Covid vaccine after an NHS error mistakenly listed him as just 6.2cm in height. Liam Thorp was told he qualified for the jab because his measurements gave him a body mass index of 28,000.</p>
 </blockquote>
+<p>TODO: Data Smells Code https://arxiv.org/pdf/2203.08007.pdf</p>
 <!--
 ## Strategies 
 
@@ -1288,7 +1313,7 @@ df %>% filter(dt_ship <= 7) %>% group_by(dt_order) %>% count()
 2        2     5
 3        3     5
 4        4     5
-5        5     4
+5        5     2
 ```
 :::
 
