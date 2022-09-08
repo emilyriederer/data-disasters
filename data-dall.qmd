@@ -160,7 +160,7 @@ knitr::include_graphics("figures/data-dall/login-log.png")
 ```
 
 Which of these events gets collected and recorded has a significant impact on subsequent data processing. 
-In a technical sense, no inclusion/exclusion decision here is *incorrect*, per say, but if the producers' choices don't match the consumers' understandings, it can lead to misleading results.
+In a technical sense, no inclusion/exclusion decision here is *incorrect*, per se, but if the producers' choices don't match the consumers' understandings, it can lead to misleading results.
 
 For example, an analyst might seek out a `logins` table in order to calculate the rate of successful website logins. 
 Reasonably enough, they might compute this rate as the sum of successful events over the total. 
@@ -294,7 +294,7 @@ To catch missing data, an analyst might instead attempt to count the number of `
 
 In a case like the toy example above where the correct number of rows per date is highly predictable and the number of dates is small, such eyeballing is feasible; 
 however when the expected number of records varies day-to-day or time series are long, this approach becomes subjective, error-prone, and intractable. 
-Additionally, it still might be hard to catch errors in mutli-source data or partial loads if the lower number of records was still within the bounds of reasonable deviation for a series. 
+Additionally, it still might be hard to catch errors in multi-source data or partial loads if the lower number of records was still within the bounds of reasonable deviation for a series. 
 These last two types deserve further exploration.
 
 #### Multi-Source
@@ -371,7 +371,7 @@ head(df)
 ```
 
 Suppose we are an analyst living in day 5 and wonder how many orders were submitted on day 3. 
-We can observe all shipments loaded before day 5 so we filter our data accordingly.
+We can observe all shipments loaded by day 5 so we filter our data accordingly.
 However, when we count how many records exist for day 3 we find none.
 Instead, when we move ahead to an analysis date of day 7, we are able to observe the orders submitted on day 3.
 
@@ -398,11 +398,12 @@ Such trade-offs, and general thoughts on coding style, are explored further in @
 
 Now, this may seem to trivial. Clearly, if there were *zero* records for a day, we would catch this in data validation, right?
 We can make our synthetic data slightly more realistic to better illustrate the problem. 
-Let's not imagine that there are 10 orders each day, and each order is shipped sometime between 2 and 4 days after the order with equal probability. 
+Let's now imagine that there are 10 orders each day, and each order is shipped sometime between 2 and 4 days after the order with equal probability. 
 
 ```{r}
 # data simulation: multiple orders + random ship dates ----
 dt_subm <- rep(x = 1:10, each = 10)
+set.seed(0) # to get the same simulated data each time
 days_to_ship <- sample(x = 2:4, size = length(dt_subm), replace = TRUE)
 dt_ship <- dt_subm + days_to_ship
 dt_load <- dt_ship
@@ -539,7 +540,7 @@ Coding transformations in the ELT process is easy for data producers. There's no
 
 Alternatively, macros, UDFs, and look-up tables provided centralized ways to map source data inputs to desired analytical data outputs in a systemic and consistent way. Of course, centralization has its own challenges. If something in the source data changes, the process of updating a centralized UDF or look-up table may be slowed down by the need to seek consensus and collaborate. So, data is more *consistent* but potentially less *accurate*.
 
-Regardless, such engineered values require scrutiny -- paticularly if they are being used as a key to join multiple tables -- and the distinct values in them should be carefully examined.
+Regardless, such engineered values require scrutiny -- particularly if they are being used as a key to join multiple tables -- and the distinct values in them should be carefully examined.
 
 #### Updating Transformations
 
@@ -553,7 +554,7 @@ knitr::include_graphics("figures/data-dall/incr-full-good.png")
 
 Incremental loads have many advantages. Rebuilding tables in entirety can be very time consuming and computationally expensive. In particular, in non-cloud data warehouses that are not able to scale computing power on demand, this sort of heavy duty processing job can noticeably drain resources from other queries that are trying to run in the database. Additionally, if the upstream staging data is ephemeral, fully rebuilding the table could mean failing to retain history.
 
-However, in the case that our data transformations change, incremental loads may introduce inconsistency in our data overtime as only new records are created and inserted with the new logic.
+However, in the case that our data transformations change, incremental loads may introduce inconsistency in our data over time as only new records are created and inserted with the new logic.
 
 ```{r echo = FALSE, out.width = '90%', fig.align = 'center'}
 knitr::include_graphics("figures/data-dall/incr-full-bad-col.png")
