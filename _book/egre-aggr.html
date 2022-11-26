@@ -2,135 +2,149 @@
 <html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <meta charset="utf-8">
-<meta name="generator" content="quarto-0.9.175">
+<meta name="generator" content="quarto-1.2.247">
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 <meta name="description" content="Navigating the complexities of real-world data analysis">
 <title>Data Disasters - 4&nbsp; Egregious Aggregations (WIP)</title>
 <style>
-    code{white-space: pre-wrap;}
-    span.smallcaps{font-variant: small-caps;}
-    span.underline{text-decoration: underline;}
-    div.column{display: inline-block; vertical-align: top; width: 50%;}
-    div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
-    ul.task-list{list-style: none;}
-    pre > code.sourceCode { white-space: pre; position: relative; }
-    pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
-    pre > code.sourceCode > span:empty { height: 1.2em; }
-    .sourceCode { overflow: visible; }
-    code.sourceCode > span { color: inherit; text-decoration: inherit; }
-    div.sourceCode { margin: 1em 0; }
-    pre.sourceCode { margin: 0; }
-    @media screen {
-    div.sourceCode { overflow: auto; }
-    }
-    @media print {
-    pre > code.sourceCode { white-space: pre-wrap; }
-    pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
-    }
-    pre.numberSource code
-      { counter-reset: source-line 0; }
-    pre.numberSource code > span
-      { position: relative; left: -4em; counter-increment: source-line; }
-    pre.numberSource code > span > a:first-child::before
-      { content: counter(source-line);
-        position: relative; left: -1em; text-align: right; vertical-align: baseline;
-        border: none; display: inline-block;
-        -webkit-touch-callout: none; -webkit-user-select: none;
-        -khtml-user-select: none; -moz-user-select: none;
-        -ms-user-select: none; user-select: none;
-        padding: 0 4px; width: 4em;
-        color: #aaaaaa;
-      }
-    pre.numberSource { margin-left: 3em; border-left: 1px solid #aaaaaa;  padding-left: 4px; }
-    div.sourceCode
-      {   }
-    @media screen {
-    pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
-    }
-    code span.al { color: #ff0000; font-weight: bold; } /* Alert */
-    code span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
-    code span.at { color: #7d9029; } /* Attribute */
-    code span.bn { color: #40a070; } /* BaseN */
-    code span.bu { } /* BuiltIn */
-    code span.cf { color: #007020; font-weight: bold; } /* ControlFlow */
-    code span.ch { color: #4070a0; } /* Char */
-    code span.cn { color: #880000; } /* Constant */
-    code span.co { color: #60a0b0; font-style: italic; } /* Comment */
-    code span.cv { color: #60a0b0; font-weight: bold; font-style: italic; } /* CommentVar */
-    code span.do { color: #ba2121; font-style: italic; } /* Documentation */
-    code span.dt { color: #902000; } /* DataType */
-    code span.dv { color: #40a070; } /* DecVal */
-    code span.er { color: #ff0000; font-weight: bold; } /* Error */
-    code span.ex { } /* Extension */
-    code span.fl { color: #40a070; } /* Float */
-    code span.fu { color: #06287e; } /* Function */
-    code span.im { } /* Import */
-    code span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Information */
-    code span.kw { color: #007020; font-weight: bold; } /* Keyword */
-    code span.op { color: #666666; } /* Operator */
-    code span.ot { color: #007020; } /* Other */
-    code span.pp { color: #bc7a00; } /* Preprocessor */
-    code span.sc { color: #4070a0; } /* SpecialChar */
-    code span.ss { color: #bb6688; } /* SpecialString */
-    code span.st { color: #4070a0; } /* String */
-    code span.va { color: #19177c; } /* Variable */
-    code span.vs { color: #4070a0; } /* VerbatimString */
-    code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warning */
-    div.csl-bib-body { }
-    div.csl-entry {
-      clear: both;
-    }
-    .hanging div.csl-entry {
-      margin-left:2em;
-      text-indent:-2em;
-    }
-    div.csl-left-margin {
-      min-width:2em;
-      float:left;
-    }
-    div.csl-right-inline {
-      margin-left:2em;
-      padding-left:1em;
-    }
-    div.csl-indent {
-      margin-left: 2em;
-    }
-  </style>
-<script src="site_libs/quarto-nav/quarto-nav.js"></script><script src="site_libs/quarto-nav/headroom.min.js"></script><script src="site_libs/clipboard/clipboard.min.js"></script><meta name="quarto:offset" content="./">
-<script src="site_libs/quarto-search/autocomplete.umd.js"></script><script src="site_libs/quarto-search/fuse.min.js"></script><script src="site_libs/quarto-search/quarto-search.js"></script><link href="./vexi-visu.html" rel="next">
+code{white-space: pre-wrap;}
+span.smallcaps{font-variant: small-caps;}
+div.columns{display: flex; gap: min(4vw, 1.5em);}
+div.column{flex: auto; overflow-x: auto;}
+div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+ul.task-list{list-style: none;}
+ul.task-list li input[type="checkbox"] {
+  width: 0.8em;
+  margin: 0 0.8em 0.2em -1.6em;
+  vertical-align: middle;
+}
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+div.sourceCode { margin: 1em 0; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+    color: #aaaaaa;
+  }
+pre.numberSource { margin-left: 3em; border-left: 1px solid #aaaaaa;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
+code span.al { color: #ff0000; font-weight: bold; } /* Alert */
+code span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
+code span.at { color: #7d9029; } /* Attribute */
+code span.bn { color: #40a070; } /* BaseN */
+code span.bu { color: #008000; } /* BuiltIn */
+code span.cf { color: #007020; font-weight: bold; } /* ControlFlow */
+code span.ch { color: #4070a0; } /* Char */
+code span.cn { color: #880000; } /* Constant */
+code span.co { color: #60a0b0; font-style: italic; } /* Comment */
+code span.cv { color: #60a0b0; font-weight: bold; font-style: italic; } /* CommentVar */
+code span.do { color: #ba2121; font-style: italic; } /* Documentation */
+code span.dt { color: #902000; } /* DataType */
+code span.dv { color: #40a070; } /* DecVal */
+code span.er { color: #ff0000; font-weight: bold; } /* Error */
+code span.ex { } /* Extension */
+code span.fl { color: #40a070; } /* Float */
+code span.fu { color: #06287e; } /* Function */
+code span.im { color: #008000; font-weight: bold; } /* Import */
+code span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Information */
+code span.kw { color: #007020; font-weight: bold; } /* Keyword */
+code span.op { color: #666666; } /* Operator */
+code span.ot { color: #007020; } /* Other */
+code span.pp { color: #bc7a00; } /* Preprocessor */
+code span.sc { color: #4070a0; } /* SpecialChar */
+code span.ss { color: #bb6688; } /* SpecialString */
+code span.st { color: #4070a0; } /* String */
+code span.va { color: #19177c; } /* Variable */
+code span.vs { color: #4070a0; } /* VerbatimString */
+code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warning */
+div.csl-bib-body { }
+div.csl-entry {
+  clear: both;
+}
+.hanging div.csl-entry {
+  margin-left:2em;
+  text-indent:-2em;
+}
+div.csl-left-margin {
+  min-width:2em;
+  float:left;
+}
+div.csl-right-inline {
+  margin-left:2em;
+  padding-left:1em;
+}
+div.csl-indent {
+  margin-left: 2em;
+}
+</style>
+
+<script src="site_libs/quarto-nav/quarto-nav.js"></script>
+<script src="site_libs/quarto-nav/headroom.min.js"></script>
+<script src="site_libs/clipboard/clipboard.min.js"></script>
+<script src="site_libs/quarto-search/autocomplete.umd.js"></script>
+<script src="site_libs/quarto-search/fuse.min.js"></script>
+<script src="site_libs/quarto-search/quarto-search.js"></script>
+<meta name="quarto:offset" content="./">
+<link href="./vexi-visu.html" rel="next">
 <link href="./comp-quan.html" rel="prev">
 <link href="./figures/cover.png" rel="icon" type="image/png">
-<script src="site_libs/quarto-html/quarto.js"></script><script src="site_libs/quarto-html/popper.min.js"></script><script src="site_libs/quarto-html/tippy.umd.min.js"></script><script src="site_libs/quarto-html/anchor.min.js"></script><link href="site_libs/quarto-html/tippy.css" rel="stylesheet">
-<link id="quarto-text-highlighting-styles" href="site_libs/quarto-html/quarto-syntax-highlighting.css" rel="stylesheet">
-<script src="site_libs/bootstrap/bootstrap.min.js"></script><link href="site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
-<link href="site_libs/bootstrap/bootstrap.min.css" rel="stylesheet">
-<script id="quarto-search-options" type="application/json">{
-    "location": "sidebar",
-    "copy-button": false,
-    "collapse-after": 3,
-    "panel-placement": "start",
-    "type": "textbox",
-    "limit": 20,
-    "language": {
-      "search-no-results-text": "No results",
-      "search-matching-documents-text": "matching documents",
-      "search-copy-link-title": "Copy link to search",
-      "search-hide-matches-text": "Hide additional matches",
-      "search-more-match-text": "more match in this document",
-      "search-more-matches-text": "more matches in this document",
-      "search-clear-button-title": "Clear",
-      "search-detached-cancel-button-title": "Cancel",
-      "search-submit-button-title": "Submit"
-    }
-  }</script><script async="" src="https://www.googletagmanager.com/gtag/js?id=G-C7VEESJ7Z8"></script><script type="text/javascript">
+<script src="site_libs/quarto-html/quarto.js"></script>
+<script src="site_libs/quarto-html/popper.min.js"></script>
+<script src="site_libs/quarto-html/tippy.umd.min.js"></script>
+<script src="site_libs/quarto-html/anchor.min.js"></script>
+<link href="site_libs/quarto-html/tippy.css" rel="stylesheet">
+<link href="site_libs/quarto-html/quarto-syntax-highlighting.css" rel="stylesheet" id="quarto-text-highlighting-styles">
+<script src="site_libs/bootstrap/bootstrap.min.js"></script>
+<link href="site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
+<link href="site_libs/bootstrap/bootstrap.min.css" rel="stylesheet" id="quarto-bootstrap" data-mode="light"><script id="quarto-search-options" type="application/json">{
+  "location": "sidebar",
+  "copy-button": false,
+  "collapse-after": 3,
+  "panel-placement": "start",
+  "type": "textbox",
+  "limit": 20,
+  "language": {
+    "search-no-results-text": "No results",
+    "search-matching-documents-text": "matching documents",
+    "search-copy-link-title": "Copy link to search",
+    "search-hide-matches-text": "Hide additional matches",
+    "search-more-match-text": "more match in this document",
+    "search-more-matches-text": "more matches in this document",
+    "search-clear-button-title": "Clear",
+    "search-detached-cancel-button-title": "Cancel",
+    "search-submit-button-title": "Submit"
+  }
+}</script><script async="" src="https://www.googletagmanager.com/gtag/js?id=G-C7VEESJ7Z8"></script><script type="text/javascript">
 
-  window.dataLayer = window.dataLayer || [];
-  function gtag(){dataLayer.push(arguments);}
-  gtag('js', new Date());
-  gtag('config', 'G-C7VEESJ7Z8', { 'anonymize_ip': true});
-  </script><script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml-full.js" type="text/javascript"></script><!--[if lt IE 9]>
-    <script src="//cdnjs.cloudflare.com/ajax/libs/html5shiv/3.7.3/html5shiv-printshiv.min.js"></script>
-  <![endif]-->
+window.dataLayer = window.dataLayer || [];
+function gtag(){dataLayer.push(arguments);}
+gtag('js', new Date());
+gtag('config', 'G-C7VEESJ7Z8', { 'anonymize_ip': true});
+</script><script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml-full.js" type="text/javascript"></script>
 <meta property="og:title" content="Data Disasters - 4&nbsp; Egregious Aggregations (WIP)">
 <meta property="og:description" content="Navigating the complexities of real-world data analysis">
 <meta property="og:site-name" content="Data Disasters">
@@ -138,7 +152,8 @@
 <meta name="twitter:description" content="Navigating the complexities of real-world data analysis">
 <meta name="twitter:card" content="summary">
 </head>
-<body class="floating">
+<body class="nav-sidebar floating">
+
 <div id="quarto-search-results"></div>
   <header id="quarto-header" class="headroom fixed-top"><nav class="quarto-secondary-nav" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }"><div class="container-fluid d-flex justify-content-between">
       <h1 class="quarto-secondary-nav-title"><span class="chapter-number">4</span>&nbsp; <span class="chapter-title">Egregious Aggregations (WIP)</span></h1>
@@ -205,94 +220,94 @@
   </div>
 </li>
         <li class="sidebar-item sidebar-item-section">
-    <div class="sidebar-item-container"> 
-        <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-1" aria-expanded="true">Data</a>
-      <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-1" aria-expanded="true">
-        <i class="bi bi-chevron-right ms-2"></i>
-      </a>
-    </div>
-    <ul id="quarto-sidebar-section-1" class="collapse list-unstyled sidebar-section depth1 show">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-1" aria-expanded="true">Data</a>
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-1" aria-expanded="true">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-1" class="collapse list-unstyled sidebar-section depth1 show">
 <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="./data-dall.html" class="sidebar-item-text sidebar-link"><span class="chapter-number">2</span>&nbsp; <span class="chapter-title">Data Dalliances (WIP)</span></a>
   </div>
 </li>
-        <li class="sidebar-item">
+          <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="./comp-quan.html" class="sidebar-item-text sidebar-link"><span class="chapter-number">3</span>&nbsp; <span class="chapter-title">Computational Quandaries (WIP)</span></a>
   </div>
 </li>
-        <li class="sidebar-item">
+          <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="./egre-aggr.html" class="sidebar-item-text sidebar-link active"><span class="chapter-number">4</span>&nbsp; <span class="chapter-title">Egregious Aggregations (WIP)</span></a>
   </div>
 </li>
-        <li class="sidebar-item">
+          <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="./vexi-visu.html" class="sidebar-item-text sidebar-link"><span class="chapter-number">5</span>&nbsp; <span class="chapter-title">Vexing Visualization (TODO)</span></a>
   </div>
 </li>
-    </ul>
+      </ul>
 </li>
         <li class="sidebar-item sidebar-item-section">
-    <div class="sidebar-item-container"> 
-        <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-2" aria-expanded="true">Analysis</a>
-      <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-2" aria-expanded="true">
-        <i class="bi bi-chevron-right ms-2"></i>
-      </a>
-    </div>
-    <ul id="quarto-sidebar-section-2" class="collapse list-unstyled sidebar-section depth1 show">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-2" aria-expanded="true">Analysis</a>
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-2" aria-expanded="true">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-2" class="collapse list-unstyled sidebar-section depth1 show">
 <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="./incr-infe.html" class="sidebar-item-text sidebar-link"><span class="chapter-number">6</span>&nbsp; <span class="chapter-title">Incredible Inferences (TODO)</span></a>
   </div>
 </li>
-        <li class="sidebar-item">
+          <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="./cava-caus.html" class="sidebar-item-text sidebar-link"><span class="chapter-number">7</span>&nbsp; <span class="chapter-title">Cavalier Causality (TODO)</span></a>
   </div>
 </li>
-        <li class="sidebar-item">
+          <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="./mind-mode.html" class="sidebar-item-text sidebar-link"><span class="chapter-number">8</span>&nbsp; <span class="chapter-title">Mindless Modeling (TODO)</span></a>
   </div>
 </li>
-        <li class="sidebar-item">
+          <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="./alte-algo.html" class="sidebar-item-text sidebar-link"><span class="chapter-number">9</span>&nbsp; <span class="chapter-title">Alternative Algorithms (TODO)</span></a>
   </div>
 </li>
-        <li class="sidebar-item">
+          <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="./futi-find.html" class="sidebar-item-text sidebar-link"><span class="chapter-number">10</span>&nbsp; <span class="chapter-title">Futile Findings (TODO)</span></a>
   </div>
 </li>
-    </ul>
+      </ul>
 </li>
         <li class="sidebar-item sidebar-item-section">
-    <div class="sidebar-item-container"> 
-        <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-3" aria-expanded="true">Workflow</a>
-      <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-3" aria-expanded="true">
-        <i class="bi bi-chevron-right ms-2"></i>
-      </a>
-    </div>
-    <ul id="quarto-sidebar-section-3" class="collapse list-unstyled sidebar-section depth1 show">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-3" aria-expanded="true">Workflow</a>
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-3" aria-expanded="true">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-3" class="collapse list-unstyled sidebar-section depth1 show">
 <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="./comp-code.html" class="sidebar-item-text sidebar-link"><span class="chapter-number">11</span>&nbsp; <span class="chapter-title">Complexifying Code (TODO)</span></a>
   </div>
 </li>
-        <li class="sidebar-item">
+          <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="./reje-repr.html" class="sidebar-item-text sidebar-link"><span class="chapter-number">12</span>&nbsp; <span class="chapter-title">Rejecting Reproducibility (TODO)</span></a>
   </div>
 </li>
-        <li class="sidebar-item">
+          <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="./mour-mist.html" class="sidebar-item-text sidebar-link"><span class="chapter-number">13</span>&nbsp; <span class="chapter-title">Mourning Mistakes (TODO)</span></a>
   </div>
 </li>
-    </ul>
+      </ul>
 </li>
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
@@ -300,82 +315,97 @@
   </div>
 </li>
         <li class="sidebar-item sidebar-item-section">
-    <div class="sidebar-item-container"> 
-        <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-4" aria-expanded="true">Appendices</a>
-      <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-4" aria-expanded="true">
-        <i class="bi bi-chevron-right ms-2"></i>
-      </a>
-    </div>
-    <ul id="quarto-sidebar-section-4" class="collapse list-unstyled sidebar-section depth1 show">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-4" aria-expanded="true">Appendices</a>
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-4" aria-expanded="true">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-4" class="collapse list-unstyled sidebar-section depth1 show">
 <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="./more.html" class="sidebar-item-text sidebar-link">(APPENDIX) Appendix</a>
   </div>
 </li>
-    </ul>
+      </ul>
 </li>
     </ul>
 </div>
 </nav><!-- margin-sidebar --><div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
-        <nav id="TOC" role="doc-toc"><h2 id="toc-title">Table of contents</h2>
-<ul>
-<li><a href="#motivating-example-similar-in-summary" class="nav-link active" data-scroll-target="#motivating-example-similar-in-summary"> <span class="header-section-number">4.1</span> Motivating Example: Similar in Summary</a></li>
-<li>
-<a href="#averages-wip" class="nav-link" data-scroll-target="#averages-wip"> <span class="header-section-number">4.2</span> Averages (WIP)</a>
-<ul class="collapse">
-<li><a href="#implicit-assumptions-todo" class="nav-link" data-scroll-target="#implicit-assumptions-todo"> <span class="header-section-number">4.2.1</span> Implicit assumptions (TODO)</a></li>
-<li><a href="#averaging-skewed-data" class="nav-link" data-scroll-target="#averaging-skewed-data"> <span class="header-section-number">4.2.2</span> Averaging skewed data</a></li>
-<li><a href="#no-average-observation" class="nav-link" data-scroll-target="#no-average-observation"> <span class="header-section-number">4.2.3</span> No “average” observation</a></li>
-<li><a href="#the-product-of-averages" class="nav-link" data-scroll-target="#the-product-of-averages"> <span class="header-section-number">4.2.4</span> The product of averages</a></li>
-<li><a href="#average-over-what-todo" class="nav-link" data-scroll-target="#average-over-what-todo"> <span class="header-section-number">4.2.5</span> Average over what? (TODO)</a></li>
-<li><a href="#dichotomization-and-distributions" class="nav-link" data-scroll-target="#dichotomization-and-distributions"> <span class="header-section-number">4.2.6</span> Dichotomization and distributions</a></li>
-<li><a href="#small-sample-sizes" class="nav-link" data-scroll-target="#small-sample-sizes"> <span class="header-section-number">4.2.7</span> Small sample sizes</a></li>
-</ul>
+        <nav id="TOC" role="doc-toc" class="toc-active"><h2 id="toc-title">Table of contents</h2>
+   
+  <ul>
+<li><a href="#motivating-example-similar-in-summary" id="toc-motivating-example-similar-in-summary" class="nav-link active" data-scroll-target="#motivating-example-similar-in-summary"><span class="toc-section-number">4.1</span>  Motivating Example: Similar in Summary</a></li>
+  <li>
+<a href="#averages-wip" id="toc-averages-wip" class="nav-link" data-scroll-target="#averages-wip"><span class="toc-section-number">4.2</span>  Averages (WIP)</a>
+  <ul class="collapse">
+<li><a href="#implicit-assumptions-todo" id="toc-implicit-assumptions-todo" class="nav-link" data-scroll-target="#implicit-assumptions-todo"><span class="toc-section-number">4.2.1</span>  Implicit assumptions (TODO)</a></li>
+  <li><a href="#averaging-skewed-data" id="toc-averaging-skewed-data" class="nav-link" data-scroll-target="#averaging-skewed-data"><span class="toc-section-number">4.2.2</span>  Averaging skewed data</a></li>
+  <li><a href="#no-average-observation" id="toc-no-average-observation" class="nav-link" data-scroll-target="#no-average-observation"><span class="toc-section-number">4.2.3</span>  No “average” observation</a></li>
+  <li><a href="#the-product-of-averages" id="toc-the-product-of-averages" class="nav-link" data-scroll-target="#the-product-of-averages"><span class="toc-section-number">4.2.4</span>  The product of averages</a></li>
+  <li><a href="#average-over-what-todo" id="toc-average-over-what-todo" class="nav-link" data-scroll-target="#average-over-what-todo"><span class="toc-section-number">4.2.5</span>  Average over what? (TODO)</a></li>
+  <li><a href="#dichotomization-and-distributions" id="toc-dichotomization-and-distributions" class="nav-link" data-scroll-target="#dichotomization-and-distributions"><span class="toc-section-number">4.2.6</span>  Dichotomization and distributions</a></li>
+  <li><a href="#small-sample-sizes" id="toc-small-sample-sizes" class="nav-link" data-scroll-target="#small-sample-sizes"><span class="toc-section-number">4.2.7</span>  Small sample sizes</a></li>
+  </ul>
 </li>
-<li>
-<a href="#proportions-wip" class="nav-link" data-scroll-target="#proportions-wip"> <span class="header-section-number">4.3</span> Proportions (WIP)</a>
-<ul class="collapse">
-<li><a href="#picking-the-right-denominator" class="nav-link" data-scroll-target="#picking-the-right-denominator"> <span class="header-section-number">4.3.1</span> Picking the right denominator</a></li>
-<li><a href="#sample-size-effects" class="nav-link" data-scroll-target="#sample-size-effects"> <span class="header-section-number">4.3.2</span> Sample size effects</a></li>
-</ul>
+  <li>
+<a href="#proportions-wip" id="toc-proportions-wip" class="nav-link" data-scroll-target="#proportions-wip"><span class="toc-section-number">4.3</span>  Proportions (WIP)</a>
+  <ul class="collapse">
+<li><a href="#picking-the-right-denominator" id="toc-picking-the-right-denominator" class="nav-link" data-scroll-target="#picking-the-right-denominator"><span class="toc-section-number">4.3.1</span>  Picking the right denominator</a></li>
+  <li><a href="#sample-size-effects" id="toc-sample-size-effects" class="nav-link" data-scroll-target="#sample-size-effects"><span class="toc-section-number">4.3.2</span>  Sample size effects</a></li>
+  </ul>
 </li>
-<li><a href="#variation-todo" class="nav-link" data-scroll-target="#variation-todo"> <span class="header-section-number">4.4</span> Variation (TODO)</a></li>
-<li>
-<a href="#correlation-wip" class="nav-link" data-scroll-target="#correlation-wip"> <span class="header-section-number">4.5</span> Correlation (WIP)</a>
-<ul class="collapse">
-<li><a href="#linear-relationships-only" class="nav-link" data-scroll-target="#linear-relationships-only"> <span class="header-section-number">4.5.1</span> Linear relationships only</a></li>
-<li><a href="#multiple-forms" class="nav-link" data-scroll-target="#multiple-forms"> <span class="header-section-number">4.5.2</span> Multiple forms</a></li>
-<li><a href="#sensitivity-to-domain" class="nav-link" data-scroll-target="#sensitivity-to-domain"> <span class="header-section-number">4.5.3</span> Sensitivity to domain</a></li>
-<li><a href="#partial-correlation" class="nav-link" data-scroll-target="#partial-correlation"> <span class="header-section-number">4.5.4</span> Partial correlation</a></li>
-</ul>
+  <li><a href="#variation-todo" id="toc-variation-todo" class="nav-link" data-scroll-target="#variation-todo"><span class="toc-section-number">4.4</span>  Variation (TODO)</a></li>
+  <li>
+<a href="#correlation-wip" id="toc-correlation-wip" class="nav-link" data-scroll-target="#correlation-wip"><span class="toc-section-number">4.5</span>  Correlation (WIP)</a>
+  <ul class="collapse">
+<li><a href="#linear-relationships-only" id="toc-linear-relationships-only" class="nav-link" data-scroll-target="#linear-relationships-only"><span class="toc-section-number">4.5.1</span>  Linear relationships only</a></li>
+  <li><a href="#multiple-forms" id="toc-multiple-forms" class="nav-link" data-scroll-target="#multiple-forms"><span class="toc-section-number">4.5.2</span>  Multiple forms</a></li>
+  <li><a href="#sensitivity-to-domain" id="toc-sensitivity-to-domain" class="nav-link" data-scroll-target="#sensitivity-to-domain"><span class="toc-section-number">4.5.3</span>  Sensitivity to domain</a></li>
+  <li><a href="#partial-correlation" id="toc-partial-correlation" class="nav-link" data-scroll-target="#partial-correlation"><span class="toc-section-number">4.5.4</span>  Partial correlation</a></li>
+  </ul>
 </li>
-<li>
-<a href="#trends" class="nav-link" data-scroll-target="#trends"> <span class="header-section-number">4.6</span> Trends</a>
-<ul class="collapse">
-<li><a href="#if-trends-continue" class="nav-link" data-scroll-target="#if-trends-continue"> <span class="header-section-number">4.6.1</span> “If trends continue…”</a></li>
-<li><a href="#seasonality" class="nav-link" data-scroll-target="#seasonality"> <span class="header-section-number">4.6.2</span> Seasonality</a></li>
-</ul>
+  <li>
+<a href="#trends" id="toc-trends" class="nav-link" data-scroll-target="#trends"><span class="toc-section-number">4.6</span>  Trends</a>
+  <ul class="collapse">
+<li><a href="#if-trends-continue" id="toc-if-trends-continue" class="nav-link" data-scroll-target="#if-trends-continue"><span class="toc-section-number">4.6.1</span>  “If trends continue…”</a></li>
+  <li><a href="#seasonality" id="toc-seasonality" class="nav-link" data-scroll-target="#seasonality"><span class="toc-section-number">4.6.2</span>  Seasonality</a></li>
+  </ul>
 </li>
-<li>
-<a href="#comparisons-todo" class="nav-link" data-scroll-target="#comparisons-todo"> <span class="header-section-number">4.7</span> Comparisons (TODO)</a>
-<ul class="collapse">
-<li><a href="#percents-versus-percentage-points" class="nav-link" data-scroll-target="#percents-versus-percentage-points"> <span class="header-section-number">4.7.1</span> Percents versus percentage points</a></li>
-<li><a href="#changes-with-small-bases" class="nav-link" data-scroll-target="#changes-with-small-bases"> <span class="header-section-number">4.7.2</span> Changes with small bases</a></li>
-</ul>
+  <li>
+<a href="#comparisons-todo" id="toc-comparisons-todo" class="nav-link" data-scroll-target="#comparisons-todo"><span class="toc-section-number">4.7</span>  Comparisons (TODO)</a>
+  <ul class="collapse">
+<li><a href="#percents-versus-percentage-points" id="toc-percents-versus-percentage-points" class="nav-link" data-scroll-target="#percents-versus-percentage-points"><span class="toc-section-number">4.7.1</span>  Percents versus percentage points</a></li>
+  <li><a href="#changes-with-small-bases" id="toc-changes-with-small-bases" class="nav-link" data-scroll-target="#changes-with-small-bases"><span class="toc-section-number">4.7.2</span>  Changes with small bases</a></li>
+  </ul>
 </li>
-<li><a href="#outliers-todo" class="nav-link" data-scroll-target="#outliers-todo"> <span class="header-section-number">4.8</span> Outliers (TODO)</a></li>
-<li><a href="#strategies-todo" class="nav-link" data-scroll-target="#strategies-todo"> <span class="header-section-number">4.9</span> Strategies (TODO)</a></li>
-<li><a href="#real-world-disasters-todo" class="nav-link" data-scroll-target="#real-world-disasters-todo"> <span class="header-section-number">4.10</span> Real World Disasters (TODO)</a></li>
-</ul><div class="toc-actions"><div><i class="bi bi-github"></i></div><div class="action-links"><p><a href="https://github.com/emilyriederer/data-disasters/edit/main/egre-aggr.qmd" class="toc-action">Edit this page</a></p></div></div></nav>
+  <li><a href="#segmentation-todo" id="toc-segmentation-todo" class="nav-link" data-scroll-target="#segmentation-todo"><span class="toc-section-number">4.8</span>  Segmentation (TODO)</a></li>
+  <li><a href="#outliers-todo" id="toc-outliers-todo" class="nav-link" data-scroll-target="#outliers-todo"><span class="toc-section-number">4.9</span>  Outliers (TODO)</a></li>
+  <li><a href="#strategies-todo" id="toc-strategies-todo" class="nav-link" data-scroll-target="#strategies-todo"><span class="toc-section-number">4.10</span>  Strategies (TODO)</a></li>
+  <li><a href="#real-world-disasters-todo" id="toc-real-world-disasters-todo" class="nav-link" data-scroll-target="#real-world-disasters-todo"><span class="toc-section-number">4.11</span>  Real World Disasters (TODO)</a></li>
+  </ul><div class="toc-actions"><div><i class="bi bi-github"></i></div><div class="action-links"><p><a href="https://github.com/emilyriederer/data-disasters/edit/main/egre-aggr.qmd" class="toc-action">Edit this page</a></p></div></div></nav>
     </div>
 <!-- main -->
-<main class="content" id="quarto-document-content"><header id="title-block-header" class="quarto-title-block default">
-<div class="quarto-title"><h1 class="title display-7"><span id="eg-agg" class="quarto-section-identifier d-none d-lg-block"><span class="chapter-number">4</span>&nbsp; <span class="chapter-title">Egregious Aggregations (WIP)</span></span></h1><div class="quarto-description"><p>Navigating the complexities of real-world data analysis</p></div></div></header><p>Once armed with an understanding of the data and tools available for analysis, a common start to analysis is exploring data with <em>aggregation</em>. At its heart, any sort of data analysis is the process of condensing raw data into something more manageable and useful while giving up as little of the information as possible. From linear regressions and hypothesis testing to random forests and beyond, much of data analysis could truly be called “applied sums an averages”.</p>
+<main class="content" id="quarto-document-content"><header id="title-block-header" class="quarto-title-block default"><div class="quarto-title">
+<h1 class="title"><span id="eg-agg" class="quarto-section-identifier d-none d-lg-block"><span class="chapter-number">4</span>&nbsp; <span class="chapter-title">Egregious Aggregations (WIP)</span></span></h1>
+</div>
+
+
+
+<div class="quarto-title-meta">
+
+    
+  
+    
+  </div>
+  
+
+</header><p>Once armed with an understanding of the data and tools available for analysis, a common start to analysis is exploring data with <em>aggregation</em>. At its heart, any sort of data analysis is the process of condensing raw data into something more manageable and useful while giving up as little of the information as possible. From linear regressions and hypothesis testing to random forests and beyond, much of data analysis could truly be called “applied sums an averages”.</p>
 <p>Many elementary tools for this task are much better at the comprehension task than the preservation one. We learn rigorous assumptions to consider and validate when studying linear regression, but basic arithmetic aggregation presents itself as agnostic and welcome to any type of data. However, the underlying distributions of our variables and the relationships between them have a significant impact on the how informative and interpretable various summarizations are.</p>
 <p>In this chapter, we will explore different ways that univariate and multivariate aggregations can be naive or uninformative.</p>
 <section id="motivating-example-similar-in-summary" class="level2" data-number="4.1"><h2 data-number="4.1" class="anchored" data-anchor-id="motivating-example-similar-in-summary">
 <span class="header-section-number">4.1</span> Motivating Example: Similar in Summary</h2>
-<p>To begin, we will look at a whimsical toy example. This may feel trite or manufactured, but the subsequent sections will aim to convince you that these issues are not just esoteric. Consider the “datasaurus dozen” dataset <span class="citation" data-cites="datasaurus">(<a href="references.html#ref-datasaurus" role="doc-biblioref">Matejka and Fitzmaurice 2017</a>)</span> which is available within the <code>datasauRus</code> R package <span class="quarto-unresolved-ref">?r-datasaurus</span>.</p>
+<p>To begin, we will look at a whimsical toy example. This may feel trite or manufactured, but the subsequent sections will aim to convince you that these issues are not just esoteric. Consider the “datasaurus dozen” dataset <span class="citation" data-cites="datasaurus">(<a href="#ref-datasaurus" role="doc-biblioref">Matejka and Fitzmaurice 2017</a>)</span> which is available within the <code>datasauRus</code> R package <span class="citation" data-cites="R-datasauRus">(<a href="#ref-R-datasauRus" role="doc-biblioref"><strong>R-datasauRus?</strong></a>)</span>.</p>
 <div class="cell" data-eror="false">
 <div class="sourceCode" id="cb1"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://github.com/lockedata/datasauRus">datasauRus</a></span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
@@ -383,7 +413,7 @@
 <div class="cell">
 <div class="sourceCode" id="cb2"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">df</span> <span class="op">&lt;-</span> <span class="fu">datasauRus</span><span class="fu">::</span><span class="va"><a href="https://jumpingrivers.github.io/datasauRus/reference/datasaurus_dozen.html">datasaurus_dozen</a></span></span>
 <span><span class="fu"><a href="https://rdrr.io/r/utils/head.html">head</a></span><span class="op">(</span><span class="va">df</span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output-stdout">
+<div class="cell-output cell-output-stdout">
 <pre><code>  dataset       x       y
 1    dino 55.3846 97.1795
 2    dino 51.5385 96.0256
@@ -515,46 +545,46 @@
 </table>
 </div>
 </div>
-<p>However, as shown in <a href="#fig-dino">Figure&nbsp;<span>4.1</span></a>, when we visualize this data, we find that the 12 datasets reveal remarkably different patterns.</p>
+<p>However, as shown in <a href="#fig-dino">Figure&nbsp;<span class="quarto-unresolved-ref">fig-dino</span></a>, when we visualize this data, we find that the 12 datasets reveal remarkably different patterns.</p>
 <div class="cell">
-<div class="cell-output-stderr">
+<div class="cell-output cell-output-stderr">
 <pre><code>Warning: package 'ggplot2' was built under R version 4.0.5</code></pre>
 </div>
 <div class="cell-output-display">
 <div id="fig-dino" class="quarto-figure quarto-figure-center anchored">
 <figure class="figure"><p><img src="egre-aggr_files/figure-html/fig-dino-1.png" class="img-fluid figure-img" width="672"></p>
-<p></p><figcaption aria-hidden="true" class="figure-caption">Figure 4.1: Scatterplots for Datasaurus Dozen datasets</figcaption><p></p>
+<p></p><figcaption class="figure-caption">Figure&nbsp;4.1: Scatterplots for Datasaurus Dozen datasets</figcaption><p></p>
 </figure>
 </div>
 </div>
 </div>
-<p>This dataset is a more elaborate version of Anscombe’s Quartet, a well-known set of four datasets which exhibit similar properties. Examining a simiilar plot for Anscombe’s Quartet (with data from the <code>anscombe</code> dataset which ships in R’s <code>datasets</code> package), we can get better intuition for how the phenomenon is manufactured. <a href="#fig-anscombe">Figure&nbsp;<span>4.2</span></a> shows as similar plot to <a href="#fig-dino">Figure&nbsp;<span>4.1</span></a>. Comparing datasets 1 and 3, for example, we can see a trade-off between a semi-strong trend with a consistent-seeming amount of noise and an nearly perfect linear trend with a single outlier.</p>
+<p>This dataset is a more elaborate version of Anscombe’s Quartet, a well-known set of four datasets which exhibit similar properties. Examining a simiilar plot for Anscombe’s Quartet (with data from the <code>anscombe</code> dataset which ships in R’s <code>datasets</code> package), we can get better intuition for how the phenomenon is manufactured. <a href="#fig-anscombe">Figure&nbsp;<span class="quarto-unresolved-ref">fig-anscombe</span></a> shows as similar plot to <a href="#fig-dino">Figure&nbsp;<span class="quarto-unresolved-ref">fig-dino</span></a>. Comparing datasets 1 and 3, for example, we can see a trade-off between a semi-strong trend with a consistent-seeming amount of noise and an nearly perfect linear trend with a single outlier.</p>
 <div class="cell">
-<div class="cell-output-stderr">
+<div class="cell-output cell-output-stderr">
 <pre><code>Warning: package 'tidyr' was built under R version 4.0.5</code></pre>
 </div>
-<div class="cell-output-stderr">
+<div class="cell-output cell-output-stderr">
 <pre><code>Warning: Values are not uniquely identified; output will contain list-cols.
 * Use `values_fn = list` to suppress this warning.
 * Use `values_fn = length` to identify where the duplicates arise
 * Use `values_fn = {summary_fun}` to summarise duplicates</code></pre>
 </div>
-<div class="cell-output-stderr">
+<div class="cell-output cell-output-stderr">
 <pre><code>Warning: `cols` is now required when using unnest().
 Please use `cols = c(x, y)`</code></pre>
 </div>
-<div class="cell-output-stderr">
+<div class="cell-output cell-output-stderr">
 <pre><code>`geom_smooth()` using formula 'y ~ x'</code></pre>
 </div>
 <div class="cell-output-display">
 <div id="fig-anscombe" class="quarto-figure quarto-figure-center anchored">
 <figure class="figure"><p><img src="egre-aggr_files/figure-html/fig-anscombe-1.png" class="img-fluid figure-img" width="672"></p>
-<p></p><figcaption aria-hidden="true" class="figure-caption">Figure 4.2: Scatterplots for Anscombe’s Quartet</figcaption><p></p>
+<p></p><figcaption class="figure-caption">Figure&nbsp;4.2: Scatterplots for Anscombe’s Quartet</figcaption><p></p>
 </figure>
 </div>
 </div>
 </div>
-<p><a href="#fig-anscombe">Figure&nbsp;<span>4.2</span></a> also plots the simple linear regression line for each dataset. Similar to the summary statistics, these are also identical. We know this because the regression coefficient for a simple linear regression is given by <code>cov(x,y)</code>/<code>sd(x)sd(y)</code>. You’ll notice I do not write “we can see that…” because, in fact, we can only <em>see</em> similarity not equality. The message of this section may seem to be “don’t summarize your data without plotting it”, but conducting “visual analytics” without looking at the numbers is also problematic. We’ll explore the latter topic more in Chapter -<a href="vexi-visu.html">Section&nbsp;<span>5</span></a> (Vexing Visualiztions).</p>
+<p><a href="#fig-anscombe">Figure&nbsp;<span class="quarto-unresolved-ref">fig-anscombe</span></a> also plots the simple linear regression line for each dataset. Similar to the summary statistics, these are also identical. We know this because the regression coefficient for a simple linear regression is given by <code>cov(x,y)</code>/<code>sd(x)sd(y)</code>. You’ll notice I do not write “we can see that…” because, in fact, we can only <em>see</em> similarity not equality. The message of this section may seem to be “don’t summarize your data without plotting it”, but conducting “visual analytics” without looking at the numbers is also problematic. We’ll explore the latter topic more in Chapter -<a href="#sec-vexi-visu"><span class="quarto-unresolved-ref">sec-vexi-visu</span></a> (Vexing Visualiztions).</p>
 <p>While there are clearly a contrived example (and, if you so chose to check out the “Datasaurus Dozen” paper, a very cleverly contrived example!), its also a cautionary tale. Summary statistics are not just insufficient when they focus on central tendency (e.g.&nbsp;mean) instead of spread. In this example, even an examination of variation and covariation led to an overly simplistic view of the underlying data.</p>
 </section><section id="averages-wip" class="level2" data-number="4.2"><h2 data-number="4.2" class="anchored" data-anchor-id="averages-wip">
 <span class="header-section-number">4.2</span> Averages (WIP)</h2>
@@ -598,12 +628,12 @@ Please use `cols = c(x, y)`</code></pre>
 <span>    act <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/stats/Normal.html">rnorm</a></span><span class="op">(</span><span class="va">n1</span>, <span class="fl">100</span>, <span class="fl">10</span><span class="op">)</span>, <span class="fu"><a href="https://rdrr.io/r/stats/Normal.html">rnorm</a></span><span class="op">(</span><span class="va">n2</span>, <span class="fl">500</span>, <span class="fl">10</span><span class="op">)</span><span class="op">)</span></span>
 <span>  <span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
-<p><a href="#fig-multivar-avg">Figure&nbsp;<span>4.3</span></a> shows a scatterplot of the relationship between account age (x-axis) and activity level (y-axis). Meanwhile, the marginal rug plots shows the univariate distribution of each variable. The sole red dot denotes the coordinates of the average age and average activity. Notably, this dot exists in a region of “zero density”; that is, it is not representative of <em>any</em> customer. Strategic decisions made with this sort of observation in mind as the “typical” might not be destined for success.</p>
+<p><a href="#fig-multivar-avg">Figure&nbsp;<span class="quarto-unresolved-ref">fig-multivar-avg</span></a> shows a scatterplot of the relationship between account age (x-axis) and activity level (y-axis). Meanwhile, the marginal rug plots shows the univariate distribution of each variable. The sole red dot denotes the coordinates of the average age and average activity. Notably, this dot exists in a region of “zero density”; that is, it is not representative of <em>any</em> customer. Strategic decisions made with this sort of observation in mind as the “typical” might not be destined for success.</p>
 <div class="cell">
 <div class="cell-output-display">
 <div id="fig-multivar-avg" class="quarto-figure quarto-figure-center anchored">
 <figure class="figure"><p><img src="egre-aggr_files/figure-html/fig-multivar-avg-1.png" class="img-fluid figure-img" width="672"></p>
-<p></p><figcaption aria-hidden="true" class="figure-caption">Figure 4.3: A scatterplot of two variables and their averages</figcaption><p></p>
+<p></p><figcaption class="figure-caption">Figure&nbsp;4.3: A scatterplot of two variables and their averages</figcaption><p></p>
 </figure>
 </div>
 </div>
@@ -679,29 +709,29 @@ Please use `cols = c(x, y)`</code></pre>
 <span><span class="va">g1</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/ifelse.html">ifelse</a></span><span class="op">(</span><span class="va">x1</span> <span class="op">&lt;</span> <span class="fl">0.5</span>, <span class="fl">0</span>, <span class="fl">1</span><span class="op">)</span></span>
 <span><span class="va">means1</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/mean.html">mean</a></span><span class="op">(</span><span class="va">y1</span><span class="op">[</span><span class="va">g1</span> <span class="op">==</span> <span class="fl">0</span><span class="op">]</span><span class="op">)</span>, <span class="fu"><a href="https://rdrr.io/r/base/mean.html">mean</a></span><span class="op">(</span><span class="va">y1</span><span class="op">[</span><span class="va">g1</span> <span class="op">==</span> <span class="fl">1</span><span class="op">]</span><span class="op">)</span><span class="op">)</span></span>
 <span><span class="va">means1</span> </span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output-stdout">
+<div class="cell-output cell-output-stdout">
 <pre><code>[1] 5.813698 7.254438</code></pre>
 </div>
 <div class="sourceCode" id="cb14"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">g2</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/ifelse.html">ifelse</a></span><span class="op">(</span><span class="va">x2</span> <span class="op">&lt;</span> <span class="fl">0.5</span>, <span class="fl">0</span>, <span class="fl">1</span><span class="op">)</span></span>
 <span><span class="va">means2</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/mean.html">mean</a></span><span class="op">(</span><span class="va">y2</span><span class="op">[</span><span class="va">g2</span> <span class="op">==</span> <span class="fl">0</span><span class="op">]</span><span class="op">)</span>, <span class="fu"><a href="https://rdrr.io/r/base/mean.html">mean</a></span><span class="op">(</span><span class="va">y2</span><span class="op">[</span><span class="va">g2</span> <span class="op">==</span> <span class="fl">1</span><span class="op">]</span><span class="op">)</span><span class="op">)</span></span>
 <span><span class="va">means2</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output-stdout">
+<div class="cell-output cell-output-stdout">
 <pre><code>[1] 6.218347 6.762943</code></pre>
 </div>
 <div class="sourceCode" id="cb16"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">means1</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output-stdout">
+<div class="cell-output cell-output-stdout">
 <pre><code>[1] 5.813698 7.254438</code></pre>
 </div>
 <div class="sourceCode" id="cb18"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">means2</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output-stdout">
+<div class="cell-output cell-output-stdout">
 <pre><code>[1] 6.218347 6.762943</code></pre>
 </div>
 <div class="sourceCode" id="cb20"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/stats/cor.html">cor</a></span><span class="op">(</span><span class="va">x1</span>, <span class="va">y1</span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output-stdout">
+<div class="cell-output cell-output-stdout">
 <pre><code>[1] 0.6424276</code></pre>
 </div>
 <div class="sourceCode" id="cb22"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/stats/cor.html">cor</a></span><span class="op">(</span><span class="va">x2</span>, <span class="va">y2</span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output-stdout">
+<div class="cell-output cell-output-stdout">
 <pre><code>[1] 0.3687667</code></pre>
 </div>
 </div>
@@ -720,7 +750,7 @@ Please use `cols = c(x, y)`</code></pre>
 <div class="sourceCode" id="cb24"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">x</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="op">-</span><span class="fl">20</span>, <span class="op">-</span><span class="fl">10</span>, <span class="op">-</span><span class="fl">5</span>, <span class="fl">0</span>, <span class="fl">5</span>, <span class="fl">10</span>, <span class="fl">20</span><span class="op">)</span></span>
 <span><span class="fu"><a href="https://rdrr.io/r/base/mean.html">mean</a></span><span class="op">(</span><span class="va">x</span><span class="op">)</span></span>
 <span><span class="fu"><a href="https://rdrr.io/r/stats/cor.html">var</a></span><span class="op">(</span><span class="va">x</span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output-stdout">
+<div class="cell-output cell-output-stdout">
 <pre><code>[1] 0
 [1] 175</code></pre>
 </div>
@@ -729,19 +759,19 @@ Please use `cols = c(x, y)`</code></pre>
 <div class="sourceCode" id="cb26"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">x</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="op">-</span><span class="fl">15</span>, <span class="op">-</span><span class="fl">15</span>, <span class="op">-</span><span class="fl">5</span>, <span class="fl">0</span>, <span class="fl">5</span>, <span class="fl">15</span>, <span class="fl">15</span><span class="op">)</span></span>
 <span><span class="fu"><a href="https://rdrr.io/r/base/mean.html">mean</a></span><span class="op">(</span><span class="va">x</span><span class="op">)</span></span>
 <span><span class="fu"><a href="https://rdrr.io/r/stats/cor.html">var</a></span><span class="op">(</span><span class="va">x</span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output-stdout">
+<div class="cell-output cell-output-stdout">
 <pre><code>[1] 0
 [1] 158.3333</code></pre>
 </div>
 </div>
 </section><section id="correlation-wip" class="level2" data-number="4.5"><h2 data-number="4.5" class="anchored" data-anchor-id="correlation-wip">
 <span class="header-section-number">4.5</span> Correlation (WIP)</h2>
-<p>As shown in <a href="#fig-fun-corr">Figure&nbsp;<span>4.4</span></a>,</p>
+<p>As shown in <a href="#fig-fun-corr">Figure&nbsp;<span class="quarto-unresolved-ref">fig-fun-corr</span></a>,</p>
 <div class="cell">
 <div class="cell-output-display">
 <div id="fig-fun-corr" class="quarto-figure quarto-figure-center anchored">
 <figure class="figure"><p><img src="egre-aggr_files/figure-html/fig-fun-corr-1.png" class="img-fluid figure-img" width="672"></p>
-<p></p><figcaption aria-hidden="true" class="figure-caption">Figure 4.4: Plots of x from 1 to 10 over a range of common functions</figcaption><p></p>
+<p></p><figcaption class="figure-caption">Figure&nbsp;4.4: Plots of x from 1 to 10 over a range of common functions</figcaption><p></p>
 </figure>
 </div>
 </div>
@@ -753,7 +783,7 @@ Please use `cols = c(x, y)`</code></pre>
 <span><span class="va">y</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html">list</a></span><span class="op">(</span>linear <span class="op">=</span> <span class="va">x</span>, quadratic <span class="op">=</span> <span class="va">x</span><span class="op">**</span><span class="fl">2</span>, cubic <span class="op">=</span> <span class="va">x</span><span class="op">**</span><span class="fl">3</span>, quartic <span class="op">=</span> <span class="va">x</span><span class="op">**</span><span class="fl">4</span><span class="op">)</span></span>
 <span></span>
 <span><span class="fu"><a href="https://rdrr.io/r/base/lapply.html">vapply</a></span><span class="op">(</span><span class="va">y</span>, FUN <span class="op">=</span> <span class="kw">function</span><span class="op">(</span><span class="va">z</span><span class="op">)</span> <span class="fu"><a href="https://rdrr.io/r/stats/cor.html">cor</a></span><span class="op">(</span><span class="va">x</span>, <span class="va">z</span>, method <span class="op">=</span> <span class="st">"pearson"</span><span class="op">)</span>, FUN.VALUE <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/numeric.html">numeric</a></span><span class="op">(</span><span class="fl">1</span><span class="op">)</span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output-stdout">
+<div class="cell-output cell-output-stdout">
 <pre><code>   linear quadratic     cubic   quartic 
 1.0000000 0.9745586 0.9283912 0.8816779 </code></pre>
 </div>
@@ -769,7 +799,7 @@ Please use `cols = c(x, y)`</code></pre>
 <span><span class="fu"><a href="https://rdrr.io/r/base/lapply.html">vapply</a></span><span class="op">(</span><span class="va">y</span>, FUN <span class="op">=</span> <span class="kw">function</span><span class="op">(</span><span class="va">z</span><span class="op">)</span> <span class="fu"><a href="https://rdrr.io/r/stats/cor.html">cor</a></span><span class="op">(</span><span class="va">x</span>, <span class="va">z</span>, method <span class="op">=</span> <span class="st">"pearson"</span><span class="op">)</span>, FUN.VALUE <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/numeric.html">numeric</a></span><span class="op">(</span><span class="fl">1</span><span class="op">)</span><span class="op">)</span></span>
 <span><span class="fu"><a href="https://rdrr.io/r/base/lapply.html">vapply</a></span><span class="op">(</span><span class="va">y</span>, FUN <span class="op">=</span> <span class="kw">function</span><span class="op">(</span><span class="va">z</span><span class="op">)</span> <span class="fu"><a href="https://rdrr.io/r/stats/cor.html">cor</a></span><span class="op">(</span><span class="va">x</span>, <span class="va">z</span>, method <span class="op">=</span> <span class="st">"spearman"</span><span class="op">)</span>, FUN.VALUE <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/numeric.html">numeric</a></span><span class="op">(</span><span class="fl">1</span><span class="op">)</span><span class="op">)</span></span>
 <span><span class="fu"><a href="https://rdrr.io/r/base/lapply.html">vapply</a></span><span class="op">(</span><span class="va">y</span>, FUN <span class="op">=</span> <span class="kw">function</span><span class="op">(</span><span class="va">z</span><span class="op">)</span> <span class="fu"><a href="https://rdrr.io/r/stats/cor.html">cor</a></span><span class="op">(</span><span class="va">x</span>, <span class="va">z</span>, method <span class="op">=</span> <span class="st">"kendall"</span><span class="op">)</span>, FUN.VALUE <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/numeric.html">numeric</a></span><span class="op">(</span><span class="fl">1</span><span class="op">)</span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output-stdout">
+<div class="cell-output cell-output-stdout">
 <pre><code>   linear quadratic     cubic   quartic 
 1.0000000 0.9745586 0.9283912 0.8816779 
    linear quadratic     cubic   quartic 
@@ -787,7 +817,7 @@ Please use `cols = c(x, y)`</code></pre>
 <span><span class="fu"><a href="https://rdrr.io/r/base/lapply.html">vapply</a></span><span class="op">(</span><span class="va">y</span>, FUN <span class="op">=</span> <span class="kw">function</span><span class="op">(</span><span class="va">z</span><span class="op">)</span> <span class="fu"><a href="https://rdrr.io/r/stats/cor.html">cor</a></span><span class="op">(</span><span class="va">x</span>, <span class="va">z</span>, method <span class="op">=</span> <span class="st">"pearson"</span><span class="op">)</span>, FUN.VALUE <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/numeric.html">numeric</a></span><span class="op">(</span><span class="fl">1</span><span class="op">)</span><span class="op">)</span></span>
 <span><span class="fu"><a href="https://rdrr.io/r/base/lapply.html">vapply</a></span><span class="op">(</span><span class="va">y</span>, FUN <span class="op">=</span> <span class="kw">function</span><span class="op">(</span><span class="va">z</span><span class="op">)</span> <span class="fu"><a href="https://rdrr.io/r/stats/cor.html">cor</a></span><span class="op">(</span><span class="va">x</span>, <span class="va">z</span>, method <span class="op">=</span> <span class="st">"spearman"</span><span class="op">)</span>, FUN.VALUE <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/numeric.html">numeric</a></span><span class="op">(</span><span class="fl">1</span><span class="op">)</span><span class="op">)</span></span>
 <span><span class="fu"><a href="https://rdrr.io/r/base/lapply.html">vapply</a></span><span class="op">(</span><span class="va">y</span>, FUN <span class="op">=</span> <span class="kw">function</span><span class="op">(</span><span class="va">z</span><span class="op">)</span> <span class="fu"><a href="https://rdrr.io/r/stats/cor.html">cor</a></span><span class="op">(</span><span class="va">x</span>, <span class="va">z</span>, method <span class="op">=</span> <span class="st">"kendall"</span><span class="op">)</span>, FUN.VALUE <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/numeric.html">numeric</a></span><span class="op">(</span><span class="fl">1</span><span class="op">)</span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output-stdout">
+<div class="cell-output cell-output-stdout">
 <pre><code>[1] -0.1705046  0.9891838  0.7168704  0.9516624
 [1] -0.1393939  1.0000000  1.0000000  1.0000000
 [1] -0.1111111  1.0000000  1.0000000  1.0000000</code></pre>
@@ -806,7 +836,7 @@ However, the summarization of the relationships changes</p>
 <span><span class="fu"><a href="https://rdrr.io/r/base/lapply.html">vapply</a></span><span class="op">(</span><span class="va">y</span>, FUN <span class="op">=</span> <span class="kw">function</span><span class="op">(</span><span class="va">z</span><span class="op">)</span> <span class="fu"><a href="https://rdrr.io/r/stats/cor.html">cor</a></span><span class="op">(</span><span class="va">x</span>, <span class="va">z</span>, method <span class="op">=</span> <span class="st">"pearson"</span><span class="op">)</span>, FUN.VALUE <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/numeric.html">numeric</a></span><span class="op">(</span><span class="fl">1</span><span class="op">)</span><span class="op">)</span></span>
 <span><span class="fu"><a href="https://rdrr.io/r/base/lapply.html">vapply</a></span><span class="op">(</span><span class="va">y</span>, FUN <span class="op">=</span> <span class="kw">function</span><span class="op">(</span><span class="va">z</span><span class="op">)</span> <span class="fu"><a href="https://rdrr.io/r/stats/cor.html">cor</a></span><span class="op">(</span><span class="va">x</span>, <span class="va">z</span>, method <span class="op">=</span> <span class="st">"spearman"</span><span class="op">)</span>, FUN.VALUE <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/numeric.html">numeric</a></span><span class="op">(</span><span class="fl">1</span><span class="op">)</span><span class="op">)</span></span>
 <span><span class="fu"><a href="https://rdrr.io/r/base/lapply.html">vapply</a></span><span class="op">(</span><span class="va">y</span>, FUN <span class="op">=</span> <span class="kw">function</span><span class="op">(</span><span class="va">z</span><span class="op">)</span> <span class="fu"><a href="https://rdrr.io/r/stats/cor.html">cor</a></span><span class="op">(</span><span class="va">x</span>, <span class="va">z</span>, method <span class="op">=</span> <span class="st">"kendall"</span><span class="op">)</span>, FUN.VALUE <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/numeric.html">numeric</a></span><span class="op">(</span><span class="fl">1</span><span class="op">)</span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output-stdout">
+<div class="cell-output cell-output-stdout">
 <pre><code>   linear quadratic     cubic   quartic 
 1.0000000 0.9745586 0.9283912 0.8816779 
    linear quadratic     cubic   quartic 
@@ -824,7 +854,7 @@ However, the summarization of the relationships changes</p>
 <span><span class="fu"><a href="https://rdrr.io/r/base/lapply.html">vapply</a></span><span class="op">(</span><span class="va">y</span>, FUN <span class="op">=</span> <span class="kw">function</span><span class="op">(</span><span class="va">z</span><span class="op">)</span> <span class="fu"><a href="https://rdrr.io/r/stats/cor.html">cor</a></span><span class="op">(</span><span class="va">x</span>, <span class="va">z</span>, method <span class="op">=</span> <span class="st">"pearson"</span><span class="op">)</span>, FUN.VALUE <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/numeric.html">numeric</a></span><span class="op">(</span><span class="fl">1</span><span class="op">)</span><span class="op">)</span></span>
 <span><span class="fu"><a href="https://rdrr.io/r/base/lapply.html">vapply</a></span><span class="op">(</span><span class="va">y</span>, FUN <span class="op">=</span> <span class="kw">function</span><span class="op">(</span><span class="va">z</span><span class="op">)</span> <span class="fu"><a href="https://rdrr.io/r/stats/cor.html">cor</a></span><span class="op">(</span><span class="va">x</span>, <span class="va">z</span>, method <span class="op">=</span> <span class="st">"spearman"</span><span class="op">)</span>, FUN.VALUE <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/numeric.html">numeric</a></span><span class="op">(</span><span class="fl">1</span><span class="op">)</span><span class="op">)</span></span>
 <span><span class="fu"><a href="https://rdrr.io/r/base/lapply.html">vapply</a></span><span class="op">(</span><span class="va">y</span>, FUN <span class="op">=</span> <span class="kw">function</span><span class="op">(</span><span class="va">z</span><span class="op">)</span> <span class="fu"><a href="https://rdrr.io/r/stats/cor.html">cor</a></span><span class="op">(</span><span class="va">x</span>, <span class="va">z</span>, method <span class="op">=</span> <span class="st">"kendall"</span><span class="op">)</span>, FUN.VALUE <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/numeric.html">numeric</a></span><span class="op">(</span><span class="fl">1</span><span class="op">)</span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output-stdout">
+<div class="cell-output cell-output-stdout">
 <pre><code>   linear quadratic     cubic   quartic 
 1.0000000 0.0000000 0.9179069 0.0000000 
    linear quadratic     cubic   quartic 
@@ -847,12 +877,12 @@ This won’t always account for the fact that some variables can mask correlatio
 <span><span class="va">var2</span>  <span class="op">&lt;-</span> <span class="va">var1</span> <span class="op">*</span> <span class="fu"><a href="https://rdrr.io/r/base/rep.html">rep</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="fl">5</span>, <span class="op">-</span><span class="fl">5</span><span class="op">)</span>, each <span class="op">=</span> <span class="va">n_obsvs</span><span class="op">)</span></span>
 <span><span class="va">var3</span>  <span class="op">&lt;-</span> <span class="va">var1</span> <span class="op">*</span> <span class="fu"><a href="https://rdrr.io/r/base/rep.html">rep</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="fl">1</span>,  <span class="fl">5</span><span class="op">)</span>, each <span class="op">=</span> <span class="va">n_obsvs</span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
-<p>As <a href="#fig-cor-0">Figure&nbsp;<span>4.5</span></a> shows</p>
+<p>As <a href="#fig-cor-0">Figure&nbsp;<span class="quarto-unresolved-ref">fig-cor-0</span></a> shows</p>
 <div class="cell">
 <div class="cell-output-display">
 <div id="fig-cor-0" class="quarto-figure quarto-figure-center anchored">
 <figure class="figure"><p><img src="egre-aggr_files/figure-html/fig-cor-0-1.png" class="img-fluid figure-img" width="672"></p>
-<p></p><figcaption aria-hidden="true" class="figure-caption">Figure 4.5: Subgroups demonstrating opposing linear relationships</figcaption><p></p>
+<p></p><figcaption class="figure-caption">Figure&nbsp;4.5: Subgroups demonstrating opposing linear relationships</figcaption><p></p>
 </figure>
 </div>
 </div>
@@ -862,7 +892,7 @@ This won’t always account for the fact that some variables can mask correlatio
 <div class="sourceCode" id="cb39"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/stats/cor.html">cor</a></span><span class="op">(</span><span class="va">var1</span>, <span class="va">var2</span>, method <span class="op">=</span> <span class="st">"pearson"</span><span class="op">)</span></span>
 <span><span class="fu"><a href="https://rdrr.io/r/stats/cor.html">cor</a></span><span class="op">(</span><span class="va">var1</span>, <span class="va">var2</span>, method <span class="op">=</span> <span class="st">"spearman"</span><span class="op">)</span></span>
 <span><span class="fu"><a href="https://rdrr.io/r/stats/cor.html">cor</a></span><span class="op">(</span><span class="va">var1</span>, <span class="va">var2</span>, method <span class="op">=</span> <span class="st">"kendall"</span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output-stdout">
+<div class="cell-output cell-output-stdout">
 <pre><code>[1] 0
 [1] 0
 [1] 0</code></pre>
@@ -872,7 +902,7 @@ This won’t always account for the fact that some variables can mask correlatio
 <div class="cell">
 <div class="sourceCode" id="cb41"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/stats/cor.html">cor</a></span><span class="op">(</span><span class="va">var1</span><span class="op">[</span><span class="va">group</span> <span class="op">==</span> <span class="fl">1</span><span class="op">]</span>, <span class="va">var2</span><span class="op">[</span><span class="va">group</span> <span class="op">==</span> <span class="fl">1</span><span class="op">]</span><span class="op">)</span></span>
 <span><span class="fu"><a href="https://rdrr.io/r/stats/cor.html">cor</a></span><span class="op">(</span><span class="va">var1</span><span class="op">[</span><span class="va">group</span> <span class="op">==</span> <span class="fl">2</span><span class="op">]</span>, <span class="va">var2</span><span class="op">[</span><span class="va">group</span> <span class="op">==</span> <span class="fl">2</span><span class="op">]</span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output-stdout">
+<div class="cell-output cell-output-stdout">
 <pre><code>[1] 1
 [1] -1</code></pre>
 </div>
@@ -880,7 +910,7 @@ This won’t always account for the fact that some variables can mask correlatio
 <p>A similar thing happens when the relationship has the same sign but different slopes</p>
 <div class="cell">
 <div class="sourceCode" id="cb43"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/stats/cor.html">cor</a></span><span class="op">(</span><span class="va">var1</span>, <span class="va">var3</span>, method <span class="op">=</span> <span class="st">"pearson"</span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output-stdout">
+<div class="cell-output cell-output-stdout">
 <pre><code>[1] 0.5703518</code></pre>
 </div>
 </div>
@@ -888,7 +918,7 @@ This won’t always account for the fact that some variables can mask correlatio
 <div class="cell">
 <div class="sourceCode" id="cb45"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/stats/cor.html">cor</a></span><span class="op">(</span><span class="va">var1</span><span class="op">[</span><span class="va">group</span> <span class="op">==</span> <span class="fl">1</span><span class="op">]</span>, <span class="va">var3</span><span class="op">[</span><span class="va">group</span> <span class="op">==</span> <span class="fl">1</span><span class="op">]</span><span class="op">)</span></span>
 <span><span class="fu"><a href="https://rdrr.io/r/stats/cor.html">cor</a></span><span class="op">(</span><span class="va">var1</span><span class="op">[</span><span class="va">group</span> <span class="op">==</span> <span class="fl">2</span><span class="op">]</span>, <span class="va">var3</span><span class="op">[</span><span class="va">group</span> <span class="op">==</span> <span class="fl">2</span><span class="op">]</span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output-stdout">
+<div class="cell-output cell-output-stdout">
 <pre><code>[1] 1
 [1] 1</code></pre>
 </div>
@@ -896,28 +926,28 @@ This won’t always account for the fact that some variables can mask correlatio
 <p>Even partial correlation doesn’t help in case of opposing signs</p>
 <div class="cell">
 <div class="sourceCode" id="cb47"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va">ppcor</span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output-stderr">
+<div class="cell-output cell-output-stderr">
 <pre><code>Warning: package 'ppcor' was built under R version 4.0.5</code></pre>
 </div>
-<div class="cell-output-stderr">
+<div class="cell-output cell-output-stderr">
 <pre><code>Loading required package: MASS</code></pre>
 </div>
-<div class="cell-output-stderr">
+<div class="cell-output cell-output-stderr">
 <pre><code>
 Attaching package: 'MASS'</code></pre>
 </div>
-<div class="cell-output-stderr">
+<div class="cell-output cell-output-stderr">
 <pre><code>The following object is masked from 'package:patchwork':
 
     area</code></pre>
 </div>
-<div class="cell-output-stderr">
+<div class="cell-output cell-output-stderr">
 <pre><code>The following object is masked from 'package:dplyr':
 
     select</code></pre>
 </div>
 <div class="sourceCode" id="cb53"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/pkg/ppcor/man/pcor.html">pcor</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/data.frame.html">data.frame</a></span><span class="op">(</span><span class="va">var1</span>, <span class="va">var2</span>, <span class="va">group</span><span class="op">)</span><span class="op">)</span><span class="op">$</span><span class="va">estimate</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output-stdout">
+<div class="cell-output cell-output-stdout">
 <pre><code>      var1       var2      group
 var1     1  0.0000000  0.0000000
 var2     0  1.0000000 -0.8864053
@@ -927,7 +957,7 @@ group    0 -0.8864053  1.0000000</code></pre>
 <p>It <em>improves</em> the strength of the estimated correlation in the case of <code>var3</code> but still failes to estimate it correctly. Partial correlation would be assuming a form like <code>var3 ~ var1 + group</code> and not <code>var3 ~ var1 * group</code></p>
 <div class="cell">
 <div class="sourceCode" id="cb55"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/pkg/ppcor/man/pcor.html">pcor</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/data.frame.html">data.frame</a></span><span class="op">(</span><span class="va">var1</span>, <span class="va">var3</span>, <span class="va">group</span><span class="op">)</span><span class="op">)</span><span class="op">$</span><span class="va">estimate</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output-stdout">
+<div class="cell-output cell-output-stdout">
 <pre><code>            var1      var3      group
 var1   1.0000000 0.8320503 -0.7375338
 var3   0.8320503 1.0000000  0.8864053
@@ -938,7 +968,7 @@ group -0.7375338 0.8864053  1.0000000</code></pre>
 <span class="header-section-number">4.6</span> Trends</h2>
 <section id="if-trends-continue" class="level3" data-number="4.6.1"><h3 data-number="4.6.1" class="anchored" data-anchor-id="if-trends-continue">
 <span class="header-section-number">4.6.1</span> “If trends continue…”</h3>
-<p><a href="#fig-if-trends-continue">Figure&nbsp;<span>4.6</span></a> shows that…</p>
+<p><a href="#fig-if-trends-continue">Figure&nbsp;<span class="quarto-unresolved-ref">fig-if-trends-continue</span></a> shows that…</p>
 <div class="cell">
 <div class="sourceCode" id="cb57"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://ggplot2.tidyverse.org">ggplot2</a></span><span class="op">)</span></span>
 <span></span>
@@ -958,7 +988,7 @@ group -0.7375338 0.8864053  1.0000000</code></pre>
 <div class="cell-output-display">
 <div id="fig-if-trends-continue" class="quarto-figure quarto-figure-center anchored">
 <figure class="figure"><p><img src="egre-aggr_files/figure-html/fig-if-trends-continue-1.png" class="img-fluid figure-img" width="672"></p>
-<p></p><figcaption aria-hidden="true" class="figure-caption">Figure 4.6: Extrapolated linear, quadratic, and cubic fits of data</figcaption><p></p>
+<p></p><figcaption class="figure-caption">Figure&nbsp;4.6: Extrapolated linear, quadratic, and cubic fits of data</figcaption><p></p>
 </figure>
 </div>
 </div>
@@ -975,21 +1005,21 @@ group -0.7375338 0.8864053  1.0000000</code></pre>
 <span><span class="va">n_visits</span> <span class="op">&lt;-</span> <span class="va">base</span> <span class="op">*</span> <span class="va">seas_factor</span></span>
 <span></span>
 <span><span class="fu"><a href="https://rdrr.io/r/base/mean.html">mean</a></span><span class="op">(</span><span class="va">df</span><span class="op">$</span><span class="va">n_visits</span><span class="op">[</span><span class="fl">1</span><span class="op">:</span><span class="fl">12</span><span class="op">]</span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output-stderr">
+<div class="cell-output cell-output-stderr">
 <pre><code>Warning in mean.default(df$n_visits[1:12]): argument is not numeric or logical:
 returning NA</code></pre>
 </div>
 <div class="sourceCode" id="cb60"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/base/mean.html">mean</a></span><span class="op">(</span><span class="va">df</span><span class="op">$</span><span class="va">n_visits</span><span class="op">[</span><span class="fl">8</span><span class="op">:</span><span class="fl">12</span><span class="op">]</span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output-stderr">
+<div class="cell-output cell-output-stderr">
 <pre><code>Warning in mean.default(df$n_visits[8:12]): argument is not numeric or logical:
 returning NA</code></pre>
 </div>
 <div class="sourceCode" id="cb62"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/base/mean.html">mean</a></span><span class="op">(</span><span class="va">df</span><span class="op">$</span><span class="va">n_visits</span><span class="op">[</span><span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="fl">8</span><span class="op">:</span><span class="fl">12</span>, <span class="fl">1</span><span class="op">:</span><span class="fl">12</span><span class="op">)</span><span class="op">]</span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output-stderr">
+<div class="cell-output cell-output-stderr">
 <pre><code>Warning in mean.default(df$n_visits[c(8:12, 1:12)]): argument is not numeric or
 logical: returning NA</code></pre>
 </div>
-<div class="cell-output-stdout">
+<div class="cell-output cell-output-stdout">
 <pre><code>[1] NA
 [1] NA
 [1] NA</code></pre>
@@ -1007,7 +1037,7 @@ logical: returning NA</code></pre>
 <div class="cell">
 <div class="sourceCode" id="cb65"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="op">(</span><span class="fl">0.015</span> <span class="op">-</span> <span class="fl">0.010</span><span class="op">)</span> <span class="op">/</span> <span class="fl">0.010</span></span>
 <span><span class="op">(</span><span class="fl">0.805</span> <span class="op">-</span> <span class="fl">0.800</span><span class="op">)</span> <span class="op">/</span> <span class="fl">0.800</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output-stdout">
+<div class="cell-output cell-output-stdout">
 <pre><code>[1] 0.5
 [1] 0.00625</code></pre>
 </div>
@@ -1015,18 +1045,21 @@ logical: returning NA</code></pre>
 <div class="cell">
 <div class="sourceCode" id="cb67"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fl">0.015</span> <span class="op">/</span> <span class="fl">0.010</span></span>
 <span><span class="fl">0.805</span> <span class="op">/</span> <span class="fl">0.800</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output-stdout">
+<div class="cell-output cell-output-stdout">
 <pre><code>[1] 1.5
 [1] 1.00625</code></pre>
 </div>
 </div>
-</section></section><section id="outliers-todo" class="level2" data-number="4.8"><h2 data-number="4.8" class="anchored" data-anchor-id="outliers-todo">
-<span class="header-section-number">4.8</span> Outliers (TODO)</h2>
-</section><section id="strategies-todo" class="level2" data-number="4.9"><h2 data-number="4.9" class="anchored" data-anchor-id="strategies-todo">
-<span class="header-section-number">4.9</span> Strategies (TODO)</h2>
-</section><section id="real-world-disasters-todo" class="level2" data-number="4.10"><h2 data-number="4.10" class="anchored" data-anchor-id="real-world-disasters-todo">
-<span class="header-section-number">4.10</span> Real World Disasters (TODO)</h2>
-<p>Straight vs weighted averages in COVID positivity rates <span class="citation" data-cites="indy_rates">(<a href="references.html#ref-indy_rates" role="doc-biblioref">May 2020</a>)</span></p>
+</section></section><section id="segmentation-todo" class="level2" data-number="4.8"><h2 data-number="4.8" class="anchored" data-anchor-id="segmentation-todo">
+<span class="header-section-number">4.8</span> Segmentation (TODO)</h2>
+<p>transient segmentation means can’t track trends within</p>
+</section><section id="outliers-todo" class="level2" data-number="4.9"><h2 data-number="4.9" class="anchored" data-anchor-id="outliers-todo">
+<span class="header-section-number">4.9</span> Outliers (TODO)</h2>
+</section><section id="strategies-todo" class="level2" data-number="4.10"><h2 data-number="4.10" class="anchored" data-anchor-id="strategies-todo">
+<span class="header-section-number">4.10</span> Strategies (TODO)</h2>
+</section><section id="real-world-disasters-todo" class="level2" data-number="4.11"><h2 data-number="4.11" class="anchored" data-anchor-id="real-world-disasters-todo">
+<span class="header-section-number">4.11</span> Real World Disasters (TODO)</h2>
+<p>Straight vs weighted averages in COVID positivity rates <span class="citation" data-cites="indy_rates">(<a href="#ref-indy_rates" role="doc-biblioref">May 2020</a>)</span></p>
 <blockquote class="blockquote">
 <p>The changes could result in real-world differences for Hoosiers, because the state uses a county’s positivity rate as one of the numbers to determine which restrictions that county will face. Those restrictions determine how many people may gather, among other items.</p>
 </blockquote>
@@ -1054,7 +1087,7 @@ logical: returning NA</code></pre>
 <span><span class="va">weightavg_of_ratios_uneq</span> <span class="op">&lt;-</span> <span class="op">(</span><span class="fl">100</span><span class="op">/</span><span class="fl">300</span><span class="op">)</span><span class="op">*</span><span class="op">(</span><span class="fl">10</span><span class="op">/</span><span class="fl">100</span><span class="op">)</span> <span class="op">+</span> <span class="op">(</span><span class="fl">200</span><span class="op">/</span><span class="fl">300</span><span class="op">)</span><span class="op">*</span><span class="op">(</span><span class="fl">180</span><span class="op">/</span><span class="fl">200</span><span class="op">)</span></span>
 <span></span>
 <span><span class="va">ratio_of_sums_uneq</span> <span class="op">==</span> <span class="va">weightavg_of_ratios_uneq</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output-stdout">
+<div class="cell-output cell-output-stdout">
 <pre><code>[1] TRUE
 [1] FALSE
 [1] TRUE</code></pre>
@@ -1117,6 +1150,7 @@ First, in the real world, this is rarely (if ever) the case. Complex, dynamic sy
 
 Second, and perhaps event more critically, there is no singular, objective definiton of what the current "trend" of a dataset event is. To illustrate this @fig-lin-quad-cub shows the fits of linear, quadratic, and cubic regressions on a set of data and its out-of-sample extrapolation. Even if we *believed* the premise that "trends will continue", the subjective determination of that thrend has massive implications on the resulting conclusions.
 
+
 ::: {.cell}
 
 ```{.r .cell-code}
@@ -1144,6 +1178,7 @@ ggplot(
 :::
 
 
+
 <!--
 
 ## Aggregating without visualizing
@@ -1151,6 +1186,7 @@ ggplot(
 The **datasauRus** R package [@R-datasauRus] \index{R package!datasauRus}
 
 ## Believing in the "average" observation
+
 
 ::: {.cell}
 
@@ -1162,7 +1198,7 @@ y3 <- 10 + x + rlnorm(1000, 0, 1)
 cor(x,y1)
 ```
 
-::: {.cell-output-stdout}
+::: {.cell-output .cell-output-stdout}
 ```
 [1] 0.0318291
 ```
@@ -1172,7 +1208,7 @@ cor(x,y1)
 cor(x,y2)
 ```
 
-::: {.cell-output-stdout}
+::: {.cell-output .cell-output-stdout}
 ```
 [1] 0.9801136
 ```
@@ -1182,7 +1218,7 @@ cor(x,y2)
 (mx <- mean(x))
 ```
 
-::: {.cell-output-stdout}
+::: {.cell-output .cell-output-stdout}
 ```
 [1] -0.04878271
 ```
@@ -1192,7 +1228,7 @@ cor(x,y2)
 (my1 <- mean(y1))
 ```
 
-::: {.cell-output-stdout}
+::: {.cell-output .cell-output-stdout}
 ```
 [1] 9.94201
 ```
@@ -1202,7 +1238,7 @@ cor(x,y2)
 (my2 <- mean(y2))
 ```
 
-::: {.cell-output-stdout}
+::: {.cell-output .cell-output-stdout}
 ```
 [1] 9.960487
 ```
@@ -1212,7 +1248,7 @@ cor(x,y2)
 (my3 <- mean(y3))
 ```
 
-::: {.cell-output-stdout}
+::: {.cell-output .cell-output-stdout}
 ```
 [1] 11.5651
 ```
@@ -1234,7 +1270,9 @@ gg <- ggplot(df, aes(x,y)) + geom_bin2d() + geom_point(aes(mean(x), mean(y)), co
 
 
 
+
 ## Product of averages
+
 
 ::: {.cell}
 
@@ -1251,7 +1289,7 @@ data %>%
   mutate(N_TRANS * AMT_SPEND)
 ```
 
-::: {.cell-output-stdout}
+::: {.cell-output .cell-output-stdout}
 ```
   N_TRANS AMT_SPEND N_TRANS * AMT_SPEND
 1    10.8  347.7623            3755.833
@@ -1266,7 +1304,7 @@ data %>%
   mutate(N_TRANS * AMT_SPEND)
 ```
 
-::: {.cell-output-stdout}
+::: {.cell-output .cell-output-stdout}
 ```
 # A tibble: 1 x 3
   N_TRANS AMT_SPEND `N_TRANS * AMT_SPEND`
@@ -1279,13 +1317,14 @@ data %>%
 summarize(data, sum(AMT_SPEND) / n_distinct(ID_ACCT))
 ```
 
-::: {.cell-output-stdout}
+::: {.cell-output .cell-output-stdout}
 ```
   sum(AMT_SPEND)/n_distinct(ID_ACCT)
 1                           3755.833
 ```
 :::
 :::
+
 
 $$
   \frac{ \sum_{1}^{n} Spend }{\sum_{1}^{n} 1} \ * \frac{ \sum_{1}^{n} Trips }{\sum_{1}^{n} 1}
@@ -1294,6 +1333,7 @@ $$ over all $n$ customers
 $$
   \sum_{1}^{n} Spend \ * \sum_{1}^{n}
 $$ trips
+
 
 ::: {.cell}
 
@@ -1304,7 +1344,7 @@ ind_return <- c(rbinom(10,1,0.1), rbinom(10,1,0.2))
 mean(amt_spend) * mean(ind_return)
 ```
 
-::: {.cell-output-stdout}
+::: {.cell-output .cell-output-stdout}
 ```
 [1] 7.535406
 ```
@@ -1314,12 +1354,13 @@ mean(amt_spend) * mean(ind_return)
 mean(amt_spend * ind_return)
 ```
 
-::: {.cell-output-stdout}
+::: {.cell-output .cell-output-stdout}
 ```
 [1] 12.67534
 ```
 :::
 :::
+
 
 
 
@@ -1350,8 +1391,7 @@ Problem with Metrics - https://arxiv.org/abs/2002.08512
 -->
 
 
-
-<div id="refs" class="references csl-bib-body hanging-indent" role="doc-bibliography" style="display: none">
+<div id="refs" class="references csl-bib-body hanging-indent" role="doc-bibliography">
 <div id="ref-datasaurus" class="csl-entry" role="doc-biblioentry">
 Matejka, Justin, and George Fitzmaurice. 2017. <span>“Same Stats, Different Graphs: Generating Datasets with Varied Appearance and Identical Statistics Through Simulated Annealing.”</span> In. New York, NY, USA: Association for Computing Machinery. <a href="https://doi.org/10.1145/3025453.3025912">https://doi.org/10.1145/3025453.3025912</a>.
 </div>
@@ -1359,13 +1399,31 @@ Matejka, Justin, and George Fitzmaurice. 2017. <span>“Same Stats, Different Gr
 May, Ethan. 2020. <span>“How an Error in the Calculation of Indiana’s Positivity Rate May Affect You.”</span> <em>Indianapolis Star</em>, December. <a href="https://www.indystar.com/story/news/health/2020/12/23/covid-indiana-positivity-rate-error-corrected-dec-30/4013741001/">https://www.indystar.com/story/news/health/2020/12/23/covid-indiana-positivity-rate-error-corrected-dec-30/4013741001/</a>.
 </div>
 </div>
-</section><section class="footnotes footnotes-end-of-document" role="doc-endnotes"><hr>
+</section><section id="footnotes" class="footnotes footnotes-end-of-document" role="doc-endnotes"><hr>
 <ol>
-<li id="fn1" role="doc-endnote"><p>If you are following along in R, you might run <code>unique(df$dataset)</code> to see all the values of this column. We won’t do that now as to not ruin the surprise<a href="#fnref1" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
-<li id="fn2" role="doc-endnote"><p>In fact, the only mechanical constraint to computing linear regression output is that no column of the design matrix (no independent variable) is a precise linear combination of the other columns. Yet this constraint is not typically included among the standard statement of assumptions.<a href="#fnref2" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
-<li id="fn3" role="doc-endnote"><p>We intentionally avoid the word <em>correlated</em> here to emphasize the fact that <em>correlation</em> refers more strictly to linear relationships<a href="#fnref3" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
-</ol></section></main><!-- /main --><script type="application/javascript">
+<li id="fn1"><p>If you are following along in R, you might run <code>unique(df$dataset)</code> to see all the values of this column. We won’t do that now as to not ruin the surprise<a href="#fnref1" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
+<li id="fn2"><p>In fact, the only mechanical constraint to computing linear regression output is that no column of the design matrix (no independent variable) is a precise linear combination of the other columns. Yet this constraint is not typically included among the standard statement of assumptions.<a href="#fnref2" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
+<li id="fn3"><p>We intentionally avoid the word <em>correlated</em> here to emphasize the fact that <em>correlation</em> refers more strictly to linear relationships<a href="#fnref3" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
+</ol></section></main><!-- /main --><script id="quarto-html-after-body" type="application/javascript">
 window.document.addEventListener("DOMContentLoaded", function (event) {
+  const toggleBodyColorMode = (bsSheetEl) => {
+    const mode = bsSheetEl.getAttribute("data-mode");
+    const bodyEl = window.document.querySelector("body");
+    if (mode === "dark") {
+      bodyEl.classList.add("quarto-dark");
+      bodyEl.classList.remove("quarto-light");
+    } else {
+      bodyEl.classList.add("quarto-light");
+      bodyEl.classList.remove("quarto-dark");
+    }
+  }
+  const toggleBodyColorPrimary = () => {
+    const bsSheetEl = window.document.querySelector("link#quarto-bootstrap");
+    if (bsSheetEl) {
+      toggleBodyColorMode(bsSheetEl);
+    }
+  }
+  toggleBodyColorPrimary();  
   const icon = "";
   const anchorJS = new window.AnchorJS();
   anchorJS.options = {
@@ -1385,7 +1443,27 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
     button.blur();
     // flash "checked"
     button.classList.add('code-copy-button-checked');
+    var currentTitle = button.getAttribute("title");
+    button.setAttribute("title", "Copied!");
+    let tooltip;
+    if (window.bootstrap) {
+      button.setAttribute("data-bs-toggle", "tooltip");
+      button.setAttribute("data-bs-placement", "left");
+      button.setAttribute("data-bs-title", "Copied!");
+      tooltip = new bootstrap.Tooltip(button, 
+        { trigger: "manual", 
+          customClass: "code-copy-button-tooltip",
+          offset: [0, -8]});
+      tooltip.show();    
+    }
     setTimeout(function() {
+      if (tooltip) {
+        tooltip.hide();
+        button.removeAttribute("data-bs-title");
+        button.removeAttribute("data-bs-toggle");
+        button.removeAttribute("data-bs-placement");
+      }
+      button.setAttribute("title", currentTitle);
       button.classList.remove('code-copy-button-checked');
     }, 1000);
     // clear code selection
@@ -1412,31 +1490,50 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
   for (var i=0; i<noterefs.length; i++) {
     const ref = noterefs[i];
     tippyHover(ref, function() {
-      let href = ref.getAttribute('href');
+      // use id or data attribute instead here
+      let href = ref.getAttribute('data-footnote-href') || ref.getAttribute('href');
       try { href = new URL(href).hash; } catch {}
       const id = href.replace(/^#\/?/, "");
       const note = window.document.getElementById(id);
       return note.innerHTML;
     });
   }
+  const findCites = (el) => {
+    const parentEl = el.parentElement;
+    if (parentEl) {
+      const cites = parentEl.dataset.cites;
+      if (cites) {
+        return {
+          el,
+          cites: cites.split(' ')
+        };
+      } else {
+        return findCites(el.parentElement)
+      }
+    } else {
+      return undefined;
+    }
+  };
   var bibliorefs = window.document.querySelectorAll('a[role="doc-biblioref"]');
   for (var i=0; i<bibliorefs.length; i++) {
     const ref = bibliorefs[i];
-    const cites = ref.parentNode.getAttribute('data-cites').split(' ');
-    tippyHover(ref, function() {
-      var popup = window.document.createElement('div');
-      cites.forEach(function(cite) {
-        var citeDiv = window.document.createElement('div');
-        citeDiv.classList.add('hanging-indent');
-        citeDiv.classList.add('csl-entry');
-        var biblioDiv = window.document.getElementById('ref-' + cite);
-        if (biblioDiv) {
-          citeDiv.innerHTML = biblioDiv.innerHTML;
-        }
-        popup.appendChild(citeDiv);
+    const citeInfo = findCites(ref);
+    if (citeInfo) {
+      tippyHover(citeInfo.el, function() {
+        var popup = window.document.createElement('div');
+        citeInfo.cites.forEach(function(cite) {
+          var citeDiv = window.document.createElement('div');
+          citeDiv.classList.add('hanging-indent');
+          citeDiv.classList.add('csl-entry');
+          var biblioDiv = window.document.getElementById('ref-' + cite);
+          if (biblioDiv) {
+            citeDiv.innerHTML = biblioDiv.innerHTML;
+          }
+          popup.appendChild(citeDiv);
+        });
+        return popup.innerHTML;
       });
-      return popup.innerHTML;
-    });
+    }
   }
 });
 </script><nav class="page-navigation"><div class="nav-page nav-page-previous">
@@ -1451,6 +1548,7 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
   </div>
 </nav>
 </div> <!-- /content -->
+
 
 
 </body></html>

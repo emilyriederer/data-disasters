@@ -2,135 +2,149 @@
 <html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <meta charset="utf-8">
-<meta name="generator" content="quarto-0.9.175">
+<meta name="generator" content="quarto-1.2.247">
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 <meta name="description" content="Navigating the complexities of real-world data analysis">
 <title>Data Disasters - 2&nbsp; Data Dalliances (WIP)</title>
 <style>
-    code{white-space: pre-wrap;}
-    span.smallcaps{font-variant: small-caps;}
-    span.underline{text-decoration: underline;}
-    div.column{display: inline-block; vertical-align: top; width: 50%;}
-    div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
-    ul.task-list{list-style: none;}
-    pre > code.sourceCode { white-space: pre; position: relative; }
-    pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
-    pre > code.sourceCode > span:empty { height: 1.2em; }
-    .sourceCode { overflow: visible; }
-    code.sourceCode > span { color: inherit; text-decoration: inherit; }
-    div.sourceCode { margin: 1em 0; }
-    pre.sourceCode { margin: 0; }
-    @media screen {
-    div.sourceCode { overflow: auto; }
-    }
-    @media print {
-    pre > code.sourceCode { white-space: pre-wrap; }
-    pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
-    }
-    pre.numberSource code
-      { counter-reset: source-line 0; }
-    pre.numberSource code > span
-      { position: relative; left: -4em; counter-increment: source-line; }
-    pre.numberSource code > span > a:first-child::before
-      { content: counter(source-line);
-        position: relative; left: -1em; text-align: right; vertical-align: baseline;
-        border: none; display: inline-block;
-        -webkit-touch-callout: none; -webkit-user-select: none;
-        -khtml-user-select: none; -moz-user-select: none;
-        -ms-user-select: none; user-select: none;
-        padding: 0 4px; width: 4em;
-        color: #aaaaaa;
-      }
-    pre.numberSource { margin-left: 3em; border-left: 1px solid #aaaaaa;  padding-left: 4px; }
-    div.sourceCode
-      {   }
-    @media screen {
-    pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
-    }
-    code span.al { color: #ff0000; font-weight: bold; } /* Alert */
-    code span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
-    code span.at { color: #7d9029; } /* Attribute */
-    code span.bn { color: #40a070; } /* BaseN */
-    code span.bu { } /* BuiltIn */
-    code span.cf { color: #007020; font-weight: bold; } /* ControlFlow */
-    code span.ch { color: #4070a0; } /* Char */
-    code span.cn { color: #880000; } /* Constant */
-    code span.co { color: #60a0b0; font-style: italic; } /* Comment */
-    code span.cv { color: #60a0b0; font-weight: bold; font-style: italic; } /* CommentVar */
-    code span.do { color: #ba2121; font-style: italic; } /* Documentation */
-    code span.dt { color: #902000; } /* DataType */
-    code span.dv { color: #40a070; } /* DecVal */
-    code span.er { color: #ff0000; font-weight: bold; } /* Error */
-    code span.ex { } /* Extension */
-    code span.fl { color: #40a070; } /* Float */
-    code span.fu { color: #06287e; } /* Function */
-    code span.im { } /* Import */
-    code span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Information */
-    code span.kw { color: #007020; font-weight: bold; } /* Keyword */
-    code span.op { color: #666666; } /* Operator */
-    code span.ot { color: #007020; } /* Other */
-    code span.pp { color: #bc7a00; } /* Preprocessor */
-    code span.sc { color: #4070a0; } /* SpecialChar */
-    code span.ss { color: #bb6688; } /* SpecialString */
-    code span.st { color: #4070a0; } /* String */
-    code span.va { color: #19177c; } /* Variable */
-    code span.vs { color: #4070a0; } /* VerbatimString */
-    code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warning */
-    div.csl-bib-body { }
-    div.csl-entry {
-      clear: both;
-    }
-    .hanging div.csl-entry {
-      margin-left:2em;
-      text-indent:-2em;
-    }
-    div.csl-left-margin {
-      min-width:2em;
-      float:left;
-    }
-    div.csl-right-inline {
-      margin-left:2em;
-      padding-left:1em;
-    }
-    div.csl-indent {
-      margin-left: 2em;
-    }
-  </style>
-<script src="site_libs/quarto-nav/quarto-nav.js"></script><script src="site_libs/quarto-nav/headroom.min.js"></script><script src="site_libs/clipboard/clipboard.min.js"></script><meta name="quarto:offset" content="./">
-<script src="site_libs/quarto-search/autocomplete.umd.js"></script><script src="site_libs/quarto-search/fuse.min.js"></script><script src="site_libs/quarto-search/quarto-search.js"></script><link href="./comp-quan.html" rel="next">
+code{white-space: pre-wrap;}
+span.smallcaps{font-variant: small-caps;}
+div.columns{display: flex; gap: min(4vw, 1.5em);}
+div.column{flex: auto; overflow-x: auto;}
+div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+ul.task-list{list-style: none;}
+ul.task-list li input[type="checkbox"] {
+  width: 0.8em;
+  margin: 0 0.8em 0.2em -1.6em;
+  vertical-align: middle;
+}
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+div.sourceCode { margin: 1em 0; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+    color: #aaaaaa;
+  }
+pre.numberSource { margin-left: 3em; border-left: 1px solid #aaaaaa;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
+code span.al { color: #ff0000; font-weight: bold; } /* Alert */
+code span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
+code span.at { color: #7d9029; } /* Attribute */
+code span.bn { color: #40a070; } /* BaseN */
+code span.bu { color: #008000; } /* BuiltIn */
+code span.cf { color: #007020; font-weight: bold; } /* ControlFlow */
+code span.ch { color: #4070a0; } /* Char */
+code span.cn { color: #880000; } /* Constant */
+code span.co { color: #60a0b0; font-style: italic; } /* Comment */
+code span.cv { color: #60a0b0; font-weight: bold; font-style: italic; } /* CommentVar */
+code span.do { color: #ba2121; font-style: italic; } /* Documentation */
+code span.dt { color: #902000; } /* DataType */
+code span.dv { color: #40a070; } /* DecVal */
+code span.er { color: #ff0000; font-weight: bold; } /* Error */
+code span.ex { } /* Extension */
+code span.fl { color: #40a070; } /* Float */
+code span.fu { color: #06287e; } /* Function */
+code span.im { color: #008000; font-weight: bold; } /* Import */
+code span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Information */
+code span.kw { color: #007020; font-weight: bold; } /* Keyword */
+code span.op { color: #666666; } /* Operator */
+code span.ot { color: #007020; } /* Other */
+code span.pp { color: #bc7a00; } /* Preprocessor */
+code span.sc { color: #4070a0; } /* SpecialChar */
+code span.ss { color: #bb6688; } /* SpecialString */
+code span.st { color: #4070a0; } /* String */
+code span.va { color: #19177c; } /* Variable */
+code span.vs { color: #4070a0; } /* VerbatimString */
+code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warning */
+div.csl-bib-body { }
+div.csl-entry {
+  clear: both;
+}
+.hanging div.csl-entry {
+  margin-left:2em;
+  text-indent:-2em;
+}
+div.csl-left-margin {
+  min-width:2em;
+  float:left;
+}
+div.csl-right-inline {
+  margin-left:2em;
+  padding-left:1em;
+}
+div.csl-indent {
+  margin-left: 2em;
+}
+</style>
+
+<script src="site_libs/quarto-nav/quarto-nav.js"></script>
+<script src="site_libs/quarto-nav/headroom.min.js"></script>
+<script src="site_libs/clipboard/clipboard.min.js"></script>
+<script src="site_libs/quarto-search/autocomplete.umd.js"></script>
+<script src="site_libs/quarto-search/fuse.min.js"></script>
+<script src="site_libs/quarto-search/quarto-search.js"></script>
+<meta name="quarto:offset" content="./">
+<link href="./comp-quan.html" rel="next">
 <link href="./intro.html" rel="prev">
 <link href="./figures/cover.png" rel="icon" type="image/png">
-<script src="site_libs/quarto-html/quarto.js"></script><script src="site_libs/quarto-html/popper.min.js"></script><script src="site_libs/quarto-html/tippy.umd.min.js"></script><script src="site_libs/quarto-html/anchor.min.js"></script><link href="site_libs/quarto-html/tippy.css" rel="stylesheet">
-<link id="quarto-text-highlighting-styles" href="site_libs/quarto-html/quarto-syntax-highlighting.css" rel="stylesheet">
-<script src="site_libs/bootstrap/bootstrap.min.js"></script><link href="site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
-<link href="site_libs/bootstrap/bootstrap.min.css" rel="stylesheet">
-<script id="quarto-search-options" type="application/json">{
-    "location": "sidebar",
-    "copy-button": false,
-    "collapse-after": 3,
-    "panel-placement": "start",
-    "type": "textbox",
-    "limit": 20,
-    "language": {
-      "search-no-results-text": "No results",
-      "search-matching-documents-text": "matching documents",
-      "search-copy-link-title": "Copy link to search",
-      "search-hide-matches-text": "Hide additional matches",
-      "search-more-match-text": "more match in this document",
-      "search-more-matches-text": "more matches in this document",
-      "search-clear-button-title": "Clear",
-      "search-detached-cancel-button-title": "Cancel",
-      "search-submit-button-title": "Submit"
-    }
-  }</script><script async="" src="https://www.googletagmanager.com/gtag/js?id=G-C7VEESJ7Z8"></script><script type="text/javascript">
+<script src="site_libs/quarto-html/quarto.js"></script>
+<script src="site_libs/quarto-html/popper.min.js"></script>
+<script src="site_libs/quarto-html/tippy.umd.min.js"></script>
+<script src="site_libs/quarto-html/anchor.min.js"></script>
+<link href="site_libs/quarto-html/tippy.css" rel="stylesheet">
+<link href="site_libs/quarto-html/quarto-syntax-highlighting.css" rel="stylesheet" id="quarto-text-highlighting-styles">
+<script src="site_libs/bootstrap/bootstrap.min.js"></script>
+<link href="site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
+<link href="site_libs/bootstrap/bootstrap.min.css" rel="stylesheet" id="quarto-bootstrap" data-mode="light"><script id="quarto-search-options" type="application/json">{
+  "location": "sidebar",
+  "copy-button": false,
+  "collapse-after": 3,
+  "panel-placement": "start",
+  "type": "textbox",
+  "limit": 20,
+  "language": {
+    "search-no-results-text": "No results",
+    "search-matching-documents-text": "matching documents",
+    "search-copy-link-title": "Copy link to search",
+    "search-hide-matches-text": "Hide additional matches",
+    "search-more-match-text": "more match in this document",
+    "search-more-matches-text": "more matches in this document",
+    "search-clear-button-title": "Clear",
+    "search-detached-cancel-button-title": "Cancel",
+    "search-submit-button-title": "Submit"
+  }
+}</script><script async="" src="https://www.googletagmanager.com/gtag/js?id=G-C7VEESJ7Z8"></script><script type="text/javascript">
 
-  window.dataLayer = window.dataLayer || [];
-  function gtag(){dataLayer.push(arguments);}
-  gtag('js', new Date());
-  gtag('config', 'G-C7VEESJ7Z8', { 'anonymize_ip': true});
-  </script><script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml-full.js" type="text/javascript"></script><!--[if lt IE 9]>
-    <script src="//cdnjs.cloudflare.com/ajax/libs/html5shiv/3.7.3/html5shiv-printshiv.min.js"></script>
-  <![endif]-->
+window.dataLayer = window.dataLayer || [];
+function gtag(){dataLayer.push(arguments);}
+gtag('js', new Date());
+gtag('config', 'G-C7VEESJ7Z8', { 'anonymize_ip': true});
+</script><script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml-full.js" type="text/javascript"></script>
 <meta property="og:title" content="Data Disasters - 2&nbsp; Data Dalliances (WIP)">
 <meta property="og:description" content="Navigating the complexities of real-world data analysis">
 <meta property="og:site-name" content="Data Disasters">
@@ -138,7 +152,8 @@
 <meta name="twitter:description" content="Navigating the complexities of real-world data analysis">
 <meta name="twitter:card" content="summary">
 </head>
-<body class="floating">
+<body class="nav-sidebar floating">
+
 <div id="quarto-search-results"></div>
   <header id="quarto-header" class="headroom fixed-top"><nav class="quarto-secondary-nav" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }"><div class="container-fluid d-flex justify-content-between">
       <h1 class="quarto-secondary-nav-title"><span class="chapter-number">2</span>&nbsp; <span class="chapter-title">Data Dalliances (WIP)</span></h1>
@@ -205,94 +220,94 @@
   </div>
 </li>
         <li class="sidebar-item sidebar-item-section">
-    <div class="sidebar-item-container"> 
-        <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-1" aria-expanded="true">Data</a>
-      <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-1" aria-expanded="true">
-        <i class="bi bi-chevron-right ms-2"></i>
-      </a>
-    </div>
-    <ul id="quarto-sidebar-section-1" class="collapse list-unstyled sidebar-section depth1 show">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-1" aria-expanded="true">Data</a>
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-1" aria-expanded="true">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-1" class="collapse list-unstyled sidebar-section depth1 show">
 <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="./data-dall.html" class="sidebar-item-text sidebar-link active"><span class="chapter-number">2</span>&nbsp; <span class="chapter-title">Data Dalliances (WIP)</span></a>
   </div>
 </li>
-        <li class="sidebar-item">
+          <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="./comp-quan.html" class="sidebar-item-text sidebar-link"><span class="chapter-number">3</span>&nbsp; <span class="chapter-title">Computational Quandaries (WIP)</span></a>
   </div>
 </li>
-        <li class="sidebar-item">
+          <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="./egre-aggr.html" class="sidebar-item-text sidebar-link"><span class="chapter-number">4</span>&nbsp; <span class="chapter-title">Egregious Aggregations (WIP)</span></a>
   </div>
 </li>
-        <li class="sidebar-item">
+          <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="./vexi-visu.html" class="sidebar-item-text sidebar-link"><span class="chapter-number">5</span>&nbsp; <span class="chapter-title">Vexing Visualization (TODO)</span></a>
   </div>
 </li>
-    </ul>
+      </ul>
 </li>
         <li class="sidebar-item sidebar-item-section">
-    <div class="sidebar-item-container"> 
-        <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-2" aria-expanded="true">Analysis</a>
-      <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-2" aria-expanded="true">
-        <i class="bi bi-chevron-right ms-2"></i>
-      </a>
-    </div>
-    <ul id="quarto-sidebar-section-2" class="collapse list-unstyled sidebar-section depth1 show">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-2" aria-expanded="true">Analysis</a>
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-2" aria-expanded="true">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-2" class="collapse list-unstyled sidebar-section depth1 show">
 <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="./incr-infe.html" class="sidebar-item-text sidebar-link"><span class="chapter-number">6</span>&nbsp; <span class="chapter-title">Incredible Inferences (TODO)</span></a>
   </div>
 </li>
-        <li class="sidebar-item">
+          <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="./cava-caus.html" class="sidebar-item-text sidebar-link"><span class="chapter-number">7</span>&nbsp; <span class="chapter-title">Cavalier Causality (TODO)</span></a>
   </div>
 </li>
-        <li class="sidebar-item">
+          <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="./mind-mode.html" class="sidebar-item-text sidebar-link"><span class="chapter-number">8</span>&nbsp; <span class="chapter-title">Mindless Modeling (TODO)</span></a>
   </div>
 </li>
-        <li class="sidebar-item">
+          <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="./alte-algo.html" class="sidebar-item-text sidebar-link"><span class="chapter-number">9</span>&nbsp; <span class="chapter-title">Alternative Algorithms (TODO)</span></a>
   </div>
 </li>
-        <li class="sidebar-item">
+          <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="./futi-find.html" class="sidebar-item-text sidebar-link"><span class="chapter-number">10</span>&nbsp; <span class="chapter-title">Futile Findings (TODO)</span></a>
   </div>
 </li>
-    </ul>
+      </ul>
 </li>
         <li class="sidebar-item sidebar-item-section">
-    <div class="sidebar-item-container"> 
-        <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-3" aria-expanded="true">Workflow</a>
-      <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-3" aria-expanded="true">
-        <i class="bi bi-chevron-right ms-2"></i>
-      </a>
-    </div>
-    <ul id="quarto-sidebar-section-3" class="collapse list-unstyled sidebar-section depth1 show">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-3" aria-expanded="true">Workflow</a>
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-3" aria-expanded="true">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-3" class="collapse list-unstyled sidebar-section depth1 show">
 <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="./comp-code.html" class="sidebar-item-text sidebar-link"><span class="chapter-number">11</span>&nbsp; <span class="chapter-title">Complexifying Code (TODO)</span></a>
   </div>
 </li>
-        <li class="sidebar-item">
+          <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="./reje-repr.html" class="sidebar-item-text sidebar-link"><span class="chapter-number">12</span>&nbsp; <span class="chapter-title">Rejecting Reproducibility (TODO)</span></a>
   </div>
 </li>
-        <li class="sidebar-item">
+          <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="./mour-mist.html" class="sidebar-item-text sidebar-link"><span class="chapter-number">13</span>&nbsp; <span class="chapter-title">Mourning Mistakes (TODO)</span></a>
   </div>
 </li>
-    </ul>
+      </ul>
 </li>
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
@@ -300,86 +315,100 @@
   </div>
 </li>
         <li class="sidebar-item sidebar-item-section">
-    <div class="sidebar-item-container"> 
-        <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-4" aria-expanded="true">Appendices</a>
-      <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-4" aria-expanded="true">
-        <i class="bi bi-chevron-right ms-2"></i>
-      </a>
-    </div>
-    <ul id="quarto-sidebar-section-4" class="collapse list-unstyled sidebar-section depth1 show">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-4" aria-expanded="true">Appendices</a>
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-4" aria-expanded="true">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-4" class="collapse list-unstyled sidebar-section depth1 show">
 <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="./more.html" class="sidebar-item-text sidebar-link">(APPENDIX) Appendix</a>
   </div>
 </li>
-    </ul>
+      </ul>
 </li>
     </ul>
 </div>
 </nav><!-- margin-sidebar --><div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
-        <nav id="TOC" role="doc-toc"><h2 id="toc-title">Table of contents</h2>
-<ul>
+        <nav id="TOC" role="doc-toc" class="toc-active"><h2 id="toc-title">Table of contents</h2>
+   
+  <ul>
 <li>
-<a href="#preliminaries" class="nav-link active" data-scroll-target="#preliminaries"> <span class="header-section-number">2.1</span> Preliminaries</a>
-<ul class="collapse">
-<li><a href="#data-structure-basics" class="nav-link" data-scroll-target="#data-structure-basics"> <span class="header-section-number">2.1.1</span> Data Structure Basics</a></li>
-<li><a href="#data-production-processes" class="nav-link" data-scroll-target="#data-production-processes"> <span class="header-section-number">2.1.2</span> Data Production Processes</a></li>
-<li><a href="#data-quality-dimension" class="nav-link" data-scroll-target="#data-quality-dimension"> <span class="header-section-number">2.1.3</span> Data Quality Dimension</a></li>
-<li><a href="#questions-to-ask-todo" class="nav-link" data-scroll-target="#questions-to-ask-todo"> <span class="header-section-number">2.1.4</span> Questions to Ask (TODO)</a></li>
-</ul>
+<a href="#preliminaries" id="toc-preliminaries" class="nav-link active" data-scroll-target="#preliminaries"><span class="toc-section-number">2.1</span>  Preliminaries</a>
+  <ul class="collapse">
+<li><a href="#data-structure-basics" id="toc-data-structure-basics" class="nav-link" data-scroll-target="#data-structure-basics"><span class="toc-section-number">2.1.1</span>  Data Structure Basics</a></li>
+  <li><a href="#data-production-processes" id="toc-data-production-processes" class="nav-link" data-scroll-target="#data-production-processes"><span class="toc-section-number">2.1.2</span>  Data Production Processes</a></li>
+  <li><a href="#data-quality-dimension" id="toc-data-quality-dimension" class="nav-link" data-scroll-target="#data-quality-dimension"><span class="toc-section-number">2.1.3</span>  Data Quality Dimension</a></li>
+  <li><a href="#questions-to-ask-todo" id="toc-questions-to-ask-todo" class="nav-link" data-scroll-target="#questions-to-ask-todo"><span class="toc-section-number">2.1.4</span>  Questions to Ask (TODO)</a></li>
+  </ul>
 </li>
-<li>
-<a href="#data-collection" class="nav-link" data-scroll-target="#data-collection"> <span class="header-section-number">2.2</span> Data Collection</a>
-<ul class="collapse">
-<li><a href="#what-makes-a-record-row" class="nav-link" data-scroll-target="#what-makes-a-record-row"> <span class="header-section-number">2.2.1</span> What Makes a Record (Row)</a></li>
-<li><a href="#what-doesnt-make-a-record-row" class="nav-link" data-scroll-target="#what-doesnt-make-a-record-row"> <span class="header-section-number">2.2.2</span> What Doesn’t Make a Record (Row)</a></li>
-<li><a href="#records-versus-keys" class="nav-link" data-scroll-target="#records-versus-keys"> <span class="header-section-number">2.2.3</span> Records versus Keys</a></li>
-<li><a href="#what-defines-a-variable-column" class="nav-link" data-scroll-target="#what-defines-a-variable-column"> <span class="header-section-number">2.2.4</span> What Defines a Variable (Column)</a></li>
-</ul>
+  <li>
+<a href="#data-collection" id="toc-data-collection" class="nav-link" data-scroll-target="#data-collection"><span class="toc-section-number">2.2</span>  Data Collection</a>
+  <ul class="collapse">
+<li><a href="#what-makes-a-record-row" id="toc-what-makes-a-record-row" class="nav-link" data-scroll-target="#what-makes-a-record-row"><span class="toc-section-number">2.2.1</span>  What Makes a Record (Row)</a></li>
+  <li><a href="#what-doesnt-make-a-record-row" id="toc-what-doesnt-make-a-record-row" class="nav-link" data-scroll-target="#what-doesnt-make-a-record-row"><span class="toc-section-number">2.2.2</span>  What Doesn’t Make a Record (Row)</a></li>
+  <li><a href="#records-versus-keys" id="toc-records-versus-keys" class="nav-link" data-scroll-target="#records-versus-keys"><span class="toc-section-number">2.2.3</span>  Records versus Keys</a></li>
+  <li><a href="#what-defines-a-variable-column" id="toc-what-defines-a-variable-column" class="nav-link" data-scroll-target="#what-defines-a-variable-column"><span class="toc-section-number">2.2.4</span>  What Defines a Variable (Column)</a></li>
+  </ul>
 </li>
-<li><a href="#data-extraction-loading" class="nav-link" data-scroll-target="#data-extraction-loading"> <span class="header-section-number">2.3</span> Data Extraction &amp; Loading</a></li>
-<li>
-<a href="#data-encoding-transformation-wip" class="nav-link" data-scroll-target="#data-encoding-transformation-wip"> <span class="header-section-number">2.4</span> Data Encoding &amp; Transformation (WIP)</a>
-<ul class="collapse">
-<li><a href="#data-encoding" class="nav-link" data-scroll-target="#data-encoding"> <span class="header-section-number">2.4.1</span> Data Encoding</a></li>
-<li><a href="#data-transformation" class="nav-link" data-scroll-target="#data-transformation"> <span class="header-section-number">2.4.2</span> Data Transformation</a></li>
-</ul>
+  <li><a href="#data-extraction-loading" id="toc-data-extraction-loading" class="nav-link" data-scroll-target="#data-extraction-loading"><span class="toc-section-number">2.3</span>  Data Extraction &amp; Loading</a></li>
+  <li>
+<a href="#data-encoding-transformation-wip" id="toc-data-encoding-transformation-wip" class="nav-link" data-scroll-target="#data-encoding-transformation-wip"><span class="toc-section-number">2.4</span>  Data Encoding &amp; Transformation (WIP)</a>
+  <ul class="collapse">
+<li><a href="#data-encoding" id="toc-data-encoding" class="nav-link" data-scroll-target="#data-encoding"><span class="toc-section-number">2.4.1</span>  Data Encoding</a></li>
+  <li><a href="#data-transformation" id="toc-data-transformation" class="nav-link" data-scroll-target="#data-transformation"><span class="toc-section-number">2.4.2</span>  Data Transformation</a></li>
+  </ul>
 </li>
-<li><a href="#more-on-missing-data-todo" class="nav-link" data-scroll-target="#more-on-missing-data-todo"> <span class="header-section-number">2.5</span> More on Missing Data (TODO)</a></li>
-<li>
-<a href="#other-types-of-data-todo" class="nav-link" data-scroll-target="#other-types-of-data-todo"> <span class="header-section-number">2.6</span> Other Types of Data (TODO)</a>
-<ul class="collapse">
-<li><a href="#survey-data" class="nav-link" data-scroll-target="#survey-data"> <span class="header-section-number">2.6.1</span> Survey Data</a></li>
-<li><a href="#human-generated" class="nav-link" data-scroll-target="#human-generated"> <span class="header-section-number">2.6.2</span> Human-Generated</a></li>
-</ul>
+  <li><a href="#more-on-missing-data-todo" id="toc-more-on-missing-data-todo" class="nav-link" data-scroll-target="#more-on-missing-data-todo"><span class="toc-section-number">2.5</span>  More on Missing Data (TODO)</a></li>
+  <li>
+<a href="#other-types-of-data-todo" id="toc-other-types-of-data-todo" class="nav-link" data-scroll-target="#other-types-of-data-todo"><span class="toc-section-number">2.6</span>  Other Types of Data (TODO)</a>
+  <ul class="collapse">
+<li><a href="#survey-data" id="toc-survey-data" class="nav-link" data-scroll-target="#survey-data"><span class="toc-section-number">2.6.1</span>  Survey Data</a></li>
+  <li><a href="#human-generated" id="toc-human-generated" class="nav-link" data-scroll-target="#human-generated"><span class="toc-section-number">2.6.2</span>  Human-Generated</a></li>
+  </ul>
 </li>
-<li>
-<a href="#strategies-todo" class="nav-link" data-scroll-target="#strategies-todo"> <span class="header-section-number">2.7</span> Strategies (TODO)</a>
-<ul class="collapse">
-<li><a href="#understand-the-intent" class="nav-link" data-scroll-target="#understand-the-intent"> <span class="header-section-number">2.7.1</span> Understand the intent</a></li>
-<li><a href="#understand-the-execution" class="nav-link" data-scroll-target="#understand-the-execution"> <span class="header-section-number">2.7.2</span> Understand the execution</a></li>
-<li><a href="#seek-expertise" class="nav-link" data-scroll-target="#seek-expertise"> <span class="header-section-number">2.7.3</span> Seek expertise</a></li>
-<li><a href="#trust-but-verify" class="nav-link" data-scroll-target="#trust-but-verify"> <span class="header-section-number">2.7.4</span> Trust but verify</a></li>
-</ul>
+  <li>
+<a href="#strategies-todo" id="toc-strategies-todo" class="nav-link" data-scroll-target="#strategies-todo"><span class="toc-section-number">2.7</span>  Strategies (TODO)</a>
+  <ul class="collapse">
+<li><a href="#understand-the-intent" id="toc-understand-the-intent" class="nav-link" data-scroll-target="#understand-the-intent"><span class="toc-section-number">2.7.1</span>  Understand the intent</a></li>
+  <li><a href="#understand-the-execution" id="toc-understand-the-execution" class="nav-link" data-scroll-target="#understand-the-execution"><span class="toc-section-number">2.7.2</span>  Understand the execution</a></li>
+  <li><a href="#seek-expertise" id="toc-seek-expertise" class="nav-link" data-scroll-target="#seek-expertise"><span class="toc-section-number">2.7.3</span>  Seek expertise</a></li>
+  <li><a href="#trust-but-verify" id="toc-trust-but-verify" class="nav-link" data-scroll-target="#trust-but-verify"><span class="toc-section-number">2.7.4</span>  Trust but verify</a></li>
+  </ul>
 </li>
-<li>
-<a href="#real-world-disasters" class="nav-link" data-scroll-target="#real-world-disasters"> <span class="header-section-number">2.8</span> Real World Disasters</a>
-<ul class="collapse">
-<li><a href="#data-loading-artificially-spikes-covid-cases" class="nav-link" data-scroll-target="#data-loading-artificially-spikes-covid-cases"> <span class="header-section-number">2.8.1</span> Data loading artificially spikes COVID cases</a></li>
-<li><a href="#data-encoding-leads-to-incorrect-bmi-calculation" class="nav-link" data-scroll-target="#data-encoding-leads-to-incorrect-bmi-calculation"> <span class="header-section-number">2.8.2</span> Data encoding leads to incorrect BMI calculation</a></li>
-</ul>
+  <li>
+<a href="#real-world-disasters" id="toc-real-world-disasters" class="nav-link" data-scroll-target="#real-world-disasters"><span class="toc-section-number">2.8</span>  Real World Disasters</a>
+  <ul class="collapse">
+<li><a href="#data-loading-artificially-spikes-covid-cases" id="toc-data-loading-artificially-spikes-covid-cases" class="nav-link" data-scroll-target="#data-loading-artificially-spikes-covid-cases"><span class="toc-section-number">2.8.1</span>  Data loading artificially spikes COVID cases</a></li>
+  <li><a href="#data-encoding-leads-to-incorrect-bmi-calculation" id="toc-data-encoding-leads-to-incorrect-bmi-calculation" class="nav-link" data-scroll-target="#data-encoding-leads-to-incorrect-bmi-calculation"><span class="toc-section-number">2.8.2</span>  Data encoding leads to incorrect BMI calculation</a></li>
+  </ul>
 </li>
-</ul><div class="toc-actions"><div><i class="bi bi-github"></i></div><div class="action-links"><p><a href="https://github.com/emilyriederer/data-disasters/edit/main/data-dall.qmd" class="toc-action">Edit this page</a></p></div></div></nav>
+  </ul><div class="toc-actions"><div><i class="bi bi-github"></i></div><div class="action-links"><p><a href="https://github.com/emilyriederer/data-disasters/edit/main/data-dall.qmd" class="toc-action">Edit this page</a></p></div></div></nav>
     </div>
 <!-- main -->
-<main class="content" id="quarto-document-content"><header id="title-block-header" class="quarto-title-block default">
-<div class="quarto-title"><h1 class="title display-7"><span id="sec-data-dall" class="quarto-section-identifier d-none d-lg-block"><span class="chapter-number">2</span>&nbsp; <span class="chapter-title">Data Dalliances (WIP)</span></span></h1><div class="quarto-description"><p>Navigating the complexities of real-world data analysis</p></div></div></header><p>The first step to data analysis is, in fact, data. While this may seem obvious, statistics textbooks often dodge this detail. Discussions of regression analysis often begin with a statement like:</p>
+<main class="content" id="quarto-document-content"><header id="title-block-header" class="quarto-title-block default"><div class="quarto-title">
+<h1 class="title"><span id="sec-data-dall" class="quarto-section-identifier d-none d-lg-block"><span class="chapter-number">2</span>&nbsp; <span class="chapter-title">Data Dalliances (WIP)</span></span></h1>
+</div>
+
+
+
+<div class="quarto-title-meta">
+
+    
+  
+    
+  </div>
+  
+
+</header><p>The first step to data analysis is, in fact, data. While this may seem obvious, statistics textbooks often dodge this detail. Discussions of regression analysis often begin with a statement like:</p>
 <blockquote class="blockquote">
 <p>“Let <span class="math inline">\(X\)</span> be the <span class="math inline">\(n x p\)</span> design matrix of independent variables…”</p>
 </blockquote>
 <p>but in practice this statement is as absurd as writing a book about how to win a basketball game, assuming your team already has a 20 point lead with 1 minute left to play.</p>
-<p>It’s very convenient but typically incorrect to assume that the data we happen to have is the ideal (or, more humbly, sufficient) data for the questions we wish to analyze. The specific vagaries of data vary greatly by domain, but a commonality across many fields (such as political science, economics, epidemiology, and market research) is that we are often called to work with <em>found data</em> (or, more formally, “observational data”) from administrative sources or production systems. In contrast to artisanally crafted data experimental data (like the carefully controlled agricultural experiments which motivated many early methods developments in statistics), this data was generated neither by us nor for us. To quote Angela Bassa, the head of data science at an e-commerce company: “Data isn’t ground truth. Data are artifacts of systems” <span class="citation" data-cites="bassa_2017">(<a href="references.html#ref-bassa_2017" role="doc-biblioref">Bassa 2017</a>)</span>.</p>
-<p>The analytical implications of observational versus experimental data are well explored in the field of causal inference (which we will discuss some in <a href="incr-infe.html">Section&nbsp;<span>6</span></a> and <a href="cava-caus.html">Section&nbsp;<span>7</span></a>). However, this distinction has implications far earlier in the data analysis process, as well. To name a few:</p>
+<p>It’s very convenient but typically incorrect to assume that the data we happen to have is the ideal (or, more humbly, sufficient) data for the questions we wish to analyze. The specific vagaries of data vary greatly by domain, but a commonality across many fields (such as political science, economics, epidemiology, and market research) is that we are often called to work with <em>found data</em> (or, more formally, “observational data”) from administrative sources or production systems. In contrast to artisanally crafted data experimental data (like the carefully controlled agricultural experiments which motivated many early methods developments in statistics), this data was generated neither by us nor for us. To quote Angela Bassa, the head of data science at an e-commerce company: “Data isn’t ground truth. Data are artifacts of systems” <span class="citation" data-cites="bassa_2017">(<a href="#ref-bassa_2017" role="doc-biblioref">Bassa 2017</a>)</span>.</p>
+<p>The analytical implications of observational versus experimental data are well explored in the field of causal inference (which we will discuss some in <a href="#sec-incr-infe"><span class="quarto-unresolved-ref">sec-incr-infe</span></a> and <a href="#sec-cava-caus"><span class="quarto-unresolved-ref">sec-cava-caus</span></a>). However, this distinction has implications far earlier in the data analysis process, as well. To name a few:</p>
 <ul>
 <li>Records and fields many not represent the entities or measures most conducive to analysis</li>
 <li>Data collection methods may capture a different subset of events or do so at a different frequency than we expected, leading to systemic biases</li>
@@ -395,7 +424,7 @@
 <section id="relational-data-structure" class="level4" data-number="2.1.1.1"><h4 data-number="2.1.1.1" class="anchored" data-anchor-id="relational-data-structure">
 <span class="header-section-number">2.1.1.1</span> Relational Data Structure</h4>
 <p>Understanding the content and structure of the data you are using is a critical prerequisite to analysis. In this book, we focus on tabular, structured data like one might find in an Excel spreadsheet or relational database.<a href="#fn1" class="footnote-ref" id="fnref1" role="doc-noteref"><sup>1</sup></a></p>
-<p>In particular, many tools work best with what R developer Hadley Wickham describes as “tidy data” <span class="citation" data-cites="wickham_tidy">(<a href="references.html#ref-wickham_tidy" role="doc-biblioref">Wickham 2014</a>)</span>. Namely:</p>
+<p>In particular, many tools work best with what R developer Hadley Wickham describes as “tidy data” <span class="citation" data-cites="wickham_tidy">(<a href="#ref-wickham_tidy" role="doc-biblioref">Wickham 2014</a>)</span>. Namely:</p>
 <ol type="1">
 <li>Each variable forms a column</li>
 <li>Each observation forms a row</li>
@@ -426,12 +455,12 @@
 <li>
 <strong>Transform</strong>: The process of modeling and transforming data so that its structure is useful for analysis and its variables are interpretable</li>
 </ul>
-<p>To better theorize about data quality issues, it’s useful to think of four DGPs (as shown in <a href="#fig-dgp">Figure&nbsp;<span>2.1</span></a>): the real-world DGP, the data collection/extraction DGP<a href="#fn5" class="footnote-ref" id="fnref5" role="doc-noteref"><sup>5</sup></a>, the data loading DGP, and the data transformation DGP.</p>
+<p>To better theorize about data quality issues, it’s useful to think of four DGPs (as shown in <a href="#fig-dgp">Figure&nbsp;<span class="quarto-unresolved-ref">fig-dgp</span></a>): the real-world DGP, the data collection/extraction DGP<a href="#fn5" class="footnote-ref" id="fnref5" role="doc-noteref"><sup>5</sup></a>, the data loading DGP, and the data transformation DGP.</p>
 <div class="cell" data-layout-align="center">
 <div class="cell-output-display">
 <div id="fig-dgp" class="quarto-figure quarto-figure-center anchored">
 <figure class="figure"><p><img src="figures/data-dall/dgp.png" class="img-fluid figure-img" style="width:90.0%"></p>
-<p></p><figcaption aria-hidden="true" class="figure-caption">Figure 2.1: A schematic of the data production process</figcaption><p></p>
+<p></p><figcaption class="figure-caption">Figure&nbsp;2.1: A schematic of the data production process</figcaption><p></p>
 </figure>
 </div>
 </div>
@@ -465,7 +494,7 @@
 </section></section><section id="data-quality-dimension" class="level3" data-number="2.1.3"><h3 data-number="2.1.3" class="anchored" data-anchor-id="data-quality-dimension">
 <span class="header-section-number">2.1.3</span> Data Quality Dimension</h3>
 <p>To guide our discussion of how data production can affect aspects of data quality, we need a guiding definition of data quality. This is challenging because data quality is <em>subjective</em> and <em>task-specific</em>. It matters much more if data is “fit for purpose” and operates in a way that is <em>transparent</em> to its users moreso than meeting some preordained quality standard.</p>
-<p>Regardless, it’s useful for our discussion to think about general dimensions of data quality. Here, we will rely on six dimensions of data quality outlined by Data Management Association <span class="citation" data-cites="dama">(<a href="references.html#ref-dama" role="doc-biblioref"><span>“Six Dimensions of Data Quality Assessment”</span> 2020</a>)</span>. Their official definitions are:</p>
+<p>Regardless, it’s useful for our discussion to think about general dimensions of data quality. Here, we will rely on six dimensions of data quality outlined by Data Management Association <span class="citation" data-cites="dama">(<a href="#ref-dama" role="doc-biblioref"><span>“Six Dimensions of Data Quality Assessment”</span> 2020</a>)</span>. Their official definitions are:</p>
 <ol type="1">
 <li>
 <strong>Completeness</strong>: The proportion of stored data against the potential of “100% complete”</li>
@@ -512,17 +541,17 @@
 <section id="what-makes-a-record-row" class="level3" data-number="2.2.1"><h3 data-number="2.2.1" class="anchored" data-anchor-id="what-makes-a-record-row">
 <span class="header-section-number">2.2.1</span> What Makes a Record (Row)</h3>
 <p>The first priority when starting to work with a dataset is understanding what a single record (row) represents and what causes it to be generated.</p>
-<p>Consider something as simple as a login system where users must enter their credentials, endure a Captcha-like verification process to prove that they are not a robot, and enter a multi-factor authentication code. <a href="#fig-login-log">Figure&nbsp;<span>2.2</span></a> depicts such a process.</p>
+<p>Consider something as simple as a login system where users must enter their credentials, endure a Captcha-like verification process to prove that they are not a robot, and enter a multi-factor authentication code. <a href="#fig-login-log">Figure&nbsp;<span class="quarto-unresolved-ref">fig-login-log</span></a> depicts such a process.</p>
 <div class="cell" data-layout-align="center">
 <div class="cell-output-display">
 <div id="fig-login-log" class="quarto-figure quarto-figure-center anchored">
 <figure class="figure"><p><img src="figures/data-dall/login-log.png" class="img-fluid figure-img" style="width:90.0%"></p>
-<p></p><figcaption aria-hidden="true" class="figure-caption">Figure 2.2: A diagram illustrating a multi-step process for a user to login to a website or app</figcaption><p></p>
+<p></p><figcaption class="figure-caption">Figure&nbsp;2.2: A diagram illustrating a multi-step process for a user to login to a website or app</figcaption><p></p>
 </figure>
 </div>
 </div>
 </div>
-<p>Which of these events gets collected and recorded has a significant impact on subsequent data processing. In a technical sense, no inclusion/exclusion decision here is <em>incorrect</em>, per say, but if the producers’ choices don’t match the consumers’ understandings, it can lead to misleading results.</p>
+<p>Which of these events gets collected and recorded has a significant impact on subsequent data processing. In a technical sense, no inclusion/exclusion decision here is <em>incorrect</em>, per se, but if the producers’ choices don’t match the consumers’ understandings, it can lead to misleading results.</p>
 <p>For example, an analyst might seek out a <code>logins</code> table in order to calculate the rate of successful website logins. Reasonably enough, they might compute this rate as the sum of successful events over the total. Now, suppose two users attempt to login to their account, and ultimately, one succeeds in accessing their private information and the other doesn’t. The analyst would probably hope to compute and report a 50% login success rate. However, depending on how the data is represented, they could quite easily compute nearly any value from 0% to 100%.</p>
 <p>As a thought experiment, we can consider what types of events might be logged:</p>
 <ul>
@@ -536,19 +565,19 @@
 <li>
 <strong>Per Intermediate</strong>: Similarly, if the login was defined specifically as successful password verification, the computed rate could his <strong>100%</strong> even if some users subsequently fail MFA</li>
 </ul>
-<p>These different situations are further illustrated in <a href="#fig-login-rate">Figure&nbsp;<span>2.3</span></a>, and their calculations are shown in <a href="#tbl-login-rate">Table&nbsp;<span>2.1</span></a>.</p>
+<p>These different situations are further illustrated in <a href="#fig-login-rate">Figure&nbsp;<span class="quarto-unresolved-ref">fig-login-rate</span></a>, and their calculations are shown in <a href="#tbl-login-rate">Table&nbsp;<span class="quarto-unresolved-ref">tbl-login-rate</span></a>.</p>
 <div class="cell" data-layout-align="center">
 <div class="cell-output-display">
 <div id="fig-login-rate" class="quarto-figure quarto-figure-center anchored">
 <figure class="figure"><p><img src="figures/data-dall/login-rate.png" class="img-fluid figure-img" style="width:90.0%"></p>
-<p></p><figcaption aria-hidden="true" class="figure-caption">Figure 2.3: Login events recorded under different data collection paradigms</figcaption><p></p>
+<p></p><figcaption class="figure-caption">Figure&nbsp;2.3: Login events recorded under different data collection paradigms</figcaption><p></p>
 </figure>
 </div>
 </div>
 </div>
-<div class="cell tbl-parent quarto-layout-panel">
+<div id="tbl-login-rate" class="cell tbl-parent quarto-layout-panel anchored">
 <div class="panel-caption table-caption">
-<p>Table 2.1: <strong>?(caption)</strong></p>
+<p>Table&nbsp;2.1: <strong>?(caption)</strong></p>
 </div>
 <div class="quarto-layout-row quarto-layout-valign-top">
 <div id="tbl-login-rate-1" class="quarto-layout-cell quarto-layout-cell-subref anchored" data-ref-parent="tbl-login-rate" style="flex-basis: 100.0%;justify-content: center;">
@@ -627,12 +656,12 @@
 <section id="data-load-failure-modes" class="level4" data-number="2.3.0.1"><h4 data-number="2.3.0.1" class="anchored" data-anchor-id="data-load-failure-modes">
 <span class="header-section-number">2.3.0.1</span> Data Load Failure Modes</h4>
 <p>To develop our understanding of the true data generating process and to formulate theories on how our data could be broken (and what we should validate), it is useful to understand the different ways data extraction and loading can fail.</p>
-<p><a href="#fig-data-load">Figure&nbsp;<span>2.4</span></a> illustrates a number of examples. Suppose that each row of boxes in the diagram represents one day of records in a table.</p>
+<p><a href="#fig-data-load">Figure&nbsp;<span class="quarto-unresolved-ref">fig-data-load</span></a> illustrates a number of examples. Suppose that each row of boxes in the diagram represents one day of records in a table.</p>
 <div class="cell" data-layout-align="center">
 <div class="cell-output-display">
 <div id="fig-data-load" class="quarto-figure quarto-figure-center anchored">
 <figure class="figure"><p><img src="figures/data-dall/data-load.png" class="img-fluid figure-img" style="width:90.0%"></p>
-<p></p><figcaption aria-hidden="true" class="figure-caption">Figure 2.4: Different modes of data loading failure</figcaption><p></p>
+<p></p><figcaption class="figure-caption">Figure&nbsp;2.4: Different modes of data loading failure</figcaption><p></p>
 </figure>
 </div>
 </div>
@@ -707,7 +736,7 @@
 </tr>
 </tbody>
 </table>
-<p>In a case like the toy example above where the correct number of rows per date is highly predictable and the number of dates is small, such eyeballing is feasible; however when the expected number of records varies day-to-day or time series are long, this approach becomes subjective, error-prone, and intractable. Additionally, it still might be hard to catch errors in mutli-source data or partial loads if the lower number of records was still within the bounds of reasonable deviation for a series. These last two types deserve further exploration.</p>
+<p>In a case like the toy example above where the correct number of rows per date is highly predictable and the number of dates is small, such eyeballing is feasible; however when the expected number of records varies day-to-day or time series are long, this approach becomes subjective, error-prone, and intractable. Additionally, it still might be hard to catch errors in multi-source data or partial loads if the lower number of records was still within the bounds of reasonable deviation for a series. These last two types deserve further exploration.</p>
 </section><section id="multi-source" class="level4" data-number="2.3.0.2"><h4 data-number="2.3.0.2" class="anchored" data-anchor-id="multi-source">
 <span class="header-section-number">2.3.0.2</span> Multi-Source</h4>
 <p>A more effective strategy for assessing data completeness requires a better understanding of how data is being collected and loaded. In the case of multi-source data, one single source stopping loading may not be a big enough change to disrupt aggregate counts but could still jeopardize meaningful analysis. It would be more useful to conduct completeness checks by <em>subgroup</em> to identify these discrepancies.</p>
@@ -719,23 +748,23 @@
 </section><section id="delayed-or-transient-records" class="level4" data-number="2.3.0.4"><h4 data-number="2.3.0.4" class="anchored" data-anchor-id="delayed-or-transient-records">
 <span class="header-section-number">2.3.0.4</span> Delayed or Transient Records</h4>
 <p>The interaction between choices made in the data collection and data loading phases can introduce their own sets of problems.</p>
-<p>Consider an <code>orders</code> table for an e-commerce company that analysts may use to track customer orders. It might contain one record per <code>order_id</code> x <code>event</code> (placement, processing, shipment), one record per order placed, one record per order shipping, or one record per order with a <code>status</code> field that changes over time to denote the order’s current stage of life. Some of these options are illustrated in <a href="#fig-order-log">Figure&nbsp;<span>2.5</span></a>.</p>
+<p>Consider an <code>orders</code> table for an e-commerce company that analysts may use to track customer orders. It might contain one record per <code>order_id</code> x <code>event</code> (placement, processing, shipment), one record per order placed, one record per order shipping, or one record per order with a <code>status</code> field that changes over time to denote the order’s current stage of life. Some of these options are illustrated in <a href="#fig-order-log">Figure&nbsp;<span class="quarto-unresolved-ref">fig-order-log</span></a>.</p>
 <div class="cell" data-layout-align="center">
 <div class="cell-output-display">
 <div id="fig-order-log" class="quarto-figure quarto-figure-center anchored">
 <figure class="figure"><p><img src="figures/data-dall/order-log.png" class="img-fluid figure-img" style="width:90.0%"></p>
-<p></p><figcaption aria-hidden="true" class="figure-caption">Figure 2.5: Illustration of alternative data collection and extraction strategies for order data</figcaption><p></p>
+<p></p><figcaption class="figure-caption">Figure&nbsp;2.5: Illustration of alternative data collection and extraction strategies for order data</figcaption><p></p>
 </figure>
 </div>
 </div>
 </div>
 <p>Any of these modeling choices seem reasonable and the difference between them might appear immaterial. But consider the <em>collection</em> choice to record and report <em>shipped</em> events. Perhaps this might be operationally easier if shipment come from one source system whereas orders could come from many. However, an interesting thing about shipments is that they are often lagged in a variable way from the order date.</p>
-<p>Suppose the e-commerce company in question offers three shipping speeds at checkout. <a href="#fig-order-date">Figure&nbsp;<span>2.6</span></a> shows the range of possible shipment dates based on the order dates for the three different speeds (shown in different bars/colors).</p>
+<p>Suppose the e-commerce company in question offers three shipping speeds at checkout. <a href="#fig-order-date">Figure&nbsp;<span class="quarto-unresolved-ref">fig-order-date</span></a> shows the range of possible shipment dates based on the order dates for the three different speeds (shown in different bars/colors).</p>
 <div class="cell" data-layout-align="center">
 <div class="cell-output-display">
 <div id="fig-order-date" class="quarto-figure quarto-figure-center anchored">
 <figure class="figure"><p><img src="figures/data-dall/order-date.png" class="img-fluid figure-img" style="width:90.0%"></p>
-<p></p><figcaption aria-hidden="true" class="figure-caption">Figure 2.6: A conceptual chart of when different classes of real-world events might materialize as records in our dataset</figcaption><p></p>
+<p></p><figcaption class="figure-caption">Figure&nbsp;2.6: A conceptual chart of when different classes of real-world events might materialize as records in our dataset</figcaption><p></p>
 </figure>
 </div>
 </div>
@@ -759,7 +788,7 @@
 <span><span class="va">dt_load</span> <span class="op">&lt;-</span> <span class="va">dt_ship</span></span>
 <span><span class="va">df</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/data.frame.html">data.frame</a></span><span class="op">(</span><span class="va">dt_subm</span>, <span class="va">dt_ship</span>, <span class="va">dt_load</span><span class="op">)</span></span>
 <span><span class="fu"><a href="https://rdrr.io/r/utils/head.html">head</a></span><span class="op">(</span><span class="va">df</span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output-stdout">
+<div class="cell-output cell-output-stdout">
 <pre><code>  dt_subm dt_ship dt_load
 1       1       4       4
 2       2       5       5
@@ -769,7 +798,7 @@
 6       6       9       9</code></pre>
 </div>
 </div>
-<p>Suppose we are an analyst living in day 5 and wonder how many orders were submitted on day 3. We can observe all shipments loaded before day 5 so we filter our data accordingly. However, when we count how many records exist for day 3 we find none. Instead, when we move ahead to an analysis date of day 7, we are able to observe the orders submitted on day 3.</p>
+<p>Suppose we are an analyst living in day 5 and wonder how many orders were submitted on day 3. We can observe all shipments loaded by day 5 so we filter our data accordingly. However, when we count how many records exist for day 3 we find none. Instead, when we move ahead to an analysis date of day 7, we are able to observe the orders submitted on day 3.</p>
 <div class="cell">
 <div class="sourceCode" id="cb3"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://dplyr.tidyverse.org">dplyr</a></span><span class="op">)</span></span>
 <span></span>
@@ -778,7 +807,7 @@
 <span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/filter.html">filter</a></span><span class="op">(</span><span class="va">dt_load</span> <span class="op">&lt;=</span> <span class="fl">5</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span> </span>
 <span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/filter.html">filter</a></span><span class="op">(</span><span class="va">dt_subm</span> <span class="op">==</span> <span class="fl">3</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span> </span>
 <span>  <span class="fu"><a href="https://rdrr.io/r/base/nrow.html">nrow</a></span><span class="op">(</span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output-stdout">
+<div class="cell-output cell-output-stdout">
 <pre><code>[1] 0</code></pre>
 </div>
 <div class="sourceCode" id="cb5"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="co"># how many day-3 orders do we observe as of day-7? ----</span></span>
@@ -786,32 +815,33 @@
 <span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/filter.html">filter</a></span><span class="op">(</span><span class="va">dt_load</span> <span class="op">&lt;=</span> <span class="fl">7</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span> </span>
 <span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/filter.html">filter</a></span><span class="op">(</span><span class="va">dt_subm</span> <span class="op">==</span> <span class="fl">3</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span> </span>
 <span>  <span class="fu"><a href="https://rdrr.io/r/base/nrow.html">nrow</a></span><span class="op">(</span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output-stdout">
+<div class="cell-output cell-output-stdout">
 <pre><code>[1] 1</code></pre>
 </div>
 </div>
-<p>(Note that these conditions could be checked much more succinctly with a base R expression such as <code>sum(df$dt_load &lt; 7 &amp; df$dt_subm == 3)</code>. However, there is sometimes virtue in option for more readable code even if it is less compact. Here, we prefer the more verbose option for the claritfy of our exposition. Such trade-offs, and general thoughts on coding style, are explored further in <a href="comp-code.html">Section&nbsp;<span>11</span></a>.)</p>
-<p>Now, this may seem to trivial. Clearly, if there were <em>zero</em> records for a day, we would catch this in data validation, right? We can make our synthetic data slightly more realistic to better illustrate the problem. Let’s not imagine that there are 10 orders each day, and each order is shipped sometime between 2 and 4 days after the order with equal probability.</p>
+<p>(Note that these conditions could be checked much more succinctly with a base R expression such as <code>sum(df$dt_load &lt; 7 &amp; df$dt_subm == 3)</code>. However, there is sometimes virtue in option for more readable code even if it is less compact. Here, we prefer the more verbose option for the claritfy of our exposition. Such trade-offs, and general thoughts on coding style, are explored further in <a href="#sec-comp-code"><span class="quarto-unresolved-ref">sec-comp-code</span></a>.)</p>
+<p>Now, this may seem to trivial. Clearly, if there were <em>zero</em> records for a day, we would catch this in data validation, right? We can make our synthetic data slightly more realistic to better illustrate the problem. Let’s now imagine that there are 10 orders each day, and each order is shipped sometime between 2 and 4 days after the order with equal probability.</p>
 <div class="cell">
 <div class="sourceCode" id="cb7"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="co"># data simulation: multiple orders + random ship dates ----</span></span>
 <span><span class="va">dt_subm</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/rep.html">rep</a></span><span class="op">(</span>x <span class="op">=</span> <span class="fl">1</span><span class="op">:</span><span class="fl">10</span>, each <span class="op">=</span> <span class="fl">10</span><span class="op">)</span></span>
+<span><span class="fu"><a href="https://rdrr.io/r/base/Random.html">set.seed</a></span><span class="op">(</span><span class="fl">0</span><span class="op">)</span> <span class="co"># to get the same simulated data each time</span></span>
 <span><span class="va">days_to_ship</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/sample.html">sample</a></span><span class="op">(</span>x <span class="op">=</span> <span class="fl">2</span><span class="op">:</span><span class="fl">4</span>, size <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/length.html">length</a></span><span class="op">(</span><span class="va">dt_subm</span><span class="op">)</span>, replace <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span></span>
 <span><span class="va">dt_ship</span> <span class="op">&lt;-</span> <span class="va">dt_subm</span> <span class="op">+</span> <span class="va">days_to_ship</span></span>
 <span><span class="va">dt_load</span> <span class="op">&lt;-</span> <span class="va">dt_ship</span></span>
 <span><span class="va">df</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/data.frame.html">data.frame</a></span><span class="op">(</span><span class="va">dt_subm</span>, <span class="va">dt_ship</span>, <span class="va">dt_load</span><span class="op">)</span></span>
 <span><span class="fu"><a href="https://rdrr.io/r/utils/head.html">head</a></span><span class="op">(</span><span class="va">df</span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output-stdout">
+<div class="cell-output cell-output-stdout">
 <pre><code>  dt_subm dt_ship dt_load
 1       1       4       4
-2       1       5       5
+2       1       3       3
 3       1       5       5
 4       1       3       3
-5       1       5       5
-6       1       4       4</code></pre>
+5       1       4       4
+6       1       3       3</code></pre>
 </div>
 </div>
 <p>When we repeat the prior analysis, we now see that we have <em>some</em> records for orders submitted on day 3 by the time we begin analysis on day 5. In this case, we might be more easily tricked to believe this is <em>all</em> orders. However, when we repeat the analysis on day 7, we see the the number of orders on day 3 has increased.</p>
-<p>Of course, you can imagine the real world is yet much more complicated than this example. In reality, we would have a random number of orders each day. Additionally, we might have a <em>mixture</em> of different <em>types</em> of orders. There might be high-priced orders where customers tended to be willing to pay for faster shipping, and low-priced orders where customers tend to chose slower shipping. In a case like this, not only might naive validation miss the lack of data completeness, but the <em>sample</em> of shipments we begin to see on day 5 could be unrepresentative of the population of orders placed on day 3. This is a type of <strong>selection bias</strong> that we will examine further in <a href="incr-infe.html">Section&nbsp;<span>6</span></a> (Incredible Inferences).</p>
+<p>Of course, you can imagine the real world is yet much more complicated than this example. In reality, we would have a random number of orders each day. Additionally, we might have a <em>mixture</em> of different <em>types</em> of orders. There might be high-priced orders where customers tended to be willing to pay for faster shipping, and low-priced orders where customers tend to chose slower shipping. In a case like this, not only might naive validation miss the lack of data completeness, but the <em>sample</em> of shipments we begin to see on day 5 could be unrepresentative of the population of orders placed on day 3. This is a type of <strong>selection bias</strong> that we will examine further in <a href="#sec-incr-infe"><span class="quarto-unresolved-ref">sec-incr-infe</span></a> (Incredible Inferences).</p>
 </section></section><section id="data-encoding-transformation-wip" class="level2" data-number="2.4"><h2 data-number="2.4" class="anchored" data-anchor-id="data-encoding-transformation-wip">
 <span class="header-section-number">2.4</span> Data Encoding &amp; Transformation (WIP)</h2>
 <p>Once data is loaded into a more suitable location for processing and analysis (such as a data warehouse), it often undergoes numerous transformations to change its shape, structure, and content to be more suited for analytical use.</p>
@@ -822,7 +852,7 @@
 <section id="data-types" class="level4" data-number="2.4.1.1"><h4 data-number="2.4.1.1" class="anchored" data-anchor-id="data-types">
 <span class="header-section-number">2.4.1.1</span> Data Types</h4>
 <p>One critical set of decisions in data encoding is what sort of <em>data types</em> each field of interest should be. Data types such as integers, reals, character strings, logicals, dates, and times determine how data is stored and the types of manipulations that can be done to it.</p>
-<p>We’ll see more examples of the computational implications for our data types in <a href="comp-quan.html">Section&nbsp;<span>3</span></a> (Computational Quandaries). This chapter specifically explores the unique complexities of string and date types.</p>
+<p>We’ll see more examples of the computational implications for our data types in <a href="#sec-comp-quan"><span class="quarto-unresolved-ref">sec-comp-quan</span></a> (Computational Quandaries). This chapter specifically explores the unique complexities of string and date types.</p>
 </section><section id="indicator-variables-todo" class="level4" data-number="2.4.1.2"><h4 data-number="2.4.1.2" class="anchored" data-anchor-id="indicator-variables-todo">
 <span class="header-section-number">2.4.1.2</span> Indicator Variables (TODO)</h4>
 <p>what is positive case?</p>
@@ -839,12 +869,12 @@
 </section><section id="the-many-meanings-of-null" class="level4" data-number="2.4.1.4"><h4 data-number="2.4.1.4" class="anchored" data-anchor-id="the-many-meanings-of-null">
 <span class="header-section-number">2.4.1.4</span> The Many Meanings of Null</h4>
 <p>Another major encoding decision is how to handle null values. Previously, in the discussion of Data Collection, we considered the presence and absence of full <em>records</em>. However, when preparing data for analysis, both data produces and consumers need to decide how to cope with the presence or absence of individual <em>fields</em>.</p>
-<p>If records contain some but not all relevant information, they may be published with explicitly missing fields or the full record may not be published at all. The difference between implicit and explicit missingness on the resulting data is illustrated in <a href="#fig-null-impl-expl">Figure&nbsp;<span>2.7</span></a>.</p>
+<p>If records contain some but not all relevant information, they may be published with explicitly missing fields or the full record may not be published at all. The difference between implicit and explicit missingness on the resulting data is illustrated in <a href="#fig-null-impl-expl">Figure&nbsp;<span class="quarto-unresolved-ref">fig-null-impl-expl</span></a>.</p>
 <div class="cell" data-layout-align="center">
 <div class="cell-output-display">
 <div id="fig-null-impl-expl" class="quarto-figure quarto-figure-center anchored">
 <figure class="figure"><p><img src="figures/data-dall/missing-imp-exp.png" class="img-fluid figure-img" style="width:90.0%"></p>
-<p></p><figcaption aria-hidden="true" class="figure-caption">Figure 2.7: A comparison of explicit versus implicit missingness</figcaption><p></p>
+<p></p><figcaption class="figure-caption">Figure&nbsp;2.7: A comparison of explicit versus implicit missingness</figcaption><p></p>
 </figure>
 </div>
 </div>
@@ -872,7 +902,7 @@
 <strong>Sentinel/shadow values</strong>: Abnormal values which attempt to indicate the reasons for null-ness such as an <code>account_id</code> of <code>-1</code> when no browser cookies were found or <code>-2</code> when cookies were found but did not help link to any specific customer record</li>
 </ul>
 <p>Each of these encoding choices changes the definitions of appropriate completeness and validity for each field and, even more critically, impacts the expectations and assertions we should form for data accuracy. We can’t expect 100% completeness if nulls are a relevant value; we can’t check validity of ranges as easily if sentinel values are used with values that are outside the normal range (hopefully, or we have much bigger problems!) So, understanding how upstream systems <em>should</em> work is essential for assessing if they <em>do</em> work.</p>
-<p>Similarly, understanding how our null data is collected has significant implications for how we subsequently process it. We will discuss this more in Chapter -<a href="comp-quan.html">Section&nbsp;<span>3</span></a> (Computational Quandaries).</p>
+<p>Similarly, understanding how our null data is collected has significant implications for how we subsequently process it. We will discuss this more in Chapter -<a href="#sec-comp-quan"><span class="quarto-unresolved-ref">sec-comp-quan</span></a> (Computational Quandaries).</p>
 </section></section><section id="data-transformation" class="level3" data-number="2.4.2"><h3 data-number="2.4.2" class="anchored" data-anchor-id="data-transformation">
 <span class="header-section-number">2.4.2</span> Data Transformation</h3>
 <p>Finally, once the data is roughly where we want it, it likely undergoes many transformations to translate all of the system-generated fields we discussed in data collection into semantically-relevant dimensions for analytical consumers. Of course, the types of transformations that could be done are innumerable with far more variation than data loading. So, we’ll just look at a few examples of common failure patterns.</p>
@@ -911,7 +941,7 @@
 <p>Using fields from the source simply is what it is – there’s no subjectivity or room for manual human error. If multiple tables come from the same source, it’s likely but not guaranteed that they will be encoded in the same way.</p>
 <p>Coding transformations in the ELT process is easy for data producers. There’s no need to coordinate across multiple processes or use cases, and the transformation can be immediately modified when needed. However, that same lack of coordination can lead to different results for fields that should be the same.</p>
 <p>Alternatively, macros, UDFs, and look-up tables provided centralized ways to map source data inputs to desired analytical data outputs in a systemic and consistent way. Of course, centralization has its own challenges. If something in the source data changes, the process of updating a centralized UDF or look-up table may be slowed down by the need to seek consensus and collaborate. So, data is more <em>consistent</em> but potentially less <em>accurate</em>.</p>
-<p>Regardless, such engineered values require scrutiny – paticularly if they are being used as a key to join multiple tables – and the distinct values in them should be carefully examined.</p>
+<p>Regardless, such engineered values require scrutiny – particularly if they are being used as a key to join multiple tables – and the distinct values in them should be carefully examined.</p>
 </section><section id="updating-transformations" class="level4" data-number="2.4.2.3"><h4 data-number="2.4.2.3" class="anchored" data-anchor-id="updating-transformations">
 <span class="header-section-number">2.4.2.3</span> Updating Transformations</h4>
 <p>Of course, data consistency is not only a problem across different data sources but within one data source. Regardless of the method of field encoding used in the previous step, the intersection of data loading and data transformation strategies can introduce data consistency errors over time.</p>
@@ -925,7 +955,7 @@
 </div>
 </div>
 <p>Incremental loads have many advantages. Rebuilding tables in entirety can be very time consuming and computationally expensive. In particular, in non-cloud data warehouses that are not able to scale computing power on demand, this sort of heavy duty processing job can noticeably drain resources from other queries that are trying to run in the database. Additionally, if the upstream staging data is ephemeral, fully rebuilding the table could mean failing to retain history.</p>
-<p>However, in the case that our data transformations change, incremental loads may introduce inconsistency in our data overtime as only new records are created and inserted with the new logic.</p>
+<p>However, in the case that our data transformations change, incremental loads may introduce inconsistency in our data over time as only new records are created and inserted with the new logic.</p>
 <div class="cell" data-layout-align="center">
 <div class="cell-output-display">
 <div class="quarto-figure quarto-figure-center">
@@ -985,7 +1015,7 @@
 <span class="header-section-number">2.8</span> Real World Disasters</h2>
 <section id="data-loading-artificially-spikes-covid-cases" class="level3" data-number="2.8.1"><h3 data-number="2.8.1" class="anchored" data-anchor-id="data-loading-artificially-spikes-covid-cases">
 <span class="header-section-number">2.8.1</span> Data loading artificially spikes COVID cases</h3>
-<p>Data loading, particularly when a new process is introduced can go astray and lead to spurious results. The city of El Paso discovered this after reporting an exceedingly high number of daily COVID cases <span class="citation" data-cites="borunda_2020">(<a href="references.html#ref-borunda_2020" role="doc-biblioref">Borunda 2020</a>)</span>:</p>
+<p>Data loading, particularly when a new process is introduced can go astray and lead to spurious results. The city of El Paso discovered this after reporting an exceedingly high number of daily COVID cases <span class="citation" data-cites="borunda_2020">(<a href="#ref-borunda_2020" role="doc-biblioref">Borunda 2020</a>)</span>:</p>
 <blockquote class="blockquote">
 <p>El Paso city and public health officials on Thursday admitted to a major blunder, saying that the more than 3,100 new cases reported a day earlier was incorrect.</p>
 </blockquote>
@@ -1009,21 +1039,25 @@
 <p>Data that is encoded inconsistently may be mishandled in automated decision processes. For example, data manually entered into electronic health records (EHR) by countless care provides might be compiled into a single source although the meanings could be inconsistent.</p>
 <p>In the early days of the COVID19 vaccination push, some regions chose to prioritize their vaccine supply by certain individual characteristics including a high body mass index (BMI), which is a function of one’s weight relative to their height.</p>
 <p>One 6ft 2in tall man’s data was misinterpreted to suggest that he was 6.2 <em>centimeters</em> tall; this caused his to get high priority for a vaccine.</p>
-<p>As described in the BBC <span class="citation" data-cites="bbc_north_west_2021">(<a href="references.html#ref-bbc_north_west_2021" role="doc-biblioref"><span>“Covid: Man Offered Vaccine After Error Lists Him as 6.2cm Tall”</span> 2021</a>)</span>:</p>
+<p>As described in the BBC <span class="citation" data-cites="bbc_north_west_2021">(<a href="#ref-bbc_north_west_2021" role="doc-biblioref"><span>“Covid: Man Offered Vaccine After Error Lists Him as 6.2cm Tall”</span> 2021</a>)</span>:</p>
 <blockquote class="blockquote">
 <p>A man in his 30s with no underlying health conditions was offered a Covid vaccine after an NHS error mistakenly listed him as just 6.2cm in height. Liam Thorp was told he qualified for the jab because his measurements gave him a body mass index of 28,000.</p>
 </blockquote>
 <p>TODO: Data Smells Code https://arxiv.org/pdf/2203.08007.pdf</p>
+<p>TODO: Data missing from COVID research https://journals.plos.org/plosone/article?id=10.1371/journal.pone.0248793</p>
+
 <!--
 ## Strategies 
 
 Developing a deep and accurate understanding of the available data -- especially its biases, blindspots, and beguilements -- is critical to analyzing it credibly. To do this, it is helpful to conceptualize the complete **data generating process** including the *real world* process which the data captures, how those real-world symbols are *collected* into digital form, how and when that captured data is *loaded* across systems, and finally how it is *transformed* before its final presentation to us as analysts.
+
 
 ::: {.cell layout-align="center"}
 ::: {.cell-output-display}
 ![](figures/data-dall/dgp.png){fig-align='center' width=90%}
 :::
 :::
+
 
 For example, consider the role of each of these four DGPs for subway ridership data^[Like NYC's infamously messy [turnstile data](http://web.mta.info/developers/turnstile.html). I don't claim to know precisely how this dataset is created, but many of the specific challenges it contains are highly relevant.]:
 
@@ -1050,11 +1084,13 @@ This post explores the DGP of system-generated data and the common ways that the
 
 To better theorize about data quality issues, it's useful to think of four DGPs: the real-world DGP, the data collection/extraction DGP^[I don't mean to imply statisticians do not regularly think about the data collection DGP! The rich literatures on missing data imputation, censored data in survival analysis, and non-response bias is survey data collection are just a few examples of how carefully statisticians think about how data collection impacts analysis. I chose to break it out here to discuss the more technical aspects of collection], the data loading DGP, and the data transformation DGP.  
 
+
 ::: {.cell layout-align="center"}
 ::: {.cell-output-display}
 ![](figures/data-dall/dgp.png){fig-align='center' width=90%}
 :::
 :::
+
 
 For example, consider the role of each of these four DGPs for e-commerce data:
 
@@ -1088,21 +1124,25 @@ One of the tricky nuances of data collection is understanding what precisely is 
 
 Consider something as simple as a login system where users must enter their credentials, endure a Captcha-like verification process to prove that they are not a robot, and enter a multi-factor authentication code.
 
+
 ::: {.cell layout-align="center"}
 ::: {.cell-output-display}
 ![](figures/data-dall/login-log.png){fig-align='center' width=90%}
 :::
 :::
 
+
 Which of these events gets collected and recorded has a significant impact on subsequent data processing. In a technical sense, no inclusion/exclusion decision here is *incorrect*, persay, but if the producers' choices don't match the consumers' understandings, it can lead to misleading results.
 
 For example, an analyst might seek out a `logins` table in order to calculate the rate of successful website logins. Reasonably enough, they might compute this rate as the sum of successful events over the total. Now, suppose two users attempt to login to their account, and ultimately, one succeeds in accessing their private information and the other doesn't. The analyst would probably hope to compute and report a 50% login success rate. However, depending on how the data is represented, they could quite easily compute nearly any value from 0% to 100%.
+
 
 ::: {.cell layout-align="center"}
 ::: {.cell-output-display}
 ![](figures/data-dall/login-rate.png){fig-align='center' width=90%}
 :::
 :::
+
 
 - **Per Attempt**: If data is logged once per overall login attempt, successful attempts only trigger one event, but a user who forgot their password may try (and fail) to login multiple times. In the case illustrated above, that deflates the successful login rate to **25%**.
 - **Per Event**: If the logins table contains a row for every login-related event, each 'success' will trigger a large number of positive events and each 'failure' will trigger a negative event preceded by zero or more positive events. In the case illustrated below, this inflates our successful login rate to **86%**. 
@@ -1127,11 +1167,13 @@ Along with thinking about what *does* count (or gets logged), it's equally impor
 
 Related to the presence and absence of full *records* is the presence or absence of individual *fields*. If records contain some but not all relevant information, they may be published with explicitly missing fields or the full record may not be published at all.
 
+
 ::: {.cell layout-align="center"}
 ::: {.cell-output-display}
 ![](figures/data-dall/missing-imp-exp.png){fig-align='center' width=90%}
 :::
 :::
+
 
 Understanding what the system implies by each *explicitly* missing data field is also critical for validation and analysis. Checks for data completeness usually include counting null values, but null data isn't always incorrect. In fact, null data can be highly informative if we know what it means. Some meanings of null data might include:
 
@@ -1165,11 +1207,13 @@ No approach is free from challenges. For example, scheduled jobs risk executing 
 
 For example, suppose in the diagram below that each row of boxes represents one day of records in a table.
 
+
 ::: {.cell layout-align="center"}
 ::: {.cell-output-display}
 ![](figures/data-dall/data-load.png){fig-align='center' width=90%}
 :::
 :::
+
 
 - **Stale data** occurs when the data is not as up-to-date as would be expected from is regular refresh cadence. This could happen if a manual step was skipped, a scheduled job was executed before the upstream source was available, or orchestrated data checks found errors and quarantined new records
 - **Missing data** occurs when one data load fails but subsequent loads have succeeded
@@ -1206,19 +1250,23 @@ The interaction between choices made in the data collection and data loading pha
 
 Consider an `orders` table for an e-commerce company that analysts may use to track customer orders. It might contain one record per `order_id` x `event` (placement, processing, shipment), one record per order placed, one record per order shipping, or one record per order with a `status` field that changes over time to denote the order's current stage of life.
 
+
 ::: {.cell layout-align="center"}
 ::: {.cell-output-display}
 ![](figures/data-dall/order-log.png){fig-align='center' width=90%}
 :::
 :::
 
+
 Any of these modeling choices seem reasonable and the difference between them might appear immaterial. But consider the *collection* choice to record and report *shipped* events. Perhaps this might be operationally easier if shipment come from one source system whereas orders could come from many. However, an interesting thing about shipments is that they are often lagged in a variable way from the order date.
+
 
 ::: {.cell layout-align="center"}
 ::: {.cell-output-display}
 ![](figures/data-dall/order-date.png){fig-align='center' width=90%}
 :::
 :::
+
 
 Suppose the e-commerce company in question offers three shipping speeds at checkout. The chart below shows the range of possible shipment dates based on the order dates for the three different speeds (shown in different bars/colors). How might this effect our perceived data quality?
 
@@ -1230,6 +1278,7 @@ Suppose the e-commerce company in question offers three shipping speeds at check
 
 Once again, understanding that data is *collected* at point of shipment and reasoning how shipment timing varies and impacts *loading* is necessary for successful validation.
 
+
 ::: {.cell}
 
 ```{.r .cell-code}
@@ -1237,7 +1286,7 @@ library(dplyr)
 library(ggplot2)
 ```
 
-::: {.cell-output-stderr}
+::: {.cell-output .cell-output-stderr}
 ```
 Warning: package 'ggplot2' was built under R version 4.0.5
 ```
@@ -1253,7 +1302,7 @@ df <- data.frame(dt_order, dt_ship)
 df %>% group_by(dt_order) %>% count()
 ```
 
-::: {.cell-output-stdout}
+::: {.cell-output .cell-output-stdout}
 ```
 # A tibble: 5 x 2
 # Groups:   dt_order [5]
@@ -1272,7 +1321,7 @@ df %>% group_by(dt_order) %>% count()
 df %>% filter(dt_ship <= 3) %>% group_by(dt_order) %>% count()
 ```
 
-::: {.cell-output-stdout}
+::: {.cell-output .cell-output-stdout}
 ```
 # A tibble: 2 x 2
 # Groups:   dt_order [2]
@@ -1287,15 +1336,16 @@ df %>% filter(dt_ship <= 3) %>% group_by(dt_order) %>% count()
 df %>% filter(dt_ship <= 5) %>% group_by(dt_order) %>% count()
 ```
 
-::: {.cell-output-stdout}
+::: {.cell-output .cell-output-stdout}
 ```
-# A tibble: 3 x 2
-# Groups:   dt_order [3]
+# A tibble: 4 x 2
+# Groups:   dt_order [4]
   dt_order     n
      <int> <int>
 1        1     5
 2        2     5
 3        3     3
+4        4     1
 ```
 :::
 
@@ -1303,7 +1353,7 @@ df %>% filter(dt_ship <= 5) %>% group_by(dt_order) %>% count()
 df %>% filter(dt_ship <= 7) %>% group_by(dt_order) %>% count()
 ```
 
-::: {.cell-output-stdout}
+::: {.cell-output .cell-output-stdout}
 ```
 # A tibble: 5 x 2
 # Groups:   dt_order [5]
@@ -1313,7 +1363,7 @@ df %>% filter(dt_ship <= 7) %>% group_by(dt_order) %>% count()
 2        2     5
 3        3     5
 4        4     5
-5        5     2
+5        5     4
 ```
 :::
 
@@ -1348,6 +1398,7 @@ df %>%
 
 
 
+
 ### Data Transformation
 
 Finally, once the data is roughly where we want it, it likely undergoes many transformations to translate all of the system-generated fields we discussed in data collection into semantically-relevant dimensions for analytical consumers. Of course, the types of transformations that could be done are innumerable with far more variation than data loading. So, we'll just look at a few examples of common failure patterns. 
@@ -1358,11 +1409,13 @@ Data transformations may include aggregating data up to higher levels of granula
 
 Data transformations not only transform our data, but they also transform how the dimensions of data quality manifest. If data with some of the **completeness** or **uniqueness** issues we discussed with data loading is pre-aggregated, these problems can turn into problems of **accuracy**. For example, the duplicate or partial data loads that we discussed when aggregated could suggest inaccurately high or low quantities respectively.
 
+
 ::: {.cell layout-align="center"}
 ::: {.cell-output-display}
 ![](figures/data-dall/completeness-accuracy.png){fig-align='center' width=90%}
 :::
 :::
+
 
 #### Field Encoding
 
@@ -1377,11 +1430,13 @@ Categorical fields in a data set might be created in any number of ways includin
 
 Each approach has different implications on data consistency and usability.
 
+
 ::: {.cell layout-align="center"}
 ::: {.cell-output-display}
 ![](figures/data-dall/field-encoding.png){fig-align='center' width=90%}
 :::
 :::
+
 
 Using fields from the source simply is what it is -- there's no subjectivity or room for manual human error. If multiple tables come from the same source, it's likely but not guaranteed that they will be encoded in the same way. 
 
@@ -1397,15 +1452,18 @@ Of course, data consistency is not only a problem across different data sources 
 
 Often, for computation efficiency, analytical tables are loaded using an *incremental* loading strategy. This means that only new records (determined by time period, a set of unique keys, or other criteria) from the upstream source are loaded to the downstream table. This is in contrast to a *full refresh* where the entire downstream table is recreated on each update.
 
+
 ::: {.cell layout-align="center"}
 ::: {.cell-output-display}
 ![](figures/data-dall/incr-full-good.png){fig-align='center' width=90%}
 :::
 :::
 
+
 Incremental loads have many advantages. Rebuilding tables in entirety can be very time consuming and computationally expensive. In particular, in non-cloud data warehouses that are not able to scale computing power on demand, this sort of heavy duty processing job can noticeably drain resources from other queries that are trying to run in the database. Additionally, if the upstream staging data is ephemeral, fully rebuilding the table could mean failing to retain history.
 
 However, in the case that our data transformations change, incremental loads may introduce inconsistency in our data overtime as only new records are created and inserted with the new logic.
+
 
 ::: {.cell layout-align="center"}
 ::: {.cell-output-display}
@@ -1413,13 +1471,16 @@ However, in the case that our data transformations change, incremental loads may
 :::
 :::
 
+
 This is also a problem more broadly if some short-term error is discovered either with data loading or transformation in historical data. Incremental strategies may not always update to include the corrected version of the data.
+
 
 ::: {.cell layout-align="center"}
 ::: {.cell-output-display}
 ![](figures/data-dall/incr-full-good.png){fig-align='center' width=90%}
 :::
 :::
+
 
 Regardless, this underscores the need to validate entire datasets and to re-validate when repulling data. 
 
@@ -1437,8 +1498,7 @@ Ahhhh
 -->
 
 
-
-<div id="refs" class="references csl-bib-body hanging-indent" role="doc-bibliography" style="display: none">
+<div id="refs" class="references csl-bib-body hanging-indent" role="doc-bibliography">
 <div id="ref-bassa_2017" class="csl-entry" role="doc-biblioentry">
 Bassa, Angela. 2017. <span>“Data Alone Isn’t Ground Truth.”</span> <em>Blog</em>. Medium. <a href="https://medium.com/@angebassa/data-alone-isnt-ground-truth-9e733079dfd4">https://medium.com/@angebassa/data-alone-isnt-ground-truth-9e733079dfd4</a>.
 </div>
@@ -1455,18 +1515,36 @@ Borunda, Daniel. 2020. <span>“El Paso Officials Admit Massive COVID-19 Spike o
 Wickham, Hadley. 2014. <span>“Tidy Data.”</span> <em>Journal of Statistical Software, Articles</em> 59 (10): 1–23. <a href="https://doi.org/10.18637/jss.v059.i10">https://doi.org/10.18637/jss.v059.i10</a>.
 </div>
 </div>
-</section></section><section class="footnotes footnotes-end-of-document" role="doc-endnotes"><hr>
+</section></section><section id="footnotes" class="footnotes footnotes-end-of-document" role="doc-endnotes"><hr>
 <ol>
-<li id="fn1" role="doc-endnote"><p>Other types of data that one might encounter in the wild include free text, JSON, spatial data, and more. However, many of these require either more advanced analysis techniques or structuring that converts them into tabular data, so they are out of the scope of this discussion.<a href="#fnref1" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
-<li id="fn2" role="doc-endnote"><p>When data is arrange this way in a matrix <span class="math inline">\(X\)</span>, linear regression coefficients can be computed as <span class="math inline">\(\beta = (\mathbf{X}^\intercal\mathbf{X})^{-1}\mathbf{X}^\intercal \mathbf{y}\)</span><a href="#fnref2" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
-<li id="fn3" role="doc-endnote"><p>This need not be true in a different data encoding like JSON in which much data is represented as characters.<a href="#fnref3" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
-<li id="fn4" role="doc-endnote"><p>You may hear the last three referred to as ELT or ETL<a href="#fnref4" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
-<li id="fn5" role="doc-endnote"><p>I don’t mean to imply statisticians do not regularly think about the data collection DGP! The rich literature on missing data imputation, censored data in survival analysis, and non-response bias is survey data collection are just a few examples of how carefully statisticians think about how data collection impacts analysis. I chose to break it out here to discuss the more technical aspects of collection<a href="#fnref5" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
-<li id="fn6" role="doc-endnote"><p>Like NYC’s infamously messy <a href="http://web.mta.info/developers/turnstile.html">turnstile data</a>. I don’t claim to know precisely how this dataset is created, but many of the specific challenges it contains are highly relevant.<a href="#fnref6" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
-<li id="fn7" role="doc-endnote"><p>Keys with semantic meanings that are naturally part of the dataset<a href="#fnref7" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
-<li id="fn8" role="doc-endnote"><p>Keys without semantic meaning that exist primarily for the purpose of being keys<a href="#fnref8" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
-</ol></section></main><!-- /main --><script type="application/javascript">
+<li id="fn1"><p>Other types of data that one might encounter in the wild include free text, JSON, spatial data, and more. However, many of these require either more advanced analysis techniques or structuring that converts them into tabular data, so they are out of the scope of this discussion.<a href="#fnref1" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
+<li id="fn2"><p>When data is arrange this way in a matrix <span class="math inline">\(X\)</span>, linear regression coefficients can be computed as <span class="math inline">\(\beta = (\mathbf{X}^\intercal\mathbf{X})^{-1}\mathbf{X}^\intercal \mathbf{y}\)</span><a href="#fnref2" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
+<li id="fn3"><p>This need not be true in a different data encoding like JSON in which much data is represented as characters.<a href="#fnref3" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
+<li id="fn4"><p>You may hear the last three referred to as ELT or ETL<a href="#fnref4" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
+<li id="fn5"><p>I don’t mean to imply statisticians do not regularly think about the data collection DGP! The rich literature on missing data imputation, censored data in survival analysis, and non-response bias is survey data collection are just a few examples of how carefully statisticians think about how data collection impacts analysis. I chose to break it out here to discuss the more technical aspects of collection<a href="#fnref5" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
+<li id="fn6"><p>Like NYC’s infamously messy <a href="http://web.mta.info/developers/turnstile.html">turnstile data</a>. I don’t claim to know precisely how this dataset is created, but many of the specific challenges it contains are highly relevant.<a href="#fnref6" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
+<li id="fn7"><p>Keys with semantic meanings that are naturally part of the dataset<a href="#fnref7" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
+<li id="fn8"><p>Keys without semantic meaning that exist primarily for the purpose of being keys<a href="#fnref8" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
+</ol></section></main><!-- /main --><script id="quarto-html-after-body" type="application/javascript">
 window.document.addEventListener("DOMContentLoaded", function (event) {
+  const toggleBodyColorMode = (bsSheetEl) => {
+    const mode = bsSheetEl.getAttribute("data-mode");
+    const bodyEl = window.document.querySelector("body");
+    if (mode === "dark") {
+      bodyEl.classList.add("quarto-dark");
+      bodyEl.classList.remove("quarto-light");
+    } else {
+      bodyEl.classList.add("quarto-light");
+      bodyEl.classList.remove("quarto-dark");
+    }
+  }
+  const toggleBodyColorPrimary = () => {
+    const bsSheetEl = window.document.querySelector("link#quarto-bootstrap");
+    if (bsSheetEl) {
+      toggleBodyColorMode(bsSheetEl);
+    }
+  }
+  toggleBodyColorPrimary();  
   const icon = "";
   const anchorJS = new window.AnchorJS();
   anchorJS.options = {
@@ -1486,7 +1564,27 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
     button.blur();
     // flash "checked"
     button.classList.add('code-copy-button-checked');
+    var currentTitle = button.getAttribute("title");
+    button.setAttribute("title", "Copied!");
+    let tooltip;
+    if (window.bootstrap) {
+      button.setAttribute("data-bs-toggle", "tooltip");
+      button.setAttribute("data-bs-placement", "left");
+      button.setAttribute("data-bs-title", "Copied!");
+      tooltip = new bootstrap.Tooltip(button, 
+        { trigger: "manual", 
+          customClass: "code-copy-button-tooltip",
+          offset: [0, -8]});
+      tooltip.show();    
+    }
     setTimeout(function() {
+      if (tooltip) {
+        tooltip.hide();
+        button.removeAttribute("data-bs-title");
+        button.removeAttribute("data-bs-toggle");
+        button.removeAttribute("data-bs-placement");
+      }
+      button.setAttribute("title", currentTitle);
       button.classList.remove('code-copy-button-checked');
     }, 1000);
     // clear code selection
@@ -1513,31 +1611,50 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
   for (var i=0; i<noterefs.length; i++) {
     const ref = noterefs[i];
     tippyHover(ref, function() {
-      let href = ref.getAttribute('href');
+      // use id or data attribute instead here
+      let href = ref.getAttribute('data-footnote-href') || ref.getAttribute('href');
       try { href = new URL(href).hash; } catch {}
       const id = href.replace(/^#\/?/, "");
       const note = window.document.getElementById(id);
       return note.innerHTML;
     });
   }
+  const findCites = (el) => {
+    const parentEl = el.parentElement;
+    if (parentEl) {
+      const cites = parentEl.dataset.cites;
+      if (cites) {
+        return {
+          el,
+          cites: cites.split(' ')
+        };
+      } else {
+        return findCites(el.parentElement)
+      }
+    } else {
+      return undefined;
+    }
+  };
   var bibliorefs = window.document.querySelectorAll('a[role="doc-biblioref"]');
   for (var i=0; i<bibliorefs.length; i++) {
     const ref = bibliorefs[i];
-    const cites = ref.parentNode.getAttribute('data-cites').split(' ');
-    tippyHover(ref, function() {
-      var popup = window.document.createElement('div');
-      cites.forEach(function(cite) {
-        var citeDiv = window.document.createElement('div');
-        citeDiv.classList.add('hanging-indent');
-        citeDiv.classList.add('csl-entry');
-        var biblioDiv = window.document.getElementById('ref-' + cite);
-        if (biblioDiv) {
-          citeDiv.innerHTML = biblioDiv.innerHTML;
-        }
-        popup.appendChild(citeDiv);
+    const citeInfo = findCites(ref);
+    if (citeInfo) {
+      tippyHover(citeInfo.el, function() {
+        var popup = window.document.createElement('div');
+        citeInfo.cites.forEach(function(cite) {
+          var citeDiv = window.document.createElement('div');
+          citeDiv.classList.add('hanging-indent');
+          citeDiv.classList.add('csl-entry');
+          var biblioDiv = window.document.getElementById('ref-' + cite);
+          if (biblioDiv) {
+            citeDiv.innerHTML = biblioDiv.innerHTML;
+          }
+          popup.appendChild(citeDiv);
+        });
+        return popup.innerHTML;
       });
-      return popup.innerHTML;
-    });
+    }
   }
 });
 </script><nav class="page-navigation"><div class="nav-page nav-page-previous">
@@ -1552,6 +1669,7 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
   </div>
 </nav>
 </div> <!-- /content -->
+
 
 
 </body></html>

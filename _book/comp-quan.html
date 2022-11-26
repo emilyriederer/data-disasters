@@ -2,135 +2,149 @@
 <html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <meta charset="utf-8">
-<meta name="generator" content="quarto-0.9.175">
+<meta name="generator" content="quarto-1.2.247">
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 <meta name="description" content="Navigating the complexities of real-world data analysis">
 <title>Data Disasters - 3&nbsp; Computational Quandaries (WIP)</title>
 <style>
-    code{white-space: pre-wrap;}
-    span.smallcaps{font-variant: small-caps;}
-    span.underline{text-decoration: underline;}
-    div.column{display: inline-block; vertical-align: top; width: 50%;}
-    div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
-    ul.task-list{list-style: none;}
-    pre > code.sourceCode { white-space: pre; position: relative; }
-    pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
-    pre > code.sourceCode > span:empty { height: 1.2em; }
-    .sourceCode { overflow: visible; }
-    code.sourceCode > span { color: inherit; text-decoration: inherit; }
-    div.sourceCode { margin: 1em 0; }
-    pre.sourceCode { margin: 0; }
-    @media screen {
-    div.sourceCode { overflow: auto; }
-    }
-    @media print {
-    pre > code.sourceCode { white-space: pre-wrap; }
-    pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
-    }
-    pre.numberSource code
-      { counter-reset: source-line 0; }
-    pre.numberSource code > span
-      { position: relative; left: -4em; counter-increment: source-line; }
-    pre.numberSource code > span > a:first-child::before
-      { content: counter(source-line);
-        position: relative; left: -1em; text-align: right; vertical-align: baseline;
-        border: none; display: inline-block;
-        -webkit-touch-callout: none; -webkit-user-select: none;
-        -khtml-user-select: none; -moz-user-select: none;
-        -ms-user-select: none; user-select: none;
-        padding: 0 4px; width: 4em;
-        color: #aaaaaa;
-      }
-    pre.numberSource { margin-left: 3em; border-left: 1px solid #aaaaaa;  padding-left: 4px; }
-    div.sourceCode
-      {   }
-    @media screen {
-    pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
-    }
-    code span.al { color: #ff0000; font-weight: bold; } /* Alert */
-    code span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
-    code span.at { color: #7d9029; } /* Attribute */
-    code span.bn { color: #40a070; } /* BaseN */
-    code span.bu { } /* BuiltIn */
-    code span.cf { color: #007020; font-weight: bold; } /* ControlFlow */
-    code span.ch { color: #4070a0; } /* Char */
-    code span.cn { color: #880000; } /* Constant */
-    code span.co { color: #60a0b0; font-style: italic; } /* Comment */
-    code span.cv { color: #60a0b0; font-weight: bold; font-style: italic; } /* CommentVar */
-    code span.do { color: #ba2121; font-style: italic; } /* Documentation */
-    code span.dt { color: #902000; } /* DataType */
-    code span.dv { color: #40a070; } /* DecVal */
-    code span.er { color: #ff0000; font-weight: bold; } /* Error */
-    code span.ex { } /* Extension */
-    code span.fl { color: #40a070; } /* Float */
-    code span.fu { color: #06287e; } /* Function */
-    code span.im { } /* Import */
-    code span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Information */
-    code span.kw { color: #007020; font-weight: bold; } /* Keyword */
-    code span.op { color: #666666; } /* Operator */
-    code span.ot { color: #007020; } /* Other */
-    code span.pp { color: #bc7a00; } /* Preprocessor */
-    code span.sc { color: #4070a0; } /* SpecialChar */
-    code span.ss { color: #bb6688; } /* SpecialString */
-    code span.st { color: #4070a0; } /* String */
-    code span.va { color: #19177c; } /* Variable */
-    code span.vs { color: #4070a0; } /* VerbatimString */
-    code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warning */
-    div.csl-bib-body { }
-    div.csl-entry {
-      clear: both;
-    }
-    .hanging div.csl-entry {
-      margin-left:2em;
-      text-indent:-2em;
-    }
-    div.csl-left-margin {
-      min-width:2em;
-      float:left;
-    }
-    div.csl-right-inline {
-      margin-left:2em;
-      padding-left:1em;
-    }
-    div.csl-indent {
-      margin-left: 2em;
-    }
-  </style>
-<script src="site_libs/quarto-nav/quarto-nav.js"></script><script src="site_libs/quarto-nav/headroom.min.js"></script><script src="site_libs/clipboard/clipboard.min.js"></script><meta name="quarto:offset" content="./">
-<script src="site_libs/quarto-search/autocomplete.umd.js"></script><script src="site_libs/quarto-search/fuse.min.js"></script><script src="site_libs/quarto-search/quarto-search.js"></script><link href="./egre-aggr.html" rel="next">
+code{white-space: pre-wrap;}
+span.smallcaps{font-variant: small-caps;}
+div.columns{display: flex; gap: min(4vw, 1.5em);}
+div.column{flex: auto; overflow-x: auto;}
+div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+ul.task-list{list-style: none;}
+ul.task-list li input[type="checkbox"] {
+  width: 0.8em;
+  margin: 0 0.8em 0.2em -1.6em;
+  vertical-align: middle;
+}
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+div.sourceCode { margin: 1em 0; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+    color: #aaaaaa;
+  }
+pre.numberSource { margin-left: 3em; border-left: 1px solid #aaaaaa;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
+code span.al { color: #ff0000; font-weight: bold; } /* Alert */
+code span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
+code span.at { color: #7d9029; } /* Attribute */
+code span.bn { color: #40a070; } /* BaseN */
+code span.bu { color: #008000; } /* BuiltIn */
+code span.cf { color: #007020; font-weight: bold; } /* ControlFlow */
+code span.ch { color: #4070a0; } /* Char */
+code span.cn { color: #880000; } /* Constant */
+code span.co { color: #60a0b0; font-style: italic; } /* Comment */
+code span.cv { color: #60a0b0; font-weight: bold; font-style: italic; } /* CommentVar */
+code span.do { color: #ba2121; font-style: italic; } /* Documentation */
+code span.dt { color: #902000; } /* DataType */
+code span.dv { color: #40a070; } /* DecVal */
+code span.er { color: #ff0000; font-weight: bold; } /* Error */
+code span.ex { } /* Extension */
+code span.fl { color: #40a070; } /* Float */
+code span.fu { color: #06287e; } /* Function */
+code span.im { color: #008000; font-weight: bold; } /* Import */
+code span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Information */
+code span.kw { color: #007020; font-weight: bold; } /* Keyword */
+code span.op { color: #666666; } /* Operator */
+code span.ot { color: #007020; } /* Other */
+code span.pp { color: #bc7a00; } /* Preprocessor */
+code span.sc { color: #4070a0; } /* SpecialChar */
+code span.ss { color: #bb6688; } /* SpecialString */
+code span.st { color: #4070a0; } /* String */
+code span.va { color: #19177c; } /* Variable */
+code span.vs { color: #4070a0; } /* VerbatimString */
+code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warning */
+div.csl-bib-body { }
+div.csl-entry {
+  clear: both;
+}
+.hanging div.csl-entry {
+  margin-left:2em;
+  text-indent:-2em;
+}
+div.csl-left-margin {
+  min-width:2em;
+  float:left;
+}
+div.csl-right-inline {
+  margin-left:2em;
+  padding-left:1em;
+}
+div.csl-indent {
+  margin-left: 2em;
+}
+</style>
+
+<script src="site_libs/quarto-nav/quarto-nav.js"></script>
+<script src="site_libs/quarto-nav/headroom.min.js"></script>
+<script src="site_libs/clipboard/clipboard.min.js"></script>
+<script src="site_libs/quarto-search/autocomplete.umd.js"></script>
+<script src="site_libs/quarto-search/fuse.min.js"></script>
+<script src="site_libs/quarto-search/quarto-search.js"></script>
+<meta name="quarto:offset" content="./">
+<link href="./egre-aggr.html" rel="next">
 <link href="./data-dall.html" rel="prev">
 <link href="./figures/cover.png" rel="icon" type="image/png">
-<script src="site_libs/quarto-html/quarto.js"></script><script src="site_libs/quarto-html/popper.min.js"></script><script src="site_libs/quarto-html/tippy.umd.min.js"></script><script src="site_libs/quarto-html/anchor.min.js"></script><link href="site_libs/quarto-html/tippy.css" rel="stylesheet">
-<link id="quarto-text-highlighting-styles" href="site_libs/quarto-html/quarto-syntax-highlighting.css" rel="stylesheet">
-<script src="site_libs/bootstrap/bootstrap.min.js"></script><link href="site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
-<link href="site_libs/bootstrap/bootstrap.min.css" rel="stylesheet">
-<script id="quarto-search-options" type="application/json">{
-    "location": "sidebar",
-    "copy-button": false,
-    "collapse-after": 3,
-    "panel-placement": "start",
-    "type": "textbox",
-    "limit": 20,
-    "language": {
-      "search-no-results-text": "No results",
-      "search-matching-documents-text": "matching documents",
-      "search-copy-link-title": "Copy link to search",
-      "search-hide-matches-text": "Hide additional matches",
-      "search-more-match-text": "more match in this document",
-      "search-more-matches-text": "more matches in this document",
-      "search-clear-button-title": "Clear",
-      "search-detached-cancel-button-title": "Cancel",
-      "search-submit-button-title": "Submit"
-    }
-  }</script><script async="" src="https://www.googletagmanager.com/gtag/js?id=G-C7VEESJ7Z8"></script><script type="text/javascript">
+<script src="site_libs/quarto-html/quarto.js"></script>
+<script src="site_libs/quarto-html/popper.min.js"></script>
+<script src="site_libs/quarto-html/tippy.umd.min.js"></script>
+<script src="site_libs/quarto-html/anchor.min.js"></script>
+<link href="site_libs/quarto-html/tippy.css" rel="stylesheet">
+<link href="site_libs/quarto-html/quarto-syntax-highlighting.css" rel="stylesheet" id="quarto-text-highlighting-styles">
+<script src="site_libs/bootstrap/bootstrap.min.js"></script>
+<link href="site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
+<link href="site_libs/bootstrap/bootstrap.min.css" rel="stylesheet" id="quarto-bootstrap" data-mode="light"><script id="quarto-search-options" type="application/json">{
+  "location": "sidebar",
+  "copy-button": false,
+  "collapse-after": 3,
+  "panel-placement": "start",
+  "type": "textbox",
+  "limit": 20,
+  "language": {
+    "search-no-results-text": "No results",
+    "search-matching-documents-text": "matching documents",
+    "search-copy-link-title": "Copy link to search",
+    "search-hide-matches-text": "Hide additional matches",
+    "search-more-match-text": "more match in this document",
+    "search-more-matches-text": "more matches in this document",
+    "search-clear-button-title": "Clear",
+    "search-detached-cancel-button-title": "Cancel",
+    "search-submit-button-title": "Submit"
+  }
+}</script><script async="" src="https://www.googletagmanager.com/gtag/js?id=G-C7VEESJ7Z8"></script><script type="text/javascript">
 
-  window.dataLayer = window.dataLayer || [];
-  function gtag(){dataLayer.push(arguments);}
-  gtag('js', new Date());
-  gtag('config', 'G-C7VEESJ7Z8', { 'anonymize_ip': true});
-  </script><script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml-full.js" type="text/javascript"></script><!--[if lt IE 9]>
-    <script src="//cdnjs.cloudflare.com/ajax/libs/html5shiv/3.7.3/html5shiv-printshiv.min.js"></script>
-  <![endif]-->
+window.dataLayer = window.dataLayer || [];
+function gtag(){dataLayer.push(arguments);}
+gtag('js', new Date());
+gtag('config', 'G-C7VEESJ7Z8', { 'anonymize_ip': true});
+</script><script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml-full.js" type="text/javascript"></script>
 <meta property="og:title" content="Data Disasters - 3&nbsp; Computational Quandaries (WIP)">
 <meta property="og:description" content="Navigating the complexities of real-world data analysis">
 <meta property="og:site-name" content="Data Disasters">
@@ -138,7 +152,8 @@
 <meta name="twitter:description" content="Navigating the complexities of real-world data analysis">
 <meta name="twitter:card" content="summary">
 </head>
-<body class="floating">
+<body class="nav-sidebar floating">
+
 <div id="quarto-search-results"></div>
   <header id="quarto-header" class="headroom fixed-top"><nav class="quarto-secondary-nav" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }"><div class="container-fluid d-flex justify-content-between">
       <h1 class="quarto-secondary-nav-title"><span class="chapter-number">3</span>&nbsp; <span class="chapter-title">Computational Quandaries (WIP)</span></h1>
@@ -205,94 +220,94 @@
   </div>
 </li>
         <li class="sidebar-item sidebar-item-section">
-    <div class="sidebar-item-container"> 
-        <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-1" aria-expanded="true">Data</a>
-      <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-1" aria-expanded="true">
-        <i class="bi bi-chevron-right ms-2"></i>
-      </a>
-    </div>
-    <ul id="quarto-sidebar-section-1" class="collapse list-unstyled sidebar-section depth1 show">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-1" aria-expanded="true">Data</a>
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-1" aria-expanded="true">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-1" class="collapse list-unstyled sidebar-section depth1 show">
 <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="./data-dall.html" class="sidebar-item-text sidebar-link"><span class="chapter-number">2</span>&nbsp; <span class="chapter-title">Data Dalliances (WIP)</span></a>
   </div>
 </li>
-        <li class="sidebar-item">
+          <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="./comp-quan.html" class="sidebar-item-text sidebar-link active"><span class="chapter-number">3</span>&nbsp; <span class="chapter-title">Computational Quandaries (WIP)</span></a>
   </div>
 </li>
-        <li class="sidebar-item">
+          <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="./egre-aggr.html" class="sidebar-item-text sidebar-link"><span class="chapter-number">4</span>&nbsp; <span class="chapter-title">Egregious Aggregations (WIP)</span></a>
   </div>
 </li>
-        <li class="sidebar-item">
+          <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="./vexi-visu.html" class="sidebar-item-text sidebar-link"><span class="chapter-number">5</span>&nbsp; <span class="chapter-title">Vexing Visualization (TODO)</span></a>
   </div>
 </li>
-    </ul>
+      </ul>
 </li>
         <li class="sidebar-item sidebar-item-section">
-    <div class="sidebar-item-container"> 
-        <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-2" aria-expanded="true">Analysis</a>
-      <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-2" aria-expanded="true">
-        <i class="bi bi-chevron-right ms-2"></i>
-      </a>
-    </div>
-    <ul id="quarto-sidebar-section-2" class="collapse list-unstyled sidebar-section depth1 show">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-2" aria-expanded="true">Analysis</a>
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-2" aria-expanded="true">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-2" class="collapse list-unstyled sidebar-section depth1 show">
 <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="./incr-infe.html" class="sidebar-item-text sidebar-link"><span class="chapter-number">6</span>&nbsp; <span class="chapter-title">Incredible Inferences (TODO)</span></a>
   </div>
 </li>
-        <li class="sidebar-item">
+          <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="./cava-caus.html" class="sidebar-item-text sidebar-link"><span class="chapter-number">7</span>&nbsp; <span class="chapter-title">Cavalier Causality (TODO)</span></a>
   </div>
 </li>
-        <li class="sidebar-item">
+          <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="./mind-mode.html" class="sidebar-item-text sidebar-link"><span class="chapter-number">8</span>&nbsp; <span class="chapter-title">Mindless Modeling (TODO)</span></a>
   </div>
 </li>
-        <li class="sidebar-item">
+          <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="./alte-algo.html" class="sidebar-item-text sidebar-link"><span class="chapter-number">9</span>&nbsp; <span class="chapter-title">Alternative Algorithms (TODO)</span></a>
   </div>
 </li>
-        <li class="sidebar-item">
+          <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="./futi-find.html" class="sidebar-item-text sidebar-link"><span class="chapter-number">10</span>&nbsp; <span class="chapter-title">Futile Findings (TODO)</span></a>
   </div>
 </li>
-    </ul>
+      </ul>
 </li>
         <li class="sidebar-item sidebar-item-section">
-    <div class="sidebar-item-container"> 
-        <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-3" aria-expanded="true">Workflow</a>
-      <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-3" aria-expanded="true">
-        <i class="bi bi-chevron-right ms-2"></i>
-      </a>
-    </div>
-    <ul id="quarto-sidebar-section-3" class="collapse list-unstyled sidebar-section depth1 show">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-3" aria-expanded="true">Workflow</a>
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-3" aria-expanded="true">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-3" class="collapse list-unstyled sidebar-section depth1 show">
 <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="./comp-code.html" class="sidebar-item-text sidebar-link"><span class="chapter-number">11</span>&nbsp; <span class="chapter-title">Complexifying Code (TODO)</span></a>
   </div>
 </li>
-        <li class="sidebar-item">
+          <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="./reje-repr.html" class="sidebar-item-text sidebar-link"><span class="chapter-number">12</span>&nbsp; <span class="chapter-title">Rejecting Reproducibility (TODO)</span></a>
   </div>
 </li>
-        <li class="sidebar-item">
+          <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="./mour-mist.html" class="sidebar-item-text sidebar-link"><span class="chapter-number">13</span>&nbsp; <span class="chapter-title">Mourning Mistakes (TODO)</span></a>
   </div>
 </li>
-    </ul>
+      </ul>
 </li>
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
@@ -300,112 +315,127 @@
   </div>
 </li>
         <li class="sidebar-item sidebar-item-section">
-    <div class="sidebar-item-container"> 
-        <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-4" aria-expanded="true">Appendices</a>
-      <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-4" aria-expanded="true">
-        <i class="bi bi-chevron-right ms-2"></i>
-      </a>
-    </div>
-    <ul id="quarto-sidebar-section-4" class="collapse list-unstyled sidebar-section depth1 show">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-4" aria-expanded="true">Appendices</a>
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-4" aria-expanded="true">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-4" class="collapse list-unstyled sidebar-section depth1 show">
 <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="./more.html" class="sidebar-item-text sidebar-link">(APPENDIX) Appendix</a>
   </div>
 </li>
-    </ul>
+      </ul>
 </li>
     </ul>
 </div>
 </nav><!-- margin-sidebar --><div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
-        <nav id="TOC" role="doc-toc"><h2 id="toc-title">Table of contents</h2>
-<ul>
+        <nav id="TOC" role="doc-toc" class="toc-active"><h2 id="toc-title">Table of contents</h2>
+   
+  <ul>
 <li>
-<a href="#preliminaries---data-computation" class="nav-link active" data-scroll-target="#preliminaries---data-computation"> <span class="header-section-number">3.1</span> Preliminaries - Data Computation</a>
-<ul class="collapse">
-<li><a href="#single-table-operations" class="nav-link" data-scroll-target="#single-table-operations"> <span class="header-section-number">3.1.1</span> Single Table Operations</a></li>
-<li><a href="#multiple-table-operations" class="nav-link" data-scroll-target="#multiple-table-operations"> <span class="header-section-number">3.1.2</span> Multiple Table Operations</a></li>
-<li><a href="#mechanics" class="nav-link" data-scroll-target="#mechanics"> <span class="header-section-number">3.1.3</span> Mechanics</a></li>
-</ul>
+<a href="#preliminaries---data-computation" id="toc-preliminaries---data-computation" class="nav-link active" data-scroll-target="#preliminaries---data-computation"><span class="toc-section-number">3.1</span>  Preliminaries - Data Computation</a>
+  <ul class="collapse">
+<li><a href="#single-table-operations" id="toc-single-table-operations" class="nav-link" data-scroll-target="#single-table-operations"><span class="toc-section-number">3.1.1</span>  Single Table Operations</a></li>
+  <li><a href="#multiple-table-operations" id="toc-multiple-table-operations" class="nav-link" data-scroll-target="#multiple-table-operations"><span class="toc-section-number">3.1.2</span>  Multiple Table Operations</a></li>
+  <li><a href="#mechanics" id="toc-mechanics" class="nav-link" data-scroll-target="#mechanics"><span class="toc-section-number">3.1.3</span>  Mechanics</a></li>
+  </ul>
 </li>
-<li>
-<a href="#null-values" class="nav-link" data-scroll-target="#null-values"> <span class="header-section-number">3.2</span> Null Values</a>
-<ul class="collapse">
-<li><a href="#types-of-null-values" class="nav-link" data-scroll-target="#types-of-null-values"> <span class="header-section-number">3.2.1</span> Types of Null Values</a></li>
-<li><a href="#aggregation" class="nav-link" data-scroll-target="#aggregation"> <span class="header-section-number">3.2.2</span> Aggregation</a></li>
-<li><a href="#comparison" class="nav-link" data-scroll-target="#comparison"> <span class="header-section-number">3.2.3</span> Comparison</a></li>
-</ul>
+  <li>
+<a href="#null-values" id="toc-null-values" class="nav-link" data-scroll-target="#null-values"><span class="toc-section-number">3.2</span>  Null Values</a>
+  <ul class="collapse">
+<li><a href="#types-of-null-values" id="toc-types-of-null-values" class="nav-link" data-scroll-target="#types-of-null-values"><span class="toc-section-number">3.2.1</span>  Types of Null Values</a></li>
+  <li><a href="#aggregation" id="toc-aggregation" class="nav-link" data-scroll-target="#aggregation"><span class="toc-section-number">3.2.2</span>  Aggregation</a></li>
+  <li><a href="#comparison" id="toc-comparison" class="nav-link" data-scroll-target="#comparison"><span class="toc-section-number">3.2.3</span>  Comparison</a></li>
+  </ul>
 </li>
-<li>
-<a href="#logicals-todo" class="nav-link" data-scroll-target="#logicals-todo"> <span class="header-section-number">3.3</span> Logicals (TODO)</a>
-<ul class="collapse">
-<li><a href="#language-specific-nuances-cut" class="nav-link" data-scroll-target="#language-specific-nuances-cut"> <span class="header-section-number">3.3.1</span> Language-specific nuances (CUT?)</a></li>
-<li><a href="#comparison-todo" class="nav-link" data-scroll-target="#comparison-todo"> <span class="header-section-number">3.3.2</span> Comparison (TODO)</a></li>
-</ul>
+  <li>
+<a href="#logicals-todo" id="toc-logicals-todo" class="nav-link" data-scroll-target="#logicals-todo"><span class="toc-section-number">3.3</span>  Logicals (TODO)</a>
+  <ul class="collapse">
+<li><a href="#language-specific-nuances-cut" id="toc-language-specific-nuances-cut" class="nav-link" data-scroll-target="#language-specific-nuances-cut"><span class="toc-section-number">3.3.1</span>  Language-specific nuances (CUT?)</a></li>
+  <li><a href="#comparison-todo" id="toc-comparison-todo" class="nav-link" data-scroll-target="#comparison-todo"><span class="toc-section-number">3.3.2</span>  Comparison (TODO)</a></li>
+  <li><a href="#logical-encoding-pandas-case-study" id="toc-logical-encoding-pandas-case-study" class="nav-link" data-scroll-target="#logical-encoding-pandas-case-study"><span class="toc-section-number">3.3.3</span>  Logical Encoding (<code>pandas</code> case study)</a></li>
+  </ul>
 </li>
-<li>
-<a href="#numbers-todo" class="nav-link" data-scroll-target="#numbers-todo"> <span class="header-section-number">3.4</span> Numbers (TODO)</a>
-<ul class="collapse">
-<li><a href="#integer-division" class="nav-link" data-scroll-target="#integer-division"> <span class="header-section-number">3.4.1</span> Integer division</a></li>
-<li><a href="#inexact-storage-and-comparison" class="nav-link" data-scroll-target="#inexact-storage-and-comparison"> <span class="header-section-number">3.4.2</span> Inexact storage and comparison</a></li>
-<li><a href="#division-by-zero" class="nav-link" data-scroll-target="#division-by-zero"> <span class="header-section-number">3.4.3</span> Division by zero</a></li>
-</ul>
+  <li>
+<a href="#numbers-todo" id="toc-numbers-todo" class="nav-link" data-scroll-target="#numbers-todo"><span class="toc-section-number">3.4</span>  Numbers (TODO)</a>
+  <ul class="collapse">
+<li><a href="#integer-division" id="toc-integer-division" class="nav-link" data-scroll-target="#integer-division"><span class="toc-section-number">3.4.1</span>  Integer division</a></li>
+  <li><a href="#inexact-storage-and-comparison" id="toc-inexact-storage-and-comparison" class="nav-link" data-scroll-target="#inexact-storage-and-comparison"><span class="toc-section-number">3.4.2</span>  Inexact storage and comparison</a></li>
+  <li><a href="#division-by-zero" id="toc-division-by-zero" class="nav-link" data-scroll-target="#division-by-zero"><span class="toc-section-number">3.4.3</span>  Division by zero</a></li>
+  </ul>
 </li>
-<li>
-<a href="#strings-wip" class="nav-link" data-scroll-target="#strings-wip"> <span class="header-section-number">3.5</span> Strings (WIP)</a>
-<ul class="collapse">
-<li><a href="#dirty-strings-todo" class="nav-link" data-scroll-target="#dirty-strings-todo"> <span class="header-section-number">3.5.1</span> Dirty Strings (TODO)</a></li>
-<li><a href="#regular-expressions-todo" class="nav-link" data-scroll-target="#regular-expressions-todo"> <span class="header-section-number">3.5.2</span> Regular Expressions (TODO)</a></li>
-<li><a href="#comparison-1" class="nav-link" data-scroll-target="#comparison-1"> <span class="header-section-number">3.5.3</span> Comparison</a></li>
-<li><a href="#transformation-todo" class="nav-link" data-scroll-target="#transformation-todo"> <span class="header-section-number">3.5.4</span> Transformation (TODO)</a></li>
-</ul>
+  <li>
+<a href="#strings-wip" id="toc-strings-wip" class="nav-link" data-scroll-target="#strings-wip"><span class="toc-section-number">3.5</span>  Strings (WIP)</a>
+  <ul class="collapse">
+<li><a href="#dirty-strings-todo" id="toc-dirty-strings-todo" class="nav-link" data-scroll-target="#dirty-strings-todo"><span class="toc-section-number">3.5.1</span>  Dirty Strings (TODO)</a></li>
+  <li><a href="#regular-expressions-todo" id="toc-regular-expressions-todo" class="nav-link" data-scroll-target="#regular-expressions-todo"><span class="toc-section-number">3.5.2</span>  Regular Expressions (TODO)</a></li>
+  <li><a href="#comparison-1" id="toc-comparison-1" class="nav-link" data-scroll-target="#comparison-1"><span class="toc-section-number">3.5.3</span>  Comparison</a></li>
+  <li><a href="#transformation-todo" id="toc-transformation-todo" class="nav-link" data-scroll-target="#transformation-todo"><span class="toc-section-number">3.5.4</span>  Transformation (TODO)</a></li>
+  </ul>
 </li>
-<li>
-<a href="#dates-and-times-wip" class="nav-link" data-scroll-target="#dates-and-times-wip"> <span class="header-section-number">3.6</span> Dates and Times (WIP)</a>
-<ul class="collapse">
-<li><a href="#comparison-2" class="nav-link" data-scroll-target="#comparison-2"> <span class="header-section-number">3.6.1</span> Comparison</a></li>
-</ul>
+  <li>
+<a href="#dates-and-times-wip" id="toc-dates-and-times-wip" class="nav-link" data-scroll-target="#dates-and-times-wip"><span class="toc-section-number">3.6</span>  Dates and Times (WIP)</a>
+  <ul class="collapse">
+<li><a href="#comparison-2" id="toc-comparison-2" class="nav-link" data-scroll-target="#comparison-2"><span class="toc-section-number">3.6.1</span>  Comparison</a></li>
+  </ul>
 </li>
-<li><a href="#changing-data-types-todo" class="nav-link" data-scroll-target="#changing-data-types-todo"> <span class="header-section-number">3.7</span> Changing Data Types (TODO)</a></li>
-<li><a href="#factors-in-r-todo" class="nav-link" data-scroll-target="#factors-in-r-todo"> <span class="header-section-number">3.8</span> Factors in R (TODO)</a></li>
-<li>
-<a href="#programming-errors-todo" class="nav-link" data-scroll-target="#programming-errors-todo"> <span class="header-section-number">3.9</span> Programming Errors (TODO)</a>
-<ul class="collapse">
-<li><a href="#default-cases-wip" class="nav-link" data-scroll-target="#default-cases-wip"> <span class="header-section-number">3.9.1</span> Default Cases (WIP)</a></li>
-<li><a href="#order-of-operations-wip" class="nav-link" data-scroll-target="#order-of-operations-wip"> <span class="header-section-number">3.9.2</span> Order of Operations (WIP)</a></li>
-<li><a href="#object-references-wip" class="nav-link" data-scroll-target="#object-references-wip"> <span class="header-section-number">3.9.3</span> Object References (WIP)</a></li>
-</ul>
+  <li><a href="#changing-data-types-todo" id="toc-changing-data-types-todo" class="nav-link" data-scroll-target="#changing-data-types-todo"><span class="toc-section-number">3.7</span>  Changing Data Types (TODO)</a></li>
+  <li><a href="#factors-in-r-todo" id="toc-factors-in-r-todo" class="nav-link" data-scroll-target="#factors-in-r-todo"><span class="toc-section-number">3.8</span>  Factors in R (TODO)</a></li>
+  <li>
+<a href="#programming-errors-todo" id="toc-programming-errors-todo" class="nav-link" data-scroll-target="#programming-errors-todo"><span class="toc-section-number">3.9</span>  Programming Errors (TODO)</a>
+  <ul class="collapse">
+<li><a href="#default-cases-wip" id="toc-default-cases-wip" class="nav-link" data-scroll-target="#default-cases-wip"><span class="toc-section-number">3.9.1</span>  Default Cases (WIP)</a></li>
+  <li><a href="#order-of-operations-wip" id="toc-order-of-operations-wip" class="nav-link" data-scroll-target="#order-of-operations-wip"><span class="toc-section-number">3.9.2</span>  Order of Operations (WIP)</a></li>
+  <li><a href="#object-references-wip" id="toc-object-references-wip" class="nav-link" data-scroll-target="#object-references-wip"><span class="toc-section-number">3.9.3</span>  Object References (WIP)</a></li>
+  </ul>
 </li>
-<li>
-<a href="#trusting-tools" class="nav-link" data-scroll-target="#trusting-tools"> <span class="header-section-number">3.10</span> Trusting Tools</a>
-<ul class="collapse">
-<li><a href="#delegating-decisions" class="nav-link" data-scroll-target="#delegating-decisions"> <span class="header-section-number">3.10.1</span> Delegating decisions</a></li>
-<li><a href="#off-label-use-todo" class="nav-link" data-scroll-target="#off-label-use-todo"> <span class="header-section-number">3.10.2</span> “Off-Label” Use (TODO)</a></li>
-<li><a href="#security-todo" class="nav-link" data-scroll-target="#security-todo"> <span class="header-section-number">3.10.3</span> Security (TODO)</a></li>
-</ul>
+  <li>
+<a href="#trusting-tools" id="toc-trusting-tools" class="nav-link" data-scroll-target="#trusting-tools"><span class="toc-section-number">3.10</span>  Trusting Tools</a>
+  <ul class="collapse">
+<li><a href="#delegating-decisions" id="toc-delegating-decisions" class="nav-link" data-scroll-target="#delegating-decisions"><span class="toc-section-number">3.10.1</span>  Delegating decisions</a></li>
+  <li><a href="#off-label-use-todo" id="toc-off-label-use-todo" class="nav-link" data-scroll-target="#off-label-use-todo"><span class="toc-section-number">3.10.2</span>  “Off-Label” Use (TODO)</a></li>
+  <li><a href="#security-todo" id="toc-security-todo" class="nav-link" data-scroll-target="#security-todo"><span class="toc-section-number">3.10.3</span>  Security (TODO)</a></li>
+  </ul>
 </li>
-<li><a href="#inefficient-processing-todo" class="nav-link" data-scroll-target="#inefficient-processing-todo"> <span class="header-section-number">3.11</span> Inefficient Processing (TODO)</a></li>
-<li>
-<a href="#strategies-wip" class="nav-link" data-scroll-target="#strategies-wip"> <span class="header-section-number">3.12</span> Strategies (WIP)</a>
-<ul class="collapse">
-<li><a href="#understand-the-intent" class="nav-link" data-scroll-target="#understand-the-intent"> <span class="header-section-number">3.12.1</span> Understand the intent</a></li>
-<li><a href="#understand-the-execution" class="nav-link" data-scroll-target="#understand-the-execution"> <span class="header-section-number">3.12.2</span> Understand the execution</a></li>
-<li><a href="#be-explicit-not-implicit" class="nav-link" data-scroll-target="#be-explicit-not-implicit"> <span class="header-section-number">3.12.3</span> Be explicit not implicit</a></li>
-</ul>
+  <li><a href="#inefficient-processing-todo" id="toc-inefficient-processing-todo" class="nav-link" data-scroll-target="#inefficient-processing-todo"><span class="toc-section-number">3.11</span>  Inefficient Processing (TODO)</a></li>
+  <li>
+<a href="#strategies-wip" id="toc-strategies-wip" class="nav-link" data-scroll-target="#strategies-wip"><span class="toc-section-number">3.12</span>  Strategies (WIP)</a>
+  <ul class="collapse">
+<li><a href="#understand-the-intent" id="toc-understand-the-intent" class="nav-link" data-scroll-target="#understand-the-intent"><span class="toc-section-number">3.12.1</span>  Understand the intent</a></li>
+  <li><a href="#understand-the-execution" id="toc-understand-the-execution" class="nav-link" data-scroll-target="#understand-the-execution"><span class="toc-section-number">3.12.2</span>  Understand the execution</a></li>
+  <li><a href="#be-explicit-not-implicit" id="toc-be-explicit-not-implicit" class="nav-link" data-scroll-target="#be-explicit-not-implicit"><span class="toc-section-number">3.12.3</span>  Be explicit not implicit</a></li>
+  </ul>
 </li>
-<li><a href="#real-world-disasters-wip" class="nav-link" data-scroll-target="#real-world-disasters-wip"> <span class="header-section-number">3.13</span> Real World Disasters (WIP)</a></li>
-</ul><div class="toc-actions"><div><i class="bi bi-github"></i></div><div class="action-links"><p><a href="https://github.com/emilyriederer/data-disasters/edit/main/comp-quan.qmd" class="toc-action">Edit this page</a></p></div></div></nav>
+  <li><a href="#real-world-disasters-wip" id="toc-real-world-disasters-wip" class="nav-link" data-scroll-target="#real-world-disasters-wip"><span class="toc-section-number">3.13</span>  Real World Disasters (WIP)</a></li>
+  </ul><div class="toc-actions"><div><i class="bi bi-github"></i></div><div class="action-links"><p><a href="https://github.com/emilyriederer/data-disasters/edit/main/comp-quan.qmd" class="toc-action">Edit this page</a></p></div></div></nav>
     </div>
 <!-- main -->
-<main class="content" id="quarto-document-content"><header id="title-block-header" class="quarto-title-block default">
-<div class="quarto-title"><h1 class="title display-7"><span id="sec-comp-quan" class="quarto-section-identifier d-none d-lg-block"><span class="chapter-number">3</span>&nbsp; <span class="chapter-title">Computational Quandaries (WIP)</span></span></h1><div class="quarto-description"><p>Navigating the complexities of real-world data analysis</p></div></div></header><p>After gaining confidence in one’s data (or, at least, making peace with it), the next step in a data analysis is often to start cleaning and exploring that data with summary statistics, plots, and models. Generally, this requires a computational tool like SQL, R, or python.</p>
+<main class="content" id="quarto-document-content"><header id="title-block-header" class="quarto-title-block default"><div class="quarto-title">
+<h1 class="title"><span id="sec-comp-quan" class="quarto-section-identifier d-none d-lg-block"><span class="chapter-number">3</span>&nbsp; <span class="chapter-title">Computational Quandaries (WIP)</span></span></h1>
+</div>
+
+
+
+<div class="quarto-title-meta">
+
+    
+  
+    
+  </div>
+  
+
+</header><p>After gaining confidence in one’s data (or, at least, making peace with it), the next step in a data analysis is often to start cleaning and exploring that data with summary statistics, plots, and models. Generally, this requires a computational tool like SQL, R, or python.</p>
 <p>The process of computation itself can be fraught with challenges. Computational tools are extremely literal; they are excellent at doing <em>precisely what they were told to do</em> but not often what analysts might have <em>meant</em> or <em>wished</em> that they would do. Additionally, the moment an analyst begins to use a tool, the conversation is no longer between them and the data; suddenly, the mental model of how every single tool developer thought you might want to do analysis affects the tools’ behaviors and the analysts’ results.</p>
-<p>In this chapter, we will explore common ways that tools may do something technically correct, reasonable, and as-intended but very much not what analysts may expect. Along the way, we will see how computational methods interact with the data encoding choices we discussed in <a href="data-dall.html">Section&nbsp;<span>2</span></a> (Data Dalliances).</p>
+<p>In this chapter, we will explore common ways that tools may do something technically correct, reasonable, and as-intended but very much not what analysts may expect. Along the way, we will see how computational methods interact with the data encoding choices we discussed in <a href="#sec-data-dall"><span class="quarto-unresolved-ref">sec-data-dall</span></a> (Data Dalliances).</p>
 <section id="preliminaries---data-computation" class="level2" data-number="3.1"><h2 data-number="3.1" class="anchored" data-anchor-id="preliminaries---data-computation">
 <span class="header-section-number">3.1</span> Preliminaries - Data Computation</h2>
 <p>Before we think about specific tools or failure modes, we can first consider the common types of operations that the analytical tools allow us to do with our data.</p>
 <section id="single-table-operations" class="level3" data-number="3.1.1"><h3 data-number="3.1.1" class="anchored" data-anchor-id="single-table-operations">
 <span class="header-section-number">3.1.1</span> Single Table Operations</h3>
-<p>Given a single data table, we may wish to do operations (illustrated in <a href="#fig-filt-aggr-tran">Figure&nbsp;<span>3.1</span></a>) such as:</p>
+<p>Given a single data table, we may wish to do operations (illustrated in <a href="#fig-filt-aggr-tran">Figure&nbsp;<span class="quarto-unresolved-ref">fig-filt-aggr-tran</span></a>) such as:</p>
 <ul>
 <li>
 <strong>Filtering</strong>: Extracting a subset of a dataset for analysis based on certain inclusion criteria for each record</li>
@@ -418,7 +448,7 @@
 <div class="cell-output-display">
 <div id="fig-filt-aggr-tran" class="quarto-figure quarto-figure-center anchored">
 <figure class="figure"><p><img src="figures/comp-quan/filt-aggr-tran.png" class="img-fluid figure-img" style="width:90.0%"></p>
-<p></p><figcaption aria-hidden="true" class="figure-caption">Figure 3.1: Illustration of basic single-table data wrangling operations</figcaption><p></p>
+<p></p><figcaption class="figure-caption">Figure&nbsp;3.1: Illustration of basic single-table data wrangling operations</figcaption><p></p>
 </figure>
 </div>
 </div>
@@ -447,10 +477,10 @@
 <p>While these operations may seem simple, their behavior within certain tools and when employed for certain data types may sometimes lead to unintuitive or misleading results.</p>
 </section></section><section id="null-values" class="level2" data-number="3.2"><h2 data-number="3.2" class="anchored" data-anchor-id="null-values">
 <span class="header-section-number">3.2</span> Null Values</h2>
-<p>In <a href="data-dall.html">Section&nbsp;<span>2</span></a> (Data Dalliances), we discuss how null values may represent many different concepts and be encoded in multiple different ways. In addition to those semantic challenges, various representations of null values may cause different computational problems.<a href="#fn1" class="footnote-ref" id="fnref1" role="doc-noteref"><sup>1</sup></a> In this section, we will explore these potential failure modes.</p>
+<p>In <a href="#sec-data-dall"><span class="quarto-unresolved-ref">sec-data-dall</span></a> (Data Dalliances), we discuss how null values may represent many different concepts and be encoded in multiple different ways. In addition to those semantic challenges, various representations of null values may cause different computational problems.<a href="#fn1" class="footnote-ref" id="fnref1" role="doc-noteref"><sup>1</sup></a> In this section, we will explore these potential failure modes.</p>
 <section id="types-of-null-values" class="level3" data-number="3.2.1"><h3 data-number="3.2.1" class="anchored" data-anchor-id="types-of-null-values">
 <span class="header-section-number">3.2.1</span> Types of Null Values</h3>
-<p>Not only can null values represent many different things (as explored in <a href="data-dall.html">Section&nbsp;<span>2</span></a>), they also may be represented in many different ways. Understanding how nulls are encoded in one’s dataset is a critical prerequisite to attempting any of the computations described in the subsequent sections.</p>
+<p>Not only can null values represent many different things (as explored in <a href="#sec-data-dall"><span class="quarto-unresolved-ref">sec-data-dall</span></a>), they also may be represented in many different ways. Understanding how nulls are encoded in one’s dataset is a critical prerequisite to attempting any of the computations described in the subsequent sections.</p>
 <section id="language-representations" class="level4" data-number="3.2.1.1"><h4 data-number="3.2.1.1" class="anchored" data-anchor-id="language-representations">
 <span class="header-section-number">3.2.1.1</span> Language representations</h4>
 <p>Different programming languages each offer their own versions of null values – and sometimes more than one. For example, the R language includes <code>NA</code>, typed <code>NA</code>s (e.g.&nbsp;<code>NA_integer_</code>, <code>NA_character_</code>), <code>NaN</code>, and <code>NULL</code>; meanwhile, core python has <code>None</code> and the <code>numpy</code> module provides a <code>nan</code>.</p>
@@ -458,7 +488,7 @@
 <div class="cell">
 <div class="sourceCode" id="cb1"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/base/is.finite.html">is.finite</a></span><span class="op">(</span><span class="cn">NA</span><span class="op">)</span></span>
 <span><span class="fu"><a href="https://rdrr.io/r/base/is.finite.html">is.infinite</a></span><span class="op">(</span><span class="cn">NA</span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output-stdout">
+<div class="cell-output cell-output-stdout">
 <pre><code>[1] FALSE
 [1] FALSE</code></pre>
 </div>
@@ -466,7 +496,7 @@
 <div class="cell">
 <div class="sourceCode" id="cb3"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/base/length.html">length</a></span><span class="op">(</span><span class="cn">NA</span><span class="op">)</span></span>
 <span><span class="fu"><a href="https://rdrr.io/r/base/length.html">length</a></span><span class="op">(</span><span class="cn">NULL</span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output-stdout">
+<div class="cell-output cell-output-stdout">
 <pre><code>[1] 1
 [1] 0</code></pre>
 </div>
@@ -477,7 +507,7 @@
 <span><span class="fu"><a href="https://rdrr.io/r/base/NULL.html">is.null</a></span><span class="op">(</span><span class="cn">NULL</span><span class="op">)</span></span>
 <span><span class="fu"><a href="https://rdrr.io/r/base/NA.html">is.na</a></span><span class="op">(</span><span class="cn">NULL</span><span class="op">)</span></span>
 <span><span class="fu"><a href="https://rdrr.io/r/base/NULL.html">is.null</a></span><span class="op">(</span><span class="cn">NA</span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output-stdout">
+<div class="cell-output cell-output-stdout">
 <pre><code>[1] TRUE
 [1] TRUE
 logical(0)
@@ -489,7 +519,7 @@ logical(0)
 <div class="sourceCode" id="cb7"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fl">1</span><span class="op">/</span><span class="fl">0</span></span>
 <span><span class="fl">0</span><span class="op">/</span><span class="fl">0</span></span>
 <span><span class="fl">1</span><span class="op">/</span><span class="cn">Inf</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output-stdout">
+<div class="cell-output cell-output-stdout">
 <pre><code>[1] Inf
 [1] NaN
 [1] 0</code></pre>
@@ -518,7 +548,7 @@ logical(0)
 <span></span>
 <span><span class="fu"><a href="https://rdrr.io/r/base/mean.html">mean</a></span><span class="op">(</span><span class="va">ages</span><span class="op">)</span></span>
 <span><span class="fu"><a href="https://rdrr.io/r/base/mean.html">mean</a></span><span class="op">(</span><span class="va">ages_nulls</span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output-stdout">
+<div class="cell-output cell-output-stdout">
 <pre><code>[1] 79.97897
 [1] 84.57468</code></pre>
 </div>
@@ -530,7 +560,7 @@ logical(0)
 <div class="cell">
 <div class="sourceCode" id="cb12"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">x</span> <span class="op">&lt;-</span> <span class="st">""</span></span>
 <span><span class="fu"><a href="https://rdrr.io/r/base/NA.html">is.na</a></span><span class="op">(</span><span class="va">x</span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output-stdout">
+<div class="cell-output cell-output-stdout">
 <pre><code>[1] FALSE</code></pre>
 </div>
 </div>
@@ -539,7 +569,7 @@ logical(0)
 <div class="sourceCode" id="cb14"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://dplyr.tidyverse.org">dplyr</a></span><span class="op">)</span></span>
 <span><span class="va">df</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/data.frame.html">data.frame</a></span><span class="op">(</span>x <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="st">"a"</span>, <span class="st">"b"</span>, <span class="st">""</span>, <span class="st">"d"</span><span class="op">)</span><span class="op">)</span></span>
 <span><span class="fu"><a href="https://dplyr.tidyverse.org/reference/summarise_all.html">summarize_all</a></span><span class="op">(</span><span class="va">df</span>, <span class="op">~</span><span class="fu"><a href="https://rdrr.io/r/base/sum.html">sum</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/NA.html">is.na</a></span><span class="op">(</span><span class="va">.</span><span class="op">)</span><span class="op">)</span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output-stdout">
+<div class="cell-output cell-output-stdout">
 <pre><code>  x
 1 0</code></pre>
 </div>
@@ -548,7 +578,7 @@ logical(0)
 <div class="cell">
 <div class="sourceCode" id="cb16"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">x</span> <span class="op">&lt;-</span> <span class="st">""</span></span>
 <span><span class="fu"><a href="https://rdrr.io/r/base/NA.html">is.na</a></span><span class="op">(</span><span class="va">x</span><span class="op">)</span> <span class="op">|</span> <span class="va">x</span> <span class="op">==</span> <span class="st">""</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output-stdout">
+<div class="cell-output cell-output-stdout">
 <pre><code>[1] TRUE</code></pre>
 </div>
 </div>
@@ -559,7 +589,7 @@ could also have an empty string of any length</p>
 <span><span class="fu"><a href="https://rdrr.io/r/base/NA.html">is.na</a></span><span class="op">(</span><span class="va">x</span><span class="op">)</span> <span class="op">|</span> <span class="va">x</span> <span class="op">==</span> <span class="st">""</span></span>
 <span><span class="fu"><a href="https://rdrr.io/r/base/NA.html">is.na</a></span><span class="op">(</span><span class="va">x</span><span class="op">)</span> <span class="op">|</span> <span class="fu"><a href="https://rdrr.io/r/base/trimws.html">trimws</a></span><span class="op">(</span><span class="va">x</span><span class="op">)</span> <span class="op">==</span> <span class="st">""</span></span>
 <span><span class="fu"><a href="https://rdrr.io/r/base/NA.html">is.na</a></span><span class="op">(</span><span class="va">x</span><span class="op">)</span> <span class="op">|</span> <span class="fu"><a href="https://rdrr.io/r/base/nchar.html">nchar</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/trimws.html">trimws</a></span><span class="op">(</span><span class="va">x</span><span class="op">)</span><span class="op">)</span> <span class="op">==</span> <span class="fl">0</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output-stdout">
+<div class="cell-output cell-output-stdout">
 <pre><code>[1] FALSE
 [1] TRUE
 [1] TRUE</code></pre>
@@ -578,7 +608,7 @@ could also have an empty string of any length</p>
 <span>  <span class="op">)</span></span>
 <span></span>
 <span><span class="fu"><a href="https://rdrr.io/r/utils/head.html">head</a></span><span class="op">(</span><span class="va">spend</span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output-stdout">
+<div class="cell-output cell-output-stdout">
 <pre><code>  AMT_SPEND AMT_RETURN
 1        10         NA
 2        20         NA
@@ -591,7 +621,7 @@ could also have an empty string of any length</p>
 <div class="sourceCode" id="cb22"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu"><a href="https://dplyr.tidyverse.org/reference/summarise.html">summarize</a></span><span class="op">(</span><span class="va">spend</span>, </span>
 <span>          AVG_SPEND <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/mean.html">mean</a></span><span class="op">(</span><span class="va">AMT_SPEND</span><span class="op">)</span>,</span>
 <span>          AVG_SPEND_NARM <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/mean.html">mean</a></span><span class="op">(</span><span class="va">AMT_SPEND</span>, na.rm <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output-stdout">
+<div class="cell-output cell-output-stdout">
 <pre><code>  AVG_SPEND AVG_SPEND_NARM
 1        NA             15</code></pre>
 </div>
@@ -613,45 +643,45 @@ could also have an empty string of any length</p>
 <span>    AVG_SPEND_MANUAL <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/sum.html">sum</a></span><span class="op">(</span><span class="va">AMT_SPEND</span>, na.rm <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span> <span class="op">/</span> <span class="fu"><a href="https://dplyr.tidyverse.org/reference/context.html">n</a></span><span class="op">(</span><span class="op">)</span>,</span>
 <span>    AVG_SPEND_RECODE <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/mean.html">mean</a></span><span class="op">(</span><span class="fu"><a href="https://dplyr.tidyverse.org/reference/coalesce.html">coalesce</a></span><span class="op">(</span><span class="va">AMT_SPEND</span>, <span class="fl">0</span><span class="op">)</span><span class="op">)</span></span>
 <span>  <span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output-stdout">
+<div class="cell-output cell-output-stdout">
 <pre><code>  AVG_SPEND_MANUAL AVG_SPEND_RECODE
 1               10               10</code></pre>
 </div>
 </div>
 <p>This is all well and good if we could just accept that the behaviors above are simply how nulls work, but further complexity comes as we see that there is no industry standard across tools. For example, as the SQL code below shows, SQL’s <code>avg()</code> function behaves more like R’s <code><a href="https://rdrr.io/r/base/mean.html">mean()</a></code> <em>with</em> the <code>na.rm = TRUE</code> option set (whereas, you may recall that R’s <code><a href="https://rdrr.io/r/base/mean.html">mean()</a></code> behaves with <code>na.rm = FALSE</code> by default). That is, the default behavior of SQL is to only operate on the valid and available values. The result of this default may mean that it is less obvious when our dataset has null values. SQL, unlike R, does not ask for “permission” to drop out nulls; instead, it unilaterally makes a decision how to handle these variables.</p>
 <div class="cell" data-output.var="null_col">
-<div class="sourceCode" id="cb26"><pre class="sourceCode sql cell-code code-with-copy"><code class="sourceCode sql"><span id="cb26-1"><a href="#cb26-1" aria-hidden="true" tabindex="-1"></a><span class="kw">SELECT</span> </span>
+<div class="sourceCode cell-code" id="cb26"><pre class="sourceCode sql code-with-copy"><code class="sourceCode sql"><span id="cb26-1"><a href="#cb26-1" aria-hidden="true" tabindex="-1"></a><span class="kw">SELECT</span> </span>
 <span id="cb26-2"><a href="#cb26-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">avg</span>(amt_spend) <span class="kw">as</span> AVG_SPEND</span>
 <span id="cb26-3"><a href="#cb26-3" aria-hidden="true" tabindex="-1"></a><span class="kw">FROM</span> spend</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <div class="cell">
-<div class="cell-output-stdout">
+<div class="cell-output cell-output-stdout">
 <pre><code>  AVG_SPEND
 1        15</code></pre>
 </div>
 </div>
 <p>However, this is not to suggest that null values cannot also be “destructive” in SQL (that is, returning null). While aggregation functions (which compute over the <em>rows/records</em>) like <code><a href="https://rdrr.io/r/base/sum.html">sum()</a></code> and <code>avg()</code> drop nulls, operators like <code>+</code> and <code>-</code> (which compute <em>across columns/variables</em> in the <em>same row/record</em>) do not exhibit the same behavior. Consider, for example, if we wish to calculate the average net purchase amount (purchases minus returns) instead of the gross (total) purchase amount.</p>
 <div class="cell" data-output.var="null_cols_0">
-<div class="sourceCode" id="cb28"><pre class="sourceCode sql cell-code code-with-copy"><code class="sourceCode sql"><span id="cb28-1"><a href="#cb28-1" aria-hidden="true" tabindex="-1"></a><span class="kw">SELECT</span> </span>
+<div class="sourceCode cell-code" id="cb28"><pre class="sourceCode sql code-with-copy"><code class="sourceCode sql"><span id="cb28-1"><a href="#cb28-1" aria-hidden="true" tabindex="-1"></a><span class="kw">SELECT</span> </span>
 <span id="cb28-2"><a href="#cb28-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">avg</span>(amt_spend <span class="op">-</span> amt_return) <span class="kw">as</span> AVG_SPEND_NET</span>
 <span id="cb28-3"><a href="#cb28-3" aria-hidden="true" tabindex="-1"></a><span class="kw">FROM</span> spend</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <div class="cell">
-<div class="cell-output-stdout">
+<div class="cell-output cell-output-stdout">
 <pre><code>  AVG_SPEND_NET
 1            NA</code></pre>
 </div>
 </div>
 <p>Despite what we learned above about SQL’s <code>avg()</code> function, the query above returns only a null value. What has happened? In our <code>spend</code> dataset, the <code>amt_return</code> column is completely null (representing no return purchases). Because the subtraction occurs before the average is taken, subtracting null values in the <code>amt_return</code> variable from valid numbers in <code>amt_spend</code> variable creates a new variable of all null values. This new variable, which is already all null, is passed to the <code>avg()</code> function. This process is shown step-by-step below.</p>
 <div class="cell" data-output.var="null_cols">
-<div class="sourceCode" id="cb30"><pre class="sourceCode sql cell-code code-with-copy"><code class="sourceCode sql"><span id="cb30-1"><a href="#cb30-1" aria-hidden="true" tabindex="-1"></a><span class="kw">SELECT</span></span>
+<div class="sourceCode cell-code" id="cb30"><pre class="sourceCode sql code-with-copy"><code class="sourceCode sql"><span id="cb30-1"><a href="#cb30-1" aria-hidden="true" tabindex="-1"></a><span class="kw">SELECT</span></span>
 <span id="cb30-2"><a href="#cb30-2" aria-hidden="true" tabindex="-1"></a>  amt_spend, </span>
 <span id="cb30-3"><a href="#cb30-3" aria-hidden="true" tabindex="-1"></a>  amt_return, </span>
 <span id="cb30-4"><a href="#cb30-4" aria-hidden="true" tabindex="-1"></a>  amt_spend<span class="op">-</span>amt_return </span>
 <span id="cb30-5"><a href="#cb30-5" aria-hidden="true" tabindex="-1"></a><span class="kw">FROM</span> spend</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <div class="cell">
-<div class="cell-output-stdout">
+<div class="cell-output cell-output-stdout">
 <pre><code>  AMT_SPEND AMT_RETURN amt_spend-amt_return
 1        10         NA                   NA
 2        20         NA                   NA
@@ -666,20 +696,20 @@ could also have an empty string of any length</p>
 <div class="sourceCode" id="cb32"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="cn">NA</span> <span class="op">==</span> <span class="fl">3</span> </span>
 <span><span class="cn">NA</span> <span class="op">&gt;</span> <span class="fl">10</span> </span>
 <span><span class="cn">NA</span> <span class="op">==</span> <span class="cn">NA</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output-stdout">
+<div class="cell-output cell-output-stdout">
 <pre><code>[1] NA
 [1] NA
 [1] NA</code></pre>
 </div>
 </div>
 <div class="cell" data-output.var="null_compare">
-<div class="sourceCode" id="cb34"><pre class="sourceCode sql cell-code code-with-copy"><code class="sourceCode sql"><span id="cb34-1"><a href="#cb34-1" aria-hidden="true" tabindex="-1"></a><span class="kw">SELECT</span></span>
+<div class="sourceCode cell-code" id="cb34"><pre class="sourceCode sql code-with-copy"><code class="sourceCode sql"><span id="cb34-1"><a href="#cb34-1" aria-hidden="true" tabindex="-1"></a><span class="kw">SELECT</span></span>
 <span id="cb34-2"><a href="#cb34-2" aria-hidden="true" tabindex="-1"></a>  (<span class="kw">NULL</span> <span class="op">=</span> <span class="dv">3</span>) <span class="kw">as</span> NULL_EQ_NUM,</span>
 <span id="cb34-3"><a href="#cb34-3" aria-hidden="true" tabindex="-1"></a>  (<span class="kw">NULL</span> <span class="op">&gt;</span> <span class="dv">10</span>) <span class="kw">as</span> NULL_GT_NUM,</span>
 <span id="cb34-4"><a href="#cb34-4" aria-hidden="true" tabindex="-1"></a>  (<span class="kw">NULL</span> <span class="op">=</span> <span class="kw">NULL</span>) <span class="kw">as</span> NULL_EQ_NULL</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <div class="cell">
-<div class="cell-output-stdout">
+<div class="cell-output cell-output-stdout">
 <pre><code>  NULL_EQ_NUM NULL_GT_NUM NULL_EQ_NULL
 1          NA          NA           NA</code></pre>
 </div>
@@ -699,35 +729,35 @@ could also have an empty string of any length</p>
 <p>However, if we examine the resulting datasets, we see that <em>neither</em> contains the third record which had a null value for the <code>AMT_SPEND</code> variable.</p>
 <div class="cell">
 <div class="sourceCode" id="cb37"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">spend_lt20</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output-stdout">
+<div class="cell-output cell-output-stdout">
 <pre><code>  AMT_SPEND AMT_RETURN
 1        10         NA</code></pre>
 </div>
 <div class="sourceCode" id="cb39"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">spend_gte20</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output-stdout">
+<div class="cell-output cell-output-stdout">
 <pre><code>  AMT_SPEND AMT_RETURN
 1        20         NA</code></pre>
 </div>
 </div>
 <p>The same situation results in SQL.</p>
 <div class="cell" data-output.var="sql_spend_lt20">
-<div class="sourceCode" id="cb41"><pre class="sourceCode sql cell-code code-with-copy"><code class="sourceCode sql"><span id="cb41-1"><a href="#cb41-1" aria-hidden="true" tabindex="-1"></a><span class="kw">SELECT</span> <span class="op">*</span></span>
+<div class="sourceCode cell-code" id="cb41"><pre class="sourceCode sql code-with-copy"><code class="sourceCode sql"><span id="cb41-1"><a href="#cb41-1" aria-hidden="true" tabindex="-1"></a><span class="kw">SELECT</span> <span class="op">*</span></span>
 <span id="cb41-2"><a href="#cb41-2" aria-hidden="true" tabindex="-1"></a><span class="kw">FROM</span> spend</span>
 <span id="cb41-3"><a href="#cb41-3" aria-hidden="true" tabindex="-1"></a><span class="kw">WHERE</span> AMT_SPEND <span class="op">&lt;</span> <span class="dv">20</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <div class="cell">
-<div class="cell-output-stdout">
+<div class="cell-output cell-output-stdout">
 <pre><code>  AMT_SPEND AMT_RETURN
 1        10         NA</code></pre>
 </div>
 </div>
 <div class="cell" data-output.var="sql_spend_gte20">
-<div class="sourceCode" id="cb43"><pre class="sourceCode sql cell-code code-with-copy"><code class="sourceCode sql"><span id="cb43-1"><a href="#cb43-1" aria-hidden="true" tabindex="-1"></a><span class="kw">SELECT</span> <span class="op">*</span></span>
+<div class="sourceCode cell-code" id="cb43"><pre class="sourceCode sql code-with-copy"><code class="sourceCode sql"><span id="cb43-1"><a href="#cb43-1" aria-hidden="true" tabindex="-1"></a><span class="kw">SELECT</span> <span class="op">*</span></span>
 <span id="cb43-2"><a href="#cb43-2" aria-hidden="true" tabindex="-1"></a><span class="kw">FROM</span> spend</span>
 <span id="cb43-3"><a href="#cb43-3" aria-hidden="true" tabindex="-1"></a><span class="kw">WHERE</span> AMT_SPEND <span class="op">&gt;=</span> <span class="dv">20</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <div class="cell">
-<div class="cell-output-stdout">
+<div class="cell-output cell-output-stdout">
 <pre><code>  AMT_SPEND AMT_RETURN
 1        20         NA</code></pre>
 </div>
@@ -735,7 +765,7 @@ could also have an empty string of any length</p>
 <p>This is a direct result of the fact that nulls cannot be compared for equality any inequality. We can think of data filtering as a two-step process: first evaluate whether the condition is TRUE or FALSE, then return only the records for which the condition holds true. When we conduct the more manual process of filtering step-by-step, we see that the null value of <code>AMT_SPEND</code> does not get a “truth value” when compared with a number. Thus, it is not contained in either “truth value” subset.</p>
 <div class="cell">
 <div class="sourceCode" id="cb45"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu"><a href="https://dplyr.tidyverse.org/reference/mutate.html">mutate</a></span><span class="op">(</span><span class="va">spend</span>, is_lt20 <span class="op">=</span> <span class="op">(</span><span class="va">AMT_SPEND</span> <span class="op">&lt;</span> <span class="fl">20</span><span class="op">)</span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output-stdout">
+<div class="cell-output cell-output-stdout">
 <pre><code>  AMT_SPEND AMT_RETURN is_lt20
 1        10         NA    TRUE
 2        20         NA   FALSE
@@ -750,7 +780,7 @@ could also have an empty string of any length</p>
 <div class="cell">
 <div class="sourceCode" id="cb47"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">bday</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/data.frame.html">data.frame</a></span><span class="op">(</span>NAME <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="st">'Anne'</span>, <span class="st">'Bob'</span><span class="op">)</span>, BIRTHDAY <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="st">'2000-01-01'</span>, <span class="cn">NA</span><span class="op">)</span><span class="op">)</span></span>
 <span><span class="va">bday</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output-stdout">
+<div class="cell-output cell-output-stdout">
 <pre><code>  NAME   BIRTHDAY
 1 Anne 2000-01-01
 2  Bob       &lt;NA&gt;</code></pre>
@@ -758,7 +788,7 @@ could also have an empty string of any length</p>
 </div>
 <p>In SQL, if we try to join this table, the records in row 1 will match because <code>'Anne' == 'Anne'</code> and <code>'2000-01-01' == '2000-01-01'</code>. However, poor Bob’s record is eliminated because his birth date is logged as null, and <code>NA == NA</code> is false.</p>
 <div class="cell" data-output.var="bday_join">
-<div class="sourceCode" id="cb49"><pre class="sourceCode sql cell-code code-with-copy"><code class="sourceCode sql"><span id="cb49-1"><a href="#cb49-1" aria-hidden="true" tabindex="-1"></a><span class="kw">SELECT</span> a.<span class="op">*</span></span>
+<div class="sourceCode cell-code" id="cb49"><pre class="sourceCode sql code-with-copy"><code class="sourceCode sql"><span id="cb49-1"><a href="#cb49-1" aria-hidden="true" tabindex="-1"></a><span class="kw">SELECT</span> a.<span class="op">*</span></span>
 <span id="cb49-2"><a href="#cb49-2" aria-hidden="true" tabindex="-1"></a><span class="kw">FROM</span></span>
 <span id="cb49-3"><a href="#cb49-3" aria-hidden="true" tabindex="-1"></a>  bday <span class="kw">as</span> a</span>
 <span id="cb49-4"><a href="#cb49-4" aria-hidden="true" tabindex="-1"></a>  <span class="kw">INNER</span> <span class="kw">JOIN</span></span>
@@ -768,7 +798,7 @@ could also have an empty string of any length</p>
 <span id="cb49-8"><a href="#cb49-8" aria-hidden="true" tabindex="-1"></a>  a.BIRTHDAY <span class="op">=</span> b.BIRTHDAY</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <div class="cell">
-<div class="cell-output-stdout">
+<div class="cell-output cell-output-stdout">
 <pre><code>  NAME   BIRTHDAY
 1 Anne 2000-01-01</code></pre>
 </div>
@@ -776,7 +806,7 @@ could also have an empty string of any length</p>
 <p>In contrast, R’s <code><a href="https://dplyr.tidyverse.org/reference/mutate-joins.html">dplyr::inner_join()</a></code> function will not do this by default. This function lets us specifically control how nulls are matches with the <code>na_matches</code> argument, with a default option to match on <code>NA</code> values. (You may read more about the argument by typing <code><a href="https://dplyr.tidyverse.org/reference/mutate-joins.html">?dplyr::inner_join</a></code> in the R console to pull up the documentation.)</p>
 <div class="cell">
 <div class="sourceCode" id="cb51"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu"><a href="https://dplyr.tidyverse.org/reference/mutate-joins.html">inner_join</a></span><span class="op">(</span><span class="va">bday</span>, <span class="va">bday</span>, by <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="st">'NAME'</span>, <span class="st">'BIRTHDAY'</span><span class="op">)</span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output-stdout">
+<div class="cell-output cell-output-stdout">
 <pre><code>  NAME   BIRTHDAY
 1 Anne 2000-01-01
 2  Bob       &lt;NA&gt;</code></pre>
@@ -788,7 +818,7 @@ could also have an empty string of any length</p>
 <p>A common task in data analysis is to aggregate results by subgroup. For example, we might want to summarize how many customers (rows/records) spent more or less than $10. To discern this, we might create a categorical variable for high versus low purchase amounts, group by this variable and count.</p>
 <p>The psuedocode would read something like this:</p>
 <div class="cell">
-<div class="sourceCode" id="cb53"><pre class="sourceCode r cell-code code-with-copy"><code class="sourceCode r"><span id="cb53-1"><a href="#cb53-1" aria-hidden="true" tabindex="-1"></a>data <span class="sc">%&gt;%</span></span>
+<div class="sourceCode cell-code" id="cb53"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb53-1"><a href="#cb53-1" aria-hidden="true" tabindex="-1"></a>data <span class="sc">%&gt;%</span></span>
 <span id="cb53-2"><a href="#cb53-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">HIGH_LOW =</span> <span class="sc">&lt;</span><span class="er">&lt;</span> transform AMT_SPEND <span class="sc">&gt;</span><span class="er">&gt;</span>) <span class="sc">%&gt;%</span></span>
 <span id="cb53-3"><a href="#cb53-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">group_by</span>(HIGH_LOW) <span class="sc">%&gt;%</span></span>
 <span id="cb53-4"><a href="#cb53-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">count</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
@@ -802,7 +832,7 @@ could also have an empty string of any length</p>
 <span>    <span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span></span>
 <span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/group_by.html">group_by</a></span><span class="op">(</span><span class="va">HIGH_LOW</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span> </span>
 <span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/count.html">count</a></span><span class="op">(</span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output-stdout">
+<div class="cell-output cell-output-stdout">
 <pre><code># A tibble: 2 x 2
 # Groups:   HIGH_LOW [2]
   HIGH_LOW     n
@@ -821,7 +851,7 @@ could also have an empty string of any length</p>
 <span>    <span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span></span>
 <span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/group_by.html">group_by</a></span><span class="op">(</span><span class="va">HIGH_LOW</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span> </span>
 <span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/count.html">count</a></span><span class="op">(</span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output-stdout">
+<div class="cell-output cell-output-stdout">
 <pre><code># A tibble: 3 x 2
 # Groups:   HIGH_LOW [3]
   HIGH_LOW     n
@@ -837,11 +867,11 @@ could also have an empty string of any length</p>
 <p>Much like the different versions of nulls that we met in the last section, logical data types use reserved keywords to represent <code>TRUE</code> and <code>FALSE</code>. (The exact formats of logical reserved keywords vary by language. R and SQL use <code>TRUE</code> and <code>FALSE</code> and python uses <code>TRUE</code> and <code>FALSE</code>.) This means that these names function like a number or a letter which intrinsically hold one specific value and cannot take on a different value besides their own.</p>
 <div class="cell">
 <div class="sourceCode" id="cb58"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="cn">TRUE</span> <span class="op">=</span> <span class="fl">5</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output-error">
+<div class="cell-output cell-output-error">
 <pre><code>Error in TRUE = 5: invalid (do_set) left-hand side to assignment</code></pre>
 </div>
 <div class="sourceCode" id="cb60"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fl">2</span> <span class="op">=</span> <span class="fl">5</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output-error">
+<div class="cell-output cell-output-error">
 <pre><code>Error in 2 = 5: invalid (do_set) left-hand side to assignment</code></pre>
 </div>
 </div>
@@ -849,7 +879,7 @@ could also have an empty string of any length</p>
 <div class="cell">
 <div class="sourceCode" id="cb62"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/base/numeric.html">as.numeric</a></span><span class="op">(</span><span class="cn">TRUE</span><span class="op">)</span></span>
 <span><span class="fu"><a href="https://rdrr.io/r/base/numeric.html">as.numeric</a></span><span class="op">(</span><span class="cn">FALSE</span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output-stdout">
+<div class="cell-output cell-output-stdout">
 <pre><code>[1] 1
 [1] 0</code></pre>
 </div>
@@ -861,7 +891,7 @@ could also have an empty string of any length</p>
 <span><span class="cn">FALSE</span> <span class="op">&gt;</span> <span class="op">-</span><span class="fl">1</span></span>
 <span><span class="cn">TRUE</span> <span class="op">+</span> <span class="fl">1</span></span>
 <span><span class="cn">TRUE</span> <span class="op">*</span> <span class="fl">5</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output-stdout">
+<div class="cell-output cell-output-stdout">
 <pre><code>[1] TRUE
 [1] TRUE
 [1] TRUE
@@ -871,7 +901,7 @@ could also have an empty string of any length</p>
 </div>
 <p>similar in SQL</p>
 <div class="cell">
-<div class="sourceCode" id="cb66"><pre class="sourceCode sql cell-code code-with-copy"><code class="sourceCode sql"><span id="cb66-1"><a href="#cb66-1" aria-hidden="true" tabindex="-1"></a><span class="kw">select</span></span>
+<div class="sourceCode cell-code" id="cb66"><pre class="sourceCode sql code-with-copy"><code class="sourceCode sql"><span id="cb66-1"><a href="#cb66-1" aria-hidden="true" tabindex="-1"></a><span class="kw">select</span></span>
 <span id="cb66-2"><a href="#cb66-2" aria-hidden="true" tabindex="-1"></a>  <span class="kw">TRUE</span> <span class="op">&gt;</span> <span class="kw">FALSE</span> <span class="kw">as</span> a,</span>
 <span id="cb66-3"><a href="#cb66-3" aria-hidden="true" tabindex="-1"></a>  <span class="kw">TRUE</span> <span class="op">&lt;</span> <span class="dv">5</span> <span class="kw">as</span> b,</span>
 <span id="cb66-4"><a href="#cb66-4" aria-hidden="true" tabindex="-1"></a>  <span class="kw">FALSE</span> <span class="op">&gt;</span> <span class="op">-</span><span class="dv">1</span> <span class="kw">as</span> c,</span>
@@ -907,7 +937,7 @@ could also have an empty string of any length</p>
 <span><span class="kw">if</span> <span class="op">(</span><span class="cn">F</span><span class="op">)</span> <span class="op">{</span><span class="st">"Hello"</span><span class="op">}</span> <span class="kw">else</span> <span class="op">{</span><span class="st">"Goodbye"</span><span class="op">}</span></span>
 <span><span class="cn">T</span> <span class="op">=</span> <span class="fl">0</span></span>
 <span><span class="kw">if</span> <span class="op">(</span><span class="cn">T</span><span class="op">)</span> <span class="op">{</span><span class="st">"Hello"</span><span class="op">}</span> <span class="kw">else</span> <span class="op">{</span><span class="st">"Goodbye"</span><span class="op">}</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output-stdout">
+<div class="cell-output cell-output-stdout">
 <pre><code>[1] "Hello"
 [1] "Goodbye"
 [1] "Goodbye"</code></pre>
@@ -923,10 +953,10 @@ could also have an empty string of any length</p>
 <span><span class="cn">TRUE</span> <span class="op">==</span> <span class="st">"True"</span></span>
 <span><span class="cn">TRUE</span> <span class="op">*</span> <span class="fl">5</span></span>
 <span><span class="st">"TRUE"</span> <span class="op">*</span> <span class="fl">5</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output-error">
+<div class="cell-output cell-output-error">
 <pre><code>Error in "TRUE" * 5: non-numeric argument to binary operator</code></pre>
 </div>
-<div class="cell-output-stdout">
+<div class="cell-output cell-output-stdout">
 <pre><code>[1] TRUE
 [1] TRUE
 [1] FALSE
@@ -935,25 +965,25 @@ could also have an empty string of any length</p>
 </div>
 <p>In contrast neither SQL not python honor the string forms of their respective logical reserved keywords at all.</p>
 <div class="cell" data-output.var="bool_math">
-<div class="sourceCode" id="cb72"><pre class="sourceCode sql cell-code code-with-copy"><code class="sourceCode sql"><span id="cb72-1"><a href="#cb72-1" aria-hidden="true" tabindex="-1"></a><span class="kw">select</span> </span>
+<div class="sourceCode cell-code" id="cb72"><pre class="sourceCode sql code-with-copy"><code class="sourceCode sql"><span id="cb72-1"><a href="#cb72-1" aria-hidden="true" tabindex="-1"></a><span class="kw">select</span> </span>
 <span id="cb72-2"><a href="#cb72-2" aria-hidden="true" tabindex="-1"></a>  (<span class="kw">TRUE</span> <span class="op">==</span> <span class="dv">1</span>) <span class="kw">as</span> is_int_true,</span>
 <span id="cb72-3"><a href="#cb72-3" aria-hidden="true" tabindex="-1"></a>  (<span class="kw">TRUE</span> <span class="op">==</span> <span class="st">'TRUE'</span>) <span class="kw">as</span> is_char_true,</span>
 <span id="cb72-4"><a href="#cb72-4" aria-hidden="true" tabindex="-1"></a>  <span class="kw">TRUE</span><span class="op">*</span><span class="dv">5</span> <span class="kw">as</span> true_times_five,</span>
 <span id="cb72-5"><a href="#cb72-5" aria-hidden="true" tabindex="-1"></a>  <span class="st">'TRUE'</span><span class="op">*</span><span class="dv">5</span> <span class="kw">as</span> true_str_time_five</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <div class="cell">
-<div class="cell-output-stdout">
+<div class="cell-output cell-output-stdout">
 <pre><code>  is_int_true is_char_true true_times_five true_str_time_five
 1           1            0               5                  0</code></pre>
 </div>
 </div>
 <div class="cell">
-<div class="sourceCode" id="cb74"><pre class="sourceCode python cell-code code-with-copy"><code class="sourceCode python"><span id="cb74-1"><a href="#cb74-1" aria-hidden="true" tabindex="-1"></a><span class="va">True</span> <span class="op">==</span> <span class="dv">1</span></span>
+<div class="sourceCode cell-code" id="cb74"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb74-1"><a href="#cb74-1" aria-hidden="true" tabindex="-1"></a><span class="va">True</span> <span class="op">==</span> <span class="dv">1</span></span>
 <span id="cb74-2"><a href="#cb74-2" aria-hidden="true" tabindex="-1"></a><span class="va">True</span> <span class="op">==</span> <span class="st">"True"</span></span>
 <span id="cb74-3"><a href="#cb74-3" aria-hidden="true" tabindex="-1"></a><span class="va">True</span> <span class="op">==</span> <span class="st">"TRUE"</span></span>
 <span id="cb74-4"><a href="#cb74-4" aria-hidden="true" tabindex="-1"></a><span class="va">True</span> <span class="op">*</span> <span class="dv">5</span></span>
 <span id="cb74-5"><a href="#cb74-5" aria-hidden="true" tabindex="-1"></a><span class="co">"True"</span> <span class="op">*</span> <span class="dv">5</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output-stdout">
+<div class="cell-output cell-output-stdout">
 <pre><code>True
 False
 False
@@ -973,14 +1003,14 @@ False
 <p>By simple inspection, the logical and string representations in particular look superficially similar and yet they will behave differently.</p>
 <div class="cell">
 <div class="sourceCode" id="cb77"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/utils/head.html">head</a></span><span class="op">(</span><span class="va">df1</span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output-stdout">
+<div class="cell-output cell-output-stdout">
 <pre><code>  ID  IND X
 1  1 TRUE 1
 2  2 TRUE 2
 3  3 TRUE 3</code></pre>
 </div>
 <div class="sourceCode" id="cb79"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/utils/head.html">head</a></span><span class="op">(</span><span class="va">df2</span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output-stdout">
+<div class="cell-output cell-output-stdout">
 <pre><code>  ID  IND  Y
 1  1 TRUE 11
 2  2 TRUE 12
@@ -993,16 +1023,17 @@ False
 <div class="cell">
 <div class="sourceCode" id="cb81"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu"><a href="https://dplyr.tidyverse.org/reference/filter.html">filter</a></span><span class="op">(</span><span class="va">df1</span>, <span class="va">IND</span><span class="op">)</span></span>
 <span><span class="fu"><a href="https://dplyr.tidyverse.org/reference/filter.html">filter</a></span><span class="op">(</span><span class="va">df2</span>, <span class="va">IND</span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output-error">
-<pre><code>Error: Problem with `filter()` input `..1`.
+<div class="cell-output cell-output-error">
+<pre><code>Error:
+! Problem with `filter()` input `..1`.
 i Input `..1` is `IND`.
 x Input `..1` must be a logical vector, not a character.</code></pre>
 </div>
 <div class="sourceCode" id="cb83"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/base/subset.html">subset</a></span><span class="op">(</span><span class="va">df2</span>, <span class="va">df2</span><span class="op">$</span><span class="va">IND</span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output-error">
+<div class="cell-output cell-output-error">
 <pre><code>Error in subset.data.frame(df2, df2$IND): 'subset' must be logical</code></pre>
 </div>
-<div class="cell-output-stdout">
+<div class="cell-output cell-output-stdout">
 <pre><code>  ID  IND X
 1  1 TRUE 1
 2  2 TRUE 2
@@ -1012,7 +1043,7 @@ x Input `..1` must be a logical vector, not a character.</code></pre>
 <div class="cell">
 <div class="sourceCode" id="cb86"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu"><a href="https://dplyr.tidyverse.org/reference/filter.html">filter</a></span><span class="op">(</span><span class="va">df1</span>, <span class="fu"><a href="https://rdrr.io/r/base/Logic.html">isTRUE</a></span><span class="op">(</span><span class="va">IND</span><span class="op">)</span><span class="op">)</span></span>
 <span><span class="fu"><a href="https://dplyr.tidyverse.org/reference/filter.html">filter</a></span><span class="op">(</span><span class="va">df2</span>, <span class="fu"><a href="https://rdrr.io/r/base/Logic.html">isTRUE</a></span><span class="op">(</span><span class="va">IND</span><span class="op">)</span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output-stdout">
+<div class="cell-output cell-output-stdout">
 <pre><code>[1] ID  IND X  
 &lt;0 rows&gt; (or 0-length row.names)
 [1] ID  IND Y  
@@ -1021,20 +1052,21 @@ x Input `..1` must be a logical vector, not a character.</code></pre>
 </div>
 <div class="cell">
 <div class="sourceCode" id="cb88"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu"><a href="https://dplyr.tidyverse.org/reference/filter.html">filter</a></span><span class="op">(</span><span class="va">df2</span>, <span class="fu"><a href="https://rdrr.io/r/base/Logic.html">isTRUE</a></span><span class="op">(</span><span class="va">IND</span><span class="op">)</span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output-stdout">
+<div class="cell-output cell-output-stdout">
 <pre><code>[1] ID  IND Y  
 &lt;0 rows&gt; (or 0-length row.names)</code></pre>
 </div>
 <div class="sourceCode" id="cb90"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu"><a href="https://dplyr.tidyverse.org/reference/mutate-joins.html">left_join</a></span><span class="op">(</span><span class="va">df1</span>, <span class="va">df2</span>, by <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="st">"ID"</span>, <span class="st">"IND"</span><span class="op">)</span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output-error">
-<pre><code>Error: Can't join on `x$IND` x `y$IND` because of incompatible types.
+<div class="cell-output cell-output-error">
+<pre><code>Error:
+! Can't join on `x$IND` x `y$IND` because of incompatible types.
 i `x$IND` is of type &lt;logical&gt;&gt;.
 i `y$IND` is of type &lt;character&gt;&gt;.</code></pre>
 </div>
 </div>
 <div class="cell">
 <div class="sourceCode" id="cb92"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/base/merge.html">merge</a></span><span class="op">(</span><span class="va">df1</span>, <span class="va">df2</span>, by.x <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="st">"ID"</span>, <span class="st">"IND"</span><span class="op">)</span>, by.y <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="st">"ID"</span>, <span class="st">"IND"</span><span class="op">)</span>, all.x <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output-stdout">
+<div class="cell-output cell-output-stdout">
 <pre><code>  ID  IND X  Y
 1  1 TRUE 1 11
 2  2 TRUE 2 12
@@ -1045,7 +1077,7 @@ i `y$IND` is of type &lt;character&gt;&gt;.</code></pre>
 
 </div>
 <div class="cell">
-<div class="sourceCode" id="cb94"><pre class="sourceCode sql cell-code code-with-copy"><code class="sourceCode sql"><span id="cb94-1"><a href="#cb94-1" aria-hidden="true" tabindex="-1"></a><span class="kw">select</span> df1.<span class="op">*</span>, df2.<span class="op">*</span></span>
+<div class="sourceCode cell-code" id="cb94"><pre class="sourceCode sql code-with-copy"><code class="sourceCode sql"><span id="cb94-1"><a href="#cb94-1" aria-hidden="true" tabindex="-1"></a><span class="kw">select</span> df1.<span class="op">*</span>, df2.<span class="op">*</span></span>
 <span id="cb94-2"><a href="#cb94-2" aria-hidden="true" tabindex="-1"></a><span class="kw">from</span> </span>
 <span id="cb94-3"><a href="#cb94-3" aria-hidden="true" tabindex="-1"></a> df1 </span>
 <span id="cb94-4"><a href="#cb94-4" aria-hidden="true" tabindex="-1"></a> <span class="kw">left</span> <span class="kw">join</span></span>
@@ -1094,7 +1126,7 @@ i `y$IND` is of type &lt;character&gt;&gt;.</code></pre>
 </div>
 </div>
 <div class="cell">
-<div class="sourceCode" id="cb95"><pre class="sourceCode python cell-code code-with-copy"><code class="sourceCode python"><span id="cb95-1"><a href="#cb95-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> pandas <span class="im">as</span> pd </span>
+<div class="sourceCode cell-code" id="cb95"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb95-1"><a href="#cb95-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> pandas <span class="im">as</span> pd </span>
 <span id="cb95-2"><a href="#cb95-2" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb95-3"><a href="#cb95-3" aria-hidden="true" tabindex="-1"></a>data1 <span class="op">=</span> {<span class="st">'ID'</span>: <span class="bu">list</span>(<span class="bu">range</span>(<span class="dv">1</span>, <span class="dv">4</span>)),</span>
 <span id="cb95-4"><a href="#cb95-4" aria-hidden="true" tabindex="-1"></a>        <span class="st">'IND'</span>: [<span class="va">True</span>] <span class="op">*</span> <span class="dv">3</span>,</span>
@@ -1109,7 +1141,7 @@ i `y$IND` is of type &lt;character&gt;&gt;.</code></pre>
 <span id="cb95-13"><a href="#cb95-13" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb95-14"><a href="#cb95-14" aria-hidden="true" tabindex="-1"></a>df1</span>
 <span id="cb95-15"><a href="#cb95-15" aria-hidden="true" tabindex="-1"></a>df2</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output-stdout">
+<div class="cell-output cell-output-stdout">
 <pre><code>   ID   IND  X
 0   1  True  1
 1   2  True  2
@@ -1123,14 +1155,17 @@ i `y$IND` is of type &lt;character&gt;&gt;.</code></pre>
 </div>
 </div>
 <div class="cell">
-<div class="sourceCode" id="cb97"><pre class="sourceCode python cell-code code-with-copy"><code class="sourceCode python"><span id="cb97-1"><a href="#cb97-1" aria-hidden="true" tabindex="-1"></a>pd.merge(left <span class="op">=</span> df1, right <span class="op">=</span> df2, how <span class="op">=</span> <span class="st">"left"</span>, on <span class="op">=</span> [<span class="st">'ID'</span>, <span class="st">'IND'</span>])</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output-stdout">
+<div class="sourceCode cell-code" id="cb97"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb97-1"><a href="#cb97-1" aria-hidden="true" tabindex="-1"></a>pd.merge(left <span class="op">=</span> df1, right <span class="op">=</span> df2, how <span class="op">=</span> <span class="st">"left"</span>, on <span class="op">=</span> [<span class="st">'ID'</span>, <span class="st">'IND'</span>])</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
 <pre><code>   ID   IND  X   Y
 0   1  True  1 NaN
 1   2  True  2 NaN
 2   3  True  3 NaN</code></pre>
 </div>
 </div>
+</section><section id="logical-encoding-pandas-case-study" class="level3" data-number="3.3.3"><h3 data-number="3.3.3" class="anchored" data-anchor-id="logical-encoding-pandas-case-study">
+<span class="header-section-number">3.3.3</span> Logical Encoding (<code>pandas</code> case study)</h3>
+<p>https://twitter.com/pandas_dev/status/1579886907286491137?s=20&amp;t=GXV9OMXUcJiPWyES6CUKoA</p>
 </section></section><section id="numbers-todo" class="level2" data-number="3.4"><h2 data-number="3.4" class="anchored" data-anchor-id="numbers-todo">
 <span class="header-section-number">3.4</span> Numbers (TODO)</h2>
 <section id="integer-division" class="level3" data-number="3.4.1"><h3 data-number="3.4.1" class="anchored" data-anchor-id="integer-division">
@@ -1138,29 +1173,29 @@ i `y$IND` is of type &lt;character&gt;&gt;.</code></pre>
 <p>In R (mostly what we’d expect)</p>
 <div class="cell">
 <div class="sourceCode" id="cb99"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fl">1</span><span class="op">/</span><span class="fl">2</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output-stdout">
+<div class="cell-output cell-output-stdout">
 <pre><code>[1] 0.5</code></pre>
 </div>
 </div>
 <div class="cell">
 <div class="sourceCode" id="cb101"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/base/ifelse.html">ifelse</a></span><span class="op">(</span><span class="fl">3</span><span class="op">/</span><span class="fl">4</span> <span class="op">&gt;</span> <span class="fl">0.5</span>, <span class="st">'High'</span>, <span class="st">'Low'</span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output-stdout">
+<div class="cell-output cell-output-stdout">
 <pre><code>[1] "High"</code></pre>
 </div>
 </div>
 <p>In some SQL dialect SQL (SQLite shown. “Modern” interfaces like Snowflake and BigQuery don’t do this)</p>
 <div class="cell" data-output.var="one_div_two">
-<div class="sourceCode" id="cb103"><pre class="sourceCode sql cell-code code-with-copy"><code class="sourceCode sql"><span id="cb103-1"><a href="#cb103-1" aria-hidden="true" tabindex="-1"></a><span class="kw">SELECT</span> (<span class="dv">1</span><span class="op">/</span><span class="dv">2</span>) <span class="kw">as</span> one_div_two</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb103"><pre class="sourceCode sql code-with-copy"><code class="sourceCode sql"><span id="cb103-1"><a href="#cb103-1" aria-hidden="true" tabindex="-1"></a><span class="kw">SELECT</span> (<span class="dv">1</span><span class="op">/</span><span class="dv">2</span>) <span class="kw">as</span> one_div_two</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <div class="cell">
-<div class="cell-output-stdout">
+<div class="cell-output cell-output-stdout">
 <pre><code>  one_div_two
 1           0</code></pre>
 </div>
 </div>
 <p>This rounding can get masked when we are recoding or doing subsequent calculations</p>
 <div class="cell" data-output.var="high_low">
-<div class="sourceCode" id="cb105"><pre class="sourceCode sql cell-code code-with-copy"><code class="sourceCode sql"><span id="cb105-1"><a href="#cb105-1" aria-hidden="true" tabindex="-1"></a><span class="kw">SELECT</span></span>
+<div class="sourceCode cell-code" id="cb105"><pre class="sourceCode sql code-with-copy"><code class="sourceCode sql"><span id="cb105-1"><a href="#cb105-1" aria-hidden="true" tabindex="-1"></a><span class="kw">SELECT</span></span>
 <span id="cb105-2"><a href="#cb105-2" aria-hidden="true" tabindex="-1"></a>  <span class="cf">case</span></span>
 <span id="cb105-3"><a href="#cb105-3" aria-hidden="true" tabindex="-1"></a>    <span class="cf">when</span> <span class="dv">3</span><span class="op">/</span><span class="dv">4</span> <span class="op">&gt;</span> <span class="fl">0.5</span> <span class="cf">then</span> <span class="st">'High'</span> </span>
 <span id="cb105-4"><a href="#cb105-4" aria-hidden="true" tabindex="-1"></a>    <span class="cf">else</span> <span class="st">'Low'</span></span>
@@ -1171,14 +1206,14 @@ i `y$IND` is of type &lt;character&gt;&gt;.</code></pre>
 <span id="cb105-9"><a href="#cb105-9" aria-hidden="true" tabindex="-1"></a>  <span class="cf">end</span> <span class="kw">as</span> high_low_float</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <div class="cell">
-<div class="cell-output-stdout">
+<div class="cell-output cell-output-stdout">
 <pre><code>  high_low_int high_low_float
 1          Low           High</code></pre>
 </div>
 </div>
 <p>The above works because of implicit casting. We can also do explicit casting, but where we do this matters</p>
 <div class="cell" data-output.var="cast_when">
-<div class="sourceCode" id="cb107"><pre class="sourceCode sql cell-code code-with-copy"><code class="sourceCode sql"><span id="cb107-1"><a href="#cb107-1" aria-hidden="true" tabindex="-1"></a><span class="kw">SELECT</span></span>
+<div class="sourceCode cell-code" id="cb107"><pre class="sourceCode sql code-with-copy"><code class="sourceCode sql"><span id="cb107-1"><a href="#cb107-1" aria-hidden="true" tabindex="-1"></a><span class="kw">SELECT</span></span>
 <span id="cb107-2"><a href="#cb107-2" aria-hidden="true" tabindex="-1"></a>  <span class="cf">case</span> </span>
 <span id="cb107-3"><a href="#cb107-3" aria-hidden="true" tabindex="-1"></a>    <span class="cf">when</span> <span class="fu">cast</span>(<span class="dv">3</span> <span class="kw">as</span> <span class="dt">float</span>) <span class="op">/</span> <span class="dv">4</span> <span class="op">&gt;</span> <span class="fl">0.5</span> <span class="cf">then</span> <span class="st">'High'</span></span>
 <span id="cb107-4"><a href="#cb107-4" aria-hidden="true" tabindex="-1"></a>    <span class="cf">else</span> <span class="st">'Low'</span></span>
@@ -1189,7 +1224,7 @@ i `y$IND` is of type &lt;character&gt;&gt;.</code></pre>
 <span id="cb107-9"><a href="#cb107-9" aria-hidden="true" tabindex="-1"></a>  <span class="cf">end</span> <span class="kw">as</span> cast_last</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <div class="cell">
-<div class="cell-output-stdout">
+<div class="cell-output cell-output-stdout">
 <pre><code>  cast_first cast_last
 1       High       Low</code></pre>
 </div>
@@ -1201,7 +1236,7 @@ i `y$IND` is of type &lt;character&gt;&gt;.</code></pre>
 <div class="sourceCode" id="cb109"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="op">(</span><span class="fl">3</span> <span class="op">-</span> <span class="fl">2.9</span><span class="op">)</span> <span class="op">&lt;=</span> <span class="fl">0.1</span></span>
 <span><span class="op">(</span><span class="fl">2</span> <span class="op">-</span> <span class="fl">1.9</span><span class="op">)</span> <span class="op">&lt;=</span> <span class="fl">0.1</span></span>
 <span><span class="op">(</span><span class="fl">1</span> <span class="op">-</span> <span class="fl">0.9</span><span class="op">)</span> <span class="op">&lt;=</span> <span class="fl">0.1</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output-stdout">
+<div class="cell-output cell-output-stdout">
 <pre><code>[1] FALSE
 [1] FALSE
 [1] TRUE</code></pre>
@@ -1211,7 +1246,7 @@ i `y$IND` is of type &lt;character&gt;&gt;.</code></pre>
 <div class="sourceCode" id="cb111"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="op">(</span><span class="fl">3</span> <span class="op">-</span> <span class="fl">2.9</span><span class="op">)</span> <span class="op">==</span> <span class="fl">0.1</span></span>
 <span><span class="op">(</span><span class="fl">2</span> <span class="op">-</span> <span class="fl">1.9</span><span class="op">)</span> <span class="op">==</span> <span class="fl">0.1</span></span>
 <span><span class="op">(</span><span class="fl">1</span> <span class="op">-</span> <span class="fl">0.9</span><span class="op">)</span> <span class="op">==</span> <span class="fl">0.1</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output-stdout">
+<div class="cell-output cell-output-stdout">
 <pre><code>[1] FALSE
 [1] FALSE
 [1] FALSE</code></pre>
@@ -1222,7 +1257,7 @@ i `y$IND` is of type &lt;character&gt;&gt;.</code></pre>
 <div class="sourceCode" id="cb113"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fl">3</span> <span class="op">-</span> <span class="fl">2.9</span></span>
 <span><span class="fl">2</span> <span class="op">-</span> <span class="fl">1.9</span></span>
 <span><span class="fl">1</span> <span class="op">-</span> <span class="fl">0.9</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output-stdout">
+<div class="cell-output cell-output-stdout">
 <pre><code>[1] 0.1
 [1] 0.1
 [1] 0.1</code></pre>
@@ -1230,10 +1265,10 @@ i `y$IND` is of type &lt;character&gt;&gt;.</code></pre>
 </div>
 <p>In python - same problem but in slightly different cases</p>
 <div class="cell">
-<div class="sourceCode" id="cb115"><pre class="sourceCode python cell-code code-with-copy"><code class="sourceCode python"><span id="cb115-1"><a href="#cb115-1" aria-hidden="true" tabindex="-1"></a>(<span class="dv">3</span> <span class="op">-</span> <span class="fl">2.9</span>) <span class="op">&lt;=</span> <span class="fl">0.1</span></span>
+<div class="sourceCode cell-code" id="cb115"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb115-1"><a href="#cb115-1" aria-hidden="true" tabindex="-1"></a>(<span class="dv">3</span> <span class="op">-</span> <span class="fl">2.9</span>) <span class="op">&lt;=</span> <span class="fl">0.1</span></span>
 <span id="cb115-2"><a href="#cb115-2" aria-hidden="true" tabindex="-1"></a>(<span class="dv">2</span> <span class="op">-</span> <span class="fl">1.9</span>) <span class="op">&lt;=</span> <span class="fl">0.1</span></span>
 <span id="cb115-3"><a href="#cb115-3" aria-hidden="true" tabindex="-1"></a>(<span class="dv">1</span> <span class="op">-</span> <span class="fl">0.9</span>) <span class="op">&lt;=</span> <span class="fl">0.1</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output-stdout">
+<div class="cell-output cell-output-stdout">
 <pre><code>False
 False
 True</code></pre>
@@ -1241,10 +1276,10 @@ True</code></pre>
 </div>
 <p>here we can see the differences</p>
 <div class="cell">
-<div class="sourceCode" id="cb117"><pre class="sourceCode python cell-code code-with-copy"><code class="sourceCode python"><span id="cb117-1"><a href="#cb117-1" aria-hidden="true" tabindex="-1"></a><span class="dv">3</span> <span class="op">-</span> <span class="fl">2.9</span></span>
+<div class="sourceCode cell-code" id="cb117"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb117-1"><a href="#cb117-1" aria-hidden="true" tabindex="-1"></a><span class="dv">3</span> <span class="op">-</span> <span class="fl">2.9</span></span>
 <span id="cb117-2"><a href="#cb117-2" aria-hidden="true" tabindex="-1"></a><span class="dv">2</span> <span class="op">-</span> <span class="fl">1.9</span></span>
 <span id="cb117-3"><a href="#cb117-3" aria-hidden="true" tabindex="-1"></a><span class="dv">1</span> <span class="op">-</span> <span class="fl">0.9</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output-stdout">
+<div class="cell-output cell-output-stdout">
 <pre><code>0.10000000000000009
 0.10000000000000009
 0.09999999999999998</code></pre>
@@ -1252,7 +1287,7 @@ True</code></pre>
 </div>
 <p>Same thing with SQL where differences are masked</p>
 <div class="cell" data-output.var="float_math">
-<div class="sourceCode" id="cb119"><pre class="sourceCode sql cell-code code-with-copy"><code class="sourceCode sql"><span id="cb119-1"><a href="#cb119-1" aria-hidden="true" tabindex="-1"></a><span class="kw">select</span></span>
+<div class="sourceCode cell-code" id="cb119"><pre class="sourceCode sql code-with-copy"><code class="sourceCode sql"><span id="cb119-1"><a href="#cb119-1" aria-hidden="true" tabindex="-1"></a><span class="kw">select</span></span>
 <span id="cb119-2"><a href="#cb119-2" aria-hidden="true" tabindex="-1"></a>  <span class="dv">3</span> <span class="op">-</span> <span class="fl">2.9</span> <span class="kw">as</span> sub_three,</span>
 <span id="cb119-3"><a href="#cb119-3" aria-hidden="true" tabindex="-1"></a>  <span class="dv">2</span> <span class="op">-</span> <span class="fl">1.9</span> <span class="kw">as</span> sub_two,</span>
 <span id="cb119-4"><a href="#cb119-4" aria-hidden="true" tabindex="-1"></a>  <span class="dv">1</span> <span class="op">-</span> <span class="fl">0.9</span> <span class="kw">as</span> sub_one,</span>
@@ -1261,7 +1296,7 @@ True</code></pre>
 <span id="cb119-7"><a href="#cb119-7" aria-hidden="true" tabindex="-1"></a>  (<span class="dv">1</span> <span class="op">-</span> <span class="fl">0.9</span>) <span class="op">&lt;=</span> <span class="fl">0.1</span> <span class="kw">as</span> sub_compare_one</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <div class="cell">
-<div class="cell-output-stdout">
+<div class="cell-output cell-output-stdout">
 <pre><code>  sub_three sub_two sub_one sub_compare_three sub_compare_two sub_compare_one
 1       0.1     0.1     0.1                 0               0               1</code></pre>
 </div>
@@ -1271,7 +1306,7 @@ True</code></pre>
 <div class="sourceCode" id="cb121"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/base/all.equal.html">all.equal</a></span><span class="op">(</span><span class="fl">1</span> <span class="op">-</span> <span class="fl">0.9</span>, <span class="fl">0.1</span><span class="op">)</span></span>
 <span></span>
 <span><span class="fu"><a href="https://rdrr.io/r/base/MathFun.html">abs</a></span><span class="op">(</span> <span class="op">(</span><span class="fl">1</span><span class="op">-</span><span class="fl">0.9</span><span class="op">)</span> <span class="op">-</span> <span class="fl">0.1</span> <span class="op">)</span> <span class="op">&lt;=</span> <span class="fl">1e-10</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output-stdout">
+<div class="cell-output cell-output-stdout">
 <pre><code>[1] TRUE
 [1] TRUE</code></pre>
 </div>
@@ -1279,19 +1314,19 @@ True</code></pre>
 <p>Another example</p>
 <div class="cell">
 <div class="sourceCode" id="cb123"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fl">0.6</span> <span class="op">+</span> <span class="fl">0.3</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output-stdout">
+<div class="cell-output cell-output-stdout">
 <pre><code>[1] 0.9</code></pre>
 </div>
 <div class="sourceCode" id="cb125"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fl">0.6</span> <span class="op">+</span> <span class="fl">0.3</span> <span class="op">==</span> <span class="fl">0.9</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output-stdout">
+<div class="cell-output cell-output-stdout">
 <pre><code>[1] FALSE</code></pre>
 </div>
 <div class="sourceCode" id="cb127"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/base/print.html">print</a></span><span class="op">(</span><span class="fl">.1</span> <span class="op">+</span> <span class="fl">.2</span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output-stdout">
+<div class="cell-output cell-output-stdout">
 <pre><code>[1] 0.3</code></pre>
 </div>
 <div class="sourceCode" id="cb129"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/base/print.html">print</a></span><span class="op">(</span><span class="fl">.1</span> <span class="op">+</span> <span class="fl">.2</span>, digits <span class="op">=</span> <span class="fl">18</span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output-stdout">
+<div class="cell-output cell-output-stdout">
 <pre><code>[1] 0.30000000000000004</code></pre>
 </div>
 </div>
@@ -1313,7 +1348,7 @@ True</code></pre>
 <span><span class="st">"a b"</span> <span class="op">==</span> <span class="st">"a b"</span></span>
 <span><span class="st">"a b"</span> <span class="op">==</span> <span class="st">"a  b"</span></span>
 <span><span class="st">"a b"</span> <span class="op">==</span> <span class="st">"a b "</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output-stdout">
+<div class="cell-output cell-output-stdout">
 <pre><code>[1] TRUE
 [1] TRUE
 [1] FALSE
@@ -1324,7 +1359,7 @@ True</code></pre>
 <div class="cell">
 <div class="sourceCode" id="cb133"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="st">' " '</span> <span class="op">==</span> <span class="st">' " '</span></span>
 <span><span class="st">' “ '</span> <span class="op">==</span>=<span class="st">' " '</span> '</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output-stdout">
+<div class="cell-output cell-output-stdout">
 <pre><code>[1] TRUE
 [1] FALSE</code></pre>
 </div>
@@ -1334,7 +1369,7 @@ True</code></pre>
 <div class="sourceCode" id="cb135"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">x</span> <span class="op">&lt;-</span> <span class="st">"a\tb"</span></span>
 <span><span class="fu"><a href="https://rdrr.io/r/base/cat.html">cat</a></span><span class="op">(</span><span class="va">x</span><span class="op">)</span> <span class="co"># what you see...</span></span>
 <span><span class="va">x</span> <span class="op">==</span> <span class="st">"a    b"</span> <span class="co"># ...is not what you get</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output-stdout">
+<div class="cell-output cell-output-stdout">
 <pre><code>a   b[1] FALSE</code></pre>
 </div>
 </div>
@@ -1357,7 +1392,7 @@ True</code></pre>
 <div class="cell">
 <div class="sourceCode" id="cb137"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fl">91</span> <span class="op">&lt;</span> <span class="fl">120</span></span>
 <span><span class="st">"91"</span> <span class="op">&lt;</span> <span class="st">"120"</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output-stdout">
+<div class="cell-output cell-output-stdout">
 <pre><code>[1] TRUE
 [1] FALSE</code></pre>
 </div>
@@ -1366,7 +1401,7 @@ True</code></pre>
 <div class="cell">
 <div class="sourceCode" id="cb139"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="st">"20190Q4"</span> <span class="op">&lt;</span> <span class="st">"2020Q3"</span> <span class="co"># string (alphabetic) ordering same as semantic ordering</span></span>
 <span><span class="st">"Q4-2019"</span> <span class="op">&lt;</span> <span class="st">"Q3-2020"</span> <span class="co"># string and semantic orderings are different</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output-stdout">
+<div class="cell-output cell-output-stdout">
 <pre><code>[1] TRUE
 [1] FALSE</code></pre>
 </div>
@@ -1379,21 +1414,21 @@ True</code></pre>
 <div class="cell">
 <div class="sourceCode" id="cb141"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="st">"2020"</span> <span class="op">==</span> <span class="fl">2020</span></span>
 <span><span class="st">"02020"</span> <span class="op">==</span> <span class="fl">2020</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output-stdout">
+<div class="cell-output cell-output-stdout">
 <pre><code>[1] TRUE
 [1] FALSE</code></pre>
 </div>
 </div>
 <p>In contrast, SQLite<a href="#fn9" class="footnote-ref" id="fnref9" role="doc-noteref"><sup>9</sup></a> thinks that the string <code>'2020'</code> is greater than the number 2020 and that these two quantities are not equal.</p>
 <div class="cell" data-output.var="data_date">
-<div class="sourceCode" id="cb143"><pre class="sourceCode sql cell-code code-with-copy"><code class="sourceCode sql"><span id="cb143-1"><a href="#cb143-1" aria-hidden="true" tabindex="-1"></a><span class="kw">SELECT</span></span>
+<div class="sourceCode cell-code" id="cb143"><pre class="sourceCode sql code-with-copy"><code class="sourceCode sql"><span id="cb143-1"><a href="#cb143-1" aria-hidden="true" tabindex="-1"></a><span class="kw">SELECT</span></span>
 <span id="cb143-2"><a href="#cb143-2" aria-hidden="true" tabindex="-1"></a>  <span class="cf">case</span> <span class="cf">when</span>     <span class="st">'2020'</span> <span class="op">=</span>  <span class="dv">2020</span> <span class="cf">then</span> <span class="dv">1</span> <span class="cf">else</span> <span class="dv">0</span> <span class="cf">end</span> <span class="kw">as</span> is_eq,</span>
 <span id="cb143-3"><a href="#cb143-3" aria-hidden="true" tabindex="-1"></a>  <span class="cf">case</span> <span class="cf">when</span> <span class="kw">not</span> <span class="st">'2020'</span> <span class="op">==</span> <span class="dv">2020</span> <span class="cf">then</span> <span class="dv">1</span> <span class="cf">else</span> <span class="dv">0</span> <span class="cf">end</span> <span class="kw">as</span> not_eq,</span>
 <span id="cb143-4"><a href="#cb143-4" aria-hidden="true" tabindex="-1"></a>  <span class="cf">case</span> <span class="cf">when</span>     <span class="st">'2020'</span> <span class="op">&lt;</span>  <span class="dv">2020</span> <span class="cf">then</span> <span class="dv">1</span> <span class="cf">else</span> <span class="dv">0</span> <span class="cf">end</span> <span class="kw">as</span> is_lt,</span>
 <span id="cb143-5"><a href="#cb143-5" aria-hidden="true" tabindex="-1"></a>  <span class="cf">case</span> <span class="cf">when</span>     <span class="st">'2020'</span> <span class="op">&gt;</span>  <span class="dv">2020</span> <span class="cf">then</span> <span class="dv">1</span> <span class="cf">else</span> <span class="dv">0</span> <span class="cf">end</span> <span class="kw">as</span> is_gt</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <div class="cell">
-<div class="cell-output-stdout">
+<div class="cell-output cell-output-stdout">
 <pre><code>  is_eq not_eq is_lt is_gt
 1     0      1     0     1</code></pre>
 </div>
@@ -1405,34 +1440,34 @@ True</code></pre>
 <p>in R, returns error:</p>
 <div class="cell">
 <div class="sourceCode" id="cb145"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="st">'a'</span> <span class="op">+</span> <span class="st">'b'</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output-error">
+<div class="cell-output cell-output-error">
 <pre><code>Error in "a" + "b": non-numeric argument to binary operator</code></pre>
 </div>
 <div class="sourceCode" id="cb147"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="st">'a'</span> <span class="op">*</span> <span class="fl">5</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output-error">
+<div class="cell-output cell-output-error">
 <pre><code>Error in "a" * 5: non-numeric argument to binary operator</code></pre>
 </div>
 </div>
 <p>in SQLite, goes to zero:</p>
 <div class="cell" data-output.var="string_math">
-<div class="sourceCode" id="cb149"><pre class="sourceCode sql cell-code code-with-copy"><code class="sourceCode sql"><span id="cb149-1"><a href="#cb149-1" aria-hidden="true" tabindex="-1"></a><span class="kw">SELECT</span></span>
+<div class="sourceCode cell-code" id="cb149"><pre class="sourceCode sql code-with-copy"><code class="sourceCode sql"><span id="cb149-1"><a href="#cb149-1" aria-hidden="true" tabindex="-1"></a><span class="kw">SELECT</span></span>
 <span id="cb149-2"><a href="#cb149-2" aria-hidden="true" tabindex="-1"></a>  <span class="st">'a'</span> <span class="op">+</span> <span class="st">'b'</span> <span class="kw">as</span> string_add,</span>
 <span id="cb149-3"><a href="#cb149-3" aria-hidden="true" tabindex="-1"></a>  <span class="st">'a'</span><span class="op">*</span><span class="dv">5</span> <span class="kw">as</span> string_mult</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <div class="cell">
-<div class="cell-output-stdout">
+<div class="cell-output cell-output-stdout">
 <pre><code>  string_add string_mult
 1          0           0</code></pre>
 </div>
 </div>
 <p>in python, does concatenation for <code>+</code> and analogous (concatenation of repeat) for <code>*</code>:</p>
 <div class="cell">
-<div class="sourceCode" id="cb151"><pre class="sourceCode python cell-code code-with-copy"><code class="sourceCode python"><span id="cb151-1"><a href="#cb151-1" aria-hidden="true" tabindex="-1"></a><span class="co">'a'</span> <span class="op">+</span> <span class="st">'b'</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output-stdout">
+<div class="sourceCode cell-code" id="cb151"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb151-1"><a href="#cb151-1" aria-hidden="true" tabindex="-1"></a><span class="co">'a'</span> <span class="op">+</span> <span class="st">'b'</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
 <pre><code>'ab'</code></pre>
 </div>
-<div class="sourceCode" id="cb153"><pre class="sourceCode python cell-code code-with-copy"><code class="sourceCode python"><span id="cb153-1"><a href="#cb153-1" aria-hidden="true" tabindex="-1"></a><span class="co">'a'</span> <span class="op">*</span> <span class="dv">5</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output-stdout">
+<div class="sourceCode cell-code" id="cb153"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb153-1"><a href="#cb153-1" aria-hidden="true" tabindex="-1"></a><span class="co">'a'</span> <span class="op">*</span> <span class="dv">5</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
 <pre><code>'aaaaa'</code></pre>
 </div>
 </div>
@@ -1470,33 +1505,33 @@ True</code></pre>
 <p>none of these are equal so nothing returns on filtering</p>
 <div class="cell">
 <div class="sourceCode" id="cb156"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu"><a href="https://dplyr.tidyverse.org/reference/filter.html">filter</a></span><span class="op">(</span><span class="va">df_dt</span>, <span class="va">DT_ENROLL</span> <span class="op">==</span> <span class="va">DT_PURCH</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span> <span class="fu"><a href="https://rdrr.io/r/base/nrow.html">nrow</a></span><span class="op">(</span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output-stdout">
+<div class="cell-output cell-output-stdout">
 <pre><code>[1] 0</code></pre>
 </div>
 <div class="sourceCode" id="cb158"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu"><a href="https://dplyr.tidyverse.org/reference/filter.html">filter</a></span><span class="op">(</span><span class="va">df_dt</span>, <span class="va">DT_ENROLL</span> <span class="op">==</span> <span class="va">DT_LOGIN</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span> <span class="fu"><a href="https://rdrr.io/r/base/nrow.html">nrow</a></span><span class="op">(</span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output-stderr">
+<div class="cell-output cell-output-stderr">
 <pre><code>Warning in mask$eval_all_filter(dots, env_filter): Incompatible methods
 ("Ops.Date", "Ops.POSIXt") for "=="</code></pre>
 </div>
-<div class="cell-output-stdout">
+<div class="cell-output cell-output-stdout">
 <pre><code>[1] 0</code></pre>
 </div>
 </div>
 <p>the same thing happens in sql</p>
 <div class="cell" data-output.var="date1">
-<div class="sourceCode" id="cb161"><pre class="sourceCode sql cell-code code-with-copy"><code class="sourceCode sql"><span id="cb161-1"><a href="#cb161-1" aria-hidden="true" tabindex="-1"></a><span class="kw">select</span> <span class="op">*</span> <span class="kw">from</span> df_dt <span class="kw">where</span> DT_ENROLL <span class="op">=</span> DT_PURCH</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb161"><pre class="sourceCode sql code-with-copy"><code class="sourceCode sql"><span id="cb161-1"><a href="#cb161-1" aria-hidden="true" tabindex="-1"></a><span class="kw">select</span> <span class="op">*</span> <span class="kw">from</span> df_dt <span class="kw">where</span> DT_ENROLL <span class="op">=</span> DT_PURCH</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <div class="cell">
-<div class="cell-output-stdout">
+<div class="cell-output cell-output-stdout">
 <pre><code>[1] DT_ENROLL DT_PURCH  DT_LOGIN 
 &lt;0 rows&gt; (or 0-length row.names)</code></pre>
 </div>
 </div>
 <div class="cell" data-output.var="date2">
-<div class="sourceCode" id="cb163"><pre class="sourceCode sql cell-code code-with-copy"><code class="sourceCode sql"><span id="cb163-1"><a href="#cb163-1" aria-hidden="true" tabindex="-1"></a><span class="kw">select</span> <span class="op">*</span> <span class="kw">from</span> df_dt <span class="kw">where</span> DT_ENROLL <span class="op">=</span> DT_LOGIN</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb163"><pre class="sourceCode sql code-with-copy"><code class="sourceCode sql"><span id="cb163-1"><a href="#cb163-1" aria-hidden="true" tabindex="-1"></a><span class="kw">select</span> <span class="op">*</span> <span class="kw">from</span> df_dt <span class="kw">where</span> DT_ENROLL <span class="op">=</span> DT_LOGIN</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <div class="cell">
-<div class="cell-output-stdout">
+<div class="cell-output cell-output-stdout">
 <pre><code>[1] DT_ENROLL DT_PURCH  DT_LOGIN 
 &lt;0 rows&gt; (or 0-length row.names)</code></pre>
 </div>
@@ -1505,16 +1540,16 @@ True</code></pre>
 <p>with <code><a href="https://rdrr.io/r/base/numeric.html">as.numeric()</a></code> in R we can see the numeric representation of the date</p>
 <div class="cell">
 <div class="sourceCode" id="cb165"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/base/numeric.html">as.numeric</a></span><span class="op">(</span><span class="va">df_dt</span><span class="op">$</span><span class="va">DT_ENROLL</span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output-stdout">
+<div class="cell-output cell-output-stdout">
 <pre><code>[1] 18262</code></pre>
 </div>
 </div>
 <p>this works the same way in SQL</p>
 <div class="cell" data-output.var="date_num">
-<div class="sourceCode" id="cb167"><pre class="sourceCode sql cell-code code-with-copy"><code class="sourceCode sql"><span id="cb167-1"><a href="#cb167-1" aria-hidden="true" tabindex="-1"></a><span class="kw">select</span> <span class="fu">cast</span>(DT_ENROLL <span class="kw">as</span> <span class="dt">integer</span>), <span class="fu">cast</span>(DT_PURCH <span class="kw">as</span> <span class="dt">integer</span>) <span class="kw">from</span> df_dt</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb167"><pre class="sourceCode sql code-with-copy"><code class="sourceCode sql"><span id="cb167-1"><a href="#cb167-1" aria-hidden="true" tabindex="-1"></a><span class="kw">select</span> <span class="fu">cast</span>(DT_ENROLL <span class="kw">as</span> <span class="dt">integer</span>), <span class="fu">cast</span>(DT_PURCH <span class="kw">as</span> <span class="dt">integer</span>) <span class="kw">from</span> df_dt</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <div class="cell">
-<div class="cell-output-stdout">
+<div class="cell-output cell-output-stdout">
 <pre><code>  cast(DT_ENROLL as integer) cast(DT_PURCH as integer)
 1                      18262                  20200101</code></pre>
 </div>
@@ -1522,12 +1557,12 @@ True</code></pre>
 <p>this has the implication that things that are on the same date have an inequality relationship in both languages</p>
 <div class="cell">
 <div class="sourceCode" id="cb169"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu"><a href="https://dplyr.tidyverse.org/reference/filter.html">filter</a></span><span class="op">(</span><span class="va">df_dt</span>, <span class="va">DT_ENROLL</span> <span class="op">&lt;</span> <span class="va">DT_PURCH</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span> <span class="fu"><a href="https://rdrr.io/r/base/nrow.html">nrow</a></span><span class="op">(</span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output-stdout">
+<div class="cell-output cell-output-stdout">
 <pre><code>[1] 1</code></pre>
 </div>
 </div>
 <div class="cell" data-output.var="date_ineq">
-<div class="sourceCode" id="cb171"><pre class="sourceCode sql cell-code code-with-copy"><code class="sourceCode sql"><span id="cb171-1"><a href="#cb171-1" aria-hidden="true" tabindex="-1"></a><span class="kw">select</span> </span>
+<div class="sourceCode cell-code" id="cb171"><pre class="sourceCode sql code-with-copy"><code class="sourceCode sql"><span id="cb171-1"><a href="#cb171-1" aria-hidden="true" tabindex="-1"></a><span class="kw">select</span> </span>
 <span id="cb171-2"><a href="#cb171-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">cast</span>(DT_ENROLL <span class="kw">as</span> <span class="dt">integer</span>), </span>
 <span id="cb171-3"><a href="#cb171-3" aria-hidden="true" tabindex="-1"></a>  <span class="cf">case</span> <span class="cf">when</span> DT_ENROLL <span class="op">&lt;</span> <span class="dv">18000</span> <span class="cf">then</span> <span class="dv">1</span> <span class="cf">else</span> <span class="dv">0</span> <span class="cf">end</span> <span class="kw">as</span> lt_18000,</span>
 <span id="cb171-4"><a href="#cb171-4" aria-hidden="true" tabindex="-1"></a>  <span class="cf">case</span> <span class="cf">when</span> DT_ENROLL <span class="op">&lt;</span> <span class="dv">19000</span> <span class="cf">then</span> <span class="dv">1</span> <span class="cf">else</span> <span class="dv">0</span> <span class="cf">end</span> <span class="kw">as</span> lt_19000,</span>
@@ -1535,7 +1570,7 @@ True</code></pre>
 <span id="cb171-6"><a href="#cb171-6" aria-hidden="true" tabindex="-1"></a><span class="kw">from</span> df_dt</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <div class="cell">
-<div class="cell-output-stdout">
+<div class="cell-output cell-output-stdout">
 <pre><code>  cast(DT_ENROLL as integer) lt_18000 lt_19000 lt_purch
 1                      18262        0        1        1</code></pre>
 </div>
@@ -1544,15 +1579,15 @@ True</code></pre>
 <p>and this similarly causes a more general problem when comparing a date to a date-as-an-integer</p>
 <div class="cell">
 <div class="sourceCode" id="cb173"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/base/as.Date.html">as.Date</a></span><span class="op">(</span><span class="st">"2020-01-01"</span><span class="op">)</span> <span class="op">&gt;</span> <span class="fl">20160501</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output-stdout">
+<div class="cell-output cell-output-stdout">
 <pre><code>[1] FALSE</code></pre>
 </div>
 </div>
 <div class="cell" data-output.var="date_comp">
-<div class="sourceCode" id="cb175"><pre class="sourceCode sql cell-code code-with-copy"><code class="sourceCode sql"><span id="cb175-1"><a href="#cb175-1" aria-hidden="true" tabindex="-1"></a><span class="kw">select</span> <span class="fu">cast</span>(<span class="st">'2020-01-01'</span> <span class="kw">as</span> <span class="dt">date</span>) <span class="op">&gt;</span> <span class="dv">20160501</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb175"><pre class="sourceCode sql code-with-copy"><code class="sourceCode sql"><span id="cb175-1"><a href="#cb175-1" aria-hidden="true" tabindex="-1"></a><span class="kw">select</span> <span class="fu">cast</span>(<span class="st">'2020-01-01'</span> <span class="kw">as</span> <span class="dt">date</span>) <span class="op">&gt;</span> <span class="dv">20160501</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <div class="cell">
-<div class="cell-output-stdout">
+<div class="cell-output cell-output-stdout">
 <pre><code>  cast('2020-01-01' as date) &gt; 20160501
 1                                     0</code></pre>
 </div>
@@ -1560,6 +1595,7 @@ True</code></pre>
 <!--
 
 ### Timestamps versus dates
+
 
 ::: {.cell}
 
@@ -1569,13 +1605,13 @@ now <- as.POSIXct(Sys.time(), "America/New_York")
 today == now
 ```
 
-::: {.cell-output-stderr}
+::: {.cell-output .cell-output-stderr}
 ```
 Warning: Incompatible methods ("Ops.Date", "Ops.POSIXt") for "=="
 ```
 :::
 
-::: {.cell-output-stdout}
+::: {.cell-output .cell-output-stdout}
 ```
 [1] FALSE
 ```
@@ -1585,13 +1621,13 @@ Warning: Incompatible methods ("Ops.Date", "Ops.POSIXt") for "=="
 today > now
 ```
 
-::: {.cell-output-stderr}
+::: {.cell-output .cell-output-stderr}
 ```
 Warning: Incompatible methods ("Ops.Date", "Ops.POSIXt") for ">"
 ```
 :::
 
-::: {.cell-output-stdout}
+::: {.cell-output .cell-output-stdout}
 ```
 [1] FALSE
 ```
@@ -1601,13 +1637,13 @@ Warning: Incompatible methods ("Ops.Date", "Ops.POSIXt") for ">"
 today < now
 ```
 
-::: {.cell-output-stderr}
+::: {.cell-output .cell-output-stderr}
 ```
 Warning: Incompatible methods ("Ops.Date", "Ops.POSIXt") for "<"
 ```
 :::
 
-::: {.cell-output-stdout}
+::: {.cell-output .cell-output-stdout}
 ```
 [1] TRUE
 ```
@@ -1625,7 +1661,7 @@ now = datetime.now()
 today == now
 ```
 
-::: {.cell-output-stdout}
+::: {.cell-output .cell-output-stdout}
 ```
 False
 ```
@@ -1635,7 +1671,7 @@ False
 today < now
 ```
 
-::: {.cell-output-error}
+::: {.cell-output .cell-output-error}
 ```
 Error in py_call_impl(callable, dots$args, dots$keywords): TypeError: can't compare datetime.datetime to datetime.date
 
@@ -1648,7 +1684,7 @@ Detailed traceback:
 today > now
 ```
 
-::: {.cell-output-error}
+::: {.cell-output .cell-output-error}
 ```
 Error in py_call_impl(callable, dots$args, dots$keywords): TypeError: can't compare datetime.datetime to datetime.date
 
@@ -1663,7 +1699,7 @@ now_str = now.strftime('%Y-%m-%d %H:%M:%S')
 today_str == now_str
 ```
 
-::: {.cell-output-stdout}
+::: {.cell-output .cell-output-stdout}
 ```
 False
 ```
@@ -1673,7 +1709,7 @@ False
 today_str < now_str
 ```
 
-::: {.cell-output-stdout}
+::: {.cell-output .cell-output-stdout}
 ```
 True
 ```
@@ -1683,12 +1719,13 @@ True
 today_str > now_str
 ```
 
-::: {.cell-output-stdout}
+::: {.cell-output .cell-output-stdout}
 ```
 False
 ```
 :::
 :::
+
 
 -->
 </section></section><section id="changing-data-types-todo" class="level2" data-number="3.7"><h2 data-number="3.7" class="anchored" data-anchor-id="changing-data-types-todo">
@@ -1703,7 +1740,7 @@ False
 <span><span class="va">df</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/utils/read.table.html">read.csv</a></span><span class="op">(</span>file <span class="op">=</span> <span class="va">tmp</span><span class="op">)</span></span>
 <span><span class="fu"><a href="https://rdrr.io/r/base/print.html">print</a></span><span class="op">(</span><span class="st">"-- After saving and reloading with read.csv --"</span><span class="op">)</span></span>
 <span><span class="fu"><a href="https://rdrr.io/r/base/sprintf.html">sprintf</a></span><span class="op">(</span><span class="st">"Class of DT variable: %s"</span>, <span class="fu"><a href="https://rdrr.io/r/base/class.html">class</a></span><span class="op">(</span><span class="va">df</span><span class="op">$</span><span class="va">DT</span><span class="op">)</span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output-stdout">
+<div class="cell-output cell-output-stdout">
 <pre><code>[1] "-- At creation --"
 [1] "Class of DT variable: Date"
 [1] "-- After saving and reloading with read.csv --"
@@ -1717,7 +1754,7 @@ False
 <span><span class="va">df</span> <span class="op">&lt;-</span> <span class="fu">readr</span><span class="fu">::</span><span class="fu"><a href="https://readr.tidyverse.org/reference/read_delim.html">read_csv</a></span><span class="op">(</span>file <span class="op">=</span> <span class="va">tmp</span><span class="op">)</span></span>
 <span><span class="fu"><a href="https://rdrr.io/r/base/print.html">print</a></span><span class="op">(</span><span class="st">"-- After saving and reloading with readr --"</span><span class="op">)</span></span>
 <span><span class="fu"><a href="https://rdrr.io/r/base/sprintf.html">sprintf</a></span><span class="op">(</span><span class="st">"Class of DT variable: %s"</span>, <span class="fu"><a href="https://rdrr.io/r/base/class.html">class</a></span><span class="op">(</span><span class="va">df</span><span class="op">$</span><span class="va">DT</span><span class="op">)</span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output-stdout">
+<div class="cell-output cell-output-stdout">
 <pre><code>[1] "-- After saving and reloading with readr --"
 [1] "Class of DT variable: Date"</code></pre>
 </div>
@@ -1729,7 +1766,7 @@ False
 <div class="sourceCode" id="cb181"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/base/factor.html">factor</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="fl">0</span>,<span class="fl">1</span>,<span class="fl">0</span>,<span class="fl">1</span><span class="op">)</span><span class="op">)</span> <span class="op">==</span> <span class="fl">1</span></span>
 <span><span class="fu"><a href="https://rdrr.io/r/base/integer.html">as.integer</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/factor.html">factor</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="fl">0</span>,<span class="fl">1</span>,<span class="fl">0</span>,<span class="fl">1</span><span class="op">)</span><span class="op">)</span><span class="op">)</span> <span class="op">==</span> <span class="fl">1</span></span>
 <span><span class="fu"><a href="https://rdrr.io/r/base/integer.html">as.integer</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/factor.html">factor</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="fl">0</span>,<span class="fl">1</span>,<span class="fl">0</span>,<span class="fl">1</span><span class="op">)</span><span class="op">)</span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output-stdout">
+<div class="cell-output cell-output-stdout">
 <pre><code>[1] FALSE  TRUE FALSE  TRUE
 [1]  TRUE FALSE  TRUE FALSE
 [1] 1 2 1 2</code></pre>
@@ -1747,7 +1784,7 @@ False
 <div class="sourceCode" id="cb183"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fl">1</span> <span class="op">+</span> <span class="fl">1</span>  <span class="op">*</span> <span class="fl">2</span> <span class="op">/</span> <span class="fl">3</span> <span class="op">-</span> <span class="fl">1</span></span>
 <span><span class="op">(</span><span class="fl">1</span> <span class="op">+</span> <span class="fl">1</span><span class="op">)</span> <span class="op">*</span> <span class="fl">2</span> <span class="op">/</span> <span class="fl">3</span> <span class="op">-</span> <span class="fl">1</span></span>
 <span><span class="fl">1</span> <span class="op">+</span> <span class="fl">1</span> <span class="op">*</span> <span class="fl">2</span> <span class="op">/</span> <span class="op">(</span><span class="fl">3</span> <span class="op">-</span> <span class="fl">1</span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output-stdout">
+<div class="cell-output cell-output-stdout">
 <pre><code>[1] 0.6666667
 [1] 0.3333333
 [1] 2</code></pre>
@@ -1761,7 +1798,7 @@ False
 <div class="cell-output-display">
 <div class="quarto-figure quarto-figure-center">
 <figure class="figure"><p><img src="figures/comp-quan/ref-val.PNG" class="img-fluid figure-img" style="width:90.0%"></p>
-<p></p><figcaption aria-hidden="true" class="figure-caption">Different relationships between named variables and their values</figcaption><p></p>
+<p></p><figcaption class="figure-caption">Different relationships between named variables and their values</figcaption><p></p>
 </figure>
 </div>
 </div>
@@ -1770,22 +1807,22 @@ False
 <p>What risks are there if we don’t understand which we are doing?</p>
 <p>In Python</p>
 <div class="cell">
-<div class="sourceCode" id="cb185"><pre class="sourceCode python cell-code code-with-copy"><code class="sourceCode python"><span id="cb185-1"><a href="#cb185-1" aria-hidden="true" tabindex="-1"></a>x <span class="op">=</span> [<span class="dv">1</span>,<span class="dv">2</span>,<span class="dv">3</span>]</span>
+<div class="sourceCode cell-code" id="cb185"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb185-1"><a href="#cb185-1" aria-hidden="true" tabindex="-1"></a>x <span class="op">=</span> [<span class="dv">1</span>,<span class="dv">2</span>,<span class="dv">3</span>]</span>
 <span id="cb185-2"><a href="#cb185-2" aria-hidden="true" tabindex="-1"></a>y <span class="op">=</span> x</span>
 <span id="cb185-3"><a href="#cb185-3" aria-hidden="true" tabindex="-1"></a>y.append(<span class="dv">4</span>)</span>
 <span id="cb185-4"><a href="#cb185-4" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(y)</span>
 <span id="cb185-5"><a href="#cb185-5" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(x)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output-stdout">
+<div class="cell-output cell-output-stdout">
 <pre><code>[1, 2, 3, 4]
 [1, 2, 3, 4]</code></pre>
 </div>
 </div>
 <div class="cell">
-<div class="sourceCode" id="cb187"><pre class="sourceCode python cell-code code-with-copy"><code class="sourceCode python"><span id="cb187-1"><a href="#cb187-1" aria-hidden="true" tabindex="-1"></a>z <span class="op">=</span> x.copy()</span>
+<div class="sourceCode cell-code" id="cb187"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb187-1"><a href="#cb187-1" aria-hidden="true" tabindex="-1"></a>z <span class="op">=</span> x.copy()</span>
 <span id="cb187-2"><a href="#cb187-2" aria-hidden="true" tabindex="-1"></a>z.append(<span class="dv">5</span>)</span>
 <span id="cb187-3"><a href="#cb187-3" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(z)</span>
 <span id="cb187-4"><a href="#cb187-4" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(x)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output-stdout">
+<div class="cell-output cell-output-stdout">
 <pre><code>[1, 2, 3, 4, 5]
 [1, 2, 3, 4]</code></pre>
 </div>
@@ -1809,7 +1846,7 @@ False
 <span><span class="va">newDT</span><span class="op">[</span><span class="fl">1</span>, <span class="va">a</span> <span class="op">:=</span> <span class="fl">100</span><span class="op">]</span></span>
 <span></span>
 <span><span class="fu"><a href="https://rdrr.io/r/base/print.html">print</a></span><span class="op">(</span><span class="va">DT</span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output-stdout">
+<div class="cell-output cell-output-stdout">
 <pre><code>   a  b
 1: 1 11
 2: 2 12
@@ -1823,7 +1860,7 @@ False
 </div>
 <p>From https://stackoverflow.com/questions/10225098/understanding-exactly-when-a-data-table-is-a-reference-to-vs-a-copy-of-another</p>
 <div class="cell">
-<div class="sourceCode" id="cb191"><pre class="sourceCode python cell-code code-with-copy"><code class="sourceCode python"><span id="cb191-1"><a href="#cb191-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> pandas <span class="im">as</span> pd</span>
+<div class="sourceCode cell-code" id="cb191"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb191-1"><a href="#cb191-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> pandas <span class="im">as</span> pd</span>
 <span id="cb191-2"><a href="#cb191-2" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb191-3"><a href="#cb191-3" aria-hidden="true" tabindex="-1"></a><span class="co"># set-up sample data ----</span></span>
 <span id="cb191-4"><a href="#cb191-4" aria-hidden="true" tabindex="-1"></a>data <span class="op">=</span> {<span class="st">'a'</span>: [<span class="dv">1</span>, <span class="dv">2</span>], </span>
@@ -1832,22 +1869,22 @@ False
 <span id="cb191-7"><a href="#cb191-7" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb191-8"><a href="#cb191-8" aria-hidden="true" tabindex="-1"></a><span class="co"># rename columns without replacing ----</span></span>
 <span id="cb191-9"><a href="#cb191-9" aria-hidden="true" tabindex="-1"></a>df.rename(columns <span class="op">=</span> {<span class="st">'a'</span>:<span class="st">'x'</span>})</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output-stdout">
+<div class="cell-output cell-output-stdout">
 <pre><code>   x   b
 0  1  11
 1  2  12</code></pre>
 </div>
-<div class="sourceCode" id="cb193"><pre class="sourceCode python cell-code code-with-copy"><code class="sourceCode python"><span id="cb193-1"><a href="#cb193-1" aria-hidden="true" tabindex="-1"></a>df</span>
+<div class="sourceCode cell-code" id="cb193"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb193-1"><a href="#cb193-1" aria-hidden="true" tabindex="-1"></a>df</span>
 <span id="cb193-2"><a href="#cb193-2" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb193-3"><a href="#cb193-3" aria-hidden="true" tabindex="-1"></a><span class="co"># rename columns with replacing ----</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output-stdout">
+<div class="cell-output cell-output-stdout">
 <pre><code>   a   b
 0  1  11
 1  2  12</code></pre>
 </div>
-<div class="sourceCode" id="cb195"><pre class="sourceCode python cell-code code-with-copy"><code class="sourceCode python"><span id="cb195-1"><a href="#cb195-1" aria-hidden="true" tabindex="-1"></a>df.rename(columns <span class="op">=</span> {<span class="st">'a'</span>:<span class="st">'x'</span>}, inplace <span class="op">=</span> <span class="va">True</span>)</span>
+<div class="sourceCode cell-code" id="cb195"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb195-1"><a href="#cb195-1" aria-hidden="true" tabindex="-1"></a>df.rename(columns <span class="op">=</span> {<span class="st">'a'</span>:<span class="st">'x'</span>}, inplace <span class="op">=</span> <span class="va">True</span>)</span>
 <span id="cb195-2"><a href="#cb195-2" aria-hidden="true" tabindex="-1"></a>df</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output-stdout">
+<div class="cell-output cell-output-stdout">
 <pre><code>   x   b
 0  1  11
 1  2  12</code></pre>
@@ -1862,7 +1899,7 @@ False
 <span></span>
 <span><span class="va">df</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/data.frame.html">data.frame</a></span><span class="op">(</span>x1 <span class="op">=</span> <span class="fl">1</span><span class="op">:</span><span class="fl">5</span><span class="op">)</span></span>
 <span><span class="va">df</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output-stdout">
+<div class="cell-output cell-output-stdout">
 <pre><code>  x1
 1  1
 2  2
@@ -1872,7 +1909,7 @@ False
 </div>
 <div class="sourceCode" id="cb199"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu">add_ones</span><span class="op">(</span><span class="va">df</span><span class="op">)</span></span>
 <span><span class="va">df</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output-stdout">
+<div class="cell-output cell-output-stdout">
 <pre><code>  x1
 1  1
 2  2
@@ -1891,7 +1928,7 @@ False
 <span></span>
 <span><span class="va">df</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/data.frame.html">data.frame</a></span><span class="op">(</span>x1 <span class="op">=</span> <span class="fl">1</span><span class="op">:</span><span class="fl">5</span><span class="op">)</span></span>
 <span><span class="va">df</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output-stdout">
+<div class="cell-output cell-output-stdout">
 <pre><code>  x1
 1  1
 2  2
@@ -1900,7 +1937,7 @@ False
 5  5</code></pre>
 </div>
 <div class="sourceCode" id="cb203"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu">add_ones</span><span class="op">(</span><span class="va">df</span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output-stdout">
+<div class="cell-output cell-output-stdout">
 <pre><code>  x1 x0
 1  1  0
 2  2  0
@@ -1909,7 +1946,7 @@ False
 5  5  0</code></pre>
 </div>
 <div class="sourceCode" id="cb205"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">df</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output-stdout">
+<div class="cell-output cell-output-stdout">
 <pre><code>  x1
 1  1
 2  2
@@ -1919,7 +1956,7 @@ False
 </div>
 <div class="sourceCode" id="cb207"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">df2</span> <span class="op">&lt;-</span> <span class="fu">add_ones</span><span class="op">(</span><span class="va">df</span><span class="op">)</span></span>
 <span><span class="va">df2</span> </span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output-stdout">
+<div class="cell-output cell-output-stdout">
 <pre><code>  x1 x0
 1  1  0
 2  2  0
@@ -1959,7 +1996,7 @@ False
 <div class="cell-output-display">
 <div class="quarto-figure quarto-figure-center">
 <figure class="figure"><p><img src="figures/comp-quan/spark-jira.PNG" class="img-fluid figure-img" style="width:90.0%"></p>
-<p></p><figcaption aria-hidden="true" class="figure-caption">JIRA ticket for Spark with a discussion of which random forest variable importance algorithm to implement</figcaption><p></p>
+<p></p><figcaption class="figure-caption">JIRA ticket for Spark with a discussion of which random forest variable importance algorithm to implement</figcaption><p></p>
 </figure>
 </div>
 </div>
@@ -1969,7 +2006,7 @@ False
 <span class="header-section-number">3.10.1.3</span> Null handling in <code>ggplot2</code> (TODO)</h4>
 <div class="cell">
 <div class="sourceCode" id="cb209"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://ggplot2.tidyverse.org">ggplot2</a></span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output-stderr">
+<div class="cell-output cell-output-stderr">
 <pre><code>Warning: package 'ggplot2' was built under R version 4.0.5</code></pre>
 </div>
 <div class="sourceCode" id="cb211"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">df</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/data.frame.html">data.frame</a></span><span class="op">(</span>x1 <span class="op">=</span> <span class="fl">1</span><span class="op">:</span><span class="fl">5</span>, </span>
@@ -1985,14 +2022,14 @@ False
 <p><img src="comp-quan_files/figure-html/unnamed-chunk-234-2.png" class="img-fluid" width="672"></p>
 </div>
 <div class="sourceCode" id="cb213"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/ggplot.html">ggplot</a></span><span class="op">(</span><span class="va">df</span>, <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/aes.html">aes</a></span><span class="op">(</span><span class="va">x2</span>, <span class="va">y1</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span> <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/geom_path.html">geom_line</a></span><span class="op">(</span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output-stderr">
+<div class="cell-output cell-output-stderr">
 <pre><code>Warning: Removed 2 row(s) containing missing values (geom_path).</code></pre>
 </div>
 <div class="cell-output-display">
 <p><img src="comp-quan_files/figure-html/unnamed-chunk-234-3.png" class="img-fluid" width="672"></p>
 </div>
 <div class="sourceCode" id="cb215"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/ggplot.html">ggplot</a></span><span class="op">(</span><span class="va">df</span>, <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/aes.html">aes</a></span><span class="op">(</span><span class="va">x2</span>, <span class="va">y2</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span> <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/geom_path.html">geom_line</a></span><span class="op">(</span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output-stderr">
+<div class="cell-output cell-output-stderr">
 <pre><code>Warning: Removed 2 row(s) containing missing values (geom_path).</code></pre>
 </div>
 <div class="cell-output-display">
@@ -2015,7 +2052,7 @@ False
 </section><section id="strategies-wip" class="level2" data-number="3.12"><h2 data-number="3.12" class="anchored" data-anchor-id="strategies-wip">
 <span class="header-section-number">3.12</span> Strategies (WIP)</h2>
 <p>Paragraph 1 TODO</p>
-<p>Some computational quandaries are inherent to our tools themselves, but often they are a function both of the tools and the ways we chose to use them. More strategies related to writing robust and resilient code will be discussed in <a href="comp-code.html">Section&nbsp;<span>11</span></a> (Complexify Code).</p>
+<p>Some computational quandaries are inherent to our tools themselves, but often they are a function both of the tools and the ways we chose to use them. More strategies related to writing robust and resilient code will be discussed in <a href="#sec-comp-code"><span class="quarto-unresolved-ref">sec-comp-code</span></a> (Complexify Code).</p>
 <section id="understand-the-intent" class="level3" data-number="3.12.1"><h3 data-number="3.12.1" class="anchored" data-anchor-id="understand-the-intent">
 <span class="header-section-number">3.12.1</span> Understand the intent</h3>
 <ul>
@@ -2031,16 +2068,19 @@ False
 <span class="header-section-number">3.12.3</span> Be explicit not implicit</h3>
 <ul>
 <li>default arguments</li>
-<li>examples above with casting, coalescingW</li>
+<li>examples above with casting, coalescing</li>
 </ul></section></section><section id="real-world-disasters-wip" class="level2" data-number="3.13"><h2 data-number="3.13" class="anchored" data-anchor-id="real-world-disasters-wip">
 <span class="header-section-number">3.13</span> Real World Disasters (WIP)</h2>
 <p>https://www.theguardian.com/politics/2020/oct/05/how-excel-may-have-caused-loss-of-16000-covid-tests-in-england</p>
 <blockquote class="blockquote">
 <p>The data error, which led to 15,841 positive tests being left off the official daily figures, means than 50,000 potentially infectious people may have been missed by contact tracers and not told to self-isolate.</p>
 </blockquote>
+<p>https://journals.plos.org/ploscompbiol/article?id=10.1371/journal.pcbi.1008984</p>
+<p>The Excel gene error has not been corrected</p>
 <div class="cell">
 
 </div>
+
 <!--
 
 In practice, data analysis requires using a number of advanced computational tools such as SQL, R, or python. Analysts must work in a partnerships with each tool to access and wrangle their data into an accessible form of information. However, the moment you as an analyst begins to use a tool, the conversation is no longer simply between you and the data; suddenly, thousands of developers who helper build your tools are now crowding into the room. Each may have contributed to the code behind your tool with a different mental model of how one would use it.
@@ -2049,7 +2089,10 @@ In this chapter, we will explore common ways that tools may do something correct
 
 
 
+
+
 TODO: Introduce datasets
+
 
 ::: {.cell}
 
@@ -2057,7 +2100,7 @@ TODO: Introduce datasets
 head(registration)
 ```
 
-::: {.cell-output-stdout}
+::: {.cell-output .cell-output-stdout}
 ```
   ID_CUSTOMER CD_DEVICE AMT_SPEND AMT_RETURN
 1           1         1        10         NA
@@ -2076,12 +2119,13 @@ head(registration)
 1+1
 ```
 
-::: {.cell-output-stdout}
+::: {.cell-output .cell-output-stdout}
 ```
 2
 ```
 :::
 :::
+
 
 
 
@@ -2094,8 +2138,9 @@ Often, data comes with an accompanying data dictionary to describe the meaning o
 
 However, sometimes trying to glean this information from context alone can be misleading. Imagine, for example, that we want to calculate the rate of successful log-ins to our e-commerce website.
 
+
 ::: {.cell}
-::: {.cell-output-stderr}
+::: {.cell-output .cell-output-stderr}
 ```
 Warning: package 'tidyr' was built under R version 4.0.5
 ```
@@ -2108,7 +2153,7 @@ Warning: package 'tidyr' was built under R version 4.0.5
 summarize(logins, PROP_LOGIN = mean(IND_LOGIN))
 ```
 
-::: {.cell-output-stdout}
+::: {.cell-output .cell-output-stdout}
 ```
 # A tibble: 1 x 1
   PROP_LOGIN
@@ -2125,7 +2170,7 @@ logins %>%
   summarize(PROP_LOGIN = mean(IND_LOGIN))
 ```
 
-::: {.cell-output-stdout}
+::: {.cell-output .cell-output-stdout}
 ```
 # A tibble: 1 x 1
   PROP_LOGIN
@@ -2134,6 +2179,7 @@ logins %>%
 ```
 :::
 :::
+
 
 ## The many forms of null
 
@@ -2185,13 +2231,14 @@ As we've seen, null values in our data can mean many different things and be rep
 
 First, consider the `registration` data set. To compute the average amount spent (`AMT_SPEND`) with the `dplyr` package, an analyst might first reasonably write the following `summarize()` statement. However, as we can see, due to the presence of null values within the `AMT_SPEND` column, the result of this aggregation is for the whole quantiaty of `AVG_SPEND` to be set to the value `NA`. 
 
+
 ::: {.cell}
 
 ```{.r .cell-code}
 summarize(registration, AVG_SPEND = mean(AMT_SPEND))
 ```
 
-::: {.cell-output-stdout}
+::: {.cell-output .cell-output-stdout}
 ```
   AVG_SPEND
 1        NA
@@ -2199,7 +2246,9 @@ summarize(registration, AVG_SPEND = mean(AMT_SPEND))
 :::
 :::
 
+
 A glance at the documentation for the `mean()` function reveals that it has an `na.rm` parameter which, when set to true, removes null values from our dataset. Adding this argument to the previous statement allows us to reach a numerical answer.
+
 
 ::: {.cell}
 
@@ -2208,13 +2257,14 @@ summarize(registration,
           AVG_SPEND = mean(AMT_SPEND, na.rm = TRUE))
 ```
 
-::: {.cell-output-stdout}
+::: {.cell-output .cell-output-stdout}
 ```
   AVG_SPEND
 1  48.57143
 ```
 :::
 :::
+
 
 However, is this the *right* numerical answer? What `na.rm = TRUE` does is *drop* the null values from the set of numbers being averaged. However, suppose the null values represent that no purchases were made. That is, zero dollars were spent. In effect, we have removed all non-purchasers from the data being averaged. 
 
@@ -2234,6 +2284,7 @@ At face value, we could say that the code above is giving the incorrect answer; 
 
 To answer the real question at hand, we would instead have a couple of options. We could `sum()` the amount spent with the option to drop nulls but then divide by the correct denominator (all observations -- not just those with spend) or we could explicitly recode null values in `AMT_SPEND` to zero before taking the average. This leads to a lower but correct conclusion.
 
+
 ::: {.cell}
 
 ```{.r .cell-code}
@@ -2243,7 +2294,7 @@ summarize(registration,
   )
 ```
 
-::: {.cell-output-stdout}
+::: {.cell-output .cell-output-stdout}
 ```
   AVG_SPEND_v1 AVG_SPEND_v2
 1           34           34
@@ -2251,7 +2302,9 @@ summarize(registration,
 :::
 :::
 
+
 This is all well and good if we could just accept that the behaviors above are simply how nulls work, but further complexity comes as we see that there is no industry standard across tools. For example, as the SQL code below shows, SQL's `avg()` function behaves more like R's `mean()` *with* the `na.rm = TRUE` option set. That is, the default behavior of SQL is to only operate on the valid and available values. 
+
 
 ::: {.cell output.var='sql1'}
 
@@ -2262,7 +2315,7 @@ FROM registration
 :::
 
 ::: {.cell}
-::: {.cell-output-stdout}
+::: {.cell-output .cell-output-stdout}
 ```
   avg(amt_spend)
 1       48.57143
@@ -2270,7 +2323,9 @@ FROM registration
 :::
 :::
 
+
 However, this is not to suggest that null values cannot also be destructive in SQL. While aggregation functions (which compute across a *row*) like `sum()` and `avg()` drop nulls, operators like `+` and `-` working *across columns* in the *same row* do not exhibit the same behavior. Consider, for example, if we wish to calculate the average net purchase amount (purchases minus returns) instead of the gross (total) purchase amount. 
+
 
 ::: {.cell output.var='sql2'}
 
@@ -2281,7 +2336,7 @@ FROM registration
 :::
 
 ::: {.cell}
-::: {.cell-output-stdout}
+::: {.cell-output .cell-output-stdout}
 ```
   avg(amt_spend-amt_return)
 1                        NA
@@ -2289,7 +2344,9 @@ FROM registration
 :::
 :::
 
+
 Despite what we learned above about the `avg()` function, the query above returns only a null value. What has happened? In our `registration` data set, the `amt_return` column is completely null (representing no returns). Because the subtraction occurs before the average is taken, subtracting real numbers in `amt_spend` with null values in `amt_return` creates a column of all null values which are then fed into the `avg()` function. This process is shown step-by-step below.
+
 
 ::: {.cell output.var='sql3'}
 
@@ -2303,7 +2360,7 @@ FROM registration
 :::
 
 ::: {.cell}
-::: {.cell-output-stdout}
+::: {.cell-output .cell-output-stdout}
 ```
    AMT_SPEND AMT_RETURN amt_spend-amt_return
 1         10         NA                   NA
@@ -2320,9 +2377,11 @@ FROM registration
 :::
 :::
 
+
 ## Null value filtering
 
 `dplyr` excludes `NA`s in `filter`
+
 
 ::: {.cell}
 
@@ -2331,7 +2390,7 @@ data.frame(x = c(1, 0, NA)) %>%
   filter(x != 1)
 ```
 
-::: {.cell-output-stdout}
+::: {.cell-output .cell-output-stdout}
 ```
   x
 1 0
@@ -2339,7 +2398,9 @@ data.frame(x = c(1, 0, NA)) %>%
 :::
 :::
 
+
 `SQL` excludes `NA`s in `WHERE`
+
 
 ::: {.cell output.var='sql4'}
 
@@ -2351,7 +2412,7 @@ where amt_spend != 10
 :::
 
 ::: {.cell}
-::: {.cell-output-stdout}
+::: {.cell-output .cell-output-stdout}
 ```
   ID_CUSTOMER CD_DEVICE AMT_SPEND AMT_RETURN
 1           2         1        20         NA
@@ -2363,6 +2424,7 @@ where amt_spend != 10
 ```
 :::
 :::
+
 
 ```
 import pandas as pd
@@ -2385,6 +2447,7 @@ Common functions for recoding include `base::ifelse`\index{base!ifelse}\index{R!
 
 However, analysts may often take on slight short-cut
 
+
 ::: {.cell}
 
 ```{.r .cell-code}
@@ -2401,7 +2464,7 @@ registration %>%
   count()
 ```
 
-::: {.cell-output-stdout}
+::: {.cell-output .cell-output-stdout}
 ```
 # A tibble: 2 x 2
 # Groups:   CAT_DEVICE [2]
@@ -2419,7 +2482,7 @@ registration %>%
 unique(registration$CD_DEVICE)
 ```
 
-::: {.cell-output-stdout}
+::: {.cell-output .cell-output-stdout}
 ```
 [1] 1 2 3
 ```
@@ -2441,7 +2504,7 @@ registration %>%
   count()
 ```
 
-::: {.cell-output-stdout}
+::: {.cell-output .cell-output-stdout}
 ```
 # A tibble: 2 x 2
 # Groups:   IND_SMALL_PURCH [2]
@@ -2462,7 +2525,7 @@ registration %>%
   count()
 ```
 
-::: {.cell-output-stdout}
+::: {.cell-output .cell-output-stdout}
 ```
 # A tibble: 3 x 2
 # Groups:   IND_SMALL_PURCH [3]
@@ -2475,9 +2538,11 @@ registration %>%
 :::
 :::
 
+
 ## Working with strings
 
 ## Data Types - Max
+
 
 ::: {.cell}
 
@@ -2491,7 +2556,7 @@ any(
 )
 ```
 
-::: {.cell-output-stdout}
+::: {.cell-output .cell-output-stdout}
 ```
 [1] FALSE
 ```
@@ -2504,7 +2569,7 @@ any(
 max(c("20200101", "20190301"))
 ```
 
-::: {.cell-output-stdout}
+::: {.cell-output .cell-output-stdout}
 ```
 [1] "20200101"
 ```
@@ -2514,7 +2579,7 @@ max(c("20200101", "20190301"))
 max(c("03012019", "01012020"))
 ```
 
-::: {.cell-output-stdout}
+::: {.cell-output .cell-output-stdout}
 ```
 [1] "03012019"
 ```
@@ -2524,7 +2589,7 @@ max(c("03012019", "01012020"))
 max(c("120","99"))
 ```
 
-::: {.cell-output-stdout}
+::: {.cell-output .cell-output-stdout}
 ```
 [1] "99"
 ```
@@ -2534,7 +2599,7 @@ max(c("120","99"))
 max(c("120","099"))
 ```
 
-::: {.cell-output-stdout}
+::: {.cell-output .cell-output-stdout}
 ```
 [1] "120"
 ```
@@ -2544,7 +2609,7 @@ max(c("120","099"))
 max(c(120,99))
 ```
 
-::: {.cell-output-stdout}
+::: {.cell-output .cell-output-stdout}
 ```
 [1] 120
 ```
@@ -2554,7 +2619,7 @@ max(c(120,99))
 max(c(120,099))
 ```
 
-::: {.cell-output-stdout}
+::: {.cell-output .cell-output-stdout}
 ```
 [1] 120
 ```
@@ -2592,7 +2657,7 @@ Table: 1 records
 max(["20200101", "20190301"])
 ```
 
-::: {.cell-output-stdout}
+::: {.cell-output .cell-output-stdout}
 ```
 '20200101'
 ```
@@ -2602,7 +2667,7 @@ max(["20200101", "20190301"])
 max(["03012019", "01012020"])
 ```
 
-::: {.cell-output-stdout}
+::: {.cell-output .cell-output-stdout}
 ```
 '03012019'
 ```
@@ -2612,7 +2677,7 @@ max(["03012019", "01012020"])
 max(["120","99"])
 ```
 
-::: {.cell-output-stdout}
+::: {.cell-output .cell-output-stdout}
 ```
 '99'
 ```
@@ -2622,7 +2687,7 @@ max(["120","99"])
 max(["120","099"])
 ```
 
-::: {.cell-output-stdout}
+::: {.cell-output .cell-output-stdout}
 ```
 '120'
 ```
@@ -2633,14 +2698,16 @@ max([120,99])
 #max([120,099]) Python won't allow leading zeros on integers
 ```
 
-::: {.cell-output-stdout}
+::: {.cell-output .cell-output-stdout}
 ```
 120
 ```
 :::
 :::
 
+
 ## Data Types - Equality
+
 
 ::: {.cell}
 
@@ -2648,7 +2715,7 @@ max([120,99])
 "2020" == 2020
 ```
 
-::: {.cell-output-stdout}
+::: {.cell-output .cell-output-stdout}
 ```
 [1] TRUE
 ```
@@ -2658,7 +2725,7 @@ max([120,99])
 "02020" == 2020
 ```
 
-::: {.cell-output-stdout}
+::: {.cell-output .cell-output-stdout}
 ```
 [1] FALSE
 ```
@@ -2694,7 +2761,7 @@ Table: 1 records
 "2020" == 2020
 ```
 
-::: {.cell-output-stdout}
+::: {.cell-output .cell-output-stdout}
 ```
 False
 ```
@@ -2704,12 +2771,13 @@ False
 "02020" == 2020
 ```
 
-::: {.cell-output-stdout}
+::: {.cell-output .cell-output-stdout}
 ```
 False
 ```
 :::
 :::
+
 
 `python 1+1`
 
@@ -2726,6 +2794,7 @@ False
 
 ### Timestamps versus dates
 
+
 ::: {.cell}
 
 ```{.r .cell-code}
@@ -2734,13 +2803,13 @@ now <- as.POSIXct(Sys.time(), "America/New_York")
 today == now
 ```
 
-::: {.cell-output-stderr}
+::: {.cell-output .cell-output-stderr}
 ```
 Warning: Incompatible methods ("Ops.Date", "Ops.POSIXt") for "=="
 ```
 :::
 
-::: {.cell-output-stdout}
+::: {.cell-output .cell-output-stdout}
 ```
 [1] FALSE
 ```
@@ -2750,13 +2819,13 @@ Warning: Incompatible methods ("Ops.Date", "Ops.POSIXt") for "=="
 today > now
 ```
 
-::: {.cell-output-stderr}
+::: {.cell-output .cell-output-stderr}
 ```
 Warning: Incompatible methods ("Ops.Date", "Ops.POSIXt") for ">"
 ```
 :::
 
-::: {.cell-output-stdout}
+::: {.cell-output .cell-output-stdout}
 ```
 [1] FALSE
 ```
@@ -2766,13 +2835,13 @@ Warning: Incompatible methods ("Ops.Date", "Ops.POSIXt") for ">"
 today < now
 ```
 
-::: {.cell-output-stderr}
+::: {.cell-output .cell-output-stderr}
 ```
 Warning: Incompatible methods ("Ops.Date", "Ops.POSIXt") for "<"
 ```
 :::
 
-::: {.cell-output-stdout}
+::: {.cell-output .cell-output-stdout}
 ```
 [1] TRUE
 ```
@@ -2790,7 +2859,7 @@ now = datetime.now()
 today == now
 ```
 
-::: {.cell-output-stdout}
+::: {.cell-output .cell-output-stdout}
 ```
 False
 ```
@@ -2800,7 +2869,7 @@ False
 today < now
 ```
 
-::: {.cell-output-error}
+::: {.cell-output .cell-output-error}
 ```
 Error in py_call_impl(callable, dots$args, dots$keywords): TypeError: can't compare datetime.datetime to datetime.date
 
@@ -2813,7 +2882,7 @@ Detailed traceback:
 today > now
 ```
 
-::: {.cell-output-error}
+::: {.cell-output .cell-output-error}
 ```
 Error in py_call_impl(callable, dots$args, dots$keywords): TypeError: can't compare datetime.datetime to datetime.date
 
@@ -2828,7 +2897,7 @@ now_str = now.strftime('%Y-%m-%d %H:%M:%S')
 today_str == now_str
 ```
 
-::: {.cell-output-stdout}
+::: {.cell-output .cell-output-stdout}
 ```
 False
 ```
@@ -2838,7 +2907,7 @@ False
 today_str < now_str
 ```
 
-::: {.cell-output-stdout}
+::: {.cell-output .cell-output-stdout}
 ```
 True
 ```
@@ -2848,17 +2917,19 @@ True
 today_str > now_str
 ```
 
-::: {.cell-output-stdout}
+::: {.cell-output .cell-output-stdout}
 ```
 False
 ```
 :::
 :::
 
+
 ## Assessing equality
 
 Automatic conversion of data types
 Dates versus timestamps 
+
 
 ::: {.cell}
 
@@ -2878,7 +2949,7 @@ data.frame(
 filter(df_dt, DT_ENROLL == DT_PURCH) %>% nrow()
 ```
 
-::: {.cell-output-stdout}
+::: {.cell-output .cell-output-stdout}
 ```
 [1] 0
 ```
@@ -2891,7 +2962,7 @@ filter(df_dt, DT_ENROLL == DT_PURCH) %>% nrow()
 sqldf("select * from df_dt where DT_ENROLL = DT_PURCH")
 ```
 
-::: {.cell-output-stdout}
+::: {.cell-output .cell-output-stdout}
 ```
 [1] DT_ENROLL DT_PURCH  DT_LOGIN 
 <0 rows> (or 0-length row.names)
@@ -2905,7 +2976,7 @@ sqldf("select * from df_dt where DT_ENROLL = DT_PURCH")
 as.numeric(df_dt$DT_ENROLL)
 ```
 
-::: {.cell-output-stdout}
+::: {.cell-output .cell-output-stdout}
 ```
 [1] 18262
 ```
@@ -2918,13 +2989,14 @@ as.numeric(df_dt$DT_ENROLL)
 sqldf("select cast(DT_ENROLL as integer) from df_dt")
 ```
 
-::: {.cell-output-stdout}
+::: {.cell-output .cell-output-stdout}
 ```
   cast(DT_ENROLL as integer)
 1                      18262
 ```
 :::
 :::
+
 
 Note this this can affect both filters and joins
 
@@ -2937,6 +3009,7 @@ Note this this can affect both filters and joins
 
 
 ## Inefficient processing
+
 
 ::: {.cell}
 
@@ -2960,9 +3033,9 @@ t_vec <- end_time - start_time
 t_for
 ```
 
-::: {.cell-output-stdout}
+::: {.cell-output .cell-output-stdout}
 ```
-Time difference of 0.138051 secs
+Time difference of 0.1719661 secs
 ```
 :::
 
@@ -2970,9 +3043,9 @@ Time difference of 0.138051 secs
 t_vec
 ```
 
-::: {.cell-output-stdout}
+::: {.cell-output .cell-output-stdout}
 ```
-Time difference of 0.2259972 secs
+Time difference of 0.009997129 secs
 ```
 :::
 
@@ -2980,9 +3053,9 @@ Time difference of 0.2259972 secs
 as.numeric(t_for)/as.numeric(t_vec)
 ```
 
-::: {.cell-output-stdout}
+::: {.cell-output .cell-output-stdout}
 ```
-[1] 0.6108528
+[1] 17.20155
 ```
 :::
 :::
@@ -3011,9 +3084,9 @@ t_vec = t1-t0
 t_for
 ```
 
-::: {.cell-output-stdout}
+::: {.cell-output .cell-output-stdout}
 ```
-0.2910342216491699
+0.3700411319732666
 ```
 :::
 
@@ -3021,9 +3094,9 @@ t_for
 t_vec
 ```
 
-::: {.cell-output-stdout}
+::: {.cell-output .cell-output-stdout}
 ```
-0.027956008911132812
+0.02499532699584961
 ```
 :::
 
@@ -3031,36 +3104,54 @@ t_vec
 t_for / t_vec
 ```
 
-::: {.cell-output-stdout}
+::: {.cell-output .cell-output-stdout}
 ```
-10.410435286893634
+14.804412522177072
 ```
 :::
 :::
+
 
 -->
 
 
-
-<div id="refs" class="references csl-bib-body hanging-indent" role="doc-bibliography" style="display: none">
+<div id="refs" class="references csl-bib-body hanging-indent" role="doc-bibliography">
 <div id="ref-barrett" class="csl-entry" role="doc-biblioentry">
 Barrett, Brian. 2019. <span>“How a ’NULL’ License Plate Landed One Hacker in Ticket Hell.”</span> <em>WIRED</em>, August. <a href="https://www.wired.com/story/null-license-plate-landed-one-hacker-ticket-hell/">https://www.wired.com/story/null-license-plate-landed-one-hacker-ticket-hell/</a>.
 </div>
 </div>
-</section><section class="footnotes footnotes-end-of-document" role="doc-endnotes"><hr>
+</section><section id="footnotes" class="footnotes footnotes-end-of-document" role="doc-endnotes"><hr>
 <ol>
-<li id="fn1" role="doc-endnote"><p>This problem is not isolated to data analysis tools. For an entertaining example, see the 2019 WIRED article “How a ‘NULL’ License Plate Landed One Hacker in Ticket Hell” <span class="citation" data-cites="barrett">(<a href="references.html#ref-barrett" role="doc-biblioref">Barrett 2019</a>)</span> which a real-world software system producing unintended and undesirable behavior when asked to deal with a word <code>'NULL'</code>.<a href="#fnref1" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
-<li id="fn2" role="doc-endnote"><p>You’ll notice that the code chunk below contains four commands but only three boolean outputs. Why is that? <code>is.na(NULL)</code> returns <code>logical(0)</code>, a zero-length value. It’s yet another form of missingness!<a href="#fnref2" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
-<li id="fn3" role="doc-endnote"><p>From calculus, we know 1/Inf approaches 0, but Inf/Inf is undefined.<a href="#fnref3" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
-<li id="fn4" role="doc-endnote"><p>This documentation can be obtained in R by typing <code><a href="https://rdrr.io/r/base/mean.html">?mean</a></code> in the console.<a href="#fnref4" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
-<li id="fn5" role="doc-endnote"><p>Recoding can be done with a number of different general purpose functions like <code>ifelse</code> or <code><a href="https://dplyr.tidyverse.org/reference/case_when.html">dplyr::case_when</a></code> in R. Different SQL varaints often offer different options for this purpose with functions such as <code>nvl()</code> or <code>zeroifnull()</code>. A common version across many language is <code><a href="https://dplyr.tidyverse.org/reference/coalesce.html">coalesce()</a></code> which takes the first non-null argument listed.<a href="#fnref5" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
-<li id="fn6" role="doc-endnote"><p>If a = b and b = c then a = c<a href="#fnref6" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
-<li id="fn7" role="doc-endnote"><p>I can accurately say my name is “Emily”, “Emily Riederer”, “Emily E. Riederer”, “Ms.&nbsp;Emily Riederer”. Additionally, if I spell my name over the phone, I can likely end up “Emily Rieder” or if I type it and mindlessly accept autocorrect, I’m “Emily Reindeer”. This inconsistently may be problematic if you are trying to combine my data across different sources where I provided my name in different ways.<a href="#fnref7" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
-<li id="fn8" role="doc-endnote"><p>Similarly, <code>"91" &gt; "905"</code> because since they both start with 9, we move on to compare 1 which is greater than 0.<a href="#fnref8" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
-<li id="fn9" role="doc-endnote"><p>Different versions of SQL may differ<a href="#fnref9" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
-<li id="fn10" role="doc-endnote"><p>A classic modeling technique for predicting binary (yes/no) outcomes<a href="#fnref10" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
-</ol></section></main><!-- /main --><script type="application/javascript">
+<li id="fn1"><p>This problem is not isolated to data analysis tools. For an entertaining example, see the 2019 WIRED article “How a ‘NULL’ License Plate Landed One Hacker in Ticket Hell” <span class="citation" data-cites="barrett">(<a href="#ref-barrett" role="doc-biblioref">Barrett 2019</a>)</span> which a real-world software system producing unintended and undesirable behavior when asked to deal with a word <code>'NULL'</code>.<a href="#fnref1" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
+<li id="fn2"><p>You’ll notice that the code chunk below contains four commands but only three boolean outputs. Why is that? <code>is.na(NULL)</code> returns <code>logical(0)</code>, a zero-length value. It’s yet another form of missingness!<a href="#fnref2" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
+<li id="fn3"><p>From calculus, we know 1/Inf approaches 0, but Inf/Inf is undefined.<a href="#fnref3" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
+<li id="fn4"><p>This documentation can be obtained in R by typing <code><a href="https://rdrr.io/r/base/mean.html">?mean</a></code> in the console.<a href="#fnref4" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
+<li id="fn5"><p>Recoding can be done with a number of different general purpose functions like <code>ifelse</code> or <code><a href="https://dplyr.tidyverse.org/reference/case_when.html">dplyr::case_when</a></code> in R. Different SQL varaints often offer different options for this purpose with functions such as <code>nvl()</code> or <code>zeroifnull()</code>. A common version across many language is <code><a href="https://dplyr.tidyverse.org/reference/coalesce.html">coalesce()</a></code> which takes the first non-null argument listed.<a href="#fnref5" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
+<li id="fn6"><p>If a = b and b = c then a = c<a href="#fnref6" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
+<li id="fn7"><p>I can accurately say my name is “Emily”, “Emily Riederer”, “Emily E. Riederer”, “Ms.&nbsp;Emily Riederer”. Additionally, if I spell my name over the phone, I can likely end up “Emily Rieder” or if I type it and mindlessly accept autocorrect, I’m “Emily Reindeer”. This inconsistently may be problematic if you are trying to combine my data across different sources where I provided my name in different ways.<a href="#fnref7" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
+<li id="fn8"><p>Similarly, <code>"91" &gt; "905"</code> because since they both start with 9, we move on to compare 1 which is greater than 0.<a href="#fnref8" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
+<li id="fn9"><p>Different versions of SQL may differ<a href="#fnref9" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
+<li id="fn10"><p>A classic modeling technique for predicting binary (yes/no) outcomes<a href="#fnref10" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
+</ol></section></main><!-- /main --><script id="quarto-html-after-body" type="application/javascript">
 window.document.addEventListener("DOMContentLoaded", function (event) {
+  const toggleBodyColorMode = (bsSheetEl) => {
+    const mode = bsSheetEl.getAttribute("data-mode");
+    const bodyEl = window.document.querySelector("body");
+    if (mode === "dark") {
+      bodyEl.classList.add("quarto-dark");
+      bodyEl.classList.remove("quarto-light");
+    } else {
+      bodyEl.classList.add("quarto-light");
+      bodyEl.classList.remove("quarto-dark");
+    }
+  }
+  const toggleBodyColorPrimary = () => {
+    const bsSheetEl = window.document.querySelector("link#quarto-bootstrap");
+    if (bsSheetEl) {
+      toggleBodyColorMode(bsSheetEl);
+    }
+  }
+  toggleBodyColorPrimary();  
   const icon = "";
   const anchorJS = new window.AnchorJS();
   anchorJS.options = {
@@ -3080,7 +3171,27 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
     button.blur();
     // flash "checked"
     button.classList.add('code-copy-button-checked');
+    var currentTitle = button.getAttribute("title");
+    button.setAttribute("title", "Copied!");
+    let tooltip;
+    if (window.bootstrap) {
+      button.setAttribute("data-bs-toggle", "tooltip");
+      button.setAttribute("data-bs-placement", "left");
+      button.setAttribute("data-bs-title", "Copied!");
+      tooltip = new bootstrap.Tooltip(button, 
+        { trigger: "manual", 
+          customClass: "code-copy-button-tooltip",
+          offset: [0, -8]});
+      tooltip.show();    
+    }
     setTimeout(function() {
+      if (tooltip) {
+        tooltip.hide();
+        button.removeAttribute("data-bs-title");
+        button.removeAttribute("data-bs-toggle");
+        button.removeAttribute("data-bs-placement");
+      }
+      button.setAttribute("title", currentTitle);
       button.classList.remove('code-copy-button-checked');
     }, 1000);
     // clear code selection
@@ -3107,31 +3218,50 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
   for (var i=0; i<noterefs.length; i++) {
     const ref = noterefs[i];
     tippyHover(ref, function() {
-      let href = ref.getAttribute('href');
+      // use id or data attribute instead here
+      let href = ref.getAttribute('data-footnote-href') || ref.getAttribute('href');
       try { href = new URL(href).hash; } catch {}
       const id = href.replace(/^#\/?/, "");
       const note = window.document.getElementById(id);
       return note.innerHTML;
     });
   }
+  const findCites = (el) => {
+    const parentEl = el.parentElement;
+    if (parentEl) {
+      const cites = parentEl.dataset.cites;
+      if (cites) {
+        return {
+          el,
+          cites: cites.split(' ')
+        };
+      } else {
+        return findCites(el.parentElement)
+      }
+    } else {
+      return undefined;
+    }
+  };
   var bibliorefs = window.document.querySelectorAll('a[role="doc-biblioref"]');
   for (var i=0; i<bibliorefs.length; i++) {
     const ref = bibliorefs[i];
-    const cites = ref.parentNode.getAttribute('data-cites').split(' ');
-    tippyHover(ref, function() {
-      var popup = window.document.createElement('div');
-      cites.forEach(function(cite) {
-        var citeDiv = window.document.createElement('div');
-        citeDiv.classList.add('hanging-indent');
-        citeDiv.classList.add('csl-entry');
-        var biblioDiv = window.document.getElementById('ref-' + cite);
-        if (biblioDiv) {
-          citeDiv.innerHTML = biblioDiv.innerHTML;
-        }
-        popup.appendChild(citeDiv);
+    const citeInfo = findCites(ref);
+    if (citeInfo) {
+      tippyHover(citeInfo.el, function() {
+        var popup = window.document.createElement('div');
+        citeInfo.cites.forEach(function(cite) {
+          var citeDiv = window.document.createElement('div');
+          citeDiv.classList.add('hanging-indent');
+          citeDiv.classList.add('csl-entry');
+          var biblioDiv = window.document.getElementById('ref-' + cite);
+          if (biblioDiv) {
+            citeDiv.innerHTML = biblioDiv.innerHTML;
+          }
+          popup.appendChild(citeDiv);
+        });
+        return popup.innerHTML;
       });
-      return popup.innerHTML;
-    });
+    }
   }
 });
 </script><nav class="page-navigation"><div class="nav-page nav-page-previous">
@@ -3146,6 +3276,7 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
   </div>
 </nav>
 </div> <!-- /content -->
+
 
 
 </body></html>

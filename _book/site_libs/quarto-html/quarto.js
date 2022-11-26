@@ -6,12 +6,12 @@ const sectionChanged = new CustomEvent("quarto-sectionChanged", {
 });
 
 window.document.addEventListener("DOMContentLoaded", function (_event) {
-  const tocEl = window.document.querySelector('nav[role="doc-toc"]');
+  const tocEl = window.document.querySelector('nav.toc-active[role="doc-toc"]');
   const sidebarEl = window.document.getElementById("quarto-sidebar");
+  const leftTocEl = window.document.getElementById("quarto-sidebar-toc-left");
   const marginSidebarEl = window.document.getElementById(
     "quarto-margin-sidebar"
   );
-
   // function to determine whether the element has a previous sibling that is active
   const prevSiblingIsActiveLink = (el) => {
     const sibling = el.previousElementSibling;
@@ -21,6 +21,20 @@ window.document.addEventListener("DOMContentLoaded", function (_event) {
       return false;
     }
   };
+
+  // fire slideEnter for bootstrap tab activations (for htmlwidget resize behavior)
+  function fireSlideEnter(e) {
+    const event = window.document.createEvent("Event");
+    event.initEvent("slideenter", true, true);
+    window.document.dispatchEvent(event);
+  }
+  const tabs = window.document.querySelectorAll('a[data-bs-toggle="tab"]');
+  tabs.forEach((tab) => {
+    tab.addEventListener("shown.bs.tab", fireSlideEnter);
+  });
+
+  // fire slideEnter for tabby tab activations (for htmlwidget resize behavior)
+  document.addEventListener("tabby", fireSlideEnter, false);
 
   // Track scrolling and mark TOC links as active
   // get table of contents and sidebar (bail if we don't have at least one)
@@ -59,7 +73,11 @@ window.document.addEventListener("DOMContentLoaded", function (_event) {
 
   const sections = tocLinks.map((link) => {
     const target = link.getAttribute("data-scroll-target");
-    return window.document.querySelector(`${target}`);
+    if (target.startsWith("#")) {
+      return window.document.getElementById(decodeURI(`${target.slice(1)}`));
+    } else {
+      return window.document.querySelector(decodeURI(`${target}`));
+    }
   });
 
   const sectionMargin = 200;
@@ -142,8 +160,13 @@ window.document.addEventListener("DOMContentLoaded", function (_event) {
   function offsetAbsoluteUrl(url) {
     const offset = getMeta("quarto:offset");
     const baseUrl = new URL(offset, window.location);
+
     const projRelativeUrl = url.replace(baseUrl, "");
-    return "/" + projRelativeUrl;
+    if (projRelativeUrl.startsWith("/")) {
+      return projRelativeUrl;
+    } else {
+      return "/" + projRelativeUrl;
+    }
   }
 
   // read a meta tag value
@@ -158,34 +181,55 @@ window.document.addEventListener("DOMContentLoaded", function (_event) {
   }
 
   async function findAndActivateCategories() {
-    const thisPath = window.location.pathname;
+    const currentPagePath = offsetAbsoluteUrl(window.location.href);
     const response = await fetch(offsetRelativeUrl("listings.json"));
     if (response.status == 200) {
       return response.json().then(function (listingPaths) {
         const listingHrefs = [];
         for (const listingPath of listingPaths) {
+          const pathWithoutLeadingSlash = listingPath.listing.substring(1);
           for (const item of listingPath.items) {
-            if (item === thisPath || item === thisPath + "index.html") {
-              listingHrefs.push(listingPath.listing);
+            if (
+              item === currentPagePath ||
+              item === currentPagePath + "index.html"
+            ) {
+              // Resolve this path against the offset to be sure
+              // we already are using the correct path to the listing
+              // (this adjusts the listing urls to be rooted against
+              // whatever root the page is actually running against)
+              const relative = offsetRelativeUrl(pathWithoutLeadingSlash);
+              const baseUrl = window.location;
+              const resolvedPath = new URL(relative, baseUrl);
+              listingHrefs.push(resolvedPath.pathname);
               break;
             }
           }
         }
-        // See if the referrer is a listing page for this item
-        const referredRelativePath = offsetAbsoluteUrl(document.referrer);
-        const referrerListing = listingHrefs.find((listingHref) => {
-          const isListingReferrer =
-            listingHref === referredRelativePath ||
-            listingHref === referredRelativePath + "index.html";
-          return isListingReferrer;
-        });
 
-        if (referrerListing) {
-          // Try to use the referrer if possible
-          activateCategories(referrerListing);
-        } else if (listingHrefs.length > 0) {
-          // Otherwise, just fall back to the first listing
-          activateCategories(listingHrefs[0]);
+        // Look up the tree for a nearby linting and use that if we find one
+        const nearestListing = findNearestParentListing(
+          offsetAbsoluteUrl(window.location.pathname),
+          listingHrefs
+        );
+        if (nearestListing) {
+          activateCategories(nearestListing);
+        } else {
+          // See if the referrer is a listing page for this item
+          const referredRelativePath = offsetAbsoluteUrl(document.referrer);
+          const referrerListing = listingHrefs.find((listingHref) => {
+            const isListingReferrer =
+              listingHref === referredRelativePath ||
+              listingHref === referredRelativePath + "index.html";
+            return isListingReferrer;
+          });
+
+          if (referrerListing) {
+            // Try to use the referrer if possible
+            activateCategories(referrerListing);
+          } else if (listingHrefs.length > 0) {
+            // Otherwise, just fall back to the first listing
+            activateCategories(listingHrefs[0]);
+          }
         }
       });
     }
@@ -193,6 +237,25 @@ window.document.addEventListener("DOMContentLoaded", function (_event) {
   if (hasTitleCategories()) {
     findAndActivateCategories();
   }
+
+  const findNearestParentListing = (href, listingHrefs) => {
+    if (!href || !listingHrefs) {
+      return undefined;
+    }
+    // Look up the tree for a nearby linting and use that if we find one
+    const relativeParts = href.substring(1).split("/");
+    while (relativeParts.length > 0) {
+      const path = relativeParts.join("/");
+      for (const listingHref of listingHrefs) {
+        if (listingHref.startsWith(path)) {
+          return listingHref;
+        }
+      }
+      relativeParts.pop();
+    }
+
+    return undefined;
+  };
 
   const manageSidebarVisiblity = (el, placeholderDescriptor) => {
     let isVisible = true;
@@ -213,13 +276,9 @@ window.document.addEventListener("DOMContentLoaded", function (_event) {
 
         // Converts the sidebar to a menu
         const convertToMenu = () => {
-          const elBackground = window
-            .getComputedStyle(window.document.body, null)
-            .getPropertyValue("background");
-          el.classList.add("rollup");
-
           for (const child of el.children) {
             child.style.opacity = 0;
+            child.style.overflow = "hidden";
           }
 
           const toggleContainer = window.document.createElement("div");
@@ -247,7 +306,6 @@ window.document.addEventListener("DOMContentLoaded", function (_event) {
           toggleContainer.append(toggleTitle);
 
           const toggleContents = window.document.createElement("div");
-          toggleContents.style.background = elBackground;
           toggleContents.classList = el.classList;
           toggleContents.classList.add("zindex-over-content");
           toggleContents.classList.add("quarto-sidebar-toggle-contents");
@@ -258,6 +316,7 @@ window.document.addEventListener("DOMContentLoaded", function (_event) {
 
             const clone = child.cloneNode(true);
             clone.style.opacity = 1;
+            clone.style.display = null;
             toggleContents.append(clone);
           }
           toggleContents.style.height = "0px";
@@ -322,6 +381,7 @@ window.document.addEventListener("DOMContentLoaded", function (_event) {
         const convertToSidebar = () => {
           for (const child of el.children) {
             child.style.opacity = 1;
+            child.style.overflow = null;
           }
 
           const placeholderEl = window.document.getElementById(
@@ -358,37 +418,26 @@ window.document.addEventListener("DOMContentLoaded", function (_event) {
     };
   };
 
-  const offsetEl = window.document.querySelector(
-    `*[data-sidebar-align="true"]`
+  // Find any conflicting margin elements and add margins to the
+  // top to prevent overlap
+  const marginChildren = window.document.querySelectorAll(
+    ".column-margin.column-container > * "
   );
-  let offsetTopPadding = null;
-  const positionSidebars = () => {
-    if (offsetEl !== null) {
-      if (offsetTopPadding === null) {
-        offsetTopPadding = offsetEl.style.paddingTop;
-      }
-      const rect = offsetEl.getBoundingClientRect();
-      const position = Math.max(rect.height, 0);
 
-      const floating = window.document.querySelector("body.floating");
-      const sidebarIds = ["quarto-margin-sidebar"];
-      if (floating) {
-        sidebarIds.push("quarto-sidebar");
+  nexttick(() => {
+    let lastBottom = 0;
+    for (const marginChild of marginChildren) {
+      const top = marginChild.getBoundingClientRect().top + window.scrollY;
+      if (top < lastBottom) {
+        const margin = lastBottom - top;
+        marginChild.style.marginTop = `${margin}px`;
       }
-      sidebarIds.forEach((sidebarId) => {
-        const sidebarEl = window.document.getElementById(sidebarId);
-        if (sidebarEl) {
-          sidebarEl.style.marginTop = `${position}px`;
-          if (position > 0) {
-            sidebarEl.style.paddingTop = "0.5em";
-          } else {
-            sidebarEl.style.paddingTop = offsetTopPadding;
-          }
-        }
-      });
+      const styles = window.getComputedStyle(marginChild);
+      const marginTop = parseFloat(styles["marginTop"]);
+
+      lastBottom = top + marginChild.getBoundingClientRect().height + marginTop;
     }
-  };
-  positionSidebars();
+  });
 
   // Manage the visibility of the toc and the sidebar
   const marginScrollVisibility = manageSidebarVisiblity(marginSidebarEl, {
@@ -401,6 +450,15 @@ window.document.addEventListener("DOMContentLoaded", function (_event) {
     titleSelector: ".title",
     dismissOnClick: false,
   });
+  let tocLeftScrollVisibility;
+  if (leftTocEl) {
+    tocLeftScrollVisibility = manageSidebarVisiblity(leftTocEl, {
+      id: "quarto-lefttoc-toggle",
+      titleSelector: "#toc-title",
+      dismissOnClick: true,
+    });
+  }
+
   // Find the first element that uses formatting in special columns
   const conflictingEls = window.document.body.querySelectorAll(
     '[class^="column-"], [class*=" column-"], aside, [class*="margin-caption"], [class*=" margin-caption"], [class*="margin-ref"], [class*=" margin-ref"]'
@@ -462,6 +520,9 @@ window.document.addEventListener("DOMContentLoaded", function (_event) {
   const hideOverlappedSidebars = () => {
     marginScrollVisibility(toRegions(rightSideConflictEls));
     sidebarScrollVisiblity(toRegions(leftSideConflictEls));
+    if (tocLeftScrollVisibility) {
+      tocLeftScrollVisibility(toRegions(leftSideConflictEls));
+    }
   };
 
   window.quartoToggleReader = () => {
@@ -578,7 +639,6 @@ window.document.addEventListener("DOMContentLoaded", function (_event) {
     "scroll",
     throttle(() => {
       if (tocEl) {
-        positionSidebars();
         updateActiveLink();
         walk(tocEl, 0);
       }
@@ -590,10 +650,6 @@ window.document.addEventListener("DOMContentLoaded", function (_event) {
   window.addEventListener(
     "resize",
     throttle(() => {
-      if (tocEl) {
-        positionSidebars();
-      }
-
       if (!isReaderMode()) {
         hideOverlappedSidebars();
       }
@@ -601,6 +657,99 @@ window.document.addEventListener("DOMContentLoaded", function (_event) {
   );
   hideOverlappedSidebars();
   highlightReaderToggle(isReaderMode());
+});
+
+// grouped tabsets
+window.addEventListener("pageshow", (_event) => {
+  function getTabSettings() {
+    const data = localStorage.getItem("quarto-persistent-tabsets-data");
+    if (!data) {
+      localStorage.setItem("quarto-persistent-tabsets-data", "{}");
+      return {};
+    }
+    if (data) {
+      return JSON.parse(data);
+    }
+  }
+
+  function setTabSettings(data) {
+    localStorage.setItem(
+      "quarto-persistent-tabsets-data",
+      JSON.stringify(data)
+    );
+  }
+
+  function setTabState(groupName, groupValue) {
+    const data = getTabSettings();
+    data[groupName] = groupValue;
+    setTabSettings(data);
+  }
+
+  function toggleTab(tab, active) {
+    const tabPanelId = tab.getAttribute("aria-controls");
+    const tabPanel = document.getElementById(tabPanelId);
+    if (active) {
+      tab.classList.add("active");
+      tabPanel.classList.add("active");
+    } else {
+      tab.classList.remove("active");
+      tabPanel.classList.remove("active");
+    }
+  }
+
+  function toggleAll(selectedGroup, selectorsToSync) {
+    for (const [thisGroup, tabs] of Object.entries(selectorsToSync)) {
+      const active = selectedGroup === thisGroup;
+      for (const tab of tabs) {
+        toggleTab(tab, active);
+      }
+    }
+  }
+
+  function findSelectorsToSyncByLanguage() {
+    const result = {};
+    const tabs = Array.from(
+      document.querySelectorAll(`div[data-group] a[id^='tabset-']`)
+    );
+    for (const item of tabs) {
+      const div = item.parentElement.parentElement.parentElement;
+      const group = div.getAttribute("data-group");
+      if (!result[group]) {
+        result[group] = {};
+      }
+      const selectorsToSync = result[group];
+      const value = item.innerHTML;
+      if (!selectorsToSync[value]) {
+        selectorsToSync[value] = [];
+      }
+      selectorsToSync[value].push(item);
+    }
+    return result;
+  }
+
+  function setupSelectorSync() {
+    const selectorsToSync = findSelectorsToSyncByLanguage();
+    Object.entries(selectorsToSync).forEach(([group, tabSetsByValue]) => {
+      Object.entries(tabSetsByValue).forEach(([value, items]) => {
+        items.forEach((item) => {
+          item.addEventListener("click", (_event) => {
+            setTabState(group, value);
+            toggleAll(value, selectorsToSync[group]);
+          });
+        });
+      });
+    });
+    return selectorsToSync;
+  }
+
+  const selectorsToSync = setupSelectorSync();
+  for (const [group, selectedName] of Object.entries(getTabSettings())) {
+    const selectors = selectorsToSync[group];
+    // it's possible that stale state gives us empty selections, so we explicitly check here.
+    if (selectors) {
+      toggleAll(selectedName, selectors);
+    }
+  }
 });
 
 function throttle(func, wait) {
@@ -614,4 +763,8 @@ function throttle(func, wait) {
       }, wait);
     }
   };
+}
+
+function nexttick(func) {
+  return setTimeout(func, 0);
 }
