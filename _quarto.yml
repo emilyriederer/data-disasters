@@ -16,7 +16,7 @@ book:
   twitter-card: true
   google-analytics: G-C7VEESJ7Z8
 
-  graphics: yes
+  #graphics: yes
   search: true
   site-url: data-disasters.com
   repo-url: https://github.com/emilyriederer/data-disasters

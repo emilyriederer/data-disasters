@@ -667,6 +667,10 @@ df2
 pd.merge(left = df1, right = df2, how = "left", on = ['ID', 'IND'])
 ```
 
+### Logical Encoding (`pandas` case study)
+
+https://twitter.com/pandas_dev/status/1579886907286491137?s=20&t=GXV9OMXUcJiPWyES6CUKoA
+
 ## Numbers (TODO)
 
 ### Integer division
@@ -1334,13 +1338,17 @@ Some computational quandaries are inherent to our tools themselves, but often th
 ### Be explicit not implicit
 
 - default arguments
-- examples above with casting, coalescingW
+- examples above with casting, coalescing
 
 ## Real World Disasters (WIP)
 
 https://www.theguardian.com/politics/2020/oct/05/how-excel-may-have-caused-loss-of-16000-covid-tests-in-england
 
 > The data error, which led to 15,841 positive tests being left off the official daily figures, means than 50,000 potentially infectious people may have been missed by contact tracers and not told to self-isolate.
+
+https://journals.plos.org/ploscompbiol/article?id=10.1371/journal.pcbi.1008984
+
+The Excel gene error has not been corrected
 
 ```{r echo = FALSE}
 DBI::dbDisconnect(con, shutdown = TRUE)

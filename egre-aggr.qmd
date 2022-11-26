@@ -547,6 +547,10 @@ mean(df$n_visits[c(8:12, 1:12)])
 0.805 / 0.800
 ```
 
+## Segmentation (TODO)
+
+transient segmentation means can't track trends within
+
 ## Outliers (TODO)
 
 ## Strategies (TODO)

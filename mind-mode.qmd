@@ -3,6 +3,8 @@
 Excellent reproducibility paper: https://reproducible.cs.princeton.edu/
 feature leakage, model sheets
 
+Illusion of progress: https://arxiv.org/pdf/math/0606441.pdf
+
 ## Features
 
 Ratio Variables: https://journals.sagepub.com/doi/abs/10.1177/1094428118773455?journalCode=orma
@@ -266,3 +268,5 @@ How you chose to model depends not just on your target variable and the relation
 -->
 
 ## Fair and Ethical Modeling
+
+

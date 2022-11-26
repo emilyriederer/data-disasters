@@ -1,10 +1,20 @@
 # Complexifying Code (TODO) {#sec-comp-code}
 
+https://besjournals.onlinelibrary.wiley.com/doi/epdf/10.1111/2041-210X.13961
+
+https://github.com/jennybc/code-smells-and-feels
+
+https://www.slideshare.net/milkers/naming-things
+
 ## Making code unreadable
 
 ### Naming
 
 structure for sorting, ordering, clear semantics
+
+https://indrajeetpatil.github.io/second-hardest-cs-thing/#1
+
+Jenny Bryan
 
 ### Whitespace
 
@@ -20,6 +30,18 @@ not using functions / files / templates / variables
 
 ## Project organization
 
-## Decoding
+## Debugging
 
-rubber duck decoding
+rubber duck debugging
+
+isolation
+
+## Asking Questions
+
+reprex
+
+## Documentation
+
+## Safety
+
+Bill of materials: https://develop.secure.software/sbom-facts-know-whats-in-software-fend-off-supply-chain-attacks
