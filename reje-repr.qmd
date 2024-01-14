@@ -6,6 +6,12 @@ Package managment [@R-renv]
 
 environment management
 
+https://www.ncbi.nlm.nih.gov/pmc/articles/PMC6705117/
+
+https://rss.onlinelibrary.wiley.com/doi/10.1111/1740-9713.01444
+
+https://osf.io/preprints/metaarxiv/frta7/ 
+
 <!--
 
 "Opinionated Analysis Development" [@parker_2017]

@@ -1,5 +1,7 @@
 # Incredible Inferences (TODO) {#sec-incr-infe}
 
+BMJ statistician sent to me: https://www.bmj.com/content/379/bmj-2022-072883 
+
 Previously, we have seen how different inputs like data, tools, and methods can add risks to our data analysis. However, the battle is not won simply when we get our first set of *outputs*. In this chapter, we will explore common errors in interpreting the results of our analysis by exploring aspects of bias, missingness, and confounding. 
 
 ## Common Biases

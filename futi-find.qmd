@@ -7,6 +7,14 @@ https://pubmed.ncbi.nlm.nih.gov/18492790/
 
 Mere Description: https://www.cambridge.org/core/journals/british-journal-of-political-science/article/abs/mere-description/833643C6242D3A45D48BAAC3EF0C33D0
 
+10 rules COVID Pharmacoepi https://pubmed.ncbi.nlm.nih.gov/34393782/
+
+Dirty Dozen: Metric Experimenation Pitfalls in OCE https://exp-platform.com/Documents/2017-08%20KDDMetricInterpretationPitfalls.pdf 
+
+AB Testing Intuition Myth Busters https://www.researchgate.net/publication/361226478_AB_Testing_Intuition_Busters_Common_Misunderstandings_in_Online_Controlled_Experiments
+
+Estimands https://arxiv.org/ftp/arxiv/papers/2106/2106.10577.pdf
+
 <!--
 
 ## Conditional Probability
