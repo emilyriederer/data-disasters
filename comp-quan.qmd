@@ -196,7 +196,7 @@ To explore aggregation, let's build a simple dataset. We will suppose that we ar
 spend <-
   data.frame(
     AMT_SPEND = c(10, 20, NA),
-    AMT_RETURN = rep(NA, 3)
+    AMT_RETURN = as.numeric(rep(NA, 3))
   )
 
 head(spend)
@@ -204,7 +204,8 @@ head(spend)
 
 ```{r include = FALSE}
 # load to SQL ----
-con <- DBI::dbConnect(RSQLite::SQLite(), ":memory:")
+## using RSQLite here because some duckdb examples work differently
+con <- DBI::dbConnect(RSQLite::SQLite(), ":memory:") 
 DBI::dbWriteTable(con, "spend", spend)
 ```
 
@@ -517,6 +518,7 @@ FALSE > -1
 TRUE + 1
 TRUE * 5
 ```
+
 similar in SQL
 
 ```{sql connection = con}

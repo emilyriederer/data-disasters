@@ -457,7 +457,7 @@ gtag('config', 'G-C7VEESJ7Z8', { 'anonymize_ip': true});
 </ul>
 <div class="cell" data-layout-align="center">
 <div class="cell-output-display">
-<div id="fig-filt-aggr-tran" class="quarto-figure quarto-figure-center anchored" data-fig-align="center" width="90%">
+<div id="fig-filt-aggr-tran" class="quarto-figure quarto-figure-center anchored" width="90%" data-fig-align="center">
 <figure class="quarto-float quarto-float-fig figure"><div aria-describedby="fig-filt-aggr-tran-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
 <img src="figures/comp-quan/filt-aggr-tran.png" class="img-fluid quarto-figure quarto-figure-center figure-img" style="width:90.0%">
 </div>
@@ -618,7 +618,7 @@ could also have an empty string of any length</p>
 <div class="sourceCode" id="cb20"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">spend</span> <span class="op">&lt;-</span></span>
 <span>  <span class="fu"><a href="https://rdrr.io/r/base/data.frame.html">data.frame</a></span><span class="op">(</span></span>
 <span>    AMT_SPEND <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="fl">10</span>, <span class="fl">20</span>, <span class="cn">NA</span><span class="op">)</span>,</span>
-<span>    AMT_RETURN <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/rep.html">rep</a></span><span class="op">(</span><span class="cn">NA</span>, <span class="fl">3</span><span class="op">)</span></span>
+<span>    AMT_RETURN <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/numeric.html">as.numeric</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/rep.html">rep</a></span><span class="op">(</span><span class="cn">NA</span>, <span class="fl">3</span><span class="op">)</span><span class="op">)</span></span>
 <span>  <span class="op">)</span></span>
 <span></span>
 <span><span class="fu"><a href="https://rdrr.io/r/utils/head.html">head</a></span><span class="op">(</span><span class="va">spend</span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
@@ -3230,7 +3230,7 @@ t_for
 ::: {.cell-output .cell-output-stdout}
 
 ```
-Time difference of 0.131424 secs
+Time difference of 0.1299529 secs
 ```
 
 
@@ -3243,7 +3243,7 @@ t_vec
 ::: {.cell-output .cell-output-stdout}
 
 ```
-Time difference of 0.256995 secs
+Time difference of 0.2680011 secs
 ```
 
 
@@ -3256,7 +3256,7 @@ as.numeric(t_for)/as.numeric(t_vec)
 ::: {.cell-output .cell-output-stdout}
 
 ```
-[1] 0.5113873
+[1] 0.484897
 ```
 
 
@@ -3290,7 +3290,7 @@ t_for
 ::: {.cell-output .cell-output-stdout}
 
 ```
-0.289048433303833
+0.3099937438964844
 ```
 
 
@@ -3303,7 +3303,7 @@ t_vec
 ::: {.cell-output .cell-output-stdout}
 
 ```
-0.025002479553222656
+0.0279996395111084
 ```
 
 
@@ -3316,7 +3316,7 @@ t_for / t_vec
 ::: {.cell-output .cell-output-stdout}
 
 ```
-11.560790708319029
+11.071347678369197
 ```
 
 
