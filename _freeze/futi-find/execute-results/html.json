@@ -1,0 +1,15 @@
+{
+  "hash": "c559a84d65b00419414422d2df1415c9",
+  "result": {
+    "engine": "knitr",
+    "markdown": "# Futile Findings (TODO) {#futi-find}\n\nDirty Dozen p hacking https://psyarxiv.com/xy2dk/\n\nImportance of Stupidity in Scientific Research \nhttps://pubmed.ncbi.nlm.nih.gov/18492790/ \n\nMere Description: https://www.cambridge.org/core/journals/british-journal-of-political-science/article/abs/mere-description/833643C6242D3A45D48BAAC3EF0C33D0\n\n10 rules COVID Pharmacoepi https://pubmed.ncbi.nlm.nih.gov/34393782/\n\nDirty Dozen: Metric Experimenation Pitfalls in OCE https://exp-platform.com/Documents/2017-08%20KDDMetricInterpretationPitfalls.pdf \n\nAB Testing Intuition Myth Busters https://www.researchgate.net/publication/361226478_AB_Testing_Intuition_Busters_Common_Misunderstandings_in_Online_Controlled_Experiments\n\nEstimands https://arxiv.org/ftp/arxiv/papers/2106/2106.10577.pdf\n\n<!--\n\n## Conditional Probability\n\n## No law to use ALL the data\n\n## Ascribing characteristics at wrong granularity\n\necological fallacy\n\n(does this belong in causation chapter?)\n\n## Finding policy-induced relationships\n\nselection bias\n\n## Ignoring heterogeneity\n\n## \"If trends continue\"\n\n## Analyzing time-to-event data\n\nimmortal time bias\n\n## Answering the right question\n\nDon't let available tools dictate the questions of interest\n\n*The Cult of Statistical Significance* [@ziliak_mccloskey]\n\n\"Mindless Statistics\" [@GIGERENZER2004587]\n\n## Misguided Rigor\n\n\n::: {.cell}\n\n```{.r .cell-code}\nset.seed(123)\nt <- t.test(rnorm(100), rnorm(100))\nprint(t)\n```\n\n::: {.cell-output .cell-output-stdout}\n\n```\n\n\tWelch Two Sample t-test\n\ndata:  rnorm(100) and rnorm(100)\nt = 1.4886, df = 197.35, p-value = 0.1382\nalternative hypothesis: true difference in means is not equal to 0\n95 percent confidence interval:\n -0.06428618  0.46019159\nsample estimates:\n  mean of x   mean of y \n 0.09040591 -0.10754680 \n```\n\n\n:::\n\n```{.r .cell-code}\nt$p.value\n```\n\n::: {.cell-output .cell-output-stdout}\n\n```\n[1] 0.1381836\n```\n\n\n:::\n:::\n\n::: {.cell}\n\n```{.r .cell-code}\npvals <- vapply(1:1000, FUN = function(x) t.test(rnorm(100), rnorm(100))$p.value, FUN.VALUE = numeric(1)) \nalpha <- 0.05\nsum(pvals > (1-alpha/2) | pvals < alpha/2) / length(pvals)\n```\n\n::: {.cell-output .cell-output-stdout}\n\n```\n[1] 0.051\n```\n\n\n:::\n:::\n\n::: {.cell}\n\n```{.r .cell-code}\nget_prop_sign <- function(n = 1000, alpha = 0.05) {\n\n  pvals <- vapply(1:n, FUN = function(x) t.test(rnorm(100), rnorm(100))$p.value, FUN.VALUE = numeric(1))\n  prop <- sum(pvals > (1-alpha/2) | pvals < alpha/2) / length(pvals)\n  return(prop)\n\n}\n```\n:::\n\n\n\nData dredging, p-hacking\n\n## Sample splitting\n\nThe **nullabor** [@R-nullabor] R package\n\n## Age Period Cohort\n\n## Strategies\n\n-->\n",
+    "supporting": [],
+    "filters": [
+      "rmarkdown/pagebreak.lua"
+    ],
+    "includes": {},
+    "engineDependencies": {},
+    "preserve": {},
+    "postProcess": true
+  }
+}

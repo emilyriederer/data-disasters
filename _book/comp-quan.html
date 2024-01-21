@@ -2,7 +2,7 @@
 <html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <meta charset="utf-8">
-<meta name="generator" content="quarto-1.2.247">
+<meta name="generator" content="quarto-1.4.510">
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 <meta name="description" content="Navigating the complexities of real-world data analysis">
 <title>Data Disasters - 3&nbsp; Computational Quandaries (WIP)</title>
@@ -15,11 +15,12 @@ div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
 ul.task-list{list-style: none;}
 ul.task-list li input[type="checkbox"] {
   width: 0.8em;
-  margin: 0 0.8em 0.2em -1.6em;
+  margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
   vertical-align: middle;
 }
+/* CSS for syntax highlighting */
 pre > code.sourceCode { white-space: pre; position: relative; }
-pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+pre > code.sourceCode > span { line-height: 1.25; }
 pre > code.sourceCode > span:empty { height: 1.2em; }
 .sourceCode { overflow: visible; }
 code.sourceCode > span { color: inherit; text-decoration: inherit; }
@@ -44,48 +45,20 @@ pre.numberSource code > span > a:first-child::before
     -khtml-user-select: none; -moz-user-select: none;
     -ms-user-select: none; user-select: none;
     padding: 0 4px; width: 4em;
-    color: #aaaaaa;
   }
-pre.numberSource { margin-left: 3em; border-left: 1px solid #aaaaaa;  padding-left: 4px; }
+pre.numberSource { margin-left: 3em;  padding-left: 4px; }
 div.sourceCode
   {   }
 @media screen {
 pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
 }
-code span.al { color: #ff0000; font-weight: bold; } /* Alert */
-code span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
-code span.at { color: #7d9029; } /* Attribute */
-code span.bn { color: #40a070; } /* BaseN */
-code span.bu { color: #008000; } /* BuiltIn */
-code span.cf { color: #007020; font-weight: bold; } /* ControlFlow */
-code span.ch { color: #4070a0; } /* Char */
-code span.cn { color: #880000; } /* Constant */
-code span.co { color: #60a0b0; font-style: italic; } /* Comment */
-code span.cv { color: #60a0b0; font-weight: bold; font-style: italic; } /* CommentVar */
-code span.do { color: #ba2121; font-style: italic; } /* Documentation */
-code span.dt { color: #902000; } /* DataType */
-code span.dv { color: #40a070; } /* DecVal */
-code span.er { color: #ff0000; font-weight: bold; } /* Error */
-code span.ex { } /* Extension */
-code span.fl { color: #40a070; } /* Float */
-code span.fu { color: #06287e; } /* Function */
-code span.im { color: #008000; font-weight: bold; } /* Import */
-code span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Information */
-code span.kw { color: #007020; font-weight: bold; } /* Keyword */
-code span.op { color: #666666; } /* Operator */
-code span.ot { color: #007020; } /* Other */
-code span.pp { color: #bc7a00; } /* Preprocessor */
-code span.sc { color: #4070a0; } /* SpecialChar */
-code span.ss { color: #bb6688; } /* SpecialString */
-code span.st { color: #4070a0; } /* String */
-code span.va { color: #19177c; } /* Variable */
-code span.vs { color: #4070a0; } /* VerbatimString */
-code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warning */
+/* CSS for citations */
 div.csl-bib-body { }
 div.csl-entry {
   clear: both;
+  margin-bottom: 0em;
 }
-.hanging div.csl-entry {
+.hanging-indent div.csl-entry {
   margin-left:2em;
   text-indent:-2em;
 }
@@ -99,8 +72,7 @@ div.csl-right-inline {
 }
 div.csl-indent {
   margin-left: 2em;
-}
-</style>
+}</style>
 
 <script src="site_libs/quarto-nav/quarto-nav.js"></script>
 <script src="site_libs/quarto-nav/headroom.min.js"></script>
@@ -126,7 +98,13 @@ div.csl-indent {
   "collapse-after": 3,
   "panel-placement": "start",
   "type": "textbox",
-  "limit": 20,
+  "limit": 50,
+  "keyboard-shortcut": [
+    "f",
+    "/",
+    "s"
+  ],
+  "show-item-context": false,
   "language": {
     "search-no-results-text": "No results",
     "search-matching-documents-text": "matching documents",
@@ -136,7 +114,8 @@ div.csl-indent {
     "search-more-matches-text": "more matches in this document",
     "search-clear-button-title": "Clear",
     "search-detached-cancel-button-title": "Cancel",
-    "search-submit-button-title": "Submit"
+    "search-submit-button-title": "Submit",
+    "search-label": "Search"
   }
 }</script><script async="" src="https://www.googletagmanager.com/gtag/js?id=G-C7VEESJ7Z8"></script><script type="text/javascript">
 
@@ -144,10 +123,10 @@ window.dataLayer = window.dataLayer || [];
 function gtag(){dataLayer.push(arguments);}
 gtag('js', new Date());
 gtag('config', 'G-C7VEESJ7Z8', { 'anonymize_ip': true});
-</script><script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml-full.js" type="text/javascript"></script>
+</script><script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script><script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml-full.js" type="text/javascript"></script>
 <meta property="og:title" content="Data Disasters - 3&nbsp; Computational Quandaries (WIP)">
 <meta property="og:description" content="Navigating the complexities of real-world data analysis">
-<meta property="og:site-name" content="Data Disasters">
+<meta property="og:site_name" content="Data Disasters">
 <meta name="twitter:title" content="Data Disasters - 3&nbsp; Computational Quandaries (WIP)">
 <meta name="twitter:description" content="Navigating the complexities of real-world data analysis">
 <meta name="twitter:card" content="summary">
@@ -155,266 +134,297 @@ gtag('config', 'G-C7VEESJ7Z8', { 'anonymize_ip': true});
 <body class="nav-sidebar floating">
 
 <div id="quarto-search-results"></div>
-  <header id="quarto-header" class="headroom fixed-top"><nav class="quarto-secondary-nav" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }"><div class="container-fluid d-flex justify-content-between">
-      <h1 class="quarto-secondary-nav-title"><span class="chapter-number">3</span>&nbsp; <span class="chapter-title">Computational Quandaries (WIP)</span></h1>
-      <button type="button" class="quarto-btn-toggle btn" aria-label="Show secondary navigation">
-        <i class="bi bi-chevron-right"></i>
+  <header id="quarto-header" class="headroom fixed-top"><nav class="quarto-secondary-nav"><div class="container-fluid d-flex">
+      <button type="button" class="quarto-btn-toggle btn" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
+        <i class="bi bi-layout-text-sidebar-reverse"></i>
+      </button>
+        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="./data-dall.html">Data</a></li><li class="breadcrumb-item"><a href="./comp-quan.html"><span class="chapter-number">3</span>&nbsp; <span class="chapter-title">Computational Quandaries (WIP)</span></a></li></ol></nav>
+        <a class="flex-grow-1" role="button" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
+        </a>
+      <button type="button" class="btn quarto-search-button" aria-label="" onclick="window.quartoOpenSearch();">
+        <i class="bi bi-search"></i>
       </button>
     </div>
   </nav></header><!-- content --><div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-article">
 <!-- sidebar -->
-  <nav id="quarto-sidebar" class="sidebar collapse sidebar-navigation floating overflow-auto"><div class="pt-lg-2 mt-2 text-left sidebar-header">
+  <nav id="quarto-sidebar" class="sidebar collapse collapse-horizontal quarto-sidebar-collapse-item sidebar-navigation floating overflow-auto"><div class="pt-lg-2 mt-2 text-left sidebar-header">
     <div class="sidebar-title mb-0 py-0">
       <a href="./">Data Disasters</a> 
         <div class="sidebar-tools-main">
-    <a href="https://github.com/emilyriederer/data-disasters" title="Source Code" class="sidebar-tool px-1"><i class="bi bi-github"></i></a>
-    <a href="" title="Share" id="sidebar-tool-dropdown-0" class="sidebar-tool dropdown-toggle px-1" data-bs-toggle="dropdown" aria-expanded="false"><i class="bi bi-share"></i></a>
-    <ul class="dropdown-menu" aria-labelledby="sidebar-tool-dropdown-0">
+    <a href="https://github.com/emilyriederer/data-disasters" title="Source Code" class="quarto-navigation-tool px-1" aria-label="Source Code"><i class="bi bi-github"></i></a>
+    <div class="dropdown">
+      <a href="" title="Share" id="quarto-navigation-tool-dropdown-0" class="quarto-navigation-tool dropdown-toggle px-1" data-bs-toggle="dropdown" aria-expanded="false" aria-label="Share"><i class="bi bi-share"></i></a>
+      <ul class="dropdown-menu" aria-labelledby="quarto-navigation-tool-dropdown-0">
 <li>
-          <a class="dropdown-item sidebar-tools-main-item" href="https://twitter.com/intent/tweet?url=%7Curl%7C">
-            <i class="bi bi-bi-twitter pe-1"></i>
-          Twitter
-          </a>
-        </li>
-        <li>
-          <a class="dropdown-item sidebar-tools-main-item" href="https://www.facebook.com/sharer/sharer.php?u=%7Curl%7C">
-            <i class="bi bi-bi-facebook pe-1"></i>
-          Facebook
-          </a>
-        </li>
-        <li>
-          <a class="dropdown-item sidebar-tools-main-item" href="https://www.linkedin.com/sharing/share-offsite/?url=%7Curl%7C">
-            <i class="bi bi-bi-linkedin pe-1"></i>
-          LinkedIn
-          </a>
-        </li>
-    </ul>
+            <a class="dropdown-item sidebar-tools-main-item" href="https://twitter.com/intent/tweet?url=%7Curl%7C">
+              <i class="bi bi-bi-twitter pe-1"></i>
+            Twitter
+            </a>
+          </li>
+          <li>
+            <a class="dropdown-item sidebar-tools-main-item" href="https://www.facebook.com/sharer/sharer.php?u=%7Curl%7C">
+              <i class="bi bi-bi-facebook pe-1"></i>
+            Facebook
+            </a>
+          </li>
+          <li>
+            <a class="dropdown-item sidebar-tools-main-item" href="https://www.linkedin.com/sharing/share-offsite/?url=%7Curl%7C">
+              <i class="bi bi-bi-linkedin pe-1"></i>
+            LinkedIn
+            </a>
+          </li>
+      </ul>
+</div>
 </div>
     </div>
       </div>
-      <div class="mt-2 flex-shrink-0 align-items-center">
+        <div class="mt-2 flex-shrink-0 align-items-center">
         <div class="sidebar-search">
         <div id="quarto-search" class="" title="Search"></div>
         </div>
-      </div>
+        </div>
     <div class="sidebar-menu-container"> 
     <ul class="list-unstyled mt-1">
 <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./index.html" class="sidebar-item-text sidebar-link">Preface</a>
+  <a href="./index.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Preface</span></a>
   </div>
 </li>
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./comments.html" class="sidebar-item-text sidebar-link">Comments? Discuss here!</a>
+  <a href="./comments.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Comments? Discuss here!</span></a>
   </div>
 </li>
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./author.html" class="sidebar-item-text sidebar-link">About the Author</a>
+  <a href="./author.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">About the Author</span></a>
   </div>
 </li>
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./intro.html" class="sidebar-item-text sidebar-link"><span class="chapter-number">1</span>&nbsp; <span class="chapter-title">Introduction (TODO)</span></a>
+  <a href="./intro.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">1</span>&nbsp; <span class="chapter-title">Introduction (TODO)</span></span></a>
   </div>
 </li>
         <li class="sidebar-item sidebar-item-section">
       <div class="sidebar-item-container"> 
-            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-1" aria-expanded="true">Data</a>
-          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-1" aria-expanded="true">
+            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-1" aria-expanded="true">
+ <span class="menu-text">Data</span></a>
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-1" aria-expanded="true" aria-label="Toggle section">
             <i class="bi bi-chevron-right ms-2"></i>
           </a> 
       </div>
       <ul id="quarto-sidebar-section-1" class="collapse list-unstyled sidebar-section depth1 show">
 <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./data-dall.html" class="sidebar-item-text sidebar-link"><span class="chapter-number">2</span>&nbsp; <span class="chapter-title">Data Dalliances (WIP)</span></a>
+  <a href="./data-dall.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">2</span>&nbsp; <span class="chapter-title">Data Dalliances (WIP)</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./comp-quan.html" class="sidebar-item-text sidebar-link active"><span class="chapter-number">3</span>&nbsp; <span class="chapter-title">Computational Quandaries (WIP)</span></a>
+  <a href="./comp-quan.html" class="sidebar-item-text sidebar-link active">
+ <span class="menu-text"><span class="chapter-number">3</span>&nbsp; <span class="chapter-title">Computational Quandaries (WIP)</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./egre-aggr.html" class="sidebar-item-text sidebar-link"><span class="chapter-number">4</span>&nbsp; <span class="chapter-title">Egregious Aggregations (WIP)</span></a>
+  <a href="./egre-aggr.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">4</span>&nbsp; <span class="chapter-title">Egregious Aggregations (WIP)</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./vexi-visu.html" class="sidebar-item-text sidebar-link"><span class="chapter-number">5</span>&nbsp; <span class="chapter-title">Vexing Visualization (TODO)</span></a>
+  <a href="./vexi-visu.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">5</span>&nbsp; <span class="chapter-title">Vexing Visualization (TODO)</span></span></a>
   </div>
 </li>
       </ul>
 </li>
         <li class="sidebar-item sidebar-item-section">
       <div class="sidebar-item-container"> 
-            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-2" aria-expanded="true">Analysis</a>
-          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-2" aria-expanded="true">
+            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-2" aria-expanded="true">
+ <span class="menu-text">Analysis</span></a>
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-2" aria-expanded="true" aria-label="Toggle section">
             <i class="bi bi-chevron-right ms-2"></i>
           </a> 
       </div>
       <ul id="quarto-sidebar-section-2" class="collapse list-unstyled sidebar-section depth1 show">
 <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./incr-infe.html" class="sidebar-item-text sidebar-link"><span class="chapter-number">6</span>&nbsp; <span class="chapter-title">Incredible Inferences (TODO)</span></a>
+  <a href="./incr-infe.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">6</span>&nbsp; <span class="chapter-title">Incredible Inferences (TODO)</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./cava-caus.html" class="sidebar-item-text sidebar-link"><span class="chapter-number">7</span>&nbsp; <span class="chapter-title">Cavalier Causality (TODO)</span></a>
+  <a href="./cava-caus.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">7</span>&nbsp; <span class="chapter-title">Cavalier Causality (TODO)</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./mind-mode.html" class="sidebar-item-text sidebar-link"><span class="chapter-number">8</span>&nbsp; <span class="chapter-title">Mindless Modeling (TODO)</span></a>
+  <a href="./mind-mode.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">8</span>&nbsp; <span class="chapter-title">Mindless Modeling (TODO)</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./alte-algo.html" class="sidebar-item-text sidebar-link"><span class="chapter-number">9</span>&nbsp; <span class="chapter-title">Alternative Algorithms (TODO)</span></a>
+  <a href="./alte-algo.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">9</span>&nbsp; <span class="chapter-title">Alternative Algorithms (TODO)</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./futi-find.html" class="sidebar-item-text sidebar-link"><span class="chapter-number">10</span>&nbsp; <span class="chapter-title">Futile Findings (TODO)</span></a>
+  <a href="./futi-find.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">10</span>&nbsp; <span class="chapter-title">Futile Findings (TODO)</span></span></a>
   </div>
 </li>
       </ul>
 </li>
         <li class="sidebar-item sidebar-item-section">
       <div class="sidebar-item-container"> 
-            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-3" aria-expanded="true">Workflow</a>
-          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-3" aria-expanded="true">
+            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-3" aria-expanded="true">
+ <span class="menu-text">Workflow</span></a>
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-3" aria-expanded="true" aria-label="Toggle section">
             <i class="bi bi-chevron-right ms-2"></i>
           </a> 
       </div>
       <ul id="quarto-sidebar-section-3" class="collapse list-unstyled sidebar-section depth1 show">
 <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./comp-code.html" class="sidebar-item-text sidebar-link"><span class="chapter-number">11</span>&nbsp; <span class="chapter-title">Complexifying Code (TODO)</span></a>
+  <a href="./comp-code.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">11</span>&nbsp; <span class="chapter-title">Complexifying Code (TODO)</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./reje-repr.html" class="sidebar-item-text sidebar-link"><span class="chapter-number">12</span>&nbsp; <span class="chapter-title">Rejecting Reproducibility (TODO)</span></a>
+  <a href="./reje-repr.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">12</span>&nbsp; <span class="chapter-title">Rejecting Reproducibility (TODO)</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./mour-mist.html" class="sidebar-item-text sidebar-link"><span class="chapter-number">13</span>&nbsp; <span class="chapter-title">Mourning Mistakes (TODO)</span></a>
+  <a href="./mour-mist.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">13</span>&nbsp; <span class="chapter-title">Mourning Mistakes (TODO)</span></span></a>
   </div>
 </li>
       </ul>
 </li>
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./references.html" class="sidebar-item-text sidebar-link"><span class="chapter-number">14</span>&nbsp; <span class="chapter-title">References</span></a>
+  <a href="./references.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">14</span>&nbsp; <span class="chapter-title">References</span></span></a>
   </div>
 </li>
         <li class="sidebar-item sidebar-item-section">
       <div class="sidebar-item-container"> 
-            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-4" aria-expanded="true">Appendices</a>
-          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-4" aria-expanded="true">
+            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-4" aria-expanded="true">
+ <span class="menu-text">Appendices</span></a>
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-4" aria-expanded="true" aria-label="Toggle section">
             <i class="bi bi-chevron-right ms-2"></i>
           </a> 
       </div>
       <ul id="quarto-sidebar-section-4" class="collapse list-unstyled sidebar-section depth1 show">
 <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./more.html" class="sidebar-item-text sidebar-link">(APPENDIX) Appendix</a>
+  <a href="./more.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">(APPENDIX) Appendix</span></a>
   </div>
 </li>
       </ul>
 </li>
     </ul>
 </div>
-</nav><!-- margin-sidebar --><div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
+</nav><div id="quarto-sidebar-glass" class="quarto-sidebar-collapse-item" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item"></div>
+<!-- margin-sidebar -->
+    <div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
         <nav id="TOC" role="doc-toc" class="toc-active"><h2 id="toc-title">Table of contents</h2>
    
   <ul>
 <li>
-<a href="#preliminaries---data-computation" id="toc-preliminaries---data-computation" class="nav-link active" data-scroll-target="#preliminaries---data-computation"><span class="toc-section-number">3.1</span>  Preliminaries - Data Computation</a>
+<a href="#preliminaries---data-computation" id="toc-preliminaries---data-computation" class="nav-link active" data-scroll-target="#preliminaries---data-computation"><span class="header-section-number">3.1</span> Preliminaries - Data Computation</a>
   <ul class="collapse">
-<li><a href="#single-table-operations" id="toc-single-table-operations" class="nav-link" data-scroll-target="#single-table-operations"><span class="toc-section-number">3.1.1</span>  Single Table Operations</a></li>
-  <li><a href="#multiple-table-operations" id="toc-multiple-table-operations" class="nav-link" data-scroll-target="#multiple-table-operations"><span class="toc-section-number">3.1.2</span>  Multiple Table Operations</a></li>
-  <li><a href="#mechanics" id="toc-mechanics" class="nav-link" data-scroll-target="#mechanics"><span class="toc-section-number">3.1.3</span>  Mechanics</a></li>
+<li><a href="#single-table-operations" id="toc-single-table-operations" class="nav-link" data-scroll-target="#single-table-operations"><span class="header-section-number">3.1.1</span> Single Table Operations</a></li>
+  <li><a href="#multiple-table-operations" id="toc-multiple-table-operations" class="nav-link" data-scroll-target="#multiple-table-operations"><span class="header-section-number">3.1.2</span> Multiple Table Operations</a></li>
+  <li><a href="#mechanics" id="toc-mechanics" class="nav-link" data-scroll-target="#mechanics"><span class="header-section-number">3.1.3</span> Mechanics</a></li>
   </ul>
 </li>
   <li>
-<a href="#null-values" id="toc-null-values" class="nav-link" data-scroll-target="#null-values"><span class="toc-section-number">3.2</span>  Null Values</a>
+<a href="#null-values" id="toc-null-values" class="nav-link" data-scroll-target="#null-values"><span class="header-section-number">3.2</span> Null Values</a>
   <ul class="collapse">
-<li><a href="#types-of-null-values" id="toc-types-of-null-values" class="nav-link" data-scroll-target="#types-of-null-values"><span class="toc-section-number">3.2.1</span>  Types of Null Values</a></li>
-  <li><a href="#aggregation" id="toc-aggregation" class="nav-link" data-scroll-target="#aggregation"><span class="toc-section-number">3.2.2</span>  Aggregation</a></li>
-  <li><a href="#comparison" id="toc-comparison" class="nav-link" data-scroll-target="#comparison"><span class="toc-section-number">3.2.3</span>  Comparison</a></li>
+<li><a href="#types-of-null-values" id="toc-types-of-null-values" class="nav-link" data-scroll-target="#types-of-null-values"><span class="header-section-number">3.2.1</span> Types of Null Values</a></li>
+  <li><a href="#aggregation" id="toc-aggregation" class="nav-link" data-scroll-target="#aggregation"><span class="header-section-number">3.2.2</span> Aggregation</a></li>
+  <li><a href="#comparison" id="toc-comparison" class="nav-link" data-scroll-target="#comparison"><span class="header-section-number">3.2.3</span> Comparison</a></li>
   </ul>
 </li>
   <li>
-<a href="#logicals-todo" id="toc-logicals-todo" class="nav-link" data-scroll-target="#logicals-todo"><span class="toc-section-number">3.3</span>  Logicals (TODO)</a>
+<a href="#logicals-todo" id="toc-logicals-todo" class="nav-link" data-scroll-target="#logicals-todo"><span class="header-section-number">3.3</span> Logicals (TODO)</a>
   <ul class="collapse">
-<li><a href="#language-specific-nuances-cut" id="toc-language-specific-nuances-cut" class="nav-link" data-scroll-target="#language-specific-nuances-cut"><span class="toc-section-number">3.3.1</span>  Language-specific nuances (CUT?)</a></li>
-  <li><a href="#comparison-todo" id="toc-comparison-todo" class="nav-link" data-scroll-target="#comparison-todo"><span class="toc-section-number">3.3.2</span>  Comparison (TODO)</a></li>
-  <li><a href="#logical-encoding-pandas-case-study" id="toc-logical-encoding-pandas-case-study" class="nav-link" data-scroll-target="#logical-encoding-pandas-case-study"><span class="toc-section-number">3.3.3</span>  Logical Encoding (<code>pandas</code> case study)</a></li>
+<li><a href="#language-specific-nuances-cut" id="toc-language-specific-nuances-cut" class="nav-link" data-scroll-target="#language-specific-nuances-cut"><span class="header-section-number">3.3.1</span> Language-specific nuances (CUT?)</a></li>
+  <li><a href="#comparison-todo" id="toc-comparison-todo" class="nav-link" data-scroll-target="#comparison-todo"><span class="header-section-number">3.3.2</span> Comparison (TODO)</a></li>
+  <li><a href="#logical-encoding-pandas-case-study" id="toc-logical-encoding-pandas-case-study" class="nav-link" data-scroll-target="#logical-encoding-pandas-case-study"><span class="header-section-number">3.3.3</span> Logical Encoding (<code>pandas</code> case study)</a></li>
   </ul>
 </li>
   <li>
-<a href="#numbers-todo" id="toc-numbers-todo" class="nav-link" data-scroll-target="#numbers-todo"><span class="toc-section-number">3.4</span>  Numbers (TODO)</a>
+<a href="#numbers-todo" id="toc-numbers-todo" class="nav-link" data-scroll-target="#numbers-todo"><span class="header-section-number">3.4</span> Numbers (TODO)</a>
   <ul class="collapse">
-<li><a href="#integer-division" id="toc-integer-division" class="nav-link" data-scroll-target="#integer-division"><span class="toc-section-number">3.4.1</span>  Integer division</a></li>
-  <li><a href="#inexact-storage-and-comparison" id="toc-inexact-storage-and-comparison" class="nav-link" data-scroll-target="#inexact-storage-and-comparison"><span class="toc-section-number">3.4.2</span>  Inexact storage and comparison</a></li>
-  <li><a href="#division-by-zero" id="toc-division-by-zero" class="nav-link" data-scroll-target="#division-by-zero"><span class="toc-section-number">3.4.3</span>  Division by zero</a></li>
+<li><a href="#integer-division" id="toc-integer-division" class="nav-link" data-scroll-target="#integer-division"><span class="header-section-number">3.4.1</span> Integer division</a></li>
+  <li><a href="#inexact-storage-and-comparison" id="toc-inexact-storage-and-comparison" class="nav-link" data-scroll-target="#inexact-storage-and-comparison"><span class="header-section-number">3.4.2</span> Inexact storage and comparison</a></li>
+  <li><a href="#division-by-zero" id="toc-division-by-zero" class="nav-link" data-scroll-target="#division-by-zero"><span class="header-section-number">3.4.3</span> Division by zero</a></li>
   </ul>
 </li>
   <li>
-<a href="#strings-wip" id="toc-strings-wip" class="nav-link" data-scroll-target="#strings-wip"><span class="toc-section-number">3.5</span>  Strings (WIP)</a>
+<a href="#strings-wip" id="toc-strings-wip" class="nav-link" data-scroll-target="#strings-wip"><span class="header-section-number">3.5</span> Strings (WIP)</a>
   <ul class="collapse">
-<li><a href="#dirty-strings-todo" id="toc-dirty-strings-todo" class="nav-link" data-scroll-target="#dirty-strings-todo"><span class="toc-section-number">3.5.1</span>  Dirty Strings (TODO)</a></li>
-  <li><a href="#regular-expressions-todo" id="toc-regular-expressions-todo" class="nav-link" data-scroll-target="#regular-expressions-todo"><span class="toc-section-number">3.5.2</span>  Regular Expressions (TODO)</a></li>
-  <li><a href="#comparison-1" id="toc-comparison-1" class="nav-link" data-scroll-target="#comparison-1"><span class="toc-section-number">3.5.3</span>  Comparison</a></li>
-  <li><a href="#transformation-todo" id="toc-transformation-todo" class="nav-link" data-scroll-target="#transformation-todo"><span class="toc-section-number">3.5.4</span>  Transformation (TODO)</a></li>
+<li><a href="#dirty-strings-todo" id="toc-dirty-strings-todo" class="nav-link" data-scroll-target="#dirty-strings-todo"><span class="header-section-number">3.5.1</span> Dirty Strings (TODO)</a></li>
+  <li><a href="#regular-expressions-todo" id="toc-regular-expressions-todo" class="nav-link" data-scroll-target="#regular-expressions-todo"><span class="header-section-number">3.5.2</span> Regular Expressions (TODO)</a></li>
+  <li><a href="#comparison-1" id="toc-comparison-1" class="nav-link" data-scroll-target="#comparison-1"><span class="header-section-number">3.5.3</span> Comparison</a></li>
+  <li><a href="#transformation-todo" id="toc-transformation-todo" class="nav-link" data-scroll-target="#transformation-todo"><span class="header-section-number">3.5.4</span> Transformation (TODO)</a></li>
   </ul>
 </li>
   <li>
-<a href="#dates-and-times-wip" id="toc-dates-and-times-wip" class="nav-link" data-scroll-target="#dates-and-times-wip"><span class="toc-section-number">3.6</span>  Dates and Times (WIP)</a>
+<a href="#dates-and-times-wip" id="toc-dates-and-times-wip" class="nav-link" data-scroll-target="#dates-and-times-wip"><span class="header-section-number">3.6</span> Dates and Times (WIP)</a>
   <ul class="collapse">
-<li><a href="#comparison-2" id="toc-comparison-2" class="nav-link" data-scroll-target="#comparison-2"><span class="toc-section-number">3.6.1</span>  Comparison</a></li>
+<li><a href="#comparison-2" id="toc-comparison-2" class="nav-link" data-scroll-target="#comparison-2"><span class="header-section-number">3.6.1</span> Comparison</a></li>
   </ul>
 </li>
-  <li><a href="#changing-data-types-todo" id="toc-changing-data-types-todo" class="nav-link" data-scroll-target="#changing-data-types-todo"><span class="toc-section-number">3.7</span>  Changing Data Types (TODO)</a></li>
-  <li><a href="#factors-in-r-todo" id="toc-factors-in-r-todo" class="nav-link" data-scroll-target="#factors-in-r-todo"><span class="toc-section-number">3.8</span>  Factors in R (TODO)</a></li>
+  <li><a href="#changing-data-types-todo" id="toc-changing-data-types-todo" class="nav-link" data-scroll-target="#changing-data-types-todo"><span class="header-section-number">3.7</span> Changing Data Types (TODO)</a></li>
+  <li><a href="#factors-in-r-todo" id="toc-factors-in-r-todo" class="nav-link" data-scroll-target="#factors-in-r-todo"><span class="header-section-number">3.8</span> Factors in R (TODO)</a></li>
   <li>
-<a href="#programming-errors-todo" id="toc-programming-errors-todo" class="nav-link" data-scroll-target="#programming-errors-todo"><span class="toc-section-number">3.9</span>  Programming Errors (TODO)</a>
+<a href="#programming-errors-todo" id="toc-programming-errors-todo" class="nav-link" data-scroll-target="#programming-errors-todo"><span class="header-section-number">3.9</span> Programming Errors (TODO)</a>
   <ul class="collapse">
-<li><a href="#default-cases-wip" id="toc-default-cases-wip" class="nav-link" data-scroll-target="#default-cases-wip"><span class="toc-section-number">3.9.1</span>  Default Cases (WIP)</a></li>
-  <li><a href="#order-of-operations-wip" id="toc-order-of-operations-wip" class="nav-link" data-scroll-target="#order-of-operations-wip"><span class="toc-section-number">3.9.2</span>  Order of Operations (WIP)</a></li>
-  <li><a href="#object-references-wip" id="toc-object-references-wip" class="nav-link" data-scroll-target="#object-references-wip"><span class="toc-section-number">3.9.3</span>  Object References (WIP)</a></li>
+<li><a href="#default-cases-wip" id="toc-default-cases-wip" class="nav-link" data-scroll-target="#default-cases-wip"><span class="header-section-number">3.9.1</span> Default Cases (WIP)</a></li>
+  <li><a href="#order-of-operations-wip" id="toc-order-of-operations-wip" class="nav-link" data-scroll-target="#order-of-operations-wip"><span class="header-section-number">3.9.2</span> Order of Operations (WIP)</a></li>
+  <li><a href="#object-references-wip" id="toc-object-references-wip" class="nav-link" data-scroll-target="#object-references-wip"><span class="header-section-number">3.9.3</span> Object References (WIP)</a></li>
   </ul>
 </li>
   <li>
-<a href="#trusting-tools" id="toc-trusting-tools" class="nav-link" data-scroll-target="#trusting-tools"><span class="toc-section-number">3.10</span>  Trusting Tools</a>
+<a href="#trusting-tools" id="toc-trusting-tools" class="nav-link" data-scroll-target="#trusting-tools"><span class="header-section-number">3.10</span> Trusting Tools</a>
   <ul class="collapse">
-<li><a href="#delegating-decisions" id="toc-delegating-decisions" class="nav-link" data-scroll-target="#delegating-decisions"><span class="toc-section-number">3.10.1</span>  Delegating decisions</a></li>
-  <li><a href="#off-label-use-todo" id="toc-off-label-use-todo" class="nav-link" data-scroll-target="#off-label-use-todo"><span class="toc-section-number">3.10.2</span>  “Off-Label” Use (TODO)</a></li>
-  <li><a href="#security-todo" id="toc-security-todo" class="nav-link" data-scroll-target="#security-todo"><span class="toc-section-number">3.10.3</span>  Security (TODO)</a></li>
+<li><a href="#delegating-decisions" id="toc-delegating-decisions" class="nav-link" data-scroll-target="#delegating-decisions"><span class="header-section-number">3.10.1</span> Delegating decisions</a></li>
+  <li><a href="#off-label-use-todo" id="toc-off-label-use-todo" class="nav-link" data-scroll-target="#off-label-use-todo"><span class="header-section-number">3.10.2</span> “Off-Label” Use (TODO)</a></li>
+  <li><a href="#security-todo" id="toc-security-todo" class="nav-link" data-scroll-target="#security-todo"><span class="header-section-number">3.10.3</span> Security (TODO)</a></li>
   </ul>
 </li>
-  <li><a href="#inefficient-processing-todo" id="toc-inefficient-processing-todo" class="nav-link" data-scroll-target="#inefficient-processing-todo"><span class="toc-section-number">3.11</span>  Inefficient Processing (TODO)</a></li>
+  <li><a href="#inefficient-processing-todo" id="toc-inefficient-processing-todo" class="nav-link" data-scroll-target="#inefficient-processing-todo"><span class="header-section-number">3.11</span> Inefficient Processing (TODO)</a></li>
   <li>
-<a href="#strategies-wip" id="toc-strategies-wip" class="nav-link" data-scroll-target="#strategies-wip"><span class="toc-section-number">3.12</span>  Strategies (WIP)</a>
+<a href="#strategies-wip" id="toc-strategies-wip" class="nav-link" data-scroll-target="#strategies-wip"><span class="header-section-number">3.12</span> Strategies (WIP)</a>
   <ul class="collapse">
-<li><a href="#understand-the-intent" id="toc-understand-the-intent" class="nav-link" data-scroll-target="#understand-the-intent"><span class="toc-section-number">3.12.1</span>  Understand the intent</a></li>
-  <li><a href="#understand-the-execution" id="toc-understand-the-execution" class="nav-link" data-scroll-target="#understand-the-execution"><span class="toc-section-number">3.12.2</span>  Understand the execution</a></li>
-  <li><a href="#be-explicit-not-implicit" id="toc-be-explicit-not-implicit" class="nav-link" data-scroll-target="#be-explicit-not-implicit"><span class="toc-section-number">3.12.3</span>  Be explicit not implicit</a></li>
+<li><a href="#understand-the-intent" id="toc-understand-the-intent" class="nav-link" data-scroll-target="#understand-the-intent"><span class="header-section-number">3.12.1</span> Understand the intent</a></li>
+  <li><a href="#understand-the-execution" id="toc-understand-the-execution" class="nav-link" data-scroll-target="#understand-the-execution"><span class="header-section-number">3.12.2</span> Understand the execution</a></li>
+  <li><a href="#be-explicit-not-implicit" id="toc-be-explicit-not-implicit" class="nav-link" data-scroll-target="#be-explicit-not-implicit"><span class="header-section-number">3.12.3</span> Be explicit not implicit</a></li>
   </ul>
 </li>
-  <li><a href="#real-world-disasters-wip" id="toc-real-world-disasters-wip" class="nav-link" data-scroll-target="#real-world-disasters-wip"><span class="toc-section-number">3.13</span>  Real World Disasters (WIP)</a></li>
-  </ul><div class="toc-actions"><div><i class="bi bi-github"></i></div><div class="action-links"><p><a href="https://github.com/emilyriederer/data-disasters/edit/main/comp-quan.qmd" class="toc-action">Edit this page</a></p></div></div></nav>
+  <li><a href="#real-world-disasters-wip" id="toc-real-world-disasters-wip" class="nav-link" data-scroll-target="#real-world-disasters-wip"><span class="header-section-number">3.13</span> Real World Disasters (WIP)</a></li>
+  </ul><div class="toc-actions"><ul><li><a href="https://github.com/emilyriederer/data-disasters/edit/main/comp-quan.qmd" class="toc-action"><i class="bi bi-github"></i>Edit this page</a></li></ul></div></nav>
     </div>
 <!-- main -->
-<main class="content" id="quarto-document-content"><header id="title-block-header" class="quarto-title-block default"><div class="quarto-title">
-<h1 class="title"><span id="sec-comp-quan" class="quarto-section-identifier d-none d-lg-block"><span class="chapter-number">3</span>&nbsp; <span class="chapter-title">Computational Quandaries (WIP)</span></span></h1>
+<main class="content" id="quarto-document-content"><header id="title-block-header" class="quarto-title-block default"><nav class="quarto-page-breadcrumbs quarto-title-breadcrumbs d-none d-lg-block" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="./data-dall.html">Data</a></li><li class="breadcrumb-item"><a href="./comp-quan.html"><span class="chapter-number">3</span>&nbsp; <span class="chapter-title">Computational Quandaries (WIP)</span></a></li></ol></nav><div class="quarto-title">
+<h1 class="title"><span id="sec-comp-quan" class="quarto-section-identifier"><span class="chapter-number">3</span>&nbsp; <span class="chapter-title">Computational Quandaries (WIP)</span></span></h1>
 </div>
 
 
@@ -427,15 +437,16 @@ gtag('config', 'G-C7VEESJ7Z8', { 'anonymize_ip': true});
   </div>
   
 
+
 </header><p>After gaining confidence in one’s data (or, at least, making peace with it), the next step in a data analysis is often to start cleaning and exploring that data with summary statistics, plots, and models. Generally, this requires a computational tool like SQL, R, or python.</p>
 <p>The process of computation itself can be fraught with challenges. Computational tools are extremely literal; they are excellent at doing <em>precisely what they were told to do</em> but not often what analysts might have <em>meant</em> or <em>wished</em> that they would do. Additionally, the moment an analyst begins to use a tool, the conversation is no longer between them and the data; suddenly, the mental model of how every single tool developer thought you might want to do analysis affects the tools’ behaviors and the analysts’ results.</p>
-<p>In this chapter, we will explore common ways that tools may do something technically correct, reasonable, and as-intended but very much not what analysts may expect. Along the way, we will see how computational methods interact with the data encoding choices we discussed in <a href="#sec-data-dall"><span class="quarto-unresolved-ref">sec-data-dall</span></a> (Data Dalliances).</p>
+<p>In this chapter, we will explore common ways that tools may do something technically correct, reasonable, and as-intended but very much not what analysts may expect. Along the way, we will see how computational methods interact with the data encoding choices we discussed in <a href="data-dall.html" class="quarto-xref"><span>Chapter&nbsp;2</span></a> (Data Dalliances).</p>
 <section id="preliminaries---data-computation" class="level2" data-number="3.1"><h2 data-number="3.1" class="anchored" data-anchor-id="preliminaries---data-computation">
 <span class="header-section-number">3.1</span> Preliminaries - Data Computation</h2>
 <p>Before we think about specific tools or failure modes, we can first consider the common types of operations that the analytical tools allow us to do with our data.</p>
 <section id="single-table-operations" class="level3" data-number="3.1.1"><h3 data-number="3.1.1" class="anchored" data-anchor-id="single-table-operations">
 <span class="header-section-number">3.1.1</span> Single Table Operations</h3>
-<p>Given a single data table, we may wish to do operations (illustrated in <a href="#fig-filt-aggr-tran">Figure&nbsp;<span class="quarto-unresolved-ref">fig-filt-aggr-tran</span></a>) such as:</p>
+<p>Given a single data table, we may wish to do operations (illustrated in <a href="#fig-filt-aggr-tran" class="quarto-xref">Figure&nbsp;<span>3.1</span></a>) such as:</p>
 <ul>
 <li>
 <strong>Filtering</strong>: Extracting a subset of a dataset for analysis based on certain inclusion criteria for each record</li>
@@ -446,10 +457,13 @@ gtag('config', 'G-C7VEESJ7Z8', { 'anonymize_ip': true});
 </ul>
 <div class="cell" data-layout-align="center">
 <div class="cell-output-display">
-<div id="fig-filt-aggr-tran" class="quarto-figure quarto-figure-center anchored">
-<figure class="figure"><p><img src="figures/comp-quan/filt-aggr-tran.png" class="img-fluid figure-img" style="width:90.0%"></p>
-<p></p><figcaption class="figure-caption">Figure&nbsp;3.1: Illustration of basic single-table data wrangling operations</figcaption><p></p>
-</figure>
+<div id="fig-filt-aggr-tran" class="quarto-figure quarto-figure-center anchored" data-fig-align="center" width="90%">
+<figure class="quarto-float quarto-float-fig figure"><div aria-describedby="fig-filt-aggr-tran-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<img src="figures/comp-quan/filt-aggr-tran.png" class="img-fluid quarto-figure quarto-figure-center figure-img" style="width:90.0%">
+</div>
+<figcaption class="figure quarto-float-caption quarto-float-fig" id="fig-filt-aggr-tran-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+Figure&nbsp;3.1: Illustration of basic single-table data wrangling operations
+</figcaption></figure>
 </div>
 </div>
 </div>
@@ -477,10 +491,10 @@ gtag('config', 'G-C7VEESJ7Z8', { 'anonymize_ip': true});
 <p>While these operations may seem simple, their behavior within certain tools and when employed for certain data types may sometimes lead to unintuitive or misleading results.</p>
 </section></section><section id="null-values" class="level2" data-number="3.2"><h2 data-number="3.2" class="anchored" data-anchor-id="null-values">
 <span class="header-section-number">3.2</span> Null Values</h2>
-<p>In <a href="#sec-data-dall"><span class="quarto-unresolved-ref">sec-data-dall</span></a> (Data Dalliances), we discuss how null values may represent many different concepts and be encoded in multiple different ways. In addition to those semantic challenges, various representations of null values may cause different computational problems.<a href="#fn1" class="footnote-ref" id="fnref1" role="doc-noteref"><sup>1</sup></a> In this section, we will explore these potential failure modes.</p>
+<p>In <a href="data-dall.html" class="quarto-xref"><span>Chapter&nbsp;2</span></a> (Data Dalliances), we discuss how null values may represent many different concepts and be encoded in multiple different ways. In addition to those semantic challenges, various representations of null values may cause different computational problems.<a href="#fn1" class="footnote-ref" id="fnref1" role="doc-noteref"><sup>1</sup></a> In this section, we will explore these potential failure modes.</p>
 <section id="types-of-null-values" class="level3" data-number="3.2.1"><h3 data-number="3.2.1" class="anchored" data-anchor-id="types-of-null-values">
 <span class="header-section-number">3.2.1</span> Types of Null Values</h3>
-<p>Not only can null values represent many different things (as explored in <a href="#sec-data-dall"><span class="quarto-unresolved-ref">sec-data-dall</span></a>), they also may be represented in many different ways. Understanding how nulls are encoded in one’s dataset is a critical prerequisite to attempting any of the computations described in the subsequent sections.</p>
+<p>Not only can null values represent many different things (as explored in <a href="data-dall.html" class="quarto-xref"><span>Chapter&nbsp;2</span></a>), they also may be represented in many different ways. Understanding how nulls are encoded in one’s dataset is a critical prerequisite to attempting any of the computations described in the subsequent sections.</p>
 <section id="language-representations" class="level4" data-number="3.2.1.1"><h4 data-number="3.2.1.1" class="anchored" data-anchor-id="language-representations">
 <span class="header-section-number">3.2.1.1</span> Language representations</h4>
 <p>Different programming languages each offer their own versions of null values – and sometimes more than one. For example, the R language includes <code>NA</code>, typed <code>NA</code>s (e.g.&nbsp;<code>NA_integer_</code>, <code>NA_character_</code>), <code>NaN</code>, and <code>NULL</code>; meanwhile, core python has <code>None</code> and the <code>numpy</code> module provides a <code>nan</code>.</p>
@@ -908,7 +922,7 @@ could also have an empty string of any length</p>
 <span id="cb66-5"><a href="#cb66-5" aria-hidden="true" tabindex="-1"></a>  <span class="kw">TRUE</span> <span class="op">+</span> <span class="dv">1</span> <span class="kw">as</span> d,</span>
 <span id="cb66-6"><a href="#cb66-6" aria-hidden="true" tabindex="-1"></a>  <span class="kw">TRUE</span> <span class="op">*</span> <span class="dv">5</span> <span class="kw">as</span> e</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="knitsql-table">
-<table class="table table-sm table-striped">
+<table class="table table-sm table-striped small">
 <caption>1 records</caption>
 <thead><tr class="header">
 <th style="text-align: right;">a</th>
@@ -1024,9 +1038,8 @@ False
 <div class="sourceCode" id="cb81"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu"><a href="https://dplyr.tidyverse.org/reference/filter.html">filter</a></span><span class="op">(</span><span class="va">df1</span>, <span class="va">IND</span><span class="op">)</span></span>
 <span><span class="fu"><a href="https://dplyr.tidyverse.org/reference/filter.html">filter</a></span><span class="op">(</span><span class="va">df2</span>, <span class="va">IND</span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-error">
-<pre><code>Error:
-! Problem with `filter()` input `..1`.
-i Input `..1` is `IND`.
+<pre><code>Error in `filter()`:
+! Problem while computing `..1 = IND`.
 x Input `..1` must be a logical vector, not a character.</code></pre>
 </div>
 <div class="sourceCode" id="cb83"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/base/subset.html">subset</a></span><span class="op">(</span><span class="va">df2</span>, <span class="va">df2</span><span class="op">$</span><span class="va">IND</span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
@@ -1058,7 +1071,7 @@ x Input `..1` must be a logical vector, not a character.</code></pre>
 </div>
 <div class="sourceCode" id="cb90"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu"><a href="https://dplyr.tidyverse.org/reference/mutate-joins.html">left_join</a></span><span class="op">(</span><span class="va">df1</span>, <span class="va">df2</span>, by <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="st">"ID"</span>, <span class="st">"IND"</span><span class="op">)</span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-error">
-<pre><code>Error:
+<pre><code>Error in `left_join()`:
 ! Can't join on `x$IND` x `y$IND` because of incompatible types.
 i `x$IND` is of type &lt;logical&gt;&gt;.
 i `y$IND` is of type &lt;character&gt;&gt;.</code></pre>
@@ -1074,9 +1087,6 @@ i `y$IND` is of type &lt;character&gt;&gt;.</code></pre>
 </div>
 </div>
 <div class="cell">
-
-</div>
-<div class="cell">
 <div class="sourceCode cell-code" id="cb94"><pre class="sourceCode sql code-with-copy"><code class="sourceCode sql"><span id="cb94-1"><a href="#cb94-1" aria-hidden="true" tabindex="-1"></a><span class="kw">select</span> df1.<span class="op">*</span>, df2.<span class="op">*</span></span>
 <span id="cb94-2"><a href="#cb94-2" aria-hidden="true" tabindex="-1"></a><span class="kw">from</span> </span>
 <span id="cb94-3"><a href="#cb94-3" aria-hidden="true" tabindex="-1"></a> df1 </span>
@@ -1086,7 +1096,7 @@ i `y$IND` is of type &lt;character&gt;&gt;.</code></pre>
 <span id="cb94-7"><a href="#cb94-7" aria-hidden="true" tabindex="-1"></a> df1.<span class="kw">id</span> <span class="op">=</span> df2.<span class="kw">id</span> <span class="kw">and</span></span>
 <span id="cb94-8"><a href="#cb94-8" aria-hidden="true" tabindex="-1"></a> df1.ind <span class="op">=</span> df2.ind</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="knitsql-table">
-<table class="table table-sm table-striped">
+<table class="table table-sm table-striped small">
 <caption>3 records</caption>
 <thead><tr class="header">
 <th style="text-align: left;">ID</th>
@@ -1358,7 +1368,7 @@ True</code></pre>
 <p>“fancy” characters (alternate encodings like ms word)</p>
 <div class="cell">
 <div class="sourceCode" id="cb133"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="st">' " '</span> <span class="op">==</span> <span class="st">' " '</span></span>
-<span><span class="st">' “ '</span> <span class="op">==</span>=<span class="st">' " '</span> '</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span><span class="st">' â€œ '</span>Å<span class="op">==</span>'<span class="st">' " '</span> " '</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>[1] TRUE
 [1] FALSE</code></pre>
@@ -1499,9 +1509,6 @@ True</code></pre>
 <span>  DT_LOGIN  <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/as.POSIXlt.html">as.POSIXlt</a></span><span class="op">(</span><span class="st">"2020-01-01T12:00:00"</span><span class="op">)</span> </span>
 <span>  <span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
-<div class="cell">
-
-</div>
 <p>none of these are equal so nothing returns on filtering</p>
 <div class="cell">
 <div class="sourceCode" id="cb156"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu"><a href="https://dplyr.tidyverse.org/reference/filter.html">filter</a></span><span class="op">(</span><span class="va">df_dt</span>, <span class="va">DT_ENROLL</span> <span class="op">==</span> <span class="va">DT_PURCH</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span> <span class="fu"><a href="https://rdrr.io/r/base/nrow.html">nrow</a></span><span class="op">(</span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
@@ -1606,15 +1613,21 @@ today == now
 ```
 
 ::: {.cell-output .cell-output-stderr}
+
 ```
 Warning: Incompatible methods ("Ops.Date", "Ops.POSIXt") for "=="
 ```
+
+
 :::
 
 ::: {.cell-output .cell-output-stdout}
+
 ```
 [1] FALSE
 ```
+
+
 :::
 
 ```{.r .cell-code}
@@ -1622,15 +1635,21 @@ today > now
 ```
 
 ::: {.cell-output .cell-output-stderr}
+
 ```
 Warning: Incompatible methods ("Ops.Date", "Ops.POSIXt") for ">"
 ```
+
+
 :::
 
 ::: {.cell-output .cell-output-stdout}
+
 ```
 [1] FALSE
 ```
+
+
 :::
 
 ```{.r .cell-code}
@@ -1638,15 +1657,21 @@ today < now
 ```
 
 ::: {.cell-output .cell-output-stderr}
+
 ```
 Warning: Incompatible methods ("Ops.Date", "Ops.POSIXt") for "<"
 ```
+
+
 :::
 
 ::: {.cell-output .cell-output-stdout}
+
 ```
 [1] TRUE
 ```
+
+
 :::
 :::
 
@@ -1662,9 +1687,12 @@ today == now
 ```
 
 ::: {.cell-output .cell-output-stdout}
+
 ```
 False
 ```
+
+
 :::
 
 ```{.python .cell-code}
@@ -1672,12 +1700,15 @@ today < now
 ```
 
 ::: {.cell-output .cell-output-error}
+
 ```
 Error in py_call_impl(callable, dots$args, dots$keywords): TypeError: can't compare datetime.datetime to datetime.date
 
 Detailed traceback:
   File "<string>", line 1, in <module>
 ```
+
+
 :::
 
 ```{.python .cell-code}
@@ -1685,12 +1716,15 @@ today > now
 ```
 
 ::: {.cell-output .cell-output-error}
+
 ```
 Error in py_call_impl(callable, dots$args, dots$keywords): TypeError: can't compare datetime.datetime to datetime.date
 
 Detailed traceback:
   File "<string>", line 1, in <module>
 ```
+
+
 :::
 
 ```{.python .cell-code}
@@ -1700,9 +1734,12 @@ today_str == now_str
 ```
 
 ::: {.cell-output .cell-output-stdout}
+
 ```
 False
 ```
+
+
 :::
 
 ```{.python .cell-code}
@@ -1710,9 +1747,12 @@ today_str < now_str
 ```
 
 ::: {.cell-output .cell-output-stdout}
+
 ```
 True
 ```
+
+
 :::
 
 ```{.python .cell-code}
@@ -1720,9 +1760,12 @@ today_str > now_str
 ```
 
 ::: {.cell-output .cell-output-stdout}
+
 ```
 False
 ```
+
+
 :::
 :::
 
@@ -1798,8 +1841,7 @@ False
 <div class="cell-output-display">
 <div class="quarto-figure quarto-figure-center">
 <figure class="figure"><p><img src="figures/comp-quan/ref-val.PNG" class="img-fluid figure-img" style="width:90.0%"></p>
-<p></p><figcaption class="figure-caption">Different relationships between named variables and their values</figcaption><p></p>
-</figure>
+<figcaption>Different relationships between named variables and their values</figcaption></figure>
 </div>
 </div>
 </div>
@@ -1832,7 +1874,7 @@ False
 <div class="cell">
 <div class="sourceCode" id="cb189"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://r-datatable.com">data.table</a></span><span class="op">)</span></span>
 <span></span>
-<span><span class="va">DT</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://Rdatatable.gitlab.io/data.table/reference/data.table.html">data.table</a></span><span class="op">(</span>a<span class="op">=</span><span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="fl">1</span>,<span class="fl">2</span><span class="op">)</span>, b<span class="op">=</span><span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="fl">11</span>,<span class="fl">12</span><span class="op">)</span><span class="op">)</span></span>
+<span><span class="va">DT</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdatatable.gitlab.io/data.table/reference/data.table.html">data.table</a></span><span class="op">(</span>a<span class="op">=</span><span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="fl">1</span>,<span class="fl">2</span><span class="op">)</span>, b<span class="op">=</span><span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="fl">11</span>,<span class="fl">12</span><span class="op">)</span><span class="op">)</span></span>
 <span><span class="fu"><a href="https://rdrr.io/r/base/print.html">print</a></span><span class="op">(</span><span class="va">DT</span><span class="op">)</span></span>
 <span></span>
 <span><span class="va">newDT</span> <span class="op">&lt;-</span> <span class="va">DT</span>        <span class="co"># reference, not copy</span></span>
@@ -1840,7 +1882,7 @@ False
 <span></span>
 <span><span class="fu"><a href="https://rdrr.io/r/base/print.html">print</a></span><span class="op">(</span><span class="va">DT</span><span class="op">)</span>          <span class="co"># DT is modified too.</span></span>
 <span></span>
-<span><span class="va">DT</span> <span class="op">=</span> <span class="fu"><a href="https://Rdatatable.gitlab.io/data.table/reference/data.table.html">data.table</a></span><span class="op">(</span>a<span class="op">=</span><span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="fl">1</span>,<span class="fl">2</span><span class="op">)</span>, b<span class="op">=</span><span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="fl">11</span>,<span class="fl">12</span><span class="op">)</span><span class="op">)</span></span>
+<span><span class="va">DT</span> <span class="op">=</span> <span class="fu"><a href="https://rdatatable.gitlab.io/data.table/reference/data.table.html">data.table</a></span><span class="op">(</span>a<span class="op">=</span><span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="fl">1</span>,<span class="fl">2</span><span class="op">)</span>, b<span class="op">=</span><span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="fl">11</span>,<span class="fl">12</span><span class="op">)</span><span class="op">)</span></span>
 <span><span class="va">newDT</span> <span class="op">&lt;-</span> <span class="va">DT</span>        </span>
 <span><span class="va">newDT</span><span class="op">$</span><span class="va">b</span><span class="op">[</span><span class="fl">2</span><span class="op">]</span> <span class="op">&lt;-</span> <span class="fl">200</span>  <span class="co"># new operation</span></span>
 <span><span class="va">newDT</span><span class="op">[</span><span class="fl">1</span>, <span class="va">a</span> <span class="op">:=</span> <span class="fl">100</span><span class="op">]</span></span>
@@ -1996,8 +2038,7 @@ False
 <div class="cell-output-display">
 <div class="quarto-figure quarto-figure-center">
 <figure class="figure"><p><img src="figures/comp-quan/spark-jira.PNG" class="img-fluid figure-img" style="width:90.0%"></p>
-<p></p><figcaption class="figure-caption">JIRA ticket for Spark with a discussion of which random forest variable importance algorithm to implement</figcaption><p></p>
-</figure>
+<figcaption>JIRA ticket for Spark with a discussion of which random forest variable importance algorithm to implement</figcaption></figure>
 </div>
 </div>
 </div>
@@ -2005,35 +2046,45 @@ False
 </section><section id="null-handling-in-ggplot2-todo" class="level4" data-number="3.10.1.3"><h4 data-number="3.10.1.3" class="anchored" data-anchor-id="null-handling-in-ggplot2-todo">
 <span class="header-section-number">3.10.1.3</span> Null handling in <code>ggplot2</code> (TODO)</h4>
 <div class="cell">
-<div class="sourceCode" id="cb209"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://ggplot2.tidyverse.org">ggplot2</a></span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-stderr">
-<pre><code>Warning: package 'ggplot2' was built under R version 4.0.5</code></pre>
-</div>
-<div class="sourceCode" id="cb211"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">df</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/data.frame.html">data.frame</a></span><span class="op">(</span>x1 <span class="op">=</span> <span class="fl">1</span><span class="op">:</span><span class="fl">5</span>, </span>
+<div class="sourceCode" id="cb209"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://ggplot2.tidyverse.org">ggplot2</a></span><span class="op">)</span></span>
+<span></span>
+<span><span class="va">df</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/data.frame.html">data.frame</a></span><span class="op">(</span>x1 <span class="op">=</span> <span class="fl">1</span><span class="op">:</span><span class="fl">5</span>, </span>
 <span>                 x2 <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="fl">1</span>, <span class="fl">2</span>, <span class="cn">NA</span>, <span class="cn">NA</span>, <span class="fl">5</span><span class="op">)</span>,</span>
 <span>                 y1 <span class="op">=</span> <span class="fl">1</span><span class="op">:</span><span class="fl">5</span>,</span>
 <span>                 y2 <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="fl">1</span>, <span class="fl">2</span>, <span class="cn">NA</span>, <span class="cn">NA</span>, <span class="fl">5</span><span class="op">)</span><span class="op">)</span></span>
 <span><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/ggplot.html">ggplot</a></span><span class="op">(</span><span class="va">df</span>, <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/aes.html">aes</a></span><span class="op">(</span><span class="va">x1</span>, <span class="va">y1</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span> <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/geom_path.html">geom_line</a></span><span class="op">(</span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">
-<p><img src="comp-quan_files/figure-html/unnamed-chunk-234-1.png" class="img-fluid" width="672"></p>
+<div>
+<figure class="figure"><p><img src="comp-quan_files/figure-html/unnamed-chunk-234-1.png" class="img-fluid figure-img" width="672"></p>
+</figure>
 </div>
-<div class="sourceCode" id="cb212"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/ggplot.html">ggplot</a></span><span class="op">(</span><span class="va">df</span>, <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/aes.html">aes</a></span><span class="op">(</span><span class="va">x1</span>, <span class="va">y2</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span> <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/geom_path.html">geom_line</a></span><span class="op">(</span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<div class="sourceCode" id="cb210"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/ggplot.html">ggplot</a></span><span class="op">(</span><span class="va">df</span>, <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/aes.html">aes</a></span><span class="op">(</span><span class="va">x1</span>, <span class="va">y2</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span> <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/geom_path.html">geom_line</a></span><span class="op">(</span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">
-<p><img src="comp-quan_files/figure-html/unnamed-chunk-234-2.png" class="img-fluid" width="672"></p>
+<div>
+<figure class="figure"><p><img src="comp-quan_files/figure-html/unnamed-chunk-234-2.png" class="img-fluid figure-img" width="672"></p>
+</figure>
 </div>
-<div class="sourceCode" id="cb213"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/ggplot.html">ggplot</a></span><span class="op">(</span><span class="va">df</span>, <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/aes.html">aes</a></span><span class="op">(</span><span class="va">x2</span>, <span class="va">y1</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span> <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/geom_path.html">geom_line</a></span><span class="op">(</span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<div class="sourceCode" id="cb211"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/ggplot.html">ggplot</a></span><span class="op">(</span><span class="va">df</span>, <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/aes.html">aes</a></span><span class="op">(</span><span class="va">x2</span>, <span class="va">y1</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span> <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/geom_path.html">geom_line</a></span><span class="op">(</span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stderr">
-<pre><code>Warning: Removed 2 row(s) containing missing values (geom_path).</code></pre>
+<pre><code>Warning: Removed 2 rows containing missing values (`geom_line()`).</code></pre>
 </div>
 <div class="cell-output-display">
-<p><img src="comp-quan_files/figure-html/unnamed-chunk-234-3.png" class="img-fluid" width="672"></p>
+<div>
+<figure class="figure"><p><img src="comp-quan_files/figure-html/unnamed-chunk-234-3.png" class="img-fluid figure-img" width="672"></p>
+</figure>
 </div>
-<div class="sourceCode" id="cb215"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/ggplot.html">ggplot</a></span><span class="op">(</span><span class="va">df</span>, <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/aes.html">aes</a></span><span class="op">(</span><span class="va">x2</span>, <span class="va">y2</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span> <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/geom_path.html">geom_line</a></span><span class="op">(</span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<div class="sourceCode" id="cb213"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/ggplot.html">ggplot</a></span><span class="op">(</span><span class="va">df</span>, <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/aes.html">aes</a></span><span class="op">(</span><span class="va">x2</span>, <span class="va">y2</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span> <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/geom_path.html">geom_line</a></span><span class="op">(</span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stderr">
-<pre><code>Warning: Removed 2 row(s) containing missing values (geom_path).</code></pre>
+<pre><code>Warning: Removed 2 rows containing missing values (`geom_line()`).</code></pre>
 </div>
 <div class="cell-output-display">
-<p><img src="comp-quan_files/figure-html/unnamed-chunk-234-4.png" class="img-fluid" width="672"></p>
+<div>
+<figure class="figure"><p><img src="comp-quan_files/figure-html/unnamed-chunk-234-4.png" class="img-fluid figure-img" width="672"></p>
+</figure>
+</div>
 </div>
 </div>
 </section><section id="boxplots-in-ggplot2-todo" class="level4" data-number="3.10.1.4"><h4 data-number="3.10.1.4" class="anchored" data-anchor-id="boxplots-in-ggplot2-todo">
@@ -2052,7 +2103,7 @@ False
 </section><section id="strategies-wip" class="level2" data-number="3.12"><h2 data-number="3.12" class="anchored" data-anchor-id="strategies-wip">
 <span class="header-section-number">3.12</span> Strategies (WIP)</h2>
 <p>Paragraph 1 TODO</p>
-<p>Some computational quandaries are inherent to our tools themselves, but often they are a function both of the tools and the ways we chose to use them. More strategies related to writing robust and resilient code will be discussed in <a href="#sec-comp-code"><span class="quarto-unresolved-ref">sec-comp-code</span></a> (Complexify Code).</p>
+<p>Some computational quandaries are inherent to our tools themselves, but often they are a function both of the tools and the ways we chose to use them. More strategies related to writing robust and resilient code will be discussed in <a href="comp-code.html" class="quarto-xref"><span>Chapter&nbsp;11</span></a> (Complexify Code).</p>
 <section id="understand-the-intent" class="level3" data-number="3.12.1"><h3 data-number="3.12.1" class="anchored" data-anchor-id="understand-the-intent">
 <span class="header-section-number">3.12.1</span> Understand the intent</h3>
 <ul>
@@ -2077,10 +2128,6 @@ False
 </blockquote>
 <p>https://journals.plos.org/ploscompbiol/article?id=10.1371/journal.pcbi.1008984</p>
 <p>The Excel gene error has not been corrected</p>
-<div class="cell">
-
-</div>
-
 <!--
 
 In practice, data analysis requires using a number of advanced computational tools such as SQL, R, or python. Analysts must work in a partnerships with each tool to access and wrangle their data into an accessible form of information. However, the moment you as an analyst begins to use a tool, the conversation is no longer simply between you and the data; suddenly, thousands of developers who helper build your tools are now crowding into the room. Each may have contributed to the code behind your tool with a different mental model of how one would use it.
@@ -2101,6 +2148,7 @@ head(registration)
 ```
 
 ::: {.cell-output .cell-output-stdout}
+
 ```
   ID_CUSTOMER CD_DEVICE AMT_SPEND AMT_RETURN
 1           1         1        10         NA
@@ -2110,6 +2158,8 @@ head(registration)
 5           5         2        50         NA
 6           6         2        NA         NA
 ```
+
+
 :::
 :::
 
@@ -2120,9 +2170,12 @@ head(registration)
 ```
 
 ::: {.cell-output .cell-output-stdout}
+
 ```
 2
 ```
+
+
 :::
 :::
 
@@ -2141,9 +2194,12 @@ However, sometimes trying to glean this information from context alone can be mi
 
 ::: {.cell}
 ::: {.cell-output .cell-output-stderr}
+
 ```
 Warning: package 'tidyr' was built under R version 4.0.5
 ```
+
+
 :::
 :::
 
@@ -2154,12 +2210,15 @@ summarize(logins, PROP_LOGIN = mean(IND_LOGIN))
 ```
 
 ::: {.cell-output .cell-output-stdout}
+
 ```
 # A tibble: 1 x 1
   PROP_LOGIN
        <dbl>
 1        0.4
 ```
+
+
 :::
 
 ```{.r .cell-code}
@@ -2171,12 +2230,15 @@ logins %>%
 ```
 
 ::: {.cell-output .cell-output-stdout}
+
 ```
 # A tibble: 1 x 1
   PROP_LOGIN
        <dbl>
 1        0.6
 ```
+
+
 :::
 :::
 
@@ -2239,10 +2301,13 @@ summarize(registration, AVG_SPEND = mean(AMT_SPEND))
 ```
 
 ::: {.cell-output .cell-output-stdout}
+
 ```
   AVG_SPEND
 1        NA
 ```
+
+
 :::
 :::
 
@@ -2258,10 +2323,13 @@ summarize(registration,
 ```
 
 ::: {.cell-output .cell-output-stdout}
+
 ```
   AVG_SPEND
 1  48.57143
 ```
+
+
 :::
 :::
 
@@ -2295,10 +2363,13 @@ summarize(registration,
 ```
 
 ::: {.cell-output .cell-output-stdout}
+
 ```
   AVG_SPEND_v1 AVG_SPEND_v2
 1           34           34
 ```
+
+
 :::
 :::
 
@@ -2316,10 +2387,13 @@ FROM registration
 
 ::: {.cell}
 ::: {.cell-output .cell-output-stdout}
+
 ```
   avg(amt_spend)
 1       48.57143
 ```
+
+
 :::
 :::
 
@@ -2337,10 +2411,13 @@ FROM registration
 
 ::: {.cell}
 ::: {.cell-output .cell-output-stdout}
+
 ```
   avg(amt_spend-amt_return)
 1                        NA
 ```
+
+
 :::
 :::
 
@@ -2361,6 +2438,7 @@ FROM registration
 
 ::: {.cell}
 ::: {.cell-output .cell-output-stdout}
+
 ```
    AMT_SPEND AMT_RETURN amt_spend-amt_return
 1         10         NA                   NA
@@ -2374,6 +2452,8 @@ FROM registration
 9         90         NA                   NA
 10       100         NA                   NA
 ```
+
+
 :::
 :::
 
@@ -2391,10 +2471,13 @@ data.frame(x = c(1, 0, NA)) %>%
 ```
 
 ::: {.cell-output .cell-output-stdout}
+
 ```
   x
 1 0
 ```
+
+
 :::
 :::
 
@@ -2413,6 +2496,7 @@ where amt_spend != 10
 
 ::: {.cell}
 ::: {.cell-output .cell-output-stdout}
+
 ```
   ID_CUSTOMER CD_DEVICE AMT_SPEND AMT_RETURN
 1           2         1        20         NA
@@ -2422,6 +2506,8 @@ where amt_spend != 10
 5           9         3        90         NA
 6          10         3       100         NA
 ```
+
+
 :::
 :::
 
@@ -2465,6 +2551,7 @@ registration %>%
 ```
 
 ::: {.cell-output .cell-output-stdout}
+
 ```
 # A tibble: 2 x 2
 # Groups:   CAT_DEVICE [2]
@@ -2473,6 +2560,8 @@ registration %>%
 1 Android        7
 2 IOS            3
 ```
+
+
 :::
 :::
 
@@ -2483,9 +2572,12 @@ unique(registration$CD_DEVICE)
 ```
 
 ::: {.cell-output .cell-output-stdout}
+
 ```
 [1] 1 2 3
 ```
+
+
 :::
 :::
 
@@ -2505,6 +2597,7 @@ registration %>%
 ```
 
 ::: {.cell-output .cell-output-stdout}
+
 ```
 # A tibble: 2 x 2
 # Groups:   IND_SMALL_PURCH [2]
@@ -2513,6 +2606,8 @@ registration %>%
 1               0     6
 2               1     4
 ```
+
+
 :::
 
 ```{.r .cell-code}
@@ -2526,6 +2621,7 @@ registration %>%
 ```
 
 ::: {.cell-output .cell-output-stdout}
+
 ```
 # A tibble: 3 x 2
 # Groups:   IND_SMALL_PURCH [3]
@@ -2535,6 +2631,8 @@ registration %>%
 2               1     4
 3              NA     3
 ```
+
+
 :::
 :::
 
@@ -2552,14 +2650,17 @@ any(
   " a" == "a",
   "a " == "a",
   "a  b" == "a b",
-  "‘z’" == "'z'"
+  "â€˜zâ€™" == "'z'"
 )
 ```
 
 ::: {.cell-output .cell-output-stdout}
+
 ```
 [1] FALSE
 ```
+
+
 :::
 :::
 
@@ -2570,9 +2671,12 @@ max(c("20200101", "20190301"))
 ```
 
 ::: {.cell-output .cell-output-stdout}
+
 ```
 [1] "20200101"
 ```
+
+
 :::
 
 ```{.r .cell-code}
@@ -2580,9 +2684,12 @@ max(c("03012019", "01012020"))
 ```
 
 ::: {.cell-output .cell-output-stdout}
+
 ```
 [1] "03012019"
 ```
+
+
 :::
 
 ```{.r .cell-code}
@@ -2590,9 +2697,12 @@ max(c("120","99"))
 ```
 
 ::: {.cell-output .cell-output-stdout}
+
 ```
 [1] "99"
 ```
+
+
 :::
 
 ```{.r .cell-code}
@@ -2600,9 +2710,12 @@ max(c("120","099"))
 ```
 
 ::: {.cell-output .cell-output-stdout}
+
 ```
 [1] "120"
 ```
+
+
 :::
 
 ```{.r .cell-code}
@@ -2610,9 +2723,12 @@ max(c(120,99))
 ```
 
 ::: {.cell-output .cell-output-stdout}
+
 ```
 [1] 120
 ```
+
+
 :::
 
 ```{.r .cell-code}
@@ -2620,9 +2736,12 @@ max(c(120,099))
 ```
 
 ::: {.cell-output .cell-output-stdout}
+
 ```
 [1] 120
 ```
+
+
 :::
 :::
 
@@ -2658,9 +2777,12 @@ max(["20200101", "20190301"])
 ```
 
 ::: {.cell-output .cell-output-stdout}
+
 ```
 '20200101'
 ```
+
+
 :::
 
 ```{.python .cell-code}
@@ -2668,9 +2790,12 @@ max(["03012019", "01012020"])
 ```
 
 ::: {.cell-output .cell-output-stdout}
+
 ```
 '03012019'
 ```
+
+
 :::
 
 ```{.python .cell-code}
@@ -2678,9 +2803,12 @@ max(["120","99"])
 ```
 
 ::: {.cell-output .cell-output-stdout}
+
 ```
 '99'
 ```
+
+
 :::
 
 ```{.python .cell-code}
@@ -2688,9 +2816,12 @@ max(["120","099"])
 ```
 
 ::: {.cell-output .cell-output-stdout}
+
 ```
 '120'
 ```
+
+
 :::
 
 ```{.python .cell-code}
@@ -2699,9 +2830,12 @@ max([120,99])
 ```
 
 ::: {.cell-output .cell-output-stdout}
+
 ```
 120
 ```
+
+
 :::
 :::
 
@@ -2716,9 +2850,12 @@ max([120,99])
 ```
 
 ::: {.cell-output .cell-output-stdout}
+
 ```
 [1] TRUE
 ```
+
+
 :::
 
 ```{.r .cell-code}
@@ -2726,9 +2863,12 @@ max([120,99])
 ```
 
 ::: {.cell-output .cell-output-stdout}
+
 ```
 [1] FALSE
 ```
+
+
 :::
 :::
 
@@ -2762,9 +2902,12 @@ Table: 1 records
 ```
 
 ::: {.cell-output .cell-output-stdout}
+
 ```
 False
 ```
+
+
 :::
 
 ```{.python .cell-code}
@@ -2772,9 +2915,12 @@ False
 ```
 
 ::: {.cell-output .cell-output-stdout}
+
 ```
 False
 ```
+
+
 :::
 :::
 
@@ -2804,15 +2950,21 @@ today == now
 ```
 
 ::: {.cell-output .cell-output-stderr}
+
 ```
 Warning: Incompatible methods ("Ops.Date", "Ops.POSIXt") for "=="
 ```
+
+
 :::
 
 ::: {.cell-output .cell-output-stdout}
+
 ```
 [1] FALSE
 ```
+
+
 :::
 
 ```{.r .cell-code}
@@ -2820,15 +2972,21 @@ today > now
 ```
 
 ::: {.cell-output .cell-output-stderr}
+
 ```
 Warning: Incompatible methods ("Ops.Date", "Ops.POSIXt") for ">"
 ```
+
+
 :::
 
 ::: {.cell-output .cell-output-stdout}
+
 ```
 [1] FALSE
 ```
+
+
 :::
 
 ```{.r .cell-code}
@@ -2836,15 +2994,21 @@ today < now
 ```
 
 ::: {.cell-output .cell-output-stderr}
+
 ```
 Warning: Incompatible methods ("Ops.Date", "Ops.POSIXt") for "<"
 ```
+
+
 :::
 
 ::: {.cell-output .cell-output-stdout}
+
 ```
 [1] TRUE
 ```
+
+
 :::
 :::
 
@@ -2860,9 +3024,12 @@ today == now
 ```
 
 ::: {.cell-output .cell-output-stdout}
+
 ```
 False
 ```
+
+
 :::
 
 ```{.python .cell-code}
@@ -2870,12 +3037,15 @@ today < now
 ```
 
 ::: {.cell-output .cell-output-error}
+
 ```
 Error in py_call_impl(callable, dots$args, dots$keywords): TypeError: can't compare datetime.datetime to datetime.date
 
 Detailed traceback:
   File "<string>", line 1, in <module>
 ```
+
+
 :::
 
 ```{.python .cell-code}
@@ -2883,12 +3053,15 @@ today > now
 ```
 
 ::: {.cell-output .cell-output-error}
+
 ```
 Error in py_call_impl(callable, dots$args, dots$keywords): TypeError: can't compare datetime.datetime to datetime.date
 
 Detailed traceback:
   File "<string>", line 1, in <module>
 ```
+
+
 :::
 
 ```{.python .cell-code}
@@ -2898,9 +3071,12 @@ today_str == now_str
 ```
 
 ::: {.cell-output .cell-output-stdout}
+
 ```
 False
 ```
+
+
 :::
 
 ```{.python .cell-code}
@@ -2908,9 +3084,12 @@ today_str < now_str
 ```
 
 ::: {.cell-output .cell-output-stdout}
+
 ```
 True
 ```
+
+
 :::
 
 ```{.python .cell-code}
@@ -2918,9 +3097,12 @@ today_str > now_str
 ```
 
 ::: {.cell-output .cell-output-stdout}
+
 ```
 False
 ```
+
+
 :::
 :::
 
@@ -2950,9 +3132,12 @@ filter(df_dt, DT_ENROLL == DT_PURCH) %>% nrow()
 ```
 
 ::: {.cell-output .cell-output-stdout}
+
 ```
 [1] 0
 ```
+
+
 :::
 :::
 
@@ -2963,10 +3148,13 @@ sqldf("select * from df_dt where DT_ENROLL = DT_PURCH")
 ```
 
 ::: {.cell-output .cell-output-stdout}
+
 ```
 [1] DT_ENROLL DT_PURCH  DT_LOGIN 
 <0 rows> (or 0-length row.names)
 ```
+
+
 :::
 :::
 
@@ -2977,9 +3165,12 @@ as.numeric(df_dt$DT_ENROLL)
 ```
 
 ::: {.cell-output .cell-output-stdout}
+
 ```
 [1] 18262
 ```
+
+
 :::
 :::
 
@@ -2990,10 +3181,13 @@ sqldf("select cast(DT_ENROLL as integer) from df_dt")
 ```
 
 ::: {.cell-output .cell-output-stdout}
+
 ```
   cast(DT_ENROLL as integer)
 1                      18262
 ```
+
+
 :::
 :::
 
@@ -3034,9 +3228,12 @@ t_for
 ```
 
 ::: {.cell-output .cell-output-stdout}
+
 ```
-Time difference of 0.1719661 secs
+Time difference of 0.131424 secs
 ```
+
+
 :::
 
 ```{.r .cell-code}
@@ -3044,9 +3241,12 @@ t_vec
 ```
 
 ::: {.cell-output .cell-output-stdout}
+
 ```
-Time difference of 0.009997129 secs
+Time difference of 0.256995 secs
 ```
+
+
 :::
 
 ```{.r .cell-code}
@@ -3054,9 +3254,12 @@ as.numeric(t_for)/as.numeric(t_vec)
 ```
 
 ::: {.cell-output .cell-output-stdout}
+
 ```
-[1] 17.20155
+[1] 0.5113873
 ```
+
+
 :::
 :::
 
@@ -3085,9 +3288,12 @@ t_for
 ```
 
 ::: {.cell-output .cell-output-stdout}
+
 ```
-0.3700411319732666
+0.289048433303833
 ```
+
+
 :::
 
 ```{.python .cell-code}
@@ -3095,9 +3301,12 @@ t_vec
 ```
 
 ::: {.cell-output .cell-output-stdout}
+
 ```
-0.02499532699584961
+0.025002479553222656
 ```
+
+
 :::
 
 ```{.python .cell-code}
@@ -3105,9 +3314,12 @@ t_for / t_vec
 ```
 
 ::: {.cell-output .cell-output-stdout}
+
 ```
-14.804412522177072
+11.560790708319029
 ```
+
+
 :::
 :::
 
@@ -3115,14 +3327,14 @@ t_for / t_vec
 -->
 
 
-<div id="refs" class="references csl-bib-body hanging-indent" role="doc-bibliography">
-<div id="ref-barrett" class="csl-entry" role="doc-biblioentry">
+<div id="refs" class="references csl-bib-body hanging-indent" data-entry-spacing="0" role="list" style="display: none">
+<div id="ref-barrett" class="csl-entry" role="listitem">
 Barrett, Brian. 2019. <span>“How a ’NULL’ License Plate Landed One Hacker in Ticket Hell.”</span> <em>WIRED</em>, August. <a href="https://www.wired.com/story/null-license-plate-landed-one-hacker-ticket-hell/">https://www.wired.com/story/null-license-plate-landed-one-hacker-ticket-hell/</a>.
 </div>
 </div>
-</section><section id="footnotes" class="footnotes footnotes-end-of-document" role="doc-endnotes"><hr>
+</section><aside id="footnotes" class="footnotes footnotes-end-of-document" role="doc-endnotes"><hr>
 <ol>
-<li id="fn1"><p>This problem is not isolated to data analysis tools. For an entertaining example, see the 2019 WIRED article “How a ‘NULL’ License Plate Landed One Hacker in Ticket Hell” <span class="citation" data-cites="barrett">(<a href="#ref-barrett" role="doc-biblioref">Barrett 2019</a>)</span> which a real-world software system producing unintended and undesirable behavior when asked to deal with a word <code>'NULL'</code>.<a href="#fnref1" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
+<li id="fn1"><p>This problem is not isolated to data analysis tools. For an entertaining example, see the 2019 WIRED article “How a ‘NULL’ License Plate Landed One Hacker in Ticket Hell” <span class="citation" data-cites="barrett">(<a href="references.html#ref-barrett" role="doc-biblioref">Barrett 2019</a>)</span> which a real-world software system producing unintended and undesirable behavior when asked to deal with a word <code>'NULL'</code>.<a href="#fnref1" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
 <li id="fn2"><p>You’ll notice that the code chunk below contains four commands but only three boolean outputs. Why is that? <code>is.na(NULL)</code> returns <code>logical(0)</code>, a zero-length value. It’s yet another form of missingness!<a href="#fnref2" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
 <li id="fn3"><p>From calculus, we know 1/Inf approaches 0, but Inf/Inf is undefined.<a href="#fnref3" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
 <li id="fn4"><p>This documentation can be obtained in R by typing <code><a href="https://rdrr.io/r/base/mean.html">?mean</a></code> in the console.<a href="#fnref4" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
@@ -3132,7 +3344,7 @@ Barrett, Brian. 2019. <span>“How a ’NULL’ License Plate Landed One Hacker 
 <li id="fn8"><p>Similarly, <code>"91" &gt; "905"</code> because since they both start with 9, we move on to compare 1 which is greater than 0.<a href="#fnref8" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
 <li id="fn9"><p>Different versions of SQL may differ<a href="#fnref9" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
 <li id="fn10"><p>A classic modeling technique for predicting binary (yes/no) outcomes<a href="#fnref10" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
-</ol></section></main><!-- /main --><script id="quarto-html-after-body" type="application/javascript">
+</ol></aside></main><!-- /main --><script id="quarto-html-after-body" type="application/javascript">
 window.document.addEventListener("DOMContentLoaded", function (event) {
   const toggleBodyColorMode = (bsSheetEl) => {
     const mode = bsSheetEl.getAttribute("data-mode");
@@ -3159,9 +3371,23 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
     icon: icon
   };
   anchorJS.add('.anchored');
+  const isCodeAnnotation = (el) => {
+    for (const clz of el.classList) {
+      if (clz.startsWith('code-annotation-')) {                     
+        return true;
+      }
+    }
+    return false;
+  }
   const clipboard = new window.ClipboardJS('.code-copy-button', {
-    target: function(trigger) {
-      return trigger.previousElementSibling;
+    text: function(trigger) {
+      const codeEl = trigger.previousElementSibling.cloneNode(true);
+      for (const childEl of codeEl.children) {
+        if (isCodeAnnotation(childEl)) {
+          childEl.remove();
+        }
+      }
+      return codeEl.innerText;
     }
   });
   clipboard.on('success', function(e) {
@@ -3197,10 +3423,9 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
     // clear code selection
     e.clearSelection();
   });
-  function tippyHover(el, contentFn) {
+  function tippyHover(el, contentFn, onTriggerFn, onUntriggerFn) {
     const config = {
       allowHTML: true,
-      content: contentFn,
       maxWidth: 500,
       delay: 100,
       arrow: false,
@@ -3210,8 +3435,17 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
       interactive: true,
       interactiveBorder: 10,
       theme: 'quarto',
-      placement: 'bottom-start'
+      placement: 'bottom-start',
     };
+    if (contentFn) {
+      config.content = contentFn;
+    }
+    if (onTriggerFn) {
+      config.onTrigger = onTriggerFn;
+    }
+    if (onUntriggerFn) {
+      config.onUntrigger = onUntriggerFn;
+    }
     window.tippy(el, config); 
   }
   const noterefs = window.document.querySelectorAll('a[role="doc-noteref"]');
@@ -3226,6 +3460,248 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
       return note.innerHTML;
     });
   }
+  const xrefs = window.document.querySelectorAll('a.quarto-xref');
+  const processXRef = (id, note) => {
+    // Strip column container classes
+    const stripColumnClz = (el) => {
+      el.classList.remove("page-full", "page-columns");
+      if (el.children) {
+        for (const child of el.children) {
+          stripColumnClz(child);
+        }
+      }
+    }
+    stripColumnClz(note)
+    const typesetMath = (el) => {
+      if (window.MathJax) {
+        // MathJax Typeset
+        window.MathJax.typeset([el]);
+      } else if (window.katex) {
+        // KaTeX Render
+        var mathElements = el.getElementsByClassName("math");
+        var macros = [];
+        for (var i = 0; i < mathElements.length; i++) {
+          var texText = mathElements[i].firstChild;
+          if (mathElements[i].tagName == "SPAN") {
+            window.katex.render(texText.data, mathElements[i], {
+              displayMode: mathElements[i].classList.contains('display'),
+              throwOnError: false,
+              macros: macros,
+              fleqn: false
+            });
+          }
+        }
+      }
+    }
+    if (id === null || id.startsWith('sec-')) {
+      // Special case sections, only their first couple elements
+      const container = document.createElement("div");
+      if (note.children && note.children.length > 2) {
+        container.appendChild(note.children[0].cloneNode(true));
+        for (let i = 1; i < note.children.length; i++) {
+          const child = note.children[i];
+          if (child.tagName === "P" && child.innerText === "") {
+            continue;
+          } else {
+            container.appendChild(child.cloneNode(true));
+            break;
+          }
+        }
+        typesetMath(container);
+        return container.innerHTML
+      } else {
+        typesetMath(note);
+        return note.innerHTML;
+      }
+    } else {
+      // Remove any anchor links if they are present
+      const anchorLink = note.querySelector('a.anchorjs-link');
+      if (anchorLink) {
+        anchorLink.remove();
+      }
+      typesetMath(note);
+      return note.innerHTML;
+    }
+  }
+  for (var i=0; i<xrefs.length; i++) {
+    const xref = xrefs[i];
+    tippyHover(xref, undefined, function(instance) {
+      instance.disable();
+      let url = xref.getAttribute('href');
+      let hash = undefined; 
+      if (url.startsWith('#')) {
+        hash = url;
+      } else {
+        try { hash = new URL(url).hash; } catch {}
+      }
+      if (hash) {
+        const id = hash.replace(/^#\/?/, "");
+        const note = window.document.getElementById(id);
+        if (note !== null) {
+          try {
+            const html = processXRef(id, note.cloneNode(true));
+            instance.setContent(html);
+          } finally {
+            instance.enable();
+            instance.show();
+          }
+        } else {
+          // See if we can fetch this
+          fetch(url.split('#')[0])
+          .then(res => res.text())
+          .then(html => {
+            const parser = new DOMParser();
+            const htmlDoc = parser.parseFromString(html, "text/html");
+            const note = htmlDoc.getElementById(id);
+            if (note !== null) {
+              const html = processXRef(id, note);
+              instance.setContent(html);
+            } 
+          }).finally(() => {
+            instance.enable();
+            instance.show();
+          });
+        }
+      } else {
+        // See if we can fetch a full url (with no hash to target)
+        // This is a special case and we should probably do some content thinning / targeting
+        fetch(url)
+        .then(res => res.text())
+        .then(html => {
+          const parser = new DOMParser();
+          const htmlDoc = parser.parseFromString(html, "text/html");
+          const note = htmlDoc.querySelector('main.content');
+          if (note !== null) {
+            // This should only happen for chapter cross references
+            // (since there is no id in the URL)
+            // remove the first header
+            if (note.children.length > 0 && note.children[0].tagName === "HEADER") {
+              note.children[0].remove();
+            }
+            const html = processXRef(null, note);
+            instance.setContent(html);
+          } 
+        }).finally(() => {
+          instance.enable();
+          instance.show();
+        });
+      }
+    }, function(instance) {
+    });
+  }
+      let selectedAnnoteEl;
+      const selectorForAnnotation = ( cell, annotation) => {
+        let cellAttr = 'data-code-cell="' + cell + '"';
+        let lineAttr = 'data-code-annotation="' +  annotation + '"';
+        const selector = 'span[' + cellAttr + '][' + lineAttr + ']';
+        return selector;
+      }
+      const selectCodeLines = (annoteEl) => {
+        const doc = window.document;
+        const targetCell = annoteEl.getAttribute("data-target-cell");
+        const targetAnnotation = annoteEl.getAttribute("data-target-annotation");
+        const annoteSpan = window.document.querySelector(selectorForAnnotation(targetCell, targetAnnotation));
+        const lines = annoteSpan.getAttribute("data-code-lines").split(",");
+        const lineIds = lines.map((line) => {
+          return targetCell + "-" + line;
+        })
+        let top = null;
+        let height = null;
+        let parent = null;
+        if (lineIds.length > 0) {
+            //compute the position of the single el (top and bottom and make a div)
+            const el = window.document.getElementById(lineIds[0]);
+            top = el.offsetTop;
+            height = el.offsetHeight;
+            parent = el.parentElement.parentElement;
+          if (lineIds.length > 1) {
+            const lastEl = window.document.getElementById(lineIds[lineIds.length - 1]);
+            const bottom = lastEl.offsetTop + lastEl.offsetHeight;
+            height = bottom - top;
+          }
+          if (top !== null && height !== null && parent !== null) {
+            // cook up a div (if necessary) and position it 
+            let div = window.document.getElementById("code-annotation-line-highlight");
+            if (div === null) {
+              div = window.document.createElement("div");
+              div.setAttribute("id", "code-annotation-line-highlight");
+              div.style.position = 'absolute';
+              parent.appendChild(div);
+            }
+            div.style.top = top - 2 + "px";
+            div.style.height = height + 4 + "px";
+            div.style.left = 0;
+            let gutterDiv = window.document.getElementById("code-annotation-line-highlight-gutter");
+            if (gutterDiv === null) {
+              gutterDiv = window.document.createElement("div");
+              gutterDiv.setAttribute("id", "code-annotation-line-highlight-gutter");
+              gutterDiv.style.position = 'absolute';
+              const codeCell = window.document.getElementById(targetCell);
+              const gutter = codeCell.querySelector('.code-annotation-gutter');
+              gutter.appendChild(gutterDiv);
+            }
+            gutterDiv.style.top = top - 2 + "px";
+            gutterDiv.style.height = height + 4 + "px";
+          }
+          selectedAnnoteEl = annoteEl;
+        }
+      };
+      const unselectCodeLines = () => {
+        const elementsIds = ["code-annotation-line-highlight", "code-annotation-line-highlight-gutter"];
+        elementsIds.forEach((elId) => {
+          const div = window.document.getElementById(elId);
+          if (div) {
+            div.remove();
+          }
+        });
+        selectedAnnoteEl = undefined;
+      };
+        // Handle positioning of the toggle
+    window.addEventListener(
+      "resize",
+      throttle(() => {
+        elRect = undefined;
+        if (selectedAnnoteEl) {
+          selectCodeLines(selectedAnnoteEl);
+        }
+      }, 10)
+    );
+    function throttle(fn, ms) {
+    let throttle = false;
+    let timer;
+      return (...args) => {
+        if(!throttle) { // first call gets through
+            fn.apply(this, args);
+            throttle = true;
+        } else { // all the others get throttled
+            if(timer) clearTimeout(timer); // cancel #2
+            timer = setTimeout(() => {
+              fn.apply(this, args);
+              timer = throttle = false;
+            }, ms);
+        }
+      };
+    }
+      // Attach click handler to the DT
+      const annoteDls = window.document.querySelectorAll('dt[data-target-cell]');
+      for (const annoteDlNode of annoteDls) {
+        annoteDlNode.addEventListener('click', (event) => {
+          const clickedEl = event.target;
+          if (clickedEl !== selectedAnnoteEl) {
+            unselectCodeLines();
+            const activeEl = window.document.querySelector('dt[data-target-cell].code-annotation-active');
+            if (activeEl) {
+              activeEl.classList.remove('code-annotation-active');
+            }
+            selectCodeLines(clickedEl);
+            clickedEl.classList.add('code-annotation-active');
+          } else {
+            // Unselect the line
+            unselectCodeLines();
+            clickedEl.classList.remove('code-annotation-active');
+          }
+        });
+      }
   const findCites = (el) => {
     const parentEl = el.parentElement;
     if (parentEl) {
@@ -3265,12 +3741,12 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
   }
 });
 </script><nav class="page-navigation"><div class="nav-page nav-page-previous">
-      <a href="./data-dall.html" class="pagination-link">
+      <a href="./data-dall.html" class="pagination-link  aria-label=" dalliances="">
         <i class="bi bi-arrow-left-short"></i> <span class="nav-page-text"><span class="chapter-number">2</span>&nbsp; <span class="chapter-title">Data Dalliances (WIP)</span></span>
       </a>          
   </div>
   <div class="nav-page nav-page-next">
-      <a href="./egre-aggr.html" class="pagination-link">
+      <a href="./egre-aggr.html" class="pagination-link" aria-label="<span class='chapter-number'>4</span>&nbsp; <span class='chapter-title'>Egregious Aggregations (WIP)</span>">
         <span class="nav-page-text"><span class="chapter-number">4</span>&nbsp; <span class="chapter-title">Egregious Aggregations (WIP)</span></span> <i class="bi bi-arrow-right-short"></i>
       </a>
   </div>

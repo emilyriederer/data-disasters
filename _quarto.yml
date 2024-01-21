@@ -1,6 +1,9 @@
 project:
   type: book
 
+execute:
+  freeze: auto
+
 bibliography: book.bib
 crossref:
   chapters: true
